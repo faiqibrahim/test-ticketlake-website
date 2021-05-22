@@ -33,7 +33,7 @@ node {
     }
 
     stage('Running Tests') {
-        node_cmd("yarn-test.sh")
+       // node_cmd("yarn-test.sh")
     }
 
     stage('Code Analysis') {
