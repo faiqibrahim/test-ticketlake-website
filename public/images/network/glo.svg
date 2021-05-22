@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_4073" data-name="Path 4073" d="M50.988,49.6A11.987,11.987,0,1,1,62.737,40.05,12,12,0,0,1,50.988,49.6Z" transform="translate(-38.988 -25.597)" fill="#fff" clip-rule="evenodd"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.471" y1="1" x2="0.576" y2="0.423" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#123214"/>
+      <stop offset="0.414" stop-color="#3e7c37"/>
+      <stop offset="0.91" stop-color="#5fbb46"/>
+      <stop offset="1" stop-color="#5fbb46"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="23.877" y1="-4.448" x2="23.877" y2="-4.45" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="0.64" stop-color="#fff" stop-opacity="0.431"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0.42"/>
+    </linearGradient>
+    <radialGradient id="radial-gradient" cx="0.525" cy="0.526" fy="0.20531277358531952" r="0.942" gradientTransform="matrix(0.534, 0.497, -0.128, 0.362, 1.509, -3.27)" gradientUnits="objectBoundingBox">
+      <stop offset="0.13" stop-color="#fff"/>
+      <stop offset="0.29" stop-color="#fff" stop-opacity="0.69"/>
+      <stop offset="0.45" stop-color="#fff" stop-opacity="0.4"/>
+      <stop offset="0.59" stop-color="#fff" stop-opacity="0.18"/>
+      <stop offset="0.69" stop-color="#fff" stop-opacity="0.051"/>
+      <stop offset="0.74" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g id="Mask_Group_159" data-name="Mask Group 159" clip-path="url(#clip-path)">
+    <ellipse id="Ellipse_164" data-name="Ellipse 164" cx="12.185" cy="12.185" rx="12.185" ry="12.185" transform="translate(-0.201 -0.144)" fill="#50b651"/>
+    <path id="Path_4066" data-name="Path 4066" d="M121.445,271.139a12.222,12.222,0,1,1-24.445,0c0-2.986.084-3.43,1.259-5.13a4.115,4.115,0,0,0,1.347,3.063c.876.71,1.789.2,3.462-.573,1.809-.834,3.28-1.372,4.428-1.23,1.729.214,7.057,3.414,9.837,2.777,2.221-.508,1.987-5.745,1.987-5.745C121.747,266.669,121.445,268.27,121.445,271.139Z" transform="translate(-97.313 -259.132)" fill-rule="evenodd" opacity="0.663" fill="url(#linear-gradient)" style="isolation: isolate"/>
+    <path id="Path_4067" data-name="Path 4067" d="M673,268.481q6.631-6.237,2.2-14.291.023.016.548-1.89a11.36,11.36,0,0,1,2.505,7.042Q678.256,264.769,673,268.481Z" transform="translate(-655.844 -247.496)" fill-rule="evenodd" opacity="0.586" fill="url(#linear-gradient-2)" style="isolation: isolate"/>
+    <path id="Path_4068" data-name="Path 4068" d="M466.83,114.264c-2.134-1.181-4.582-3.556-4.256-4.055s4.549-.413,6.683.768,3.95,4.723,3.625,5.222S468.964,115.445,466.83,114.264Z" transform="translate(-451.771 -109.435)" fill-rule="evenodd" opacity="0.744" fill="url(#radial-gradient)" style="isolation: isolate"/>
+    <path id="Path_4069" data-name="Path 4069" d="M562.665,379.093a3.3,3.3,0,1,1,3.206-3.3A3.252,3.252,0,0,1,562.665,379.093Zm.023-1.046a2.266,2.266,0,1,0-2-2.25A2.138,2.138,0,0,0,562.688,378.047Z" transform="translate(-545.748 -364.051)" fill="#fff" fill-rule="evenodd"/>
+    <path id="Path_4070" data-name="Path 4070" d="M447.08,284.98h2.31v9.21h-1.268v-8.2H447.08Z" transform="translate(-436.776 -279.185)" fill="#fff" fill-rule="evenodd"/>
+    <path id="Path_4071" data-name="Path 4071" d="M238.771,375.258h1.2v7.691a2.3,2.3,0,0,1-1.456,1.745,5.784,5.784,0,0,1-1.88.264v-.765a3.223,3.223,0,0,0,1.81-.6,1.8,1.8,0,0,0,.328-.851v-2.26a2.311,2.311,0,0,1-3.166,1.352,3.08,3.08,0,0,1-1.32-1.723,5.2,5.2,0,0,1-.253-1.63,3.907,3.907,0,0,1,.429-1.69,3.231,3.231,0,0,1,1.59-1.4,6.665,6.665,0,0,1,2.077-.139v.761a3.345,3.345,0,0,0-1.407.076c-.279.152-.91.339-1.118,1.713s.006,2.5.666,2.851a1.31,1.31,0,0,0,.995.138,2.387,2.387,0,0,0,1.428-1.694Q238.771,378.212,238.771,375.258Z" transform="translate(-230.188 -366.715)" fill="#fff" fill-rule="evenodd"/>
+  </g>
+</svg>

@@ -1,0 +1,29 @@
+body{
+    background-color: #fff !important;
+}
+.votingContainer{
+    width:100%;
+    background-color: #fff;
+}
+.votingContainer .headerContainer{
+    /* border-bottom: 1px solid #dee2e6!important;
+    margin-bottom: 10px; */
+}
+.contentBox{
+    padding: 70px 0;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* @media screen and (max-width:1700px){
+    .contentBox{
+        max-width: 90%;
+    }
+} */
+
+@media screen and (max-width:1400px){
+    .contentBox{
+        padding: 60px 0;
+    }
+}

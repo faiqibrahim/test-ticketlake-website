@@ -1,0 +1,22 @@
+{
+    "paymentMethodsList" : [
+        {
+            "id" : 1,
+            "imgSrc" : "/images/votingimages/mobileMoney.png",
+            "cardTitle" : "Mobile Money",
+            "currency"  : ""
+        },
+        {
+            "id" : 2,
+            "imgSrc" : "/images/votingimages/bankCard.svg",
+            "cardTitle" : "Bank Card",
+            "currency"  : ""
+        },
+        {
+            "id" : 3,
+            "imgSrc" : "/images/votingimages/wallet.svg",
+            "cardTitle" : "Wallet",
+            "currency"  : "GH₵ 120.50 available"
+        }
+    ]
+}

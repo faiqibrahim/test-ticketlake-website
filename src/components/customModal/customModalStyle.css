@@ -1,0 +1,75 @@
+/** Custom Modal **/
+.custom-modal-open .custom-modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+}
+.custom-fade {
+    transition: opacity 500ms;
+    /*transition: all 5s ease-in-out;*/
+    background: currentColor;
+    /*animation: popup 0.7s;*/
+}
+.custom-modal.show .custom-modal-dialog {
+    /*-webkit-transform: none;*/
+    transform: none;
+}
+.custom-modal.fade .custom-modal-dialog {
+    /*transition: -webkit-transform .3s ease-out;*/
+    /*transition: transform .3s ease-out;*/
+    transition: transform .3s ease-out,-webkit-transform .3s ease-out;
+    /*-webkit-transform: translate(0,-50px);*/
+    /*transform: translate(0,-50px);*/
+}
+.custom-modal-dialog {
+    max-width: 465px;
+    margin: 5vh auto 60px;
+}
+
+.checkout-custom-modal {
+    max-width: 465px;
+    margin: auto !important;
+}
+
+.custom-modal-dialog-top-margin {
+    max-width: 465px;
+    margin: 13vh auto 60px;
+}
+
+.custom-modal-dialog {
+    position: relative;
+    width: auto;
+    /*margin: .5rem;*/
+    pointer-events: none;
+}
+.custom-modal-content {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    /*-ms-flex-direction: column;*/
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0;
+}
+.custom-modal-body {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1rem;
+}
+/** Custom Modal End **/

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="34.1" height="31.516" viewBox="0 0 34.1 31.516">
+  <g id="calendar_-_gray" data-name="calendar - gray" transform="translate(-6.4 -10.8)">
+    <g id="Group_4247" data-name="Group 4247" transform="translate(6.4 10.8)">
+      <path id="Path_2260" data-name="Path 2260" d="M7.6,42.315H39.3a1.191,1.191,0,0,0,1.2-1.2V14.236a1.191,1.191,0,0,0-1.2-1.2H33.333V12a1.2,1.2,0,1,0-2.408,0v1.028H16.181V12a1.2,1.2,0,1,0-2.408,0v1.028H7.6a1.191,1.191,0,0,0-1.2,1.2v26.9a1.2,1.2,0,0,0,1.2,1.175Zm1.2-26.875h4.964v.646a1.2,1.2,0,0,0,2.408,0v-.646H30.925v.646a1.2,1.2,0,1,0,2.408,0v-.646h4.788v3.113H8.808V15.441Zm0,5.522H38.092V39.936H8.808V20.962Z" transform="translate(-6.4 -10.8)" fill="#bdbfc7"/>
+      <path id="Path_2262" data-name="Path 2262" d="M44.729,84H32.587a1.709,1.709,0,0,0,0,3.418H44.729a1.709,1.709,0,0,0,0-3.418Z" transform="translate(-21.655 -62.857)" fill="#bdbfc7"/>
+      <path id="Path_2263" data-name="Path 2263" d="M44.744,84H32.589a1.709,1.709,0,0,0,0,3.418H44.744a1.709,1.709,0,0,0,0-3.418Z" transform="translate(-21.672 -68.857)" fill="#bdbfc7"/>
+    </g>
+  </g>
+</svg>

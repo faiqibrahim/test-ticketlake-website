@@ -1,0 +1,39 @@
+<div id="main">
+                <Header/>
+                <div id="wrapper">
+                    <div className="content">
+                        <section className="flat-header color-bg adm-header" style={{background: "darkgray"}}>
+                            <div className="wave-bg wave-bg2"/>
+                            <div className="container">
+                                <div className="dasboard-wrap fl-wrap">
+                                    <div className="dasboard-breadcrumbs breadcrumbs"><a href="#">Home</a><a
+                                        href="#">Dashboard</a><span>Profile page</span></div>
+
+                                    <ProfileSidebar/>
+
+                                    <div className="dasboard-menu">
+                                        <div className="dasboard-menu-btn color3-bg">Dashboard Menu <i
+                                            className="fal fa-bars"/></div>
+
+                                        <ul className="dasboard-menu-wrap">
+
+                                            <li><NavLink to={'/user/profile'}><i className="far fa-user"/>Profile </NavLink></li>
+                                            <li><NavLink to={'/user/wallet'}><i className="far fa-calendar-check"/> Wallet</NavLink></li>
+                                            <li><NavLink to={'/user/ticket'}><i className="far fa-calendar-check"/> Tickets</NavLink></li>
+                                            <li><NavLink to={'/user/wishlist'} className='user-profile-act'><i className="far fa-calendar-check"/> Wishlist</NavLink></li>
+                                            <li><NavLink to={'/user/guests'}><i className="far fa-calendar-check"/> Guests</NavLink></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {this.getWishList()}
+
+                        <div className="limit-box fl-wrap"/>
+                    </div>
+                </div>
+                <Footer/>
+
+            </div>

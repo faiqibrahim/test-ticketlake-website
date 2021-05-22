@@ -1,0 +1,30 @@
+/* Movie Card Layout styling */
+.movies-card-main-wrapper {
+    float: left;
+    width: 100%;
+    margin: 50px 0px;
+  }
+  .component-wrp {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .heading-wrp {
+    float: left;
+    width: 100%;
+  }
+  .heading-wrp .heading-left {
+    float: left;
+    width: 60%;
+  }
+  .heading-wrp .heading-right {
+    float: left;
+    width: 40%;
+    text-align: right;
+  }
+  .Card-container {
+    float: left;
+    width: 100%;
+    margin: 20px 0px 50px 0px;
+  }
+  

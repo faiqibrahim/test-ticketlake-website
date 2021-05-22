@@ -1,0 +1,18 @@
+.breadcrumbs span > span{
+    font-family: 'NeuePlak';
+    font-size:20px;
+    font-weight: 600;
+}
+.breadcrumbs span > span a{
+    color:#EC1B23;
+    font-size:20px;
+}
+
+.separator:before{
+    font-family: "Font Awesome 5 Free";
+    content: "\F054";
+    font-weight: 900;
+    font-size: 12px;
+    color:#1A1A1A;
+    margin:0 10px;
+}

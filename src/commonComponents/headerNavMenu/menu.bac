@@ -1,0 +1,19 @@
+ const displayNavMenu = navMenus.map((item, i) => (
+            <MenuNavItem key={i} {...item}/>
+        ));
+         <>
+
+                            <div className="nav-button-wrap color-bg">
+                                <div className="nav-button">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                            <div className="nav-holder main-menu">
+                                <nav>
+                                    <ul>
+                                        {displayNavMenu}
+                                    </ul>
+                                </nav>
+
+                            </div>
+                        </>

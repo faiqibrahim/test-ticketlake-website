@@ -1,0 +1,68 @@
+{
+    "eventsList" : [
+        {   
+            "id" : 1,
+            "imgSrc" : "/images/votingimages/image1.png",
+            "eventTitle"  : "Master Chef Ghana ‘21",
+            "timeLeft" : "06 hours, 30 mins left",
+            "voteCount" : "20,000 Votes",
+            "status"    : "open"
+        },
+        {   
+            "id" : 2,
+            "imgSrc" : "/images/votingimages/image1_2.png",
+            "eventTitle" : "Master Chef Ghana ‘21",
+            "timeLeft" : "00 hours, 00 mins left",
+            "voteCount" : "Winner has been announced",
+            "status"    : "closed"
+        },
+        {
+            "id" : 3,
+            "imgSrc" : "/images/votingimages/image3.png",
+            "eventTitle" : "Abstract Art Competition",
+            "timeLeft" : "01 day, 10 hours, 15 mins left",
+            "voteCount" : "6400 Votes",
+            "status"    : "open"
+        },
+        {
+            "id" : 4,
+            "imgSrc" : "/images/votingimages/image4.png",
+            "eventTitle" : "360 Drone Frames Battle",
+            "timeLeft" : "09 hours, 20 mins left",
+            "voteCount" : "7400 Votes",
+            "status"    : "open"
+        },
+        {   
+            "id" : 5,
+            "imgSrc" : "/images/votingimages/image5.png",
+            "eventTitle" : "Food Carnival Ghana",
+            "timeLeft" : "02 days left",
+            "voteCount" : "300 Votes",
+            "status"    : "open"
+        },
+        {   
+            "id" : 6,
+            "imgSrc" : "/images/votingimages/image6.png",
+            "eventTitle" : "Short Film Exhibition 2021",
+            "timeLeft" : "04 hours left",
+            "voteCount" : "1200 Votes",
+            "status"    : "open"
+        },
+        { 
+            "id" : 7,
+            "imgSrc" : "/images/votingimages/image7.png",
+            "eventTitle" : "Fitness Freaks Nationwe",
+            "timeLeft" : "10 hours left",
+            "voteCount" : "400 Votes",
+            "status"    : "open"
+        },
+        { 
+            "id" : 8,
+            "imgSrc" : "/images/votingimages/image8.png",
+            "eventTitle" : "Painting Fest Capecoast",
+            "timeLeft" : "02 hours, 30 min left",
+            "voteCount" : "62,500 Votes",
+            "status"    : "open"
+        }
+    ]
+}

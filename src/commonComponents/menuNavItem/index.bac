@@ -1,0 +1,22 @@
+import {NavLink} from "react-router-dom";
+import React from "react";
+
+let mapSubmenu = [];
+let displaySubmenu = [];
+
+if (props.subMenus) {
+    props.subMenus.map((item,i) => (
+        mapSubmenu.push(<li key={i}><NavLink to={item.menuLink}>{item.menuName}</NavLink></li>)
+    ));
+
+    displaySubmenu.push(<ul key={1}>{mapSubmenu}</ul>);
+}
+return (
+    <li>
+        <NavLink to={props.menuLink} className="act-link">
+            {props.menuName}
+            {props.subMenus ? <span><i className='fas fa-caret-down'/></span> : ""}
+        </NavLink>
+        {displaySubmenu}
+    </li>
+);

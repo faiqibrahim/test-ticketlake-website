@@ -1,0 +1,14 @@
+{
+    "breadCrumbsList" : [
+        {
+            "id" : 1,
+            "path" : "/",
+            "crumbTitle" : "Home"
+        },
+        {
+            "id" : 2,
+            "path" : "/voting",
+            "crumbTitle" : "Voting"
+        }
+    ]
+} 

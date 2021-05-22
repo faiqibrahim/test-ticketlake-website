@@ -1,0 +1,64 @@
+ <section className="middle-padding">
+                <div className="container">
+                    <div className="dasboard-wrap fl-wrap">
+                        <div className="dashboard-content fl-wrap">
+                            {
+                                this.props.todayWishlist && this.props.todayWishlist.docs.length > 0 ?
+                                    <>
+                                        <div className="box-widget-item-header">
+                                            <h3>Today's Wishlist</h3>
+                                        </div>
+                                        {
+                                            this.props.todayWishlist && this.props.todayWishlist.docs.map(data => {
+                                                return(
+                                                    <CardWithImageAndWishlist key={1}
+                                                                              style={{paddingRight: '15px'}}
+                                                                              cardTitle={data.eventTitle}
+                                                                              image={data.bannerImageKey.imageUrl}
+                                                                              cardLink={'#'}
+                                                                              wishlistLink={() => this.addEventWishlist(data.eventSlotId)}
+                                                                              cardAddress={data.venue ? data.venue.address : ''}
+                                                                              country={data.venue ? data.venue.country : []}
+                                                                              city={data.venue ? data.venue.city : []}
+                                                                              onClick={() => this.props.history.push(`/event/detail/${data.eventSlotId}`)}
+                                                                              buttonText={"Buy Ticket"}
+                                                                              buttonLink={`/buy-ticket/${data.eventSlotId}`}
+                                                    />
+                                                )
+                                            })
+                                        }
+                                    </> : null
+                            }
+
+                            {
+                                this.props.upcomingWishlist && this.props.upcomingWishlist.data.length > 0 ?
+                                    <>
+                                        <div className="box-widget-item-header" style={{marginTop: '5%'}}>
+                                            <h3>Up Coming Wishlist</h3>
+                                        </div>
+                                        {
+                                            this.props.upcomingWishlist && this.props.upcomingWishlist.data.map(data => {
+                                                return(
+                                                    <CardWithImageAndWishlist key={1}
+                                                                              style={{paddingRight: '15px'}}
+                                                                              cardTitle={data.eventTitle}
+                                                                              image={data.bannerImageKey.imageUrl}
+                                                                              cardLink={'#'}
+                                                                              wishlistLink={() => this.addEventWishlist(data.eventSlotId)}
+                                                                              cardAddress={data.venue ? data.venue.address : ''}
+                                                                              country={data.venue ? data.venue.country : []}
+                                                                              city={data.venue ? data.venue.city : []}
+                                                                              onClick={() => this.props.history.push(`/event/detail/${data.eventSlotId}`)}
+                                                                              buttonText={"Buy Ticket"}
+                                                                              buttonLink={`/buy-ticket/${data.eventSlotId}`}
+                                                    />
+                                                )
+                                            })
+                                        }
+                                    </> : null
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </section>
