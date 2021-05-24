@@ -12263,3 +12263,22 @@ input[type=number] {
     padding-right: 5px;
     display: inline-block;
 }
+.header-actions-column.scrolled-header {
+    width: 18%;
+}
+.header-search-column.scrolled-header {
+    width: 64%;
+    display: flex;
+    justify-content: space-between;
+}
+.scrolled-header .navbarHolder {
+    width: auto !important;
+    float: left;
+    height: unset;
+}
+.scrolled-header .nav-holder nav li a {
+    padding: 0px 13px;
+}
+.scrolled-header .nav-holder nav li {
+    height: unset;
+}

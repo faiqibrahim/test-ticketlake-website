@@ -27,230 +27,160 @@ import 'react-flags-select/css/react-flags-select.css';
 
 
 class ScrollAbleHeader extends Component {
-  state = {
-      width: window.innerWidth,
-      isVisible: false,
-      scroll:false,
-  };
-  toggle = () => {
-      this.setState({isVisible: !this.state.isVisible})
-  };
+    state = {
+        width: window.innerWidth,
+        isVisible: false,
+        scroll:false,
+    };
+    toggle = () => {
+        this.setState({isVisible: !this.state.isVisible})
+    };
 
-  componentDidMount() {
-      window.addEventListener("resize", this.resize.bind(this));
-  }
+    componentDidMount() {
+        window.addEventListener("resize", this.resize.bind(this));
+    }
 
-  resize = () => {
-      this.setState({width: window.innerWidth});
-  };
+    resize = () => {
+        this.setState({width: window.innerWidth});
+    };
 
-  logoutUser = () => {
-      this.setState({isVisible:false});
-      localStorage.removeItem("googleLoacalData")
-      localStorage.removeItem("fbLoacalData")
-      this.props.logout();
-  };
+    logoutUser = () => {
+        this.setState({isVisible:false});
+        localStorage.removeItem("googleLoacalData")
+        localStorage.removeItem("fbLoacalData")
+        this.props.logout();
+    };
 
 
 
-  handleCountrySelect = (countryCode) => {
-      const reactFlags = require('../../utils/flag-countries');
-      let eventsCountry = {
-          label: reactFlags[countryCode],
-          countryCode
-      };
-      this.props.setEventsCountry(eventsCountry);
-  };
+    handleCountrySelect = (countryCode) => {
+        const reactFlags = require('../../utils/flag-countries');
+        let eventsCountry = {
+            label: reactFlags[countryCode],
+            countryCode
+        };
+        this.props.setEventsCountry(eventsCountry);
+    };
 
-  renderCountrySelect = (countryClass) => {
-      let {eventsCountry} = this.props;
-      let {width} = this.state;
-      let showSelectedLabel = Boolean(width >= 768);
-      countryClass = width > 350 ? countryClass : '';
-      return (
+    renderCountrySelect = (countryClass) => {
+        let {eventsCountry} = this.props;
+        let {width} = this.state;
+        let showSelectedLabel = Boolean(width >= 768);
+        countryClass = width > 350 ? countryClass : '';
+        return (
 
-          <ReactFlagsSelect className={` box-wrp country-select ${countryClass}`}
-                            searchable={true}
-                            selectedSize={14}
-                            optionsSize={14}
-                            showSelectedLabel={showSelectedLabel}
-                            defaultCountry={eventsCountry.countryCode} onSelect={this.handleCountrySelect}/>
+            <ReactFlagsSelect className={` box-wrp country-select ${countryClass}`}
+                              searchable={true}
+                              selectedSize={14}
+                              optionsSize={14}
+                              showSelectedLabel={showSelectedLabel}
+                              defaultCountry={eventsCountry.countryCode} onSelect={this.handleCountrySelect}/>
 
-      )
-  };
-  render() {
-    let {activeUser} = this.props;
+        )
+    };
+    render() {
+        let {activeUser} = this.props;
         let isMobile = Boolean(this.state.width <= 500);
         let hasImage = Boolean(activeUser && activeUser.profileImageKey && activeUser.profileImageKey.imageUrl);
-    return(
-      <div className="scrollable-header">
-            <div className="header-top fl-wrap">
-                <div className=" container">
-                    <Logo
-                        logoLink={'/'}
-                        logoImage={window.location.origin + '/images/nav-logo.svg'}
-                    />
-
-                    <div className={"mobile-view-options mobile-view"}>
-                        {
-                            activeUser ?
-                                <div className={"header-right-nav-wrp col-md-2"}>
-                                    <div className="header-user-menu box-wrp">
-                                        <Dropdown isOpen={this.state.isVisible} toggle={this.toggle}>
-                                            <DropdownToggle
-                                                tag="span"
-                                                data-toggle="dropdown"
-                                                className={"header-user-name header-dropdown"}
-                                                id='headerNavUserMenu'
-                                            >
-                                            <span className="user-img-wrp">
-                                                <img
-                                                    src={hasImage ? activeUser.profileImageKey.imageUrl : '/images/default-dp.png'}
-                                                    alt={''}/>
-                                            </span>
-                                                <span className="username-wrp">
-                                                {nameSplitter(activeUser.name)}
-                                            </span>
-                                            </DropdownToggle>
-
-                                            <ul className={`${this.state.isVisible ? 'hu-menu-vis' : ''}`}>
-                                                <li>
-                                                    <NavLink to="/user/profile" onClick={this.toggle}>
-                                                        Profile
-                                                    </NavLink>
-                                                </li>
-                                                 <li>
-                                                    <NavLink to="/user/calendar-events" onClick={this.toggle}>
-                                                        My Calendar
-                                                    </NavLink>
-                                                </li>}
-                                                <li className={`${this.props.isScrollable ? "show-on-web" : "hide-on-web"}`}>
-                                                    <NavLink to="user/wishlist" onClick={this.toggle}>
-                                                        Wishlist
-                                                    </NavLink>
-                                                </li>
-                                                <li>
-                                                    <NavLink to="/" onClick={this.logoutUser}>Sign Out</NavLink>
-                                                </li>
-                                            </ul>
-                                        </Dropdown>
-                                    </div>
-                                    {this.renderCountrySelect(`mr-${isMobile ? '5' : '4'}`)}
-                                    <div className={`show-reg-form modal-open hide-on-mobile box-wrp wishlist-box ${this.props.isScrollable ? "hide-on-web" : "show-on-web"}`}>
-                                        <NavLink to="/user/wishlist">
-                                    <span>
-                                        <img src={'/images/heart.svg'} alt={''}/>
-                                    </span>
-                                            <span className="wishlist-text" style={{color: 'black'}}>Wishlist</span>
-                                        </NavLink>
-                                    </div>
-
-
+        return(
+            <div className="scrollable-header">
+                <div className="header-top fl-wrap">
+                    <div className="container">
+                        <div className={"header-content-wrp"}>
+                            <div className={"header-content-wrp-top"}>
+                                <div className={"header-logo-column"}>
+                                    <Logo
+                                        logoLink={'/'}
+                                        logoImage={window.location.origin + '/images/nav-logo.svg'}
+                                    />
                                 </div>
-                                :
-                                <div className={"header-right-nav-wrp col-md-2"}>
-
-                                    <div className="show-reg-form modal-open box-wrp wishlist-box">
-
-                                        <NavLink key={2} to={"/authentication"}>
-                                            <i className="fas fa-sign-in-alt"/> Sign in
-                                        </NavLink>
-
-                                    </div>
-                                    {this.renderCountrySelect('mr-3')}
-
-
+                                <div className={"header-search-column scrolled-header"}>
+                                    <HeaderNavMenu/>
+                                    <HeaderSearch/>
                                 </div>
-                        }
-                    </div>
+                                <div className={"header-actions-column scrolled-header"}>
+                                    {
+                                        activeUser ?
+                                            <>
+                                                <div className="show-reg-form modal-open action-item">
+                                                    <NavLink to="/user/wishlist">
+                                                    <span className={"wishlist-icon"}>
+                                                        <img src={'/images/heart.svg'}
+                                                             alt={'Wishlist icon'}/>
+                                                    </span>
+                                                        <span className="wishlist-text"
+                                                              style={{color: 'black'}}>Wishlist</span>
+                                                    </NavLink>
+                                                </div>
+                                                <div className="header-user-menu action-item">
+                                                    <Dropdown isOpen={this.state.isVisible}
+                                                              toggle={this.toggle}>
+                                                        <DropdownToggle
+                                                            tag="span"
+                                                            data-toggle="dropdown"
+                                                            className={"header-user-name header-dropdown"}
+                                                            id='headerNavUserMenu'
+                                                        >
+                                                        <span className="user-img-wrp">
+                                                            <img
+                                                                src={hasImage ? activeUser.profileImageKey.imageUrl : '/images/default-dp.png'}
+                                                                alt={''}/>
+                                                        </span>
+                                                            <span className="username-wrp">
+                                                            {nameSplitter(activeUser.name)}
+                                                        </span>
+                                                        </DropdownToggle>
 
-                    <div className="header-inner fl-wrap col-md-5 desktop-view">
-                          <HeaderNavMenu/>
-                    </div>
-                    <HeaderSearch isScrollable={this.props.isScrollable}/>
-                    <div className={"mobile-view-menu mobile-view"}>
-                        <HeaderNavMenu/>
-                    </div>
-                    <div className={"actions-for-desktop-view desktop-view"}>
-                        {
-                            activeUser ?
-                                <div className={"header-right-nav-wrp col-md-2"}>
-                                    <div className="header-user-menu box-wrp">
-                                        <Dropdown isOpen={this.state.isVisible} toggle={this.toggle}>
-                                            <DropdownToggle
-                                                tag="span"
-                                                data-toggle="dropdown"
-                                                className={"header-user-name header-dropdown"}
-                                                id='headerNavUserMenu'
-                                            >
-                                                <span className="user-img-wrp">
-                                                    <img
-                                                        src={hasImage ? activeUser.profileImageKey.imageUrl : '/images/default-dp.png'}
-                                                        alt={''}/>
-                                                </span>
-                                                <span className="username-wrp">
-                                                    {nameSplitter(activeUser.name)}
-                                                </span>
-                                            </DropdownToggle>
+                                                        <ul className={`${this.state.isVisible ? 'hu-menu-vis' : ''}`}>
+                                                            <li>
+                                                                <NavLink to="/user/profile"
+                                                                         onClick={this.toggle}>
+                                                                    Profile
+                                                                </NavLink>
+                                                            </li>
+                                                            {/*<li>*/}
+                                                            {/*    <NavLink to="user/wishlist"*/}
+                                                            {/*             onClick={this.toggle}>*/}
+                                                            {/*        Wishlist*/}
+                                                            {/*    </NavLink>*/}
+                                                            {/*</li>*/}
+                                                            <li>
+                                                                <NavLink to="/user/calendar-events"
+                                                                         onClick={this.toggle}>
+                                                                    My Calendar
+                                                                </NavLink>
+                                                            </li>
 
-                                            <ul className={`${this.state.isVisible ? 'hu-menu-vis' : ''}`}>
-                                                <li>
-                                                    <NavLink to="/user/profile" onClick={this.toggle}>
-                                                        Profile
+                                                            <li>
+                                                                <NavLink to="/" onClick={this.logoutUser}>Sign
+                                                                    Out</NavLink>
+                                                            </li>
+                                                        </ul>
+                                                    </Dropdown>
+                                                </div>
+
+                                                {this.renderCountrySelect(`mr-0 action-item`)}
+
+                                            </>
+                                            :
+                                            <>
+                                                <div
+                                                    className="show-reg-form modal-open action-item">
+                                                    <NavLink key={2} to={"/authentication"}>
+                                                        <i className="fas fa-sign-in-alt"/> Sign in
                                                     </NavLink>
-                                                </li>
-                                                {<li>
-                                                    <NavLink to="/user/calendar-events" onClick={this.toggle}>
-                                                        My Calendar
-                                                    </NavLink>
-                                                </li> }
-                                                <li className={`${this.props.isScrollable ? "show-on-web" : "hide-on-web"}`}>
-                                                    <NavLink to="/user/wishlist" onClick={this.toggle}>
-                                                        Wishlist
-                                                    </NavLink>
-                                                </li>
-                                                <li>
-                                                    <NavLink to="/" onClick={this.logoutUser}>Sign Out</NavLink>
-                                                </li>
-                                            </ul>
-                                        </Dropdown>
-                                    </div>
-                                    {this.renderCountrySelect(`mr-${isMobile ? '5' : '4'}`)}
-                                    <div className={`show-reg-form modal-open hide-on-mobile box-wrp wishlist-box ${this.props.isScrollable ? "hide-on-web" : "show-on-web"}`}>
-                                        <NavLink to="/user/wishlist">
-                                        <span>
-                                            <img src={'/images/heart.svg'} alt={''}/>
-                                        </span>
-                                        <span className="wishlist-text" style={{color: 'black'}}>Wishlist</span>
-                                        </NavLink>
-                                    </div>
+                                                </div>
+                                                {this.renderCountrySelect('mr-0 action-item')}
+                                            </>
+                                    }
                                 </div>
-                                :
-                                <div className={"header-right-nav-wrp col-md-2"}>
-
-                                    <div className="show-reg-form modal-open box-wrp wishlist-box">
-
-                                        <NavLink key={2} to={"/authentication"}>
-                                            <i className="fas fa-sign-in-alt"/> Sign in
-                                        </NavLink>
-
-                                    </div>
-                                    {this.renderCountrySelect('mr-3')}
-
-
-                                </div>
-                        }
+                            </div>
+                        </div>
                     </div>
-                    {/*<div className="header-inner fl-wrap desktop-view">*/}
-                    {/*    <div className="container">*/}
-                    {/*        <HeaderNavMenu/>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
                 </div>
             </div>
-      </div>
-    )
-  }
+        )
+    }
 }
 
 const mapStateToProps = state => {
