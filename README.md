@@ -6,7 +6,7 @@ Ticket lake website is developed using React.js and Redux
 ## Start as follow
 
 -- Clone HTTP Url as
-git clone http://58.27.238.210:8060/scm/tic/ticketlake-web-customer.git
+git clone https://bitbucketcloud.synavos.com/scm/tic/ticketlake-website.git
 
 -- Move to ticketlake-web-customer directory
 cd ticketlake-web-customer
