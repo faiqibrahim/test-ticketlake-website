@@ -42,7 +42,8 @@
             "nomineeName" : "Kwaku Agyemang",
             "votingType" : "Secret balloting",
             "nomineeVotes"  : 412,
-            "nomineeVoteID" : 5 
+            "nomineeVoteID" : 5,
+            "status" : "paid"
         },
         {
             "id" : 6,
