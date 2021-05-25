@@ -859,7 +859,7 @@ a.btn.color-bg.full-width {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .hide-on-mobile {
     display: none !important;
     /*margin-right: 31px !important;*/
@@ -1077,7 +1077,7 @@ label {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 450px) {
   .hide-on-web {
     display: none !important;
   }
