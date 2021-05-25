@@ -94,7 +94,7 @@ class ScrollAbleHeader extends Component {
                                         logoImage={window.location.origin + '/images/nav-logo.svg'}
                                     />
                                 </div>
-                                <div className={"header-search-column scrolled-header"}>
+                                <div className={"header-search-column scrolled-header hide-on-mobileView view-on-tabView"}>
                                     <HeaderNavMenu/>
                                     <HeaderSearch/>
                                 </div>
@@ -102,7 +102,7 @@ class ScrollAbleHeader extends Component {
                                     {
                                         activeUser ?
                                             <>
-                                                <div className="show-reg-form modal-open action-item">
+                                                <div className="show-reg-form modal-open action-item hide-on-mobileView">
                                                     <NavLink to="/user/wishlist">
                                                     <span className={"wishlist-icon"}>
                                                         <img src={'/images/heart.svg'}
@@ -138,12 +138,12 @@ class ScrollAbleHeader extends Component {
                                                                     Profile
                                                                 </NavLink>
                                                             </li>
-                                                            {/*<li>*/}
-                                                            {/*    <NavLink to="user/wishlist"*/}
-                                                            {/*             onClick={this.toggle}>*/}
-                                                            {/*        Wishlist*/}
-                                                            {/*    </NavLink>*/}
-                                                            {/*</li>*/}
+                                                            <li className={"view-on-mobile"}>
+                                                                <NavLink to="user/wishlist"
+                                                                         onClick={this.toggle}>
+                                                                    Wishlist
+                                                                </NavLink>
+                                                            </li>
                                                             <li>
                                                                 <NavLink to="/user/calendar-events"
                                                                          onClick={this.toggle}>
@@ -164,15 +164,22 @@ class ScrollAbleHeader extends Component {
                                             </>
                                             :
                                             <>
-                                                <div
-                                                    className="show-reg-form modal-open action-item">
+                                                <div className="show-reg-form modal-open action-item">
                                                     <NavLink key={2} to={"/authentication"}>
-                                                        <i className="fas fa-sign-in-alt"/> Sign in
+                                                        <i className="fas fa-sign-in-alt"/> <span className={"sign-in"}> Sign in </span>
                                                     </NavLink>
                                                 </div>
                                                 {this.renderCountrySelect('mr-0 action-item')}
                                             </>
                                     }
+                                </div>
+                            </div>
+                            <div className={"header-content-wrp-bottom"}>
+                                <div className={"header-search-column view-on-mobileView "}>
+                                    <HeaderSearch/>
+                                </div>
+                                <div className="header-inner header-nav-column view-on-mobileView view-on-tabView">
+                                    <HeaderNavMenu/>
                                 </div>
                             </div>
                         </div>

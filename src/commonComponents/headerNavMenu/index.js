@@ -393,8 +393,7 @@ class HeaderNavMenu extends Component {
                             </div>
                         </div>
 
-                        <Collapse className={this.state.isClose ? "hellossss" : "oye"} isOpen={this.state.isOpen}
-                            navbar>
+                        <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav navbar className={"header-mob-nav"}>
                                 {!this.state.loaded && !sessionState ?
                                     <span style={{ lineHeight: '47px' }}>Loading menu...</span>

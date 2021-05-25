@@ -107,7 +107,7 @@ class Header extends Component {
                                                     logoImage={window.location.origin + '/images/nav-logo.svg'}
                                                 />
                                             </div>
-                                            <div className={"header-search-column"}>
+                                            <div className={"header-search-column hide-on-mobileView"}>
                                                 <HeaderSearch/>
                                             </div>
                                             <div className={"header-actions-column"}>
@@ -120,7 +120,7 @@ class Header extends Component {
                                                                     Become an organiser
                                                                 </a>
                                                             </div>
-                                                            <div className="show-reg-form modal-open action-item">
+                                                            <div className="show-reg-form modal-open action-item hide-on-mobileView">
                                                                 <NavLink to="/user/wishlist">
                                                                     <span className={"wishlist-icon"}>
                                                                         <img src={'/images/heart.svg'}
@@ -190,7 +190,7 @@ class Header extends Component {
                                                             <div
                                                                 className="show-reg-form modal-open action-item">
                                                                 <NavLink key={2} to={"/authentication"}>
-                                                                    <i className="fas fa-sign-in-alt"/> Sign in
+                                                                    <i className="fas fa-sign-in-alt"/> <span className={"sign-in"}> Sign in </span>
                                                                 </NavLink>
                                                             </div>
                                                             {this.renderCountrySelect('mr-0 action-item')}
@@ -202,7 +202,10 @@ class Header extends Component {
                                             </div>
                                         </div>
                                         <div className={"header-content-wrp-bottom"}>
-                                            <div className="header-inner fl-wrap">
+                                            <div className={"header-search-column view-on-mobileView"}>
+                                                <HeaderSearch/>
+                                            </div>
+                                            <div className="header-inner header-nav-column ">
                                                 <HeaderNavMenu/>
                                             </div>
                                         </div>
