@@ -1,6 +1,3 @@
-.CategoryBoxCol > div{
-    /* font-family: 'Neue Plak Text'; */
-}
 .CategoryBoxCol{
     flex: 0 0 25%;
     max-width: 25%;

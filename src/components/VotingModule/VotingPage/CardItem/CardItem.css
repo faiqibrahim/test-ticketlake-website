@@ -1,6 +1,3 @@
-.votingEvents .cardItemCol > div{
-    /* font-family: 'Neue Plak Text'; */
-}
 .votingEvents .cardItemCol{
     flex: 0 0 25%;
     max-width: 25%;
@@ -18,6 +15,7 @@
 .votingEvents .imageContainer img{
     width: 100%;
     border-radius: 10px;    
+    filter: grayscale(0);
 }
 .votingEvents .closedVoting{
     position: absolute;

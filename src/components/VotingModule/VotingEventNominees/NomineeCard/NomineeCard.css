@@ -1,9 +1,6 @@
 body{
     background-color: #fff !important;
 }
-/* .cardItemCol > div{
-     font-family: 'Neue Plak Text'; 
-} */
 .cardItemCol{
     flex: 0 0 25%;
     max-width: 25%;

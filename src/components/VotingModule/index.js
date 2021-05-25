@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react'
-import {getVotingEvents} from './../data-fetcher';
-import VotingEventsContent from '../VotingPage/VotingEventsContent/VotingEventsContent';
-import VotingHeader from '../Header/Layout/Layout';
-import '../RouteWrapper/RouteWrapper.css';
+import {getVotingEvents} from './data-fetcher';
+import VotingEventsContent from './VotingPage/VotingEventsContent/VotingEventsContent';
+import VotingHeader from './Header/Layout/Layout';
+import './RouteWrapper/RouteWrapper.css';
 
 class VotingEvents extends Component{
     state = {
@@ -13,7 +13,7 @@ class VotingEvents extends Component{
     componentDidMount(){
         getVotingEvents().then((events) =>{
             this.setState({
-                loading:false,
+                  loading:false,
                 events,
                 breadCrumbs : [
                     { path :"/", crumbTitle:"Home"},
