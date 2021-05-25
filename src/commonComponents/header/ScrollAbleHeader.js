@@ -80,7 +80,6 @@ class ScrollAbleHeader extends Component {
     };
     render() {
         let {activeUser} = this.props;
-        let isMobile = Boolean(this.state.width <= 500);
         let hasImage = Boolean(activeUser && activeUser.profileImageKey && activeUser.profileImageKey.imageUrl);
         return(
             <div className="scrollable-header">
