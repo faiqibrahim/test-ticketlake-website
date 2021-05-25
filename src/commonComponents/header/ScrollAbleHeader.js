@@ -124,7 +124,7 @@ class ScrollAbleHeader extends Component {
                                                         <span className="user-img-wrp">
                                                             <img
                                                                 src={hasImage ? activeUser.profileImageKey.imageUrl : '/images/default-dp.png'}
-                                                                alt={''}/>
+                                                                alt={'User-img-icon'}/>
                                                         </span>
                                                             <span className="username-wrp">
                                                             {nameSplitter(activeUser.name)}
