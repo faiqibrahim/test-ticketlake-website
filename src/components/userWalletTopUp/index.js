@@ -121,8 +121,8 @@ class UserWalletTopUp extends Component {
                 {
                     (this.state.showCheckoutStepTwo || this.state.showCheckoutStepThree) === false ?
                         <>
-                            <CardViewWithImgAndName image={'/images/mtn.svg'}
-                                                    heading={'MTN Mobile Money'}
+                            <CardViewWithImgAndName image={'/images/mtn-logos.png'}
+                                                    heading={'Mobile Money'}
                                                     imgWidth={'mtnImgWidth'}
                                                     description={'Pay via phone #'}
                                                     onClick={() => this.setState({showCheckoutStepTwo: true})}/>

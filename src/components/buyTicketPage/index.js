@@ -217,7 +217,7 @@ class BuyTicketPage extends Component {
                   <input
                     type="number"
                     id={"inputTypeNumber" + singleItem.ticketClassName}
-                    //value={singleItem.ticketClassQty}
+                    value={singleItem.ticketClassQty}
                     name={singleItem.ticketClassName}
                     onChange={(e) =>
                       this.onInputChange(
