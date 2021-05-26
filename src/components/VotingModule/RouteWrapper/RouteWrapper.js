@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Switch,Route,Redirect , withRouter} from 'react-router-dom';
 
-import VotingEvents from '../VotingEvents/index';
+import VotingEvents from '../index';
 import VotingEventCategories from '../VotingEventCategories/EventCategories/EventCategories';
 import VotingEventNominees from '../VotingEventNominees/EventNominees/EventNominees';
 import VotingEventResults from '../VotingEventResults/EventResults/EventResults';
