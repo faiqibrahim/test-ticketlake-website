@@ -266,8 +266,6 @@ class SignUp extends Component {
                                         <label style={{marginBottom:'10px'}}>Email <span>*</span> </label>
                                         <Input name="email" id="email" type="email" placeholder="Email"
                                                value={this.state.email}
-                                            //validations={[required]}
-                                            //required
                                                onChange={this.onInputChange}/>
                                         {this.state.errorEmail !== '' ? (this.state.email === '') ? <span className={"signup-error-message"} style={{color: 'red'}}>{this.state.errorEmail}</span> : null : null }
                                     </div>
@@ -275,8 +273,6 @@ class SignUp extends Component {
                                     <div className={"field-wrp"}>
                                         <label style={{marginBottom:'10px'}}>Password <span>*</span></label>
                                         <Input name="password" type="password" placeholder="Password"
-                                            //required
-                                            //validations={[required]}
                                                value={this.state.password}
                                                onChange={this.onInputChange}/>
                                         {this.state.errorPassword !== '' ? (this.state.password === '') ? <span className={"signup-error-message"} style={{color: 'red'}}>{this.state.errorPassword}</span> : null : null }

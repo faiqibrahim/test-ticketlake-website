@@ -130,7 +130,7 @@ class EventDetail extends Component {
         if(!filteredEvents.length) return null;
         return(
             <SuggestedEventSlider heading={"Similar Events"}
-                                  text={"Explore Some More Events related to this Category"}
+                                  text={"Explore Some More Events From Different Categories"}
                                   cards={filteredEvents}
                                   key = {id}
             />
