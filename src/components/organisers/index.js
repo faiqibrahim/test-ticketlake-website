@@ -26,7 +26,7 @@ class Organisers extends Component {
         let orgDataFilter = _.map(this.state.baseData, function(o) {
             if (o.address.country === value) return o;
         });
-        
+
         orgDataFilter = _.without(orgDataFilter, undefined)
 
         this.setState({
@@ -37,39 +37,40 @@ class Organisers extends Component {
                 orgData: this.state.baseData
             })
         }
-      }
+    }
 
     componentDidMount=()=>{
         axios.get('/organizations/get-organizations')
-        .then(response => {
-            console.log("response: organisaton", response.data.data)
-            let getCountries = []
-            // getCountries.push({address:{country:'All'}})
-            getCountries.unshift('All')
-            
-            // let getCountriesUnique = _.uniq(_.map(res, 'address.country'))
-            let getCountriesUnique = _.uniq(getCountries)
-            getCountries.push(getCountriesUnique)
+            .then(response => {
+                let getCountries = []
+                getCountries.push({respo:{country:'All'}})
+                getCountries.unshift('All')
 
-            this.setState({
-                orgData:response.data.data,
-                baseData:response.data.data,
-                countries:getCountries,
-                loadOrgData: response.data.data,
-                totalCountries: getCountriesUnique
+                //let getCountriesUnique = _.uniq(_.map(res, 'address.country'))
+                let getCountriesUnique = _.uniq(getCountries)
+                // getCountries.push(getCountriesUnique)
+
+
+                this.setState({
+                    orgData:response.data.data,
+                    baseData:response.data.data,
+                    countries:getCountries,
+                    loadOrgData: response.data.data,
+                    totalCountries: getCountriesUnique
+                })
             })
-        })
-        .catch(err => {
-            console.error("Err:", err)
-        })
+            .catch(err => {
+                console.error("Err:", err)
+            })
+
     }
 
     render() {
-        const hrefLink = '#';
-            return (
-                <>
-                    <div id="wrapper">
-                        <div className="content">
+        const hrefLink = '/events/listing';
+        return (
+            <>
+                <div id="wrapper">
+                    <div className="content">
                         {this.state.loadOrgData?
                             <>
                                 <section className="list-single-hero organiser-sec" data-scrollax-parent="true" id="sec1" style={{marginBottom:'50px', zIndex:'90'}}>
@@ -84,7 +85,7 @@ class Organisers extends Component {
                                                 <div className="col-md-12">
                                                     <div className="listing-rating-wrap">
                                                         <div className="listing-rating card-popup-rainingvis"
-                                                            data-starrating2={5}/>
+                                                             data-starrating2={5}/>
                                                     </div>
                                                     <div className="title-new-padding">
                                                         <h2 style={{marginBottom:'0'}}>
@@ -96,7 +97,7 @@ class Organisers extends Component {
                                                                 {_.sumBy(this.state.orgData, 'eventCount')} Events
                                                             </span> happening in
                                                             <span style={{color:'red', textDecoration:'underline',marginLeft:"5px"}}>
-                                                                {this.state.totalCountries.length-1} countries!
+                                                                {this.state.totalCountries.length-1} country!
                                                             </span>
                                                         </p>
                                                         <p>
@@ -134,13 +135,13 @@ class Organisers extends Component {
                                             <h2>Event Organisers</h2>
                                             <span style={{height: '4px', width: '60px', background: 'lightgrey', float: 'left', borderRadius: '2px', margin: '10px 0px'}}></span>
                                             {/* <div className="org-border"></div> */}
-                                            <p style={{display: 'inline-block', width: '100%', fontWeight: 'bold'}}>Get tickets of {_.sumBy(this.state.orgData, 'eventCount')} Events happening in {this.state.totalCountries.length-1} countries!</p>
+                                            <p style={{display: 'inline-block', width: '100%', fontWeight: 'bold'}}>Get tickets of {_.sumBy(this.state.orgData, 'eventCount')} Events happening in {this.state.totalCountries.length-1} country!</p>
                                         </div>
                                         <div className="col-md-4">
-                                            <Select defaultValue="All" className="org-select" style={{ width: 250, float:'right' }} onChange={this.handleCountryChange}>
+                                            <Select defaultValue="All" className="org-select" style={{ width: '250px' , float:'right' }} onChange={this.handleCountryChange}>
                                                 {this.state.totalCountries.map(dat =>{
                                                     return(
-                                                    <Option value={dat}>{dat!=='All'?<img alt='img' src="/images/ghana_flag.svg" className="org-select-img"/>:null}{dat}</Option>
+                                                        <Option value={dat}>{dat!=='All'?<img alt='img' src="/images/ghana_flag.svg" className="org-select-img"/>:null}{dat}</Option>
                                                     )
                                                 })}
                                             </Select>
@@ -148,51 +149,51 @@ class Organisers extends Component {
                                     </div>
                                 </div>
                                 <div className="container mb-100">
-                                        <div className="row organiser-row">
-                                            {this.state.loadOrgData?
-                                                this.state.orgData.map(data => {
-                                                    return (
-                                                        <div className="organiser-box">
-                                                            <div className="card-with-border">
-                                                                <img className="card-img" alt='img'
-                                                                    src={data.imageURL!==undefined?
-                                                                        data.imageURL.length!==0 ?
-                                                                            data.imageURL
-                                                                            :
-                                                                            "images/placeholder.jpg"
-                                                                        :
-                                                                        "images/placeholder.jpg"
-                                                                    }
-                                                                />
-                                                                <div style={{padding:"20px"}} className={"organiser-card-wrp"}>
-                                                                    <p className="card-heading">{data.name}</p>
-                                                                    <p className="card-paragraph">{data.address.city}, {data.address.country}</p>
-                                                                    <p className="card-link">{data.eventCount}</p>
-                                                                </div>
+                                    <div className="row organiser-row">
+                                        {this.state.loadOrgData?
+                                            this.state.orgData.map(data => {
+                                                return (
+                                                    <div className="organiser-box">
+                                                        <div className="card-with-border">
+                                                            <img className="card-img" alt='img'
+                                                                 src={data.imageURL!==undefined?
+                                                                     data.imageURL.length!==0 ?
+                                                                         data.imageURL
+                                                                         :
+                                                                         "images/placeholder.jpg"
+                                                                     :
+                                                                     "images/placeholder.jpg"
+                                                                 }
+                                                            />
+                                                            <div style={{padding:"20px"}} className={"organiser-card-wrp"}>
+                                                                <p className="card-heading">{data.name}</p>
+                                                                <p className="card-paragraph">{data.address.city}, {data.address.country}</p>
+                                                                <p className="card-link">{data.eventCount}</p>
                                                             </div>
                                                         </div>
-                                                    )
-                                                })
+                                                    </div>
+                                                )
+                                            })
                                             :
                                             <Loader/>
-                                            }
-                                            
-                                        </div>
+                                        }
+
                                     </div>
+                                </div>
                             </>
                             :
                             <Loader/>
-                            }
-                        </div>
+                        }
                     </div>
-                </>
-            );
+                </div>
+            </>
+        );
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        
+
     }
 };
 const connectedComponent = connect(mapStateToProps, {

@@ -10604,6 +10604,9 @@ article.post-article .list-single-main-item {
     .section-team .team-box {
         margin: 0px 0px 20px 0px;
     }
+    .org-select {
+        width: 100% !important;
+    }
 
 
 
@@ -12058,6 +12061,18 @@ source {
 .organiser-box {
     width: calc(100% / 6 - 25px);
     margin: 0px 12.5px;
+    border: 1px solid #eae7e7;
+    border-radius: 8px;
+    margin-bottom: 30px;
+
+}
+.organiser-box .card-with-border {
+    padding: 0;
+    margin: 0;
+    border:unset;
+    border-radius: unset;
+    overflow: hidden;
+    margin-bottom: 0px;
 }
 
 @media only screen and  (max-width: 1025px) {
@@ -12379,4 +12394,8 @@ input[type=number] {
     margin-bottom: 0;
     font-size: 20px;
     float: left;
+}
+.ReactGridGallery {
+    float: left;
+    width: 100%;
 }
