@@ -48,7 +48,7 @@ class PaidModalContent extends Component {
                     <div className="voteCount">
                         <div className="title">Number of Votes</div>
                         <div style={{position :'relative'}}>
-                            <i className="arrow"></i>
+                            <i className="voting_dropdown_arrow"></i>
                             <select name="number_of_votes">
                                 <option value="02 Votes">02 Votes</option>
                             </select>

@@ -13,6 +13,7 @@ button{
 .NomineeModal .ant-modal-content{
     box-shadow: 0px 0px 7px #00000019;
     border-radius: 16px;
+    height: 800px;
 }
 .NomineeModal .ant-modal-close-x{
     font-size:20px;
@@ -139,6 +140,7 @@ button{
     color:#3D4956;
     font-weight: 550;
     margin: 0;
+    font-family: 'Helvetica Neue LT Std';
 }
 .paymentDetail select[name="number_of_votes"]{
     font-size:20px;
@@ -151,6 +153,7 @@ button{
     -webkit-appearance: none;
     -moz-appearance: none;
     cursor :pointer;
+    font-family: 'NeuePlak' !important;
 }
 select::-ms-expand {
     display: none !important;
@@ -177,7 +180,7 @@ select::-ms-expand {
     font-size: 14px;
 }
 .paymentMethod .title{
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 .tickMark{
     position: absolute;
@@ -198,7 +201,7 @@ select::-ms-expand {
 .active_method{
     background-color:#EC1B23 ;
 }
-.arrow {
+.voting_dropdown_arrow {
     position: absolute;
     right: 10px;
     top: 6px;

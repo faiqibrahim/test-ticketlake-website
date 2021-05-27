@@ -17,6 +17,7 @@ class EventNominees extends Component {
         event  : null,
         visible: false,
         nomineeId : null,
+        modalOpen : false
     }
 
 
@@ -40,22 +41,29 @@ class EventNominees extends Component {
         
     }
 
+    componentDidUpdate(){
+        if(!this.state.modalOpen)document.querySelector("#main").style.overflow = 'unset';
+    }
+
     toggleModal = (id = null) => {
         this.setState({
             visible: !this.state.visible,
-            nomineeId: id
+            nomineeId: id,
+            modalOpen : !this.state.modalOpen
         });
     };
   
     handleOk = (e) => {
         this.setState({
           visible: false,
+          modalOpen : false
         });
       }
 
     handleCancel = (e) => {
         this.setState({
             visible: false,
+            modalOpen : false
         });
     }
 
@@ -65,6 +73,9 @@ class EventNominees extends Component {
 
         if(!nomineeId) return null;
 
+        if(this.state.modalOpen) document.querySelector("#main").style.overflow = 'hidden';
+
+
         return(
             <Modal
                 title=""
@@ -72,7 +83,6 @@ class EventNominees extends Component {
                 onOk={this.toggleModal}
                 onCancel={this.toggleModal}
                 width={800}
-                height={800}
                 wrapClassName = "NomineeModal"
                 footer={null}
                 >
