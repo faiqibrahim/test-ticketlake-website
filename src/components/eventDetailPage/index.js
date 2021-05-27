@@ -66,19 +66,24 @@ class EventDetail extends Component {
     }
 
     componentDidMount() {
-        this.props.getAllEventsDefault(
-            false, // IsFeatured
-            true, // isPublished
-            false, // isDraft
-            [], //Categories
-            null, // To
-            null, // From
-            null, // City
-            false, // Paginate
-            1, // page
-            null, // PageSize
-            null // search
-        );
+        const eventId = this.props.match.params.id;
+        this.props.getEventDetail(eventId);
+        if (this.props.auth) {
+            this.props.getWishListIdsFromApi();
+        }
+        // this.props.getAllEventsDefault(
+        //     false, // IsFeatured
+        //     true, // isPublished
+        //     false, // isDraft
+        //     [], //Categories
+        //     null, // To
+        //     null, // From
+        //     null, // City
+        //     false, // Paginate
+        //     1, // page
+        //     null, // PageSize
+        //     null // search
+        // );
     }
 
     componentWillMount() {
@@ -125,13 +130,13 @@ class EventDetail extends Component {
 
     };
 
-    getSimilarEvents = (eventsArray, id) => {
-        const filteredEvents = eventsArray.filter(event=>event.eventSlotId !== id);
-        if(!filteredEvents.length) return null;
+    getSimilarEvents = (eventsArray, id, category) => {
+        const events = eventsArray.filter(event=>event.eventSlotId !== id);
+        if(!events.length) return null;
         return(
             <SuggestedEventSlider heading={"Similar Events"}
                                   text={"Explore Some More Events From Different Categories"}
-                                  cards={filteredEvents}
+                                  cards={events}
                                   key = {id}
             />
             )
@@ -367,16 +372,11 @@ class EventDetail extends Component {
 
             let uniqueDatesForDropDown = [];
 
-
-            const allEvents = this.props.allEvents;
-
-            if (allEvents) {
-                if (allEvents.hasOwnProperty("data") && allEvents.data.hasOwnProperty("data")) {
-                    const {data:eventsData} = allEvents.data;
-                    eventsArray = [...eventsData];
-                }
+            const events = this.props.categorizedEvents;
+            if(events){
+                const {allEvents} = events;
+                eventsArray = [...allEvents];
             }
-
 
             let uniqueDates = this.getUniqueDates(data.relatedEvents);
 
@@ -452,9 +452,15 @@ class EventDetail extends Component {
                                                 </h2>
                                                 <p style={{textAlign:'left', color:'#ffffff', paddingBottom:'0px'}}>
                                                     {
-                                                        (this.props.singleEventDetail !== null) && (this.props.singleEventDetail.categories.length > 0) ?
-                                                            this.props.singleEventDetail.categories[0].title
-                                                        : null
+                                                    (this.props.singleEventDetail !== null) && (this.props.singleEventDetail.categories.length > 0) ?
+                                                        this.props.singleEventDetail.categories && this.props.singleEventDetail.categories.map((category, i) => {
+                                                        return (
+                                                            <span className={"category-title"} key={i}>
+                                                                {category.title}{i === this.props.singleEventDetail.categories.length - 1 ? " " : i === this.props.singleEventDetail.categories.length - 2 ? " & " : ", "}
+                                                            </span>
+                                                        )
+                                                    })
+                                                    : null
                                                     }
                                                 </p>
                                                 <div className="custom-border-bottom"/>
@@ -950,7 +956,7 @@ class EventDetail extends Component {
                                             this.getRelatedEvents(data.relatedEvents, data._id) : null
                                         :
                                         parentEventInfo && parentEventInfo.eventType === `${STANDARD_EVENT}` && eventsArray && eventsArray.length > 0 ?
-                                                this.getSimilarEvents(eventsArray, data.eventSlotId) : null
+                                                this.getSimilarEvents(eventsArray, data.eventSlotId, data.categories) : null
                                 }
                             </section>
                         </div>
@@ -998,7 +1004,7 @@ const mapStateToProps = (state) => {
     return {
         singleEventDetail: state.event.singleEventDetail!==null?state.event.singleEventDetail.data.data:null,
         wishLists: state.wishlist.wishListIds,
-        allEvents: state.event.allEvents,
+        categorizedEvents: state.event.allEvents,
         processing: state.event.processing,
         auth: state.user.authenticated,
         error: state.event.error,
