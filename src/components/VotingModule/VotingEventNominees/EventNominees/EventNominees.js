@@ -16,7 +16,7 @@ class EventNominees extends Component {
         loading : true,
         event  : null,
         visible: false,
-        nomineeId : null,
+        nomineeId : null
     }
 
 
@@ -72,7 +72,6 @@ class EventNominees extends Component {
                 onOk={this.toggleModal}
                 onCancel={this.toggleModal}
                 width={800}
-                height={800}
                 wrapClassName = "NomineeModal"
                 footer={null}
                 >
