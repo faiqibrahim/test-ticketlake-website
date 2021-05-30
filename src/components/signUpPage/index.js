@@ -20,7 +20,6 @@ import {Modal, ModalBody} from 'reactstrap';
 // Helpers
 import {getCountries, getCities, getDateFromISO} from '../../utils/common-utils';
 import CollapseAbleComponent from './collapsableComponent';
-import validator from "validator";
 
 const countries = [];
 let cities = [];
