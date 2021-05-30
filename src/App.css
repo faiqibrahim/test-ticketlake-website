@@ -984,7 +984,7 @@ a.btn.color-bg.full-width {
   -webkit-align-items: baseline;
   align-items: baseline;
   box-sizing: content-box;
-  margin: 0px 13px;
+
 }
 
 .filterDropDowns {
@@ -1317,13 +1317,14 @@ label {
 
 .dateRange {
   height: 50px;
-  margin-left: 25px;
+  padding-left: 30px;
   font-size: 14px;
+  width: 90%;
 }
 
 .dateRange input {
   padding: 0px;
-  font-size: 12px;
+  font-size: 11px;
   float: left;
 }
 
@@ -1337,6 +1338,11 @@ label {
 .react-daterange-picker__wrapper {
   height: 50px;
   line-height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
 }
 
 .inpt_dec {
@@ -2374,7 +2380,6 @@ input[type="number"] {
 
 .react-daterange-picker__inputGroup {
   -webkit-align-items: baseline;
-  align-items: center !important;
 }
 
 /***************** Header Drop down menu ************/
@@ -2917,9 +2922,9 @@ input[type="number"] {
   width: 32px !important;
 }
 
-.react-daterange-picker {
-  width: 248px !important;
-}
+/*.react-daterange-picker {*/
+/*  width: 248px !important;*/
+/*}*/
 .tooltip-inner {
   max-width: 200px;
   padding: 0.25rem 0.5rem;
