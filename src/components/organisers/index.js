@@ -103,7 +103,7 @@ class Organisers extends Component {
                                                         <p>
                                                             <a className="btn btn-danger buttonDefault defaultBackground" href={hrefLink} style={{width: '100%', textAlign: 'left', maxWidth:'200px', float:'left', zoom: 1.3,}}>
                                                                 Ticketlake Events
-                                                                <i class="fa fa-long-arrow-alt-right" style={{background:'none', borderLeft:'0px', right:'unset', color:'#fff', fontSize:'20px'}}></i>
+                                                                <i className="fa fa-long-arrow-alt-right" style={{background:'none', borderLeft:'0px', right:'unset', color:'#fff', fontSize:'20px'}}></i>
                                                             </a>
                                                         </p>
                                                     </div>

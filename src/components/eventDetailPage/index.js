@@ -98,7 +98,6 @@ class EventDetail extends Component {
         if (id) {
             this.setState({activeModal: id});
         } else {
-
             this.setState({activeModal: ''});
         }
     };
@@ -181,7 +180,6 @@ class EventDetail extends Component {
             return list;
         } else {
             let uniqueIDs = [];
-
             if (typeof sections !== 'undefined') {
                 for (let i = 0; i < sections.length; i++) {
                     if (!valueAlreadyExists(uniqueIDs, sections[i])) {
