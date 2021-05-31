@@ -46,10 +46,7 @@ class Organisers extends Component {
                 getCountries.push({respo:{country:'All'}})
                 getCountries.unshift('All')
 
-                //let getCountriesUnique = _.uniq(_.map(res, 'address.country'))
                 let getCountriesUnique = _.uniq(getCountries)
-                // getCountries.push(getCountriesUnique)
-
 
                 this.setState({
                     orgData:response.data.data,

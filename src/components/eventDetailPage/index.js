@@ -71,19 +71,6 @@ class EventDetail extends Component {
         if (this.props.auth) {
             this.props.getWishListIdsFromApi();
         }
-        // this.props.getAllEventsDefault(
-        //     false, // IsFeatured
-        //     true, // isPublished
-        //     false, // isDraft
-        //     [], //Categories
-        //     null, // To
-        //     null, // From
-        //     null, // City
-        //     false, // Paginate
-        //     1, // page
-        //     null, // PageSize
-        //     null // search
-        // );
     }
 
     componentWillMount() {
