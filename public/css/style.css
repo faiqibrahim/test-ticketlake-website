@@ -10604,6 +10604,9 @@ article.post-article .list-single-main-item {
     .section-team .team-box {
         margin: 0px 0px 20px 0px;
     }
+    .org-select {
+        width: 100% !important;
+    }
 
 
 
@@ -11612,6 +11615,9 @@ div.gm-style-mtc {
     box-shadow: 0 0 15px -2px #d8d9e0de;
     max-height: 550px;
     overflow-y: scroll;
+    position: absolute;
+    z-index: 99999;
+    background: #FFF;
 
 }
 .top-header-search-icon {
@@ -12058,6 +12064,18 @@ source {
 .organiser-box {
     width: calc(100% / 6 - 25px);
     margin: 0px 12.5px;
+    border: 1px solid #eae7e7;
+    border-radius: 8px;
+    margin-bottom: 30px;
+
+}
+.organiser-box .card-with-border {
+    padding: 0;
+    margin: 0;
+    border:unset;
+    border-radius: unset;
+    overflow: hidden;
+    margin-bottom: 0px;
 }
 
 @media only screen and  (max-width: 1025px) {
@@ -12367,9 +12385,24 @@ input[type=number] {
         padding: 0px !important;
     }
 }
-@media only screen and  (max-width:285px) {
+@media only screen and  (max-width:315px) {
     span.sign-in {
         display: none;
+    }
+    .logo-wrp
+    {
+        width: 110px;
+    }
+    .header-content-wrp-bottom {
+        margin-top: 30px;
+    }
+    .collapse.show.navbar-collapse
+    {
+        width: 250px;
+    }
+    .country-select .flag-options
+    {
+        min-width: 245px !important;
     }
 }
 .row.align-item {
@@ -12379,4 +12412,8 @@ input[type=number] {
     margin-bottom: 0;
     font-size: 20px;
     float: left;
+}
+.ReactGridGallery {
+    float: left;
+    width: 100%;
 }

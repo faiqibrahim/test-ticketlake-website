@@ -109,7 +109,7 @@ const reducer = (state = initState, action) => {
 };
 
 const setAllEventsNull = (state) => {
-  state.allEvents = [];
+  state.allEvents = null;
   state.paginateEvents = [];
 };
 

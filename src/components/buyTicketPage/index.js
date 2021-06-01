@@ -126,7 +126,17 @@ class BuyTicketPage extends Component {
         ) {
           obj.ticketClassQty = parseInt(val);
         }
-        obj.ticketClassQty = val;
+        if(val > obj.ticketClassQty)
+        {
+          NotificationManager.error(
+              "You cannot select more than Available Tickets.",
+              "",
+              3000
+          );
+        }else
+          {
+            obj.ticketClassQty = val;
+          }
       }
     });
 
@@ -490,10 +500,6 @@ class BuyTicketPage extends Component {
       let { step } = this.state;
       const ticketClassesFilteredData = this.props.billSummary;
 
-      // eventID = this.props.event && this.props.event.data && this.props.event.data.data && this.props.event.data.data._id;
-      // if(eventID){
-      //     this.props.setUserPurchasedTickets(eventID)
-      // }
 
       return (
         <div id="wrapper">
