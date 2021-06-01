@@ -28,12 +28,6 @@ class NomineeModalBody extends Component{
         })
     }
 
-    componentWillUnmount(){
-        this.setState({
-            voteCastSuccess : false
-        })
-    }
-
     voteCastSuccessHandler = () =>{
         this.setState({
             voteCastSuccess : true
@@ -41,7 +35,6 @@ class NomineeModalBody extends Component{
     } 
 
     render(){
-
         const { nomineeDetail} = this.state;
                 
         if(!nomineeDetail) return null;

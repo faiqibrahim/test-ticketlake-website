@@ -92,15 +92,19 @@ class EventResults extends Component {
                                             <div className="sortBox">
                                                 <label>Sort by: &nbsp;</label>
                                                 <i className="sortArrow"></i>
-                                                <select name="nomineeSort" id="nomineeSort">
-                                                    <option value="Most Votes">Most Votes</option>
-                                                </select>
+                                                <div class="dropdown" name="nomineeSort" id="nomineeSort">
+                                                    <span>Most Votes</span>
+                                                    <div class="dropdown-content">
+                                                    <p>Most Votes</p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="nomineeBoxRow">
+                        </div>
+                        <div className="nomineeBoxRow">
                             {   
                                 nominees.nomineesList.map(nominee => { 
                                     return ( <EventResultCard 
@@ -111,7 +115,6 @@ class EventResults extends Component {
                                     )
                                 })
                             }
-                        </div>
                         </div>
                     </div>
                 </div>

@@ -16,3 +16,9 @@
     color:#1A1A1A;
     margin:0 10px;
 }
+@media screen and (max-width:575px){
+    .breadcrumbs span > span,
+    .breadcrumbs span > span a{
+        font-size: 18px;
+    }
+}
