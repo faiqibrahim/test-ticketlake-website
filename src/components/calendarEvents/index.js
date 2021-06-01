@@ -12,6 +12,7 @@ import { Modal, ModalBody } from "reactstrap";
 import { getCardDates } from "../../utils/common-utils";
 
 import AuthRoutes from "../../commonComponents/authRotes";
+import Loader from "../../commonComponents/loader";
 
 const localizer = momentLocalizer(moment);
 
@@ -30,22 +31,29 @@ class CalendarEvents extends React.Component {
     const endDate = moment()
       .endOf("month")
       .toISOString();
+    this.fetchAllCalendarEvents(fromDate, endDate);
+  }
 
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   if (
+  //     this.props.userCalendarEventsData !== prevProps.userCalendarEventsData
+  //   ) {
+  //     this.setState({
+  //       eventList: this.getEventData(this.props.userCalendarEventsData),
+  //     });
+  //   }
+  // }
+
+  fetchAllCalendarEvents = (fromDate, endDate) => {
     const { getCalendarEvents } = this.props;
-    getCalendarEvents(fromDate, endDate);
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (
-      this.props.userCalendarEventsData !== prevProps.userCalendarEventsData
-    ) {
-      this.setState({
-        eventList: this.getEventData(this.props.userCalendarEventsData),
+    this.setState({ eventList: [] }, () => {
+      getCalendarEvents(fromDate, endDate, (calendarEvents) => {
+        this.setState({ eventList: this.parseCalendarEvents(calendarEvents) });
       });
-    }
-  }
+    });
+  };
 
-  getEventData(calendarEvents) {
+  parseCalendarEvents(calendarEvents) {
     return calendarEvents.map((event) => {
       const { eventStartTime, eventEndTime } = event.eventDateTimeSlot;
 
@@ -179,6 +187,7 @@ class CalendarEvents extends React.Component {
   };
 
   render() {
+    const { processing } = this.props;
     return (
       <AuthRoutes>
         <div id="wrapper" className="bg-white">
@@ -191,6 +200,7 @@ class CalendarEvents extends React.Component {
                     {this.getBreadCrumbs()}
                   </div>
                 </div>
+                {processing && <Loader />}
                 <Calendar
                   className="calendar-events"
                   localizer={localizer}
@@ -208,8 +218,7 @@ class CalendarEvents extends React.Component {
                       .endOf("month")
                       .toISOString();
 
-                    const { getCalendarEvents } = this.props;
-                    getCalendarEvents(fromDate, endDate);
+                    this.fetchAllCalendarEvents(fromDate, endDate);
                   }}
                 />
               </div>
@@ -225,6 +234,7 @@ class CalendarEvents extends React.Component {
 const mapStateToProps = (state) => {
   return {
     userCalendarEventsData: state.user.userCalendarEvents,
+    processing: state.user.processing,
   };
 };
 
