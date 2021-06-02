@@ -24,25 +24,12 @@ class CalendarEvents extends React.Component {
   };
 
   componentDidMount() {
-    const fromDate = moment()
-      .startOf("month")
-      .toISOString();
+    const fromDate = moment().startOf("month");
 
-    const endDate = moment()
-      .endOf("month")
-      .toISOString();
+    const endDate = moment().endOf("month");
+
     this.fetchAllCalendarEvents(fromDate, endDate);
   }
-
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //   if (
-  //     this.props.userCalendarEventsData !== prevProps.userCalendarEventsData
-  //   ) {
-  //     this.setState({
-  //       eventList: this.getEventData(this.props.userCalendarEventsData),
-  //     });
-  //   }
-  // }
 
   fetchAllCalendarEvents = (fromDate, endDate) => {
     const { getCalendarEvents } = this.props;
@@ -210,13 +197,9 @@ class CalendarEvents extends React.Component {
                   onSelectEvent={(event) => this.openEventModal(event)}
                   onSelectslot={(event) => this.openEventModal(event)}
                   onNavigate={(event) => {
-                    const fromDate = moment(event)
-                      .startOf("month")
-                      .toISOString();
+                    const fromDate = moment(event).startOf("month");
 
-                    const endDate = moment(event)
-                      .endOf("month")
-                      .toISOString();
+                    const endDate = moment(event).endOf("month");
 
                     this.fetchAllCalendarEvents(fromDate, endDate);
                   }}
