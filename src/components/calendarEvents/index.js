@@ -215,7 +215,6 @@ class CalendarEvents extends React.Component {
               </div>
             </div>
           </div>
-
           {this.renderCalendarEventModal()}
         </div>
       </AuthRoutes>
