@@ -1,50 +1,74 @@
 import React,{ Fragment,Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import {connect} from 'react-redux';
+import { Modal } from 'antd'; 
+import {setRedirectTo} from '../../../../redux/user/user-actions'
 import NomineeCard from '../NomineeCard/NomineeCard';
 import NomineeModalBody from '../../Modal/NomineeModalBody/NomineeModalBody';
-import './EventNominees.css';
 import { getEventCategoryDetail } from '../../data-fetcher';
 import VotingHeader from '../../Header/Layout/Layout';
-import { Modal } from 'antd';
+import './EventNominees.css';
 import '../../VotingModule.css';
+
 
 
 
 class EventNominees extends Component {
 
+    is_Mounted = false;
+
     state = {
         loading : true,
         event  : null,
         visible: false,
-        nomineeId : null
+        nomineeId : null,
+        authentication : this.props.auth
     }
 
 
     componentDidMount(){
+        
+        this.is_Mounted = true;
 
         const {id, categoryId} = this.props.match.params;
         getEventCategoryDetail(id,categoryId)
             .then((event) =>{
-            this.setState({
-                loading:false,
-                event,
-                breadCrumbs : [
-                    { path :"/", crumbTitle:"Home"},
-                    { path : '/voting' ,crumbTitle : 'Votings'},
-                    { path : `/voting/${event.id}`, crumbTitle:event.eventTitle},
-                    { path : `/voting/${event.id}/categories/${categoryId}`, crumbTitle:event.category.name}
-                ]
-                })
+            
+                if(this.is_Mounted){
+                    
+                    this.setState({
+                        loading:false,
+                        event,
+                        breadCrumbs : [
+                            { path :"/", crumbTitle:"Home"},
+                            { path : '/voting' ,crumbTitle : 'Votings'},
+                            { path : `/voting/${event.id}`, crumbTitle:event.eventTitle},
+                            { path : `/voting/${event.id}/categories/${categoryId}`, crumbTitle:event.category.name}
+                        ]
+                    })
+                }
             }).catch((error) =>{
         })
         
     }
 
+
+    componentWillUnmount(){
+        this.is_Mounted = false;
+    }
+
     toggleModal = (id = null) => {
+        const authentication  = this.state.authentication;
+        
         this.setState({
             visible: !this.state.visible,
             nomineeId: id
         });
+        if(!authentication){
+            sessionStorage.setItem('redirectTo', this.props.history.location.pathname);
+            this.props.setRedirectTo(this.props.history.location.pathname);
+            this.props.history.push('/authentication');
+        }
     };
   
     handleOk = (e) => {
@@ -140,4 +164,12 @@ class EventNominees extends Component {
     }
 }
 
-export default withRouter(EventNominees);
+// export default Authentication;
+const mapStateToProps = (state) => {
+    return {
+        auth: state.user.authenticated
+    }
+};
+const connectedComponent = connect(mapStateToProps, {setRedirectTo})(EventNominees);
+
+export default withRouter(connectedComponent);

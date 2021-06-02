@@ -26,6 +26,32 @@ button{
 }
 
 /*
+*   Header
+*/
+.Header{
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    align-items: flex-start;
+    text-align: left;
+}
+.heading{
+    font-size: 36px;
+    font-weight: bold;
+    color:#231F20;
+}
+.subHeading{
+    font-size: 22px;
+    color:#747A95;
+    font-weight: normal;
+}
+
+/*
 * Display Nominee Modal Content
 */
 .row{
@@ -143,6 +169,10 @@ button{
     font-family: 'Helvetica Neue LT Std';
 }
 .paymentDetail select[name="number_of_votes"]{
+    background-image:url("/images/votingimages/redDropDown.svg");
+    background-repeat: no-repeat;
+    background-position-x:100%;
+    background-position-y:58%;
     font-size:20px;
     color:#3D4956;
     font-weight: normal;
@@ -202,17 +232,18 @@ select::-ms-expand {
     background-color:#EC1B23 ;
 }
 .voting_dropdown_arrow {
-    position: absolute;
+ 
+    /* position: absolute;
     right: 10px;
     top: 6px;
     width: 15px;
     height: 15px;
     border: solid#EC1B23;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
+    border-width: 0 3px 3px 0; */
+    /* display: inline-block;
     padding: 3px;
     transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg); */
 }
 
 @media screen and (max-width:1400px){
@@ -223,8 +254,21 @@ select::-ms-expand {
 }
 
 @media screen and (max-width:650px){
-    .NomineeModal .ant-modal-body{
-        padding:15px;
+    
+    /*
+    *   Header Css
+    */
+    .pageTitle{
+        font-size: 30px;
+    }
+    .Header{
+        padding-top: 0;
+    }
+    /*
+    *   Modal Css
+    */
+    .NomineeModal .ant-modal-content{
+        height: 100%;
     }
     .NomineeModal .ant-modal-close-x{
         text-align: center;
@@ -241,8 +285,9 @@ select::-ms-expand {
     .castVote Button{
         max-width: 100%;
     }
-    .DetailBox .title{
+    .DetailBox > .title:first-child{
         font-size: 32px;
+        line-height: 32px;
     }
     .DetailBox .title > div:first-child{
         margin-right: 10px;
@@ -268,5 +313,8 @@ select::-ms-expand {
     }
     .paymentMethod .col4:nth-child(2){
         padding-top:30px;
+    }
+    .DetailBox > .title:first-child{
+        font-size: 26px;
     }
 }

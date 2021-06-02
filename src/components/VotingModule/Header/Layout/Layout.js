@@ -3,14 +3,14 @@ import { withRouter } from "react-router-dom";
 
 import BreadCrumb from '../BreadCrumb/BreadCrumb';
 
-import classes from './Layout.module.css';
+import './Layout.css';
 
 const Layout = (props) => {
 
     return (
-        <div className={classes.votingHeader}>
-            <h1 className={classes.pageTitle}>{props.pageTitle}</h1>
-            <div className={classes.votingBreadcrumbs}>
+        <div className="votingHeader">
+            <h1 className="pageTitle">{props.pageTitle}</h1>
+            <div className="votingBreadcrumbs">
                 <BreadCrumb {...props} />
             </div>
         </div>
