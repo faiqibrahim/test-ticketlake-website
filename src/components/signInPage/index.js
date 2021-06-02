@@ -54,7 +54,6 @@ class SignIn extends Component {
         }
     }
     responseGoogle = (response) => {
-        console.log("Hello called Response -----", response);
         this.setState({
             googleLoginData:response
         }, () => {
