@@ -3346,6 +3346,7 @@ input[type="number"] {
 }
 .list-wrap-search .react-daterange-picker__wrapper {
   padding-left: 40px;
+  padding-right: 10px;
 }
 
 /******************************* End ************************************/

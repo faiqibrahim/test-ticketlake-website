@@ -44,7 +44,7 @@ class ViewMore extends Component {
         let sectionId = this.props.sectionId;
         this.setState({sectionId: sectionId, categoryId: categoryId}, () => this.setEventsData(sectionId));
     }
-
+    
     setEventsData = () => {
         let categoryId = sessionStorage.getItem('categoryId');
         let sectionId = JSON.parse(sessionStorage.getItem('sectionId'));
@@ -146,6 +146,7 @@ class ViewMore extends Component {
     };
 
     render() {
+        const { categoryId } = this.props;
         return (
             <div id="wrapper" key={2}>
                 <div className="content">
@@ -161,20 +162,32 @@ class ViewMore extends Component {
                                                 className="section-title"
                                                 heading={this.state.pageTitle}/>
                                         </div>
-                                    </div>
+                                    < /div>
                                     <div className="row padding-bottom-10 border-bottom">
                                         <div className="col-md-6">
                                             <div className="zero breadcrumbs-hero-buttom fl-wrap">
                                                 <div className="breadcrumbs">
-                                                    <BreadcrumbsItem glyph='home' to='/'>Home</BreadcrumbsItem>
-                                                    <BreadcrumbsItem to='/movies/viewMore/'>
+                                                    <BreadcrumbsItem glyph="home" to="/">
+                                                        Home
+                                                    </BreadcrumbsItem>
+                                                    <BreadcrumbsItem
+                                                        glyph="movies"
+                                                        to={`/movies/?id=${categoryId}`}
+                                                        style={{ color: "#000" }}
+                                                    >
+                                                        Movies
+                                                    </BreadcrumbsItem>
+
+                                                    <BreadcrumbsItem
+                                                        to={`/movies/viewMore/?id=${this.state.pageTitle}`}
+                                                    >
                                                         {this.state.pageTitle}
                                                     </BreadcrumbsItem>
                                                     <Breadcrumbs
                                                         item={NavLink}
-                                                        finalItem={'span'}
+                                                        finalItem={"span"}
                                                         finalProps={{
-                                                            style: {color: '#EC1C24'}
+                                                            style: { color: "#EC1C24" },
                                                         }}
                                                     />
                                                 </div>

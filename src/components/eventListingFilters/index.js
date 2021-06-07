@@ -48,8 +48,46 @@ const eventListingFilters = (props) => {
                         />
                     </div>
                 </div>
-
-
+                <div className="col-md-5ths list-search-box fullWidthOnSmallScreen">
+                    <div className="col-list-search-input-item fl-wrap location autocomplete-container">
+                        <label>City</label>
+                        <span className="inpt_dec top-postion filtersIcons">
+                            <img alt={"location"} src={window.location.origin + '/icons/location-icon.svg'}/>
+                        </span>
+                        <select data-placeholder="City"
+                                name="city"
+                                onChange={(e) => props.changeCity(e)}
+                                className="chosen-select filterDropDowns">
+                            <option disabled selected>Select City</option>
+                            <option selected={(props.location === 'All') ? "selected" : null}>All</option>
+                            {
+                                Array.isArray(city) && city.map((x, i) => {
+                                    return (
+                                        <option key={i}
+                                                selected={(props.location === x.label) ? 'selected' : null}
+                                                value={x.value}>{x.label}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div className="col-md-5ths list-search-box fullWidthOnSmallScreen">
+                    <div className="col-list-search-input-item fl-wrap location autocomplete-container">
+                        <label>Date </label>
+                        <span className="inpt_dec top-postion filtersIcons">
+                            <img src={window.location.origin + '/icons/clock-icon.svg'} alt={"clock"}/>
+                        </span>
+                        <DateRangePicker
+                            onChange={(e) => props.changeDate(e)}
+                            value={currentDate ? '' : props.date}
+                            className={'filterDateRange'}
+                            calendarIcon={null}
+                            clearIcon={null}
+                            showLeadingZeros={false}
+                        />
+                    </div>
+                </div>
                 <div className="col-sm-5ths list-search-box fullWidthOnSmallScreen">
                     <div className="col-list-search-input-item fl-wrap location autocomplete-container">
                         <label>Event Category</label>
@@ -75,52 +113,6 @@ const eventListingFilters = (props) => {
                         </select>
                     </div>
                 </div>
-
-
-                <div className="col-md-5ths list-search-box fullWidthOnSmallScreen">
-                    <div className="col-list-search-input-item fl-wrap location autocomplete-container">
-                        <label>City</label>
-                        <span className="inpt_dec top-postion filtersIcons">
-                            <img alt={"location"} src={window.location.origin + '/icons/location-icon.svg'}/>
-                        </span>
-                        <select data-placeholder="City"
-                                name="city"
-                                onChange={(e) => props.changeCity(e)}
-                                className="chosen-select filterDropDowns">
-                                <option disabled selected>Select City</option>
-                                <option selected={(props.location === 'All') ? "selected" : null}>All</option>
-                                {
-                                    Array.isArray(city) && city.map((x, i) => {
-                                        return (
-                                            <option key={i}
-                                                    selected={(props.location === x.label) ? 'selected' : null}
-                                                    value={x.value}>{x.label}</option>
-                                        )
-                                    })
-                                }
-                        </select>
-                    </div>
-                </div>
-
-
-                <div className="col-md-5ths list-search-box fullWidthOnSmallScreen">
-                    <div className="col-list-search-input-item fl-wrap location autocomplete-container">
-                        <label>Date </label>
-                        <span className="inpt_dec top-postion filtersIcons">
-                            <img src={window.location.origin + '/icons/clock-icon.svg'} alt={"clock"}/>
-                        </span>
-                        <DateRangePicker
-                            onChange={(e) => props.changeDate(e)}
-                            value={currentDate ? '' : props.date}
-                            className={'filterDateRange'}
-                            calendarIcon={null}
-                            clearIcon={null}
-                            showLeadingZeros={false}
-                        />
-                    </div>
-                </div>
-
-
                 <div className="col-md-5ths fullWidthOnSmallScreen custom-btn">
                     <div className="col-list-search-input-item fl-wrap">
                         <button className="header-search-button" id={'searchButton'}

@@ -105,7 +105,8 @@ class Movies extends Component {
   getCategoryId = () => {
     let url_string = window.location.href;
     let url = new URL(url_string);
-    return url.searchParams.get("id");
+    const id = url.searchParams.get("id")
+    return id;
   };
 
   /******************* EVENTS **********************/
