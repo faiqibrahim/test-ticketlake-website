@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Calendar,
-  momentLocalizer,
-  globalizeLocalizer,
-} from "react-big-calendar";
+import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../components/calendarEvents/calendarStyle.css";
 import moment from "moment";
@@ -56,13 +52,23 @@ class CalendarEvents extends React.Component {
 
   parseCalendarEvents(calendarEvents) {
     return calendarEvents.map((event) => {
-      const { eventStartTime, eventEndTime } = event.eventDateTimeSlot;
+      const { eventDateTimeSlot } = event;
+      const { eventStartTime, eventEndTime } = eventDateTimeSlot;
+
+      const startTime = moment(eventStartTime).format();
+      const endTime = moment(eventEndTime)
+        .add(1, "second")
+        .format();
+      event.eventDateTimeSlot = {
+        eventStartTime: startTime,
+        eventEndTime: endTime,
+      };
 
       return {
-        start: new Date(eventStartTime),
-        end: new Date(eventEndTime),
+        start: startTime,
+        end: endTime,
         title: event.eventTitle,
-        allDay: false,
+        allDay: true,
         eventData: event,
       };
     });
