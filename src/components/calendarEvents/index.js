@@ -31,9 +31,11 @@ class CalendarEvents extends React.Component {
     return {
       firstDay: moment(date)
         .startOf("month")
+        .subtract(7, "days")
         .format(),
       lastDay: moment(date)
         .endOf("month")
+        .add(7, "days")
         .format(),
     };
   };
