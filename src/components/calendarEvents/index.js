@@ -1,5 +1,9 @@
 import React from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import {
+  Calendar,
+  momentLocalizer,
+  globalizeLocalizer,
+} from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../components/calendarEvents/calendarStyle.css";
 import moment from "moment";
@@ -23,12 +27,20 @@ class CalendarEvents extends React.Component {
     selectedEventData: null,
   };
 
+  getFirstLastDates = (date) => {
+    return {
+      firstDay: moment(date)
+        .startOf("month")
+        .format(),
+      lastDay: moment(date)
+        .endOf("month")
+        .format(),
+    };
+  };
+
   componentDidMount() {
-    const fromDate = moment().startOf("month");
-
-    const endDate = moment().endOf("month");
-
-    this.fetchAllCalendarEvents(fromDate, endDate);
+    const { firstDay, lastDay } = this.getFirstLastDates(new Date());
+    this.fetchAllCalendarEvents(firstDay, lastDay);
   }
 
   fetchAllCalendarEvents = (fromDate, endDate) => {
@@ -196,12 +208,11 @@ class CalendarEvents extends React.Component {
                   views={["month", "week", "day"]}
                   onSelectEvent={(event) => this.openEventModal(event)}
                   onSelectslot={(event) => this.openEventModal(event)}
-                  onNavigate={(event) => {
-                    const fromDate = moment(event).startOf("month");
-
-                    const endDate = moment(event).endOf("month");
-
-                    this.fetchAllCalendarEvents(fromDate, endDate);
+                  onNavigate={(navigatedDate) => {
+                    const { firstDay, lastDay } = this.getFirstLastDates(
+                      navigatedDate
+                    );
+                    this.fetchAllCalendarEvents(firstDay, lastDay);
                   }}
                 />
               </div>
