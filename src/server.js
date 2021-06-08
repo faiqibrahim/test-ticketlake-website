@@ -8,7 +8,7 @@ const GET_URL = () => {
       url = "https://api.qa.ticketlake.com/";
       break;
     case "qa":
-      url = "https://api.ticketlake.qa.com/";
+      url = "https://api.qa.ticketlake.com/";
       break;
     case "staging":
       url = "https://stagingapi.ticketlake.com/";
