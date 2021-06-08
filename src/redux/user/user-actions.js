@@ -63,7 +63,6 @@ export const RESET_REDUX_KEY = "ACTION_RESET_REDUX_KEY";
 export const SET_EVENTS_COUNTRY = "ACTION_SET_EVENTS_COUNTRY";
 export const SET_BACK_URL = "ACTION_SET_BACK_URL";
 export const SET_CONVERTED_CURRENCY = "ACTION_SET_CONVERTED_CURRENCY";
-export const SET_USER_CALENDAR_EVENTS = "SET_USER_CALENDAR_EVENTS";
 export const SET_USER_PURCHASED_TICKETS = "SET_USER_PURCHASED_TICKETS";
 export const SET_CONSUMER_BASIC_INFO = "SET_CONSUMER_BASIC_INFO";
 
@@ -161,7 +160,6 @@ export const setProcessing = (processing) => {
     payload: processing,
   };
 };
-
 
 const setProfileImage = (payload) => {
   return {
@@ -910,7 +908,11 @@ export const getConversion = ({ from = "GHS", to = "USD", amount = 1 }) => {
   };
 };
 
-export const getCalendarEvents = (fromDate = null, toDate = null) => {
+export const getCalendarEvents = (
+  fromDate = null,
+  toDate = null,
+  saveCallback
+) => {
   let data = {
     paginate: true,
     page: 1,
@@ -924,13 +926,16 @@ export const getCalendarEvents = (fromDate = null, toDate = null) => {
   }
 
   return (dispatch) => {
+    dispatch(setProcessing(true));
     axios
       .post(GET_USER_CALENDAR_EVENTS, data, "v2")
       .then((response) => {
-        let data = response.data && response.data.data;
-        dispatch(setUserCalendarEvents(data));
+        const data = response.data && response.data.data;
+        dispatch(setProcessing(false));
+        saveCallback(data);
       })
       .catch((err) => {
+        dispatch(setProcessing(false));
         let error =
           err.response && err.response.data && err.response.data._error;
         console.error(error);
@@ -972,13 +977,6 @@ export const getConsumerBasicInfo = (phoneNumber, resultCallback) => {
       let error = err.response && err.response.data && err.response.data._error;
       console.error(error);
     });
-};
-
-const setUserCalendarEvents = (payload) => {
-  return {
-    type: SET_USER_CALENDAR_EVENTS,
-    payload,
-  };
 };
 
 // const setConsumerBasicInfo = (payload) => {
