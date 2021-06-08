@@ -925,7 +925,6 @@ export const getCalendarEvents = (
     data.to = toDate;
   }
 
-  console.log("fromDate", data);
   return (dispatch) => {
     dispatch(setProcessing(true));
     axios
