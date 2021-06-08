@@ -12257,6 +12257,12 @@ input[type=number] {
 .scrolled-header .nav-holder nav li {
     height: unset;
 }
+.scrollable-header span.username-wrp {
+    width: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .view-on-mobileView {
     display: none;
 }
@@ -12279,11 +12285,46 @@ input[type=number] {
     .react-autosuggest__input {
         width: 85%;
     }
+    span.username-wrp {
+        width: 25px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+}
+
+@media only screen and  (min-width:768px) and (max-width:877px){
+    span.username-wrp {
+        width: 25px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+}
+@media only screen and  (min-width:451px) and (max-width:525px){
+    span.username-wrp {
+        width: 25px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
 }
 @media only screen and  (max-width:450px) {
     .show-reg-form.hide-on-mobileView {
         display: none;
     }
+}
+@media only screen and  (min-width:321px) and (max-width:350px){
+    span.username-wrp {
+        width: 25px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
 }
 
 @media only screen and (min-width:981px) and (max-width:1230px){
@@ -12404,6 +12445,17 @@ input[type=number] {
     {
         min-width: 245px !important;
     }
+
+}
+@media only screen and  (max-width:320px) {
+
+    span.username-wrp {
+        width: 25px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
 }
 .row.align-item {
     align-items: center;
