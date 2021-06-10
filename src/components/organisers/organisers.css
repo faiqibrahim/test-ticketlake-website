@@ -20,22 +20,41 @@
   padding-left: 0px;
 }
 
-.filterDropDowns {
-  height: 30px !important;
+.customHeight {
+  height: 30px;
+}
+/* .customHeight:before {
+  content: "category";
+  display: "inline-block";
+} */
+.ant-select-selection-selected-value ::before {
+  content: "Category : ";
 }
 
+.categoryIconStyling {
+  display: block;
+  padding-bottom: 2px;
+}
+
+.marginBottom {
+  margin-bottom: 124px;
+}
 .ant-select-selection__placeholder,
 .ant-select-search__field__placeholder,
 .ant-select-selection-selected-value {
-  padding-left: 20px !important;
+  padding-left: 20px;
 }
 
 .ant-select-arrow svg {
   color: #ec1b23;
 }
 
+.fontSize span {
+  font-size: 20px;
+}
+
 .breadcrumbStyling {
-  font-size: 20px !important;
+  font-size: 20px;
   color: #5a5a5a;
   font-family: "Helvetica Neue LT Std";
   float: left;
