@@ -2503,6 +2503,7 @@ section.color-bg .section-title h2, .list-single-hero-price, .header-sec-link a,
 {
     padding: 0px;
     float: left;
+    font-size: 14px;
 }
 
 section.color-bg .section-title .breadcrumbs {
