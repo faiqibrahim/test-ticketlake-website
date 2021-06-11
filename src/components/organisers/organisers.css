@@ -15,20 +15,10 @@
 
 .breadcrumbContainer {
   border-bottom: 2px solid #f6f6f6;
-  padding-top: 25px;
-  padding-bottom: 50px;
-  padding-left: 0px;
 }
 
 .customHeight {
   height: 30px;
-}
-/* .customHeight:before {
-  content: "category";
-  display: "inline-block";
-} */
-.ant-select-selection-selected-value ::before {
-  content: "Category : ";
 }
 
 .categoryIconStyling {
@@ -43,14 +33,26 @@
 .ant-select-search__field__placeholder,
 .ant-select-selection-selected-value {
   padding-left: 20px;
+  margin-top: -1px;
 }
 
 .ant-select-arrow svg {
   color: #ec1b23;
 }
 
+.organiserCategory .ant-select-selection__placeholder,
+.ant-select-search__field__placeholder {
+  margin-top: -11px;
+}
+
 .fontSize span {
   font-size: 20px;
+  line-height: 60px;
+}
+
+.customContainer {
+  height: 60px;
+  padding: 0px;
 }
 
 .breadcrumbStyling {
@@ -83,6 +85,14 @@
   }
 }
 
+.organiserCategory .ant-select-selection-selected-value::before {
+  content: "Category:  ";
+}
+
+.organiserCategory {
+  margin: -1px;
+}
+
 .iconMarginLeft {
   margin-left: 10px;
 }
@@ -90,6 +100,7 @@
 .cardStyling {
   text-align: left;
   border: none;
+  padding-left: 0px;
 }
 
 .cardImage {

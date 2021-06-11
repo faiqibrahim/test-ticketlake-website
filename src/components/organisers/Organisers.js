@@ -15,7 +15,7 @@ class Organisers extends Component {
   state = {
     orgData: [],
     baseData: [],
-    loadOrgData: false,
+    loadOrgData: true,
     orgDataFilter: [],
   };
 
@@ -56,7 +56,6 @@ class Organisers extends Component {
         className="list-single-hero organiser-sec"
         data-scrollax-parent="true"
         id="sec1"
-        style={{ zIndex: "90" }}
       >
         <div className="bg par-elem bannerStyling" />
         <div className="list-single-hero-title fl-wrap remove-padding">
@@ -64,7 +63,7 @@ class Organisers extends Component {
             <div className="row">
               <div className="col-md-12">
                 <div className="title-new-padding">
-                  <h2 style={{ marginBottom: "0" }}>
+                  <h2 className="mb-0">
                     <span>Event Organisers</span>
                   </h2>
                   <p className="bannerText">
@@ -83,7 +82,7 @@ class Organisers extends Component {
   getBreadcrumb = () => {
     return (
       <div className="container-fluid breadcrumbContainer">
-        <div className="container">
+        <div className="container customContainer">
           <Breadcrumb
             separator={
               <i
@@ -94,7 +93,7 @@ class Organisers extends Component {
             className="breadcrumbStyling fontSize"
           >
             <Breadcrumb.Item>
-              <Link to={"/"} className="hoverItem">
+              <Link to="/" className="hoverItem">
                 Home
               </Link>
             </Breadcrumb.Item>
@@ -153,7 +152,7 @@ class Organisers extends Component {
 
   getFilter = () => {
     return (
-      <div className="paddingOnSmallScreen col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-6 ">
+      <div className="paddingOnSmallScreen  col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-6 ">
         <div>
           <div className="inpt_dec  filtersIcons iconMarginLeft">
             <img
@@ -165,7 +164,7 @@ class Organisers extends Component {
           <Select
             placeholder="Category"
             name="categories"
-            className="chosen-select  filterDropDowns customHeight"
+            className="chosen-select  filterDropDowns organiserCategory customHeight"
           >
             <Option value="all">All</Option>
 
@@ -180,42 +179,36 @@ class Organisers extends Component {
 
   render() {
     return (
-      <>
-        <div id="wrapper">
-          <div className="content">
-            {this.state.loadOrgData ? (
-              <>
-                {this.getbanner()}
+      <div id="wrapper">
+        <div className="content">
+          {this.state.loadOrgData ? (
+            <>
+              {this.getbanner()}
 
-                {this.getBreadcrumb()}
+              {this.getBreadcrumb()}
 
-                <div className="container mt-5">
-                  <div className="row left">
-                    <div className="col-xl-9 col-md-9 col-lg-9 col-sm-12 col-xs-12 section-title mb0">
-                      <h2>
-                        Showing Event Organisers In{" "}
-                        <span
-                          style={{
-                            color: "#EC1B23",
-                          }}
-                        >
-                          {this.props.country.label}
-                        </span>
-                      </h2>
-                    </div>
-
-                    {this.getFilter()}
+              <div className="container mt-5">
+                <div className="row left">
+                  <div className="col-xl-9 col-md-9 col-lg-9 col-sm-12 col-xs-12 section-title mb0 ">
+                    <h2>
+                      Showing Event Organisers In{" "}
+                      <span className="seperatorColor">
+                        {this.props.country.label}
+                      </span>
+                    </h2>
                   </div>
-                </div>
 
-                {this.getImageCards()}
-              </>
-            ) : (
-              <Loader />
-            )}
-          </div>
+                  {this.getFilter()}
+                </div>
+              </div>
+
+              {this.getImageCards()}
+            </>
+          ) : (
+            <Loader />
+          )}
         </div>
-      </>
+      </div>
     );
   }
 }
