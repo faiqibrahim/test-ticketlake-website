@@ -89,7 +89,7 @@ class PromotedEvents extends Component {
                                                 key={i}
                                                 item={neweventList}
                                                 eventTitle={neweventList.eventTitle}
-                                                categories={neweventList.categories.length > 0 ? neweventList.categories[0].name : null}
+                                                categoriesArr={neweventList.categories}
                                                 buttonText={getMaxAndMinPrice(neweventList)}
                                             />
                                         );

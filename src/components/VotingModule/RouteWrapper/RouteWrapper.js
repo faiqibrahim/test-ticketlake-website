@@ -6,11 +6,13 @@ import VotingEvents from '../index';
 import VotingEventCategories from '../VotingEventCategories/EventCategories/EventCategories';
 import VotingEventNominees from '../VotingEventNominees/EventNominees/EventNominees';
 import VotingEventResults from '../VotingEventResults/EventResults/EventResults';
+import Authentication from '../../../components/authentication';
 
 const PageWrapper = () =>{
 
         return (
             <Switch>
+                <Route path="/authentication" name={"SignIn"} component={Authentication}/>
                 <Route path="/voting/event-results/:id" component={VotingEventResults}/>
                 <Route path="/voting/:id/categories/:categoryId" component={VotingEventNominees}/>
                 <Route path="/voting/:id" component={VotingEventCategories}/>

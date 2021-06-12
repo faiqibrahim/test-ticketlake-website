@@ -14,7 +14,16 @@ const animatedCard = (props) => {
                         <div className="listing-item-cat">
                             <h3>{props.eventTitle}</h3>
                             <div className="clearfix"/>
-                            <p>{props.categories}<br/><Moment format="ll">{props.date}</Moment></p>
+                            <p>
+                                {props.categoriesArr && props.categoriesArr.map((category, i) => {
+                                    return (
+                                        <span key={i}>
+                                {category.title}{i === props.categoriesArr.length - 1 ? " " : i === props.categoriesArr.length - 2 ? " & " : ", "}
+                            </span>
+                                    )
+                                })}
+
+                                <br/><Moment format="ll">{props.date}</Moment></p>
                         </div>
                         {props.buttonText === 0 ?
                             <span className={"free-tag promoted-card-tag"}>

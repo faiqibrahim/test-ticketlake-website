@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import { Breadcrumbs, BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { NavLink, withRouter } from "react-router-dom";
 
-import classes from './BreadCrumb.module.css';
+import './BreadCrumb.css';
 
 const displayBreadCrumbs = (breadCrumbs) => {
     return breadCrumbs.map(breadCrumb => {
@@ -17,10 +17,10 @@ const BreadCrumb = (props) => {
     return(
         
         <Fragment>
-            <div className={classes.breadcrumbs}>
+            <div className="breadcrumbs">
             {breadCrumbs}
             <Breadcrumbs
-                separator = {<span className={classes.separator}></span>}
+                separator = {<span className="separator"></span>}
                 item={NavLink}
                 finalItem={"span"}
                 finalProps={{

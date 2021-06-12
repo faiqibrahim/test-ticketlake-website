@@ -6,24 +6,8 @@ body{
     text-align: left;
     padding-bottom: 60px;
 }
-.Header{
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-    padding-top: 60px;
-    padding-bottom: 60px;
-}
-.heading{
-    font-size: 36px;
-    font-weight: bold;
-    color:#231F20;
-}
-.subHeading{
-    font-size: 22px;
-    color:#747A95;
-    font-weight: normal;
+.eventResultContainer .Header{
+    flex-flow: row;
 }
 .eventResultContainer .nomineeHeaderCol{
     flex: 0 0 50%;
@@ -33,6 +17,7 @@ body{
 }
 .eventResultContainer .nomineeHeaderCol:first-child{
     text-align: left;
+    padding-left: 0;
 }
 .eventResultContainer .nomineeHeaderCol:last-child{
     text-align: right;
@@ -51,49 +36,81 @@ body{
     margin-left: -15px;
 }
 .sortContent{
-    max-width:50%;
+    width: 100%;
     margin:0 0 0 auto;
     border-radius: 20px;
-    padding:10px 25px;
+    padding:10px 15px;
     text-align: center;
 }
 .sortContent .col2{
     border: 1px solid #D8DAE3;
-    padding: 10px;
+    padding: 0 15px;
     border-radius: 8px;
-    flex:0 0 60%;
-    max-width: 60%;
+    flex:0 0 40%;
+    max-width: 40%;
     text-align: left;
 }
 .sortBox{
-    position: relative;
-}
-.sortBox .sortArrow{
-    position: absolute;
-    right: 10px;
-    top: 0px;
-    width: 15px;
-    height: 15px;
-    border: solid#000;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 3px;
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .sortContent label{
+    font-family: 'NeuePlak' !important;
+    font-weight:600;
+    color:#25272B;
+    flex: 0 0 30%;
+    max-width: 30%;
+    font-size: 18px;
+    text-align: right;
+}
+.dropdown#nomineeSort {
+    position: relative;
+    display: inline-block;
+    font-family: 'NeuePlak' !important;
+    background-image:url("/images/votingimages/blackDropDown.svg");
+    background-repeat: no-repeat;
+    background-position-x:95%;
+    background-position-y:58%;
+    flex: 0 0 70%;
+    max-width: 70%;
+    color:#747A95;
+    font-size: 18px;
+    cursor: pointer;
+    padding-bottom: 20px;
+}
+#nomineeSort span{
+    display: block;
+    position: relative;
+    top: 11px;
+}
+#nomineeSort .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 0;
+    z-index: 1;
+    left:0;
+    right:0;
+    top:47px;
+    cursor: pointer;
+    border: 1px solid #D8DAE3;
+}
+#nomineeSort .dropdown-content p{
+    color:#747A95;
+    font-size: 18px;
+    padding: 10px;
+}
+#nomineeSort .dropdown-content p:hover{
+    color:#fff;
+    background-color:#747A95; 
     font-weight: bold;
-    color:#000;
 }
-.sortContent select{
-    border: 0;
-    background-color:transparent ;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    cursor :pointer;
-}
-select::-ms-expand {
-    display: none !important;
+
+.dropdown#nomineeSort:hover .dropdown-content {
+    display: block;
 }
 .sortLeft{
     font-size: 28px;
@@ -114,8 +131,11 @@ select::-ms-expand {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+@media screen and (max-width:1520px){.sortContent .col2{ flex: 0 0 45%; max-width: 45%;}}
+@media screen and (max-width:1400px){.sortContent{ padding-right:0 } .sortContent .col2{ flex: 0 0 80%; max-width: 80%;}}
+@media screen and (max-width:1204px){.sortContent .col2{ flex: 0 0 100%; max-width: 100%;}}
 
-@media screen and (max-width:1400px){
+@media screen and (min-width:1001px) and (max-width:1400px){
     .eventResultContainer .nomineeHeaderCol:first-child{
         flex:0 0 70%;
         max-width: 70%;
@@ -123,24 +143,21 @@ select::-ms-expand {
     .eventResultContainer .nomineeHeaderCol:nth-child(2){
         flex:0 0 30%;
         max-width: 30%;
-    }
-    .sortContent{
-        max-width: 80%;
-    }
-    .sortContent .col2{
-        flex:0 0 100%;
-        max-width: 100%;
-    }
-}
-@media screen and (max-width:1150px){
-    .sortContent{
-        max-width: 90%;
+        padding-right:0;
     }
 }
 @media screen and (max-width:1000px){
-    .eventResultContainer .nomineeHeaderCol{
-        flex:0 0 100% !important;
-        max-width: 100% !important;
+    .eventResultContainer .nomineeHeaderCol:first-child,
+    .eventResultContainer .nomineeHeaderCol:nth-child(2){
+        width: 100%;
+        flex:0 0 100%;
+        max-width: 100%;
+    }
+    .eventResultContainer .nomineeHeaderCol:first-child{
+        padding-left: 15px;
+    }
+    .eventResultContainer .nomineeHeaderCol:nth-child(2){
+        padding-right:0;
     }
     .sortContent{
         max-width: 40%;
@@ -149,29 +166,38 @@ select::-ms-expand {
     }  
 }
 @media screen and (max-width:992px){
+    .eventResultContainer .Header{
+        flex-flow: column;
+    }
     .eventResultContainer .nomineeBoxRow{
         margin:0;
     }
 }
 @media screen and (max-width:767px){
+    .eventResultContainer .nomineeHeaderCol:nth-child(2){
+        padding-right: 0;
+    }
     .sortContent{
         max-width: 50%;
     }  
 }
+@media screen and (max-width:610px){ .sortContent{ max-width: 60%; } }
+@media screen and (max-width:520px){ .sortContent{ max-width: 75%; } }
+@media screen and (max-width:430px){ .sortContent{ max-width: 85%; } }
 
-@media screen and (max-width:575px){
-    .sortContent{
-        max-width: 75%;
-    }  
+@media screen  and (max-width:575px) {
+    .eventResultContainer .heading{
+        font-size: 24px;
+    }
+    .eventResultContainer .nomineeHeaderCol:nth-child(2){
+        padding-bottom: 0;
+    }
 }
 
-@media screen and (max-width:420px){
-    .sortContent{
-        max-width: 85%;
-    }  
-}
-@media screen and (max-width:360px){
-    .sortContent{
-        max-width: 100%;
-    }  
+@media screen and (max-width:390px){ .sortContent{ max-width: 100%; padding-right: 0; } }
+@media screen and (max-width:330px){
+    .sortContent .col2{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }

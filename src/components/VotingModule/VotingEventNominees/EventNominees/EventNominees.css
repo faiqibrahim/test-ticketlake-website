@@ -20,11 +20,7 @@
     margin: 0 auto;
 }
 .eventNomineesContainer .Header{
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin:0;
-    padding-bottom: 60px;
+    flex-direction: row;
 }
 .eventNomineesContainer .nomineeHeaderCol{
     flex: 0 0 50%;
@@ -36,24 +32,6 @@
 }
 .nomineeHeaderCol:last-child{
     text-align: right;
-}
-.heading{
-    font-size: 36px;
-    font-weight: bold;
-    color:#231F20;
-    white-space: nowrap;
-    width: 85%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.subHeading{
-    font-size: 22px;
-    color:#747A95;
-    font-weight: normal;
-    white-space: nowrap;
-    width: 85%;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 .nomineeBoxRow{
     display: flex;
@@ -106,14 +84,25 @@
     }
 }
 
-@media screen and (min-width:1211px) and (max-width:1450px){
+@media screen and (min-width:993px) and (max-width:1450px){
     .eventNomineesContainer .timeContent{
         max-width: 70%;
     }
 }
-@media screen and (min-width:993px) and (max-width:1210px){
-    .eventNomineesContainer .timeContent{
-        max-width: 90%;
+@media screen and (min-width:1036px)  and (max-width:1240px){
+    .eventNomineesContainer .heading{
+        font-size: 30px;
+    }
+    .eventNomineesContainer .timeLeft{
+        font-size: 24px;
+    }
+}
+@media screen and (min-width:993px)  and (max-width:1035px){
+    .eventNomineesContainer .heading{
+        font-size: 28px;
+    }
+    .eventNomineesContainer .timeLeft{
+        font-size: 22px;
     }
 }
 @media screen and (max-width:992px){
@@ -137,33 +126,36 @@
         padding: 0 15px;
     }
     .eventNomineesContainer .timeContent{
-        max-width: 50%;
+        max-width: 100%;
         margin: 0 auto 0 0;
         padding-left:0;
         padding-right:0;
     }
 }
-@media screen and (max-width:767px){
-    .eventNomineesContainer .timeContent{
-        max-width: 70%;
-    }
-}
 @media screen and (max-width:575px){
+    .eventNomineesContainer{
+        padding-left: 0;
+        padding-right: 0;
+    }
     .eventNomineesContainer .Header .nomineeBoxRow{
         flex-flow: column;
         align-items: flex-start;
+    }
+    .eventNomineesContainer .nomineeHeaderCol:nth-child(2){
+        width: 100%;
     }
     .eventNomineesContainer .col3{
         margin: 0;
         padding-bottom: 15px;
     }
-    .eventNomineesContainer .timeContent{
-        max-width: 100%;
-        padding-left:25px;
-        padding-right:25px;
-    }
     .eventNomineesContainer .timerClock{
         top:12px;
         width:50px;
+    }
+    .eventNomineesContainer .heading{
+        font-size: 24px;
+    }
+    .eventNomineesContainer .timeLeft{
+        font-size: 20px;
     }
 }

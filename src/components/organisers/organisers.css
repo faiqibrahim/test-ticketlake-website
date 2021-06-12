@@ -53,6 +53,7 @@
 .customContainer {
   height: 60px;
   padding: 0px;
+  padding-left: 2px;
 }
 
 .breadcrumbStyling {

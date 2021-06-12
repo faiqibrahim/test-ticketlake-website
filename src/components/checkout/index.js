@@ -338,7 +338,7 @@ class Checkout extends Component {
                                             <span
                                                 className="red-currency"> GHS{parseFloat(this.props.totalBill - this.props.wallet.availableBalance).toFixed(2)}</span>
                                         </h1>
-                                        <CardViewWithImgAndName image={'/images/mtn.svg'}
+                                        <CardViewWithImgAndName image={'/images/mtn-logos.png'}
                                                                 heading={'Mobile Money'}
                                                                 imgWidth={'mtnImgWidth'}
                                                                 description={'Pay via phone #'}
@@ -346,7 +346,7 @@ class Checkout extends Component {
 
                                     </div>
                                     :
-                                    <CardViewWithImgAndName image={'/images/mtn.svg'}
+                                    <CardViewWithImgAndName image={'/images/mtn-logos.png'}
                                                             heading={'Mobile Money'}
                                                             imgWidth={'mtnImgWidth'}
                                                             description={'Pay via phone #'}
