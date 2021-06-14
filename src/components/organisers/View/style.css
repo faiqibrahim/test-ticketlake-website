@@ -43,7 +43,7 @@
 }
 
 .marginBottom {
-  margin-bottom: 124px;
+  margin-bottom: 70px;
 }
 
 @media only screen and (max-width: 991px) {
@@ -129,8 +129,8 @@
   font-size: 24px;
   font-family: "neuePlak";
   font-weight: bold;
-  padding-top: 17px;
-  padding-bottom: 17px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   margin: 0px;
   letter-spacing: 0px;
 }
@@ -141,6 +141,7 @@
   font-weight: normal;
   color: #747a95;
   margin: 0px;
+  padding-bottom: unset;
 }
 
 .cardEventsText {

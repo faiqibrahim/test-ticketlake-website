@@ -116,7 +116,7 @@ class Organisers extends Component {
                       <p className="cardTitle">{data.title}</p>
                     </NavLink>
                     <p className="cardSubheading">{data.location}</p>
-                    <p className="cardEventsText">{data.events}</p>
+                    <p className="cardEventsText">{data.events} Events</p>
                   </div>
                 </Card>
               </div>
