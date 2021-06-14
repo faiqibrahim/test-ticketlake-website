@@ -20,9 +20,16 @@
 
 .breadcrumbContainer .breadcrumbs span > span a {
   color: #5a5a5a;
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight: normal;
 }
 
-.breadcrumbContainer .breadcrumbs span:last-child {
+.breadcrumbContainer .breadcrumbs .separator::before {
+  margin: 0px 15px;
+  font-weight: 600;
+}
+.breadcrumbContainer .breadcrumbs span:last-child,
+.breadcrumbContainer .breadcrumbs .separator::before {
   color: #ec1b23 !important;
 }
 

@@ -74,7 +74,7 @@ class Organisers extends Component {
   getBreadcrumb = () => {
     const crumbsJSON = [
       { path: "/", crumbTitle: "Home" },
-      { path: "/organisers", crumbTitle: "Organisers" },
+      { path: "/organisers", crumbTitle: "Event Organisers" },
     ];
     return (
       <div className="container-fluid breadcrumbContainer">
