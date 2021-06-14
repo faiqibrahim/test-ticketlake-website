@@ -29,6 +29,13 @@
 .marginBottom {
   margin-bottom: 124px;
 }
+
+@media only screen and (max-width: 991px) {
+  .marginBottom {
+    margin-bottom: 50px;
+  }
+}
+
 .ant-select-selection__placeholder,
 .ant-select-search__field__placeholder,
 .ant-select-selection-selected-value {
@@ -56,6 +63,7 @@
 
 .breadcrumbStyling {
   font-size: 20px;
+  font-weight: normal;
   color: #5a5a5a;
   font-family: "Helvetica Neue LT Std";
   float: left;
@@ -67,17 +75,17 @@
 }
 
 .ant-breadcrumb-link .hoverItem:hover {
+  font-family: "Helvetica Neue LT Std";
   color: #5a5a5a;
+}
+
+.ant-breadcrumb-link {
+  font-family: "Helvetica Neue LT Std";
 }
 
 .ant-breadcrumb .ant-breadcrumb-link a {
   color: #5a5a5a;
-}
-
-@media only screen and (min-width: 1730px) {
-  .customContainer {
-    padding-left: 30px;
-  }
+  font-family: "Helvetica Neue LT Std";
 }
 
 @media only screen and (max-width: 770px) {
@@ -112,6 +120,7 @@
   width: 100%;
   height: 225px;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .cardTitle {

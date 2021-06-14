@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { withRouter, Link, NavLink } from "react-router-dom";
 import Loader from "../../commonComponents/loader";
 import { Select } from "antd";
-import axios from "../../utils/axios";
 import { Breadcrumb } from "antd";
 import "./organisers.css";
 import { Card } from "react-bootstrap";
@@ -15,34 +14,27 @@ class Organisers extends Component {
   state = {
     orgData: [],
     baseData: [],
-    loadOrgData: true,
+    loadOrgData: false,
     orgDataFilter: [],
   };
 
   componentDidMount = () => {
-    axios
-      .get("/organizations/get-organizations")
-      .then((response) => {
-        let filteredorganisers = response.data.data.filter(
-          (data) => data.address.country === this.props.country.label
-        );
-        this.props.getAllCategories();
-        console.log("filtered", filteredorganisers);
-        this.setState({
-          orgData: filteredorganisers,
-          baseData: response.data.data,
-          loadOrgData: response.data.data,
-        });
-      })
-      .catch((err) => {
-        console.error("Err:", err);
-      });
+    let filteredorganisers = this.props.organiserList.filter(
+      (data) => data.location === this.props.country.label
+    );
+    this.props.getAllCategories();
+    console.log("filtered", filteredorganisers);
+    this.setState({
+      orgData: filteredorganisers,
+      baseData: this.props.organiserList,
+      loadOrgData: this.props.organiserList,
+    });
   };
 
   componentDidUpdate(prevProps) {
     if (prevProps.country.label !== this.props.country.label) {
       let filteredorganisers = this.state.baseData.filter(
-        (data) => data.address.country === this.props.country.label
+        (data) => data.location === this.props.country.label
       );
       this.setState({
         orgData: filteredorganisers,
@@ -113,32 +105,27 @@ class Organisers extends Component {
           {this.state.loadOrgData ? (
             this.state.orgData.map((data) => {
               return (
-                <div className="col-lg-3 col-xs-6 col-sm-6 marginBottom">
+                <div
+                  className="col-lg-3 col-xs-6 col-sm-6 marginBottom"
+                  key={data.id}
+                >
                   <Card className="cardStyling">
                     <Card.Img
                       className="cardImage"
                       variant="top"
-                      src={
-                        data.imageURL !== undefined
-                          ? data.imageURL.length !== 0
-                            ? data.imageURL
-                            : "images/placeholder.jpg"
-                          : "images/placeholder.jpg"
-                      }
+                      src={data.imgSrc}
                     />
                     <div>
                       <NavLink
                         to={{
                           pathname: "/organisers/details",
-                          state: { detail: data._id },
+                          state: { detail: data.id },
                         }}
                       >
-                        <p className="cardTitle">{data.name}</p>
+                        <p className="cardTitle">{data.title}</p>
                       </NavLink>
-                      <p className="cardSubheading">
-                        {data.address.city}, {data.address.country}
-                      </p>
-                      <p className="cardEventsText">{data.eventCount}</p>
+                      <p className="cardSubheading">{data.location}</p>
+                      <p className="cardEventsText">{data.events}</p>
                     </div>
                   </Card>
                 </div>
@@ -180,6 +167,7 @@ class Organisers extends Component {
   };
 
   render() {
+    console.log("render props=", this.props);
     return (
       <div id="wrapper">
         <div className="content">
@@ -191,7 +179,7 @@ class Organisers extends Component {
 
               <div className="container mt-5">
                 <div className="row left">
-                  <div className="col-xl-9 col-md-9 col-lg-9 col-sm-12 col-xs-12 section-title mb0 ">
+                  <div className="col-xl-9 col-md-9 col-lg-9 col-sm-12 col-xs-12  mb0 ">
                     <h2>
                       Showing Event Organisers In{" "}
                       <span className="seperatorColor">
@@ -219,6 +207,7 @@ const mapStateToProps = (state) => {
   return {
     country: state.user.eventsCountry,
     categories: state.category.categories,
+    organiserList: state.organiser.organiserList,
   };
 };
 const connectedComponent = connect(
