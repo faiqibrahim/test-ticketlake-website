@@ -11119,11 +11119,6 @@ article.post-article .list-single-main-item {
     right: 10px;
   }
 
-<<<<<<< HEAD
-  .ajax-modal-container {
-    width: 500px;
-  }
-=======
     .scrollable-header .header-user-menu {
         margin: 0px !important;
     }
@@ -11217,7 +11212,6 @@ article.post-article .list-single-main-item {
         float: left;
         margin-top: 15px;
     }
->>>>>>> 2b9735cbccab3ac21dffb08942328d468e2281e8
 
   .ajax-modal-details {
     padding: 20px 25px;
@@ -11889,16 +11883,6 @@ div.gm-style-mtc {
   top: 8px;
 }
 .react-autosuggest__suggestions-container--open {
-<<<<<<< HEAD
-  float: left;
-  width: 100%;
-  padding: 10px;
-  -webkit-box-shadow: 0 0 15px -2px #d8d9e0de;
-  -moz-box-shadow: 0 0 15px -2px #d8d9e0de;
-  box-shadow: 0 0 15px -2px #d8d9e0de;
-  max-height: 550px;
-  overflow-y: scroll;
-=======
     float: left;
     width: 100%;
     padding: 10px;
@@ -11911,7 +11895,6 @@ div.gm-style-mtc {
     z-index: 99999;
     background: #FFF;
 
->>>>>>> 2b9735cbccab3ac21dffb08942328d468e2281e8
 }
 .top-header-search-icon {
   float: left;
@@ -12342,10 +12325,6 @@ source {
   margin-top: 8px !important;
 }
 .organiser-box {
-<<<<<<< HEAD
-  width: calc(100% / 6 - 25px);
-  margin: 0px 12.5px;
-=======
     width: calc(100% / 6 - 25px);
     margin: 0px 12.5px;
     border: 1px solid #eae7e7;
@@ -12360,7 +12339,6 @@ source {
     border-radius: unset;
     overflow: hidden;
     margin-bottom: 0px;
->>>>>>> 2b9735cbccab3ac21dffb08942328d468e2281e8
 }
 
 @media only screen and (max-width: 1025px) {
@@ -12566,107 +12544,6 @@ input[type="number"] {
     width: 85%;
   }
 }
-<<<<<<< HEAD
-@media only screen and (max-width: 450px) {
-  .show-reg-form.hide-on-mobileView {
-    display: none;
-  }
-}
-
-@media only screen and (min-width: 981px) and (max-width: 1230px) {
-  .header-search-column {
-    width: 40%;
-  }
-  .header-actions-column {
-    width: 42%;
-  }
-}
-@media only screen and (min-width: 768px) and (max-width: 1278px) {
-  .view-on-tabView .navbarHolder {
-    display: none;
-  }
-  .header-inner.header-nav-column.view-on-mobileView.view-on-tabView {
-    display: block;
-  }
-  .header-inner.header-nav-column.view-on-mobileView.view-on-tabView
-    .navbarHolder {
-    display: block;
-  }
-  .header-search-column.scrolled-header {
-    width: 50%;
-  }
-  .header-actions-column.scrolled-header {
-    width: 32%;
-  }
-  .scrollable-header .header-inner {
-    padding-top: 0px !important;
-  }
-  .scrollable-header {
-    height: 115px !important;
-  }
-}
-@media only screen and (min-width: 768px) and (max-width: 980px) {
-  .header-logo-column {
-    width: 28%;
-  }
-}
-
-@media only screen and (max-width: 767px) {
-  .header-logo-column {
-    width: 100%;
-  }
-
-  .header-actions-column {
-    width: 100%;
-  }
-
-  .header-search-column.hide-on-mobileView {
-    display: none;
-  }
-
-  .header-search-column.view-on-mobileView {
-    display: block;
-    width: 80%;
-  }
-  .header-inner.header-nav-column.view-on-mobileView {
-    display: block;
-  }
-
-  .top-search-wrp,
-  .top-header-search-wrp,
-  .react-autosuggest__container {
-    width: 100%;
-    text-align: left;
-  }
-  .header-content-wrp-bottom {
-    margin-top: 15px;
-  }
-  .top-search-wrp {
-    margin-top: 0px;
-  }
-  .header-inner {
-    height: unset;
-    padding: 0px;
-  }
-  .navbarHolder {
-    height: unset !important;
-  }
-  .nav-button-wrap {
-    top: unset;
-    margin: 0px !important;
-  }
-  .header-actions-column.scrolled-header {
-    width: 100% !important;
-  }
-  .scrollable-header .header-inner {
-    padding: 0px !important;
-  }
-}
-@media only screen and (max-width: 285px) {
-  span.sign-in {
-    display: none;
-  }
-=======
     .fas.fa-search.search-icon{
         left: 35px;
     }
@@ -12844,18 +12721,11 @@ input[type="number"] {
         text-overflow: ellipsis;
     }
 
->>>>>>> 2b9735cbccab3ac21dffb08942328d468e2281e8
 }
 .row.align-item {
   align-items: center;
 }
 .mtn-numeber-heading {
-<<<<<<< HEAD
-  margin-bottom: 0;
-  font-size: 20px;
-  float: left;
-}
-=======
     margin-bottom: 0;
     font-size: 20px;
     float: left;
@@ -12864,4 +12734,3 @@ input[type="number"] {
     float: left;
     width: 100%;
 }
->>>>>>> 2b9735cbccab3ac21dffb08942328d468e2281e8
