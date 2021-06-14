@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter, Link, NavLink } from "react-router-dom";
 import Loader from "../../../commonComponents/loader";
 import { Select } from "antd";
-import { Breadcrumb } from "antd";
+import BreadCrumb from "../../VotingModule/Header/BreadCrumb/BreadCrumb";
 import "./style.css";
 import { Card } from "react-bootstrap";
 import { getAllCategories } from "../../../redux/category/category-actions";
@@ -72,26 +72,17 @@ class Organisers extends Component {
   };
 
   getBreadcrumb = () => {
+    const crumbsJSON = [
+      { path: "/", crumbTitle: "Home" },
+      { path: "/organisers", crumbTitle: "Organisers" },
+    ];
     return (
       <div className="container-fluid breadcrumbContainer">
-        <div className=" customContainer container">
+        <div className="container">
           <div className="row left">
-            <Breadcrumb
-              separator={
-                <i
-                  class="fa fa-angle-right seperatorColor "
-                  aria-hidden="true"
-                ></i>
-              }
-              className="breadcrumbStyling fontSize"
-            >
-              <Breadcrumb.Item>
-                <Link to="/" className="hoverItem">
-                  Home
-                </Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>Event Organisers </Breadcrumb.Item>
-            </Breadcrumb>
+            <div className="col-md-12">
+              <BreadCrumb breadCrumbs={crumbsJSON} />
+            </div>
           </div>
         </div>
       </div>
@@ -99,47 +90,44 @@ class Organisers extends Component {
   };
 
   getImageCards = () => {
+    const { orgData } = this.state;
     return (
       <div className="container mb-100">
         <div className="row organiser-row">
-          {this.state.loadOrgData ? (
-            this.state.orgData.map((data) => {
-              return (
-                <div
-                  className="col-lg-3 col-xs-6 col-sm-6 marginBottom"
-                  key={data.id}
-                >
-                  <Card className="cardStyling">
-                    <Card.Img
-                      className="cardImage"
-                      variant="top"
-                      src={data.imgSrc}
-                    />
-                    <div>
-                      <NavLink
-                        to={{
-                          pathname: "/organisers/details",
-                          state: { detail: data.id },
-                        }}
-                      >
-                        <p className="cardTitle">{data.title}</p>
-                      </NavLink>
-                      <p className="cardSubheading">{data.location}</p>
-                      <p className="cardEventsText">{data.events}</p>
-                    </div>
-                  </Card>
-                </div>
-              );
-            })
-          ) : (
-            <Loader />
-          )}
+          {orgData.map((data) => {
+            return (
+              <div
+                className="col-lg-3 col-xs-6 col-sm-6 marginBottom"
+                key={data.id}
+              >
+                <Card className="cardStyling">
+                  <Card.Img
+                    className="cardImage"
+                    variant="top"
+                    src={data.imgSrc}
+                  />
+                  <div>
+                    <NavLink
+                      to={{
+                        pathname: "/organisers/details",
+                        state: { detail: data.id },
+                      }}
+                    >
+                      <p className="cardTitle">{data.title}</p>
+                    </NavLink>
+                    <p className="cardSubheading">{data.location}</p>
+                    <p className="cardEventsText">{data.events}</p>
+                  </div>
+                </Card>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
   };
 
-  getFilter = () => {
+  renderCategoryFilter = () => {
     return (
       <div className="paddingOnSmallScreen  col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-6 ">
         <div>
@@ -168,35 +156,30 @@ class Organisers extends Component {
 
   render() {
     console.log("render props=", this.props);
+    const { processing, country } = this.props;
+    if (processing) return <Loader />;
+
     return (
       <div id="wrapper">
         <div className="content">
-          {this.state.loadOrgData ? (
-            <>
-              {this.getbanner()}
+          {this.getbanner()}
 
-              {this.getBreadcrumb()}
+          {this.getBreadcrumb()}
 
-              <div className="container mt-5">
-                <div className="row left">
-                  <div className="col-xl-9 col-md-9 col-lg-9 col-sm-12 col-xs-12  mb0 ">
-                    <h2>
-                      Showing Event Organisers In{" "}
-                      <span className="seperatorColor">
-                        {this.props.country.label}
-                      </span>
-                    </h2>
-                  </div>
-
-                  {this.getFilter()}
-                </div>
+          <div className="container mt-5">
+            <div className="row left">
+              <div className="col-xl-9 col-md-9 col-lg-9 col-sm-12 col-xs-12  mb0 ">
+                <h2>
+                  Showing Event Organisers In{" "}
+                  <span className="seperatorColor">{country.label}</span>
+                </h2>
               </div>
 
-              {this.getImageCards()}
-            </>
-          ) : (
-            <Loader />
-          )}
+              {this.renderCategoryFilter()}
+            </div>
+          </div>
+
+          {this.getImageCards()}
         </div>
       </div>
     );
@@ -208,6 +191,7 @@ const mapStateToProps = (state) => {
     country: state.user.eventsCountry,
     categories: state.category.categories,
     organiserList: state.organiser.organiserList,
+    processing: state.organiser.processing,
   };
 };
 const connectedComponent = connect(

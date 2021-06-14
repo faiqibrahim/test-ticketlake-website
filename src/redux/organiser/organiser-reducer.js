@@ -60,6 +60,7 @@ const initState = {
       events: "20",
     },
   ],
+  processing: false,
 };
 
 const reducer = (state = initState, action) => {

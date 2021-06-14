@@ -15,6 +15,15 @@
 
 .breadcrumbContainer {
   border-bottom: 2px solid #f6f6f6;
+  padding: 20px 0px;
+}
+
+.breadcrumbContainer .breadcrumbs span > span a {
+  color: #5a5a5a;
+}
+
+.breadcrumbContainer .breadcrumbs span:last-child {
+  color: #ec1b23 !important;
 }
 
 .customHeight {
@@ -72,20 +81,6 @@
 
 .seperatorColor {
   color: #ec1b23;
-}
-
-.ant-breadcrumb-link .hoverItem:hover {
-  font-family: "Helvetica Neue LT Std";
-  color: #5a5a5a;
-}
-
-.ant-breadcrumb-link {
-  font-family: "Helvetica Neue LT Std";
-}
-
-.ant-breadcrumb .ant-breadcrumb-link a {
-  color: #5a5a5a;
-  font-family: "Helvetica Neue LT Std";
 }
 
 @media only screen and (max-width: 770px) {
