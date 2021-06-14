@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Layout from "./../../components/layout";
 
-import OrganiserDetails from "./OrganiserDetails";
-import Organisers from "./Organisers";
+import OrganiserDetails from "./Details";
+import Organisers from "./View";
 
 const Rounting = () => {
   return (

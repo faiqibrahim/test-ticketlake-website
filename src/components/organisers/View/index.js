@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link, NavLink } from "react-router-dom";
-import Loader from "../../commonComponents/loader";
+import Loader from "../../../commonComponents/loader";
 import { Select } from "antd";
 import { Breadcrumb } from "antd";
-import "./organisers.css";
+import "./style.css";
 import { Card } from "react-bootstrap";
-import { getAllCategories } from "../../redux/category/category-actions";
+import { getAllCategories } from "../../../redux/category/category-actions";
 
 const { Option } = Select;
 
