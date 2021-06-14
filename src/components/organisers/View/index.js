@@ -129,8 +129,8 @@ class Organisers extends Component {
 
   renderCategoryFilter = () => {
     return (
-      <div className="paddingOnSmallScreen  col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-6 ">
-        <div>
+      <div className="paddingOnSmallScreen  col-xl-2 col-lg-2 col-md-3 col-sm-12 col-xs-12 ">
+        <div style={{ height: "100%" }}>
           <div className="inpt_dec  filtersIcons iconMarginLeft">
             <img
               className="categoryIconStyling"
@@ -141,7 +141,7 @@ class Organisers extends Component {
           <Select
             placeholder="Category"
             name="categories"
-            className="chosen-select  filterDropDowns organiserCategory customHeight"
+            className="chosen-select  filterDropDowns organiserCategorySelect customHeight"
           >
             <Option value="all">All</Option>
 
@@ -166,10 +166,10 @@ class Organisers extends Component {
 
           {this.getBreadcrumb()}
 
-          <div className="container mt-5">
+          <div className="container mt-6 mb-6">
             <div className="row left">
-              <div className="col-xl-9 col-md-9 col-lg-9 col-sm-12 col-xs-12  mb0 ">
-                <h2>
+              <div className="col-xl-10  col-lg-10 col-md-9 col-sm-12 col-xs-12  mb0 ">
+                <h2 className="organiser-title">
                   Showing Event Organisers In{" "}
                   <span className="seperatorColor">{country.label}</span>
                 </h2>
