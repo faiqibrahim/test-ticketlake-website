@@ -82,23 +82,25 @@ class Organisers extends Component {
   getBreadcrumb = () => {
     return (
       <div className="container-fluid breadcrumbContainer">
-        <div className="container customContainer">
-          <Breadcrumb
-            separator={
-              <i
-                class="fa fa-angle-right seperatorColor "
-                aria-hidden="true"
-              ></i>
-            }
-            className="breadcrumbStyling fontSize"
-          >
-            <Breadcrumb.Item>
-              <Link to="/" className="hoverItem">
-                Home
-              </Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>Event Organisers </Breadcrumb.Item>
-          </Breadcrumb>
+        <div className=" customContainer container">
+          <div className="row left">
+            <Breadcrumb
+              separator={
+                <i
+                  class="fa fa-angle-right seperatorColor "
+                  aria-hidden="true"
+                ></i>
+              }
+              className="breadcrumbStyling fontSize"
+            >
+              <Breadcrumb.Item>
+                <Link to="/" className="hoverItem">
+                  Home
+                </Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>Event Organisers </Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
         </div>
       </div>
     );
