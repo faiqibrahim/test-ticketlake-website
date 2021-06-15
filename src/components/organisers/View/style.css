@@ -1,0 +1,191 @@
+.bannerStyling {
+  float: left;
+  background-image: url(/images/org_banner.png);
+  background-size: auto;
+}
+
+.bannerText {
+  text-align: left;
+  color: #ffffff;
+  margin-top: 80px;
+  padding-bottom: 20px;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.breadcrumbContainer {
+  border-bottom: 2px solid #f6f6f6;
+  padding: 20px 0px;
+}
+
+.breadcrumbContainer .breadcrumbs span > span a {
+  color: #5a5a5a;
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight: normal;
+}
+
+.breadcrumbContainer .breadcrumbs span > span {
+  letter-spacing: 0.5px;
+}
+.breadcrumbContainer .breadcrumbs .separator::before {
+  margin: 0px 15px;
+  font-weight: 600;
+}
+.breadcrumbContainer .breadcrumbs span:last-child,
+.breadcrumbContainer .breadcrumbs .separator::before {
+  color: #ec1b23 !important;
+}
+
+.customHeight {
+  height: 30px;
+}
+
+.categoryIconStyling {
+  display: block;
+  padding-bottom: 2px;
+}
+
+.marginBottom {
+  margin-bottom: 70px;
+}
+
+@media only screen and (max-width: 991px) {
+  .marginBottom {
+    margin-bottom: 50px;
+  }
+}
+
+.ant-select-selection__placeholder,
+.ant-select-search__field__placeholder,
+.ant-select-selection-selected-value {
+  padding-left: 20px;
+  margin-top: -1px;
+}
+
+.ant-select-arrow svg {
+  color: #ec1b23;
+}
+
+.organiserCategorySelect .ant-select-selection__placeholder,
+.organiserCategorySelect .ant-select-selection-selected-value {
+  transform: translateY(-50%);
+  margin-top: 2px;
+  height: 100%;
+  top: 50%;
+}
+.organiserCategorySelect .ant-select-selection-selected-value {
+  position: absolute;
+  margin-top: -3px;
+  color: #231f20;
+}
+
+.organiserCategorySelect .ant-select-selection__placeholder,
+.ant-select-search__field__placeholder {
+  color: #231f20;
+}
+.fontSize span {
+  font-size: 20px;
+  line-height: 60px;
+}
+
+.customContainer {
+  height: 60px;
+}
+
+.breadcrumbStyling {
+  font-size: 20px;
+  font-weight: normal;
+  color: #5a5a5a;
+  font-family: "Helvetica Neue LT Std";
+  float: left;
+  margin-left: 0px;
+}
+
+.seperatorColor {
+  color: #ec1b23;
+}
+
+.category-filter > div {
+  position: relative;
+}
+
+.dropdownIcon {
+  margin-left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  left: unset;
+}
+
+.organiserCategorySelect .ant-select-selection-selected-value::before {
+  content: "Category:  ";
+}
+
+.organiserCategorySelect {
+  margin: -1px;
+}
+
+.cardStyling {
+  text-align: left;
+  border: none;
+  padding-left: 0px;
+}
+
+.cardImage {
+  width: 100%;
+  height: 225px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.cardTitle {
+  font-size: 24px;
+  font-family: "neuePlak";
+  font-weight: bold;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin: 0px;
+  letter-spacing: 0px;
+}
+
+.cardSubheading {
+  font-size: 18px;
+  font-family: "neuePlak";
+  font-weight: normal;
+  color: #747a95;
+  margin: 0px;
+  padding-bottom: unset;
+}
+
+.cardEventsText {
+  font-size: 18px;
+  font-family: "neuePlak";
+  font-weight: normal;
+  color: #ec1b23;
+  margin: 0px;
+}
+
+.organiser-title {
+  font-family: "NeuePlak";
+}
+
+.mb-6 {
+  margin-bottom: 5rem;
+}
+.mt-6 {
+  margin-top: 5rem;
+}
+
+.organiserCategorySelect {
+  height: 100%;
+  background-color: #fff !important;
+  border: unset !important;
+}
+
+.organiserCategorySelect > div {
+  height: 80%;
+  font-family: "NeuePlak";
+  background-color: #fafafa;
+  border: 1px solid #d8dae3;
+  border-radius: 10px;
+  padding: 10px 0px;
+}

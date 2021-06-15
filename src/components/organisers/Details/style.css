@@ -1,0 +1,47 @@
+.bannerBackground {
+  background-color: #1a1a1a;
+  height: 400px;
+  width: 100%;
+}
+
+.textAlignLeft {
+  text-align: left;
+}
+
+.ant-breadcrumb-separator {
+}
+
+.ant-breadcrumb .ant-breadcrumb-link span a {
+  color: white;
+}
+
+.customBorder {
+  border-bottom: 3px solid #f6f6f6;
+  padding-top: 84px;
+  padding-bottom: 45px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  outline-offset: 5px;
+}
+
+.fontSetting {
+  font-family: "NeuePlak";
+  font-size: 28px;
+  font-weight: bold;
+  color: #ec1b23;
+}
+
+.paddingTop {
+}
+
+.ant-breadcrumb-link {
+  font-size: 18px;
+  font-family: "NeuePlak";
+}
+
+.bannerHeading {
+  font-size: 56px;
+  font-family: "NeuePlak";
+  color: #ffffff;
+  padding-top: 171px;
+}
