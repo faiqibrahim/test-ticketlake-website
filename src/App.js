@@ -60,7 +60,7 @@ class App extends Component {
             <button
               data-toggle="modal"
               data-target="#modal_aside_left"
-              class="btn btn-primary"
+              className="btn btn-primary"
               type="button"
             >
               {" "}

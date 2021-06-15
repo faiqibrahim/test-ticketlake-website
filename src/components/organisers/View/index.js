@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter, Link, NavLink } from "react-router-dom";
+import { withRouter, NavLink } from "react-router-dom";
+import { DownCircleTwoTone } from "@ant-design/icons";
 import Loader from "../../../commonComponents/loader";
-import { Select } from "antd";
+import { Icon, Select } from "antd";
 import BreadCrumb from "../../VotingModule/Header/BreadCrumb/BreadCrumb";
 import "./style.css";
 import { Card } from "react-bootstrap";
@@ -129,9 +130,9 @@ class Organisers extends Component {
 
   renderCategoryFilter = () => {
     return (
-      <div className="paddingOnSmallScreen  col-xl-2 col-lg-2 col-md-3 col-sm-12 col-xs-12 ">
-        <div style={{ height: "100%" }}>
-          <div className="inpt_dec  filtersIcons iconMarginLeft">
+      <div className="paddingOnSmallScreen category-filter  col-xl-2 col-lg-2 col-md-3 col-sm-12 col-xs-12 ">
+        <div>
+          <div className="inpt_dec  filtersIcons dropdownIcon">
             <img
               className="categoryIconStyling"
               alt={"categories"}
@@ -139,6 +140,7 @@ class Organisers extends Component {
             />
           </div>
           <Select
+            suffixIcon={<Icon type="caret-down" />}
             placeholder="Category"
             name="categories"
             className="chosen-select  filterDropDowns organiserCategorySelect customHeight"

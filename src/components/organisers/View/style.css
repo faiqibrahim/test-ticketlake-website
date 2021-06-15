@@ -24,6 +24,9 @@
   font-weight: normal;
 }
 
+.breadcrumbContainer .breadcrumbs span > span {
+  letter-spacing: 0.5px;
+}
 .breadcrumbContainer .breadcrumbs .separator::before {
   margin: 0px 15px;
   font-weight: 600;
@@ -64,10 +67,22 @@
 }
 
 .organiserCategorySelect .ant-select-selection__placeholder,
-.ant-select-search__field__placeholder {
-  margin-top: -11px;
+.organiserCategorySelect .ant-select-selection-selected-value {
+  transform: translateY(-50%);
+  margin-top: 2px;
+  height: 100%;
+  top: 50%;
+}
+.organiserCategorySelect .ant-select-selection-selected-value {
+  position: absolute;
+  margin-top: -3px;
+  color: #231f20;
 }
 
+.organiserCategorySelect .ant-select-selection__placeholder,
+.ant-select-search__field__placeholder {
+  color: #231f20;
+}
 .fontSize span {
   font-size: 20px;
   line-height: 60px;
@@ -90,14 +105,15 @@
   color: #ec1b23;
 }
 
-@media only screen and (max-width: 770px) {
-  .paddingOnSmallScreen {
-    padding: 0 25px !important;
-  }
+.category-filter > div {
+  position: relative;
+}
 
-  .iconMarginLeft {
-    margin-left: 20px !important;
-  }
+.dropdownIcon {
+  margin-left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  left: unset;
 }
 
 .organiserCategorySelect .ant-select-selection-selected-value::before {
@@ -106,10 +122,6 @@
 
 .organiserCategorySelect {
   margin: -1px;
-}
-
-.iconMarginLeft {
-  margin-left: 10px;
 }
 
 .cardStyling {
@@ -175,4 +187,5 @@
   background-color: #fafafa;
   border: 1px solid #d8dae3;
   border-radius: 10px;
+  padding: 10px 0px;
 }
