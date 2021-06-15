@@ -3,11 +3,11 @@ node {
     app = null
     properties([disableConcurrentBuilds()])
 
-    stage('Set NodeJs') {
+ /*   stage('Set NodeJs') {
         env.NODEJS_HOME = "${tool 'node-14'}"
         env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
         sh 'npm --version'
-    }
+    }*/
 
     stage('Checkout Repository') {
         checkout scm
@@ -62,6 +62,7 @@ node {
     }catch (e) {
         currentBuild.result = "FAILURE"
     }finally {
+        cleanWs()
         if (currentBuild.result == "FAILURE") {
             postMattermostReport("failed")
         }else{
