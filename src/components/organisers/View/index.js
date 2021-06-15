@@ -14,36 +14,32 @@ const { Option } = Select;
 class Organisers extends Component {
   state = {
     orgData: [],
-    baseData: [],
-    loadOrgData: false,
-    orgDataFilter: [],
   };
 
   componentDidMount = () => {
-    let filteredorganisers = this.props.organiserList.filter(
-      (data) => data.location === this.props.country.label
+    const { organiserList, country } = this.props;
+    const filteredOrganisers = organiserList.filter(
+      (data) => data.location === country.label
     );
     this.props.getAllCategories();
-    console.log("filtered", filteredorganisers);
     this.setState({
-      orgData: filteredorganisers,
-      baseData: this.props.organiserList,
-      loadOrgData: this.props.organiserList,
+      orgData: filteredOrganisers,
     });
   };
 
   componentDidUpdate(prevProps) {
     if (prevProps.country.label !== this.props.country.label) {
-      let filteredorganisers = this.state.baseData.filter(
-        (data) => data.location === this.props.country.label
+      const { organiserList, country } = this.props;
+      const filteredOrganisers = organiserList.filter(
+        (data) => data.location === country.label
       );
       this.setState({
-        orgData: filteredorganisers,
+        orgData: filteredOrganisers,
       });
     }
   }
 
-  getbanner = () => {
+  getBanner = () => {
     return (
       <section
         className="list-single-hero organiser-sec"
@@ -130,7 +126,7 @@ class Organisers extends Component {
 
   renderCategoryFilter = () => {
     return (
-      <div className="paddingOnSmallScreen category-filter  col-xl-2 col-lg-2 col-md-3 col-sm-12 col-xs-12 ">
+      <div className="category-filter  col-xl-2 col-lg-2 col-md-3 col-sm-12 col-xs-12 ">
         <div>
           <div className="inpt_dec  filtersIcons dropdownIcon">
             <img
@@ -157,14 +153,13 @@ class Organisers extends Component {
   };
 
   render() {
-    console.log("render props=", this.props);
     const { processing, country } = this.props;
     if (processing) return <Loader />;
 
     return (
       <div id="wrapper">
         <div className="content">
-          {this.getbanner()}
+          {this.getBanner()}
 
           {this.getBreadcrumb()}
 

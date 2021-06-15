@@ -1,3 +1,4 @@
+import * as actions from "./organiser-action-types";
 const initState = {
   organiserList: [
     {
@@ -67,9 +68,18 @@ const reducer = (state = initState, action) => {
   let newState = { ...state };
 
   switch (action.type) {
+    case actions.SET_ORGANISER_PROCESSING:
+      setProcessing(newState, action.payload);
+      break;
+    default:
+      break;
   }
 
   return newState;
+};
+
+const setProcessing = (state, payload) => {
+  state.processing = payload;
 };
 
 export default reducer;
