@@ -17,8 +17,7 @@ class Organisers extends Component {
   };
 
   componentDidMount = () => {
-    const { getAllCategories } = this.props;
-    const { organiserList, country } = this.props;
+    const { organiserList, country, getAllCategories } = this.props;
     const filteredOrganisers = organiserList.filter(
       (data) => data.location === country.label
     );
@@ -29,9 +28,8 @@ class Organisers extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    const { country } = this.props;
+    const { country, organiserList } = this.props;
     if (prevProps.country.label !== country.label) {
-      const { organiserList, country } = this.props;
       const filteredOrganisers = organiserList.filter(
         (data) => data.location === country.label
       );
@@ -99,25 +97,26 @@ class Organisers extends Component {
                 className="col-lg-3 col-xs-6 col-sm-6 marginBottom"
                 key={data.id}
               >
-                <Card className="cardStyling">
-                  <Card.Img
-                    className="cardImage"
-                    variant="top"
-                    src={data.imgSrc}
-                  />
-                  <div>
-                    <NavLink
-                      to={{
-                        pathname: "/organisers/details",
-                        state: { detail: data.id },
-                      }}
-                    >
+                <NavLink
+                  to={{
+                    pathname: "/organisers/details",
+                    state: { detail: data.id },
+                  }}
+                >
+                  <Card className="cardStyling">
+                    <Card.Img
+                      className="cardImage"
+                      variant="top"
+                      src={data.imgSrc}
+                    />
+                    <div>
                       <p className="cardTitle">{data.title}</p>
-                    </NavLink>
-                    <p className="cardSubheading">{data.location}</p>
-                    <p className="cardEventsText">{data.events} Events</p>
-                  </div>
-                </Card>
+
+                      <p className="cardSubheading">{data.location}</p>
+                      <p className="cardEventsText">{data.events} Events</p>
+                    </div>
+                  </Card>
+                </NavLink>
               </div>
             );
           })}
@@ -143,7 +142,7 @@ class Organisers extends Component {
             suffixIcon={<Icon type="caret-down" />}
             placeholder="Category"
             name="categories"
-            className="chosen-select  filterDropDowns organiserCategorySelect customHeight"
+            className="chosen-select  organiserCategorySelect filterDropDowns customHeight"
           >
             <Option value="all">All</Option>
 
