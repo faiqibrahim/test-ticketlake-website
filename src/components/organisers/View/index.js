@@ -6,6 +6,7 @@ import { Icon, Select } from "antd";
 import BreadCrumb from "../../VotingModule/Header/BreadCrumb/BreadCrumb";
 import "./style.css";
 import { Card } from "react-bootstrap";
+
 import { getAllCategories } from "../../../redux/category/category-actions";
 
 const { Option } = Select;
