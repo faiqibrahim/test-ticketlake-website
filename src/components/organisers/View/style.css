@@ -120,8 +120,9 @@
   content: "Category:  ";
 }
 
-.organiserCategorySelect {
+.category-filter .filterDropDowns {
   margin: -1px;
+  padding: 0px;
 }
 
 .cardStyling {
