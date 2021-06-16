@@ -9,6 +9,7 @@
 }
 
 .ant-breadcrumb-separator {
+  color: white;
 }
 
 .ant-breadcrumb .ant-breadcrumb-link span a {
@@ -31,7 +32,33 @@
   color: #ec1b23;
 }
 
-.paddingTop {
+.sortBy .ant-select-selection-selected-value::before {
+  content: "Sort by:  ";
+}
+
+.sortBy .ant-select-arrow svg {
+  color: #17224e;
+  font-size: 15px;
+}
+
+.btn2 {
+  border: none;
+  outline: none;
+  padding: 15px 16px;
+  height: 80%;
+  margin-left: 10px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.btn2:hover {
+  background-color: #ec1b23;
+  color: white;
+}
+
+.btn2.active {
+  background-color: red;
+  color: white;
 }
 
 .ant-breadcrumb-link {
@@ -44,4 +71,10 @@
   font-family: "NeuePlak";
   color: #ffffff;
   padding-top: 171px;
+}
+
+.eventCardImage {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: contain;
 }
