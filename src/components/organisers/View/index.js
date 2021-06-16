@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, NavLink } from "react-router-dom";
-import { DownCircleTwoTone } from "@ant-design/icons";
 import Loader from "../../../commonComponents/loader";
 import { Icon, Select } from "antd";
 import BreadCrumb from "../../VotingModule/Header/BreadCrumb/BreadCrumb";
@@ -17,18 +16,20 @@ class Organisers extends Component {
   };
 
   componentDidMount = () => {
+    const { getAllCategories } = this.props;
     const { organiserList, country } = this.props;
     const filteredOrganisers = organiserList.filter(
       (data) => data.location === country.label
     );
-    this.props.getAllCategories();
+    getAllCategories();
     this.setState({
       orgData: filteredOrganisers,
     });
   };
 
   componentDidUpdate(prevProps) {
-    if (prevProps.country.label !== this.props.country.label) {
+    const { country } = this.props;
+    if (prevProps.country.label !== country.label) {
       const { organiserList, country } = this.props;
       const filteredOrganisers = organiserList.filter(
         (data) => data.location === country.label
@@ -125,6 +126,8 @@ class Organisers extends Component {
   };
 
   renderCategoryFilter = () => {
+    const { categories } = this.props;
+
     return (
       <div className="category-filter  col-xl-2 col-lg-2 col-md-3 col-sm-12 col-xs-12 ">
         <div>
@@ -143,7 +146,7 @@ class Organisers extends Component {
           >
             <Option value="all">All</Option>
 
-            {this.props.categories.map((category) => (
+            {categories.map((category) => (
               <Option value={category.name}>{category.name}</Option>
             ))}
           </Select>
