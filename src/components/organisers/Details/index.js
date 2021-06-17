@@ -66,8 +66,7 @@ class OrganiserDetails extends Component {
                     <p className="cardTitle">{item.title}</p>
                     <p className="cardSubheading">{item.type}</p>
                     <p className="cardSubheading">{item.timings}</p>
-
-                    <p className="cardEventsText">{item.shows} Shows</p>
+                    <p className="cardSubheading">{item.shows} Shows</p>
                   </div>
                 </Card>
               </div>
@@ -86,27 +85,30 @@ class OrganiserDetails extends Component {
   listView = () => {
     const { eventsList } = this.props;
     return eventsList.map((item) => (
-      <div className="card">
-        <div className="row no-gutters">
-          <div className="col-auto">
-            <img src={item.imgSrc} height="165px" alt="" />
-          </div>
-          <div class="col">
-            <div className="card-block px-2">
-              <h4 className="card-title">{item.title}</h4>
-              <p className="card-text">{item.type}</p>
-              <p className="card-text">{item.timings}</p>
-              <p className="card-text">{item.shows}</p>
+      <div className="listViewCard">
+        <div className="card">
+          <div className="row no-gutters">
+            <div className="col-auto">
+              <img src={item.imgSrc} height="140px" alt="" />
+            </div>
+            <div class="col">
+              <div className="card-block px-4">
+                <h4 className="cardTitle">{item.title}</h4>
+                <p className="cardSubheading">{item.type}</p>
+                <p className="cardSubheading">{item.timings}</p>
+                <p className="cardSubheading">{item.shows} Shows</p>
+              </div>
             </div>
           </div>
         </div>
+        <hr />
       </div>
     ));
   };
 
   render() {
     console.log("props=", this.props);
-    const { prosessing } = this.props;
+    const { prosessing, eventOrganiser } = this.props;
     const { gridView } = this.state;
 
     if (prosessing) return <Loader />;
@@ -119,7 +121,8 @@ class OrganiserDetails extends Component {
             {this.getBreadcrumb()}
           </div>
         </div>
-        <div className="container  ">
+
+        <div className="container setContainerWidth ">
           <div className=" customBorder row">
             <p className="fontSetting col-xl-7 col-lg-7 col-md-7 col-sm-6 col-xs-6">
               30 Events
@@ -146,9 +149,30 @@ class OrganiserDetails extends Component {
             </button>
             {this.renderFilter()}
           </div>
+          <hr />
         </div>
-        <div className="container mt-5">
+        <div className="container setContainerWidth ">
           {gridView ? this.getImageCards() : this.listView()}
+        </div>
+        <div className="eventOrganiserContainer">
+          <img
+            src={eventOrganiser.imgSrc}
+            className="eventOrganiserImage"
+            alt="event organiser"
+          />
+
+          <h4 className="cardTitle">{eventOrganiser.title}</h4>
+          <p className="cardSubheading">
+            Events Oraganised {eventOrganiser.eventsOrganised}
+          </p>
+          <p className="cardSubheading">Venue-{eventOrganiser.venue}</p>
+          <p className="cardSubheading">
+            {eventOrganiser.ratings} Out of 300 reviews
+          </p>
+          <br />
+          <hr />
+          <br />
+          <p className="cardSubheading">{eventOrganiser.description}</p>
         </div>
       </div>
     );
@@ -159,6 +183,7 @@ const mapStateToProps = (state) => {
   return {
     eventsList: state.organiser.eventsList,
     processing: state.organiser.processing,
+    eventOrganiser: state.organiser.eventOrganiser,
   };
 };
 

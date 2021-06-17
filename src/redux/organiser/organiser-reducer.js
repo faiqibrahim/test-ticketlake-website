@@ -128,6 +128,15 @@ const initState = {
     },
   ],
 
+  eventOrganiser: {
+    title: "Pop Sugar Event Planner",
+    eventsOrganised: 50,
+    venue: "Capri Complex, D4, Texas",
+    ratings: 4.5,
+    description:
+      "PopSugar Inc. is an American media & technology company that is the parent to the media property PopSugar and a monthly…read more.",
+    imgSrc: "/images/events/drive.png",
+  },
   processing: false,
 };
 
