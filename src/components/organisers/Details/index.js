@@ -53,7 +53,7 @@ class OrganiserDetails extends Component {
           {eventsList.map((item) => {
             return (
               <div
-                className="col-lg-3 col-xs-6 col-sm-6 marginBottom"
+                className="col-xl-3 col-lg-3 col-md-4 col-xs-6 col-sm-6 marginBottom"
                 key={item.id}
               >
                 <Card className="cardStyling">
@@ -122,37 +122,44 @@ class OrganiserDetails extends Component {
           </div>
         </div>
 
-        <div className="container setContainerWidth ">
+        <div className="container  ">
           <div className=" customBorder row">
             <p className="fontSetting col-xl-7 col-lg-7 col-md-7 col-sm-6 col-xs-6">
               30 Events
             </p>
-            <button
-              className={
-                "btnChanging btn2 " + (this.state.gridView ? "active" : null)
-              }
-              onClick={() => {
-                this.setView(true);
-              }}
-            >
-              <i class="fa fa-th-large" /> Grid View
-            </button>
-            <button
-              className={
-                "btnChanging btn2 " + (!this.state.gridView ? "active" : null)
-              }
-              onClick={() => {
-                this.setView(false);
-              }}
-            >
-              <i class="fa fa-bars" /> List View
-            </button>
+            <div className="marginLeftAuto">
+              <button
+                className={
+                  "btnChanging btnGrid " +
+                  (this.state.gridView ? "active" : null)
+                }
+                onClick={() => {
+                  this.setView(true);
+                }}
+              >
+                <i class="fa fa-th-large" />
+              </button>
+              <button
+                className={
+                  "btnChanging btnGrid " +
+                  (!this.state.gridView ? "active" : null)
+                }
+                onClick={() => {
+                  this.setView(false);
+                }}
+              >
+                <i class="fa fa-bars" />
+              </button>
+            </div>
+
             {this.renderFilter()}
           </div>
-          <hr />
+          <hr className="setHrWidth" />
         </div>
-        <div className="container setContainerWidth ">
-          {gridView ? this.getImageCards() : this.listView()}
+        <div className="container ">
+          <div className="setWidth">
+            {gridView ? this.getImageCards() : this.listView()}
+          </div>
         </div>
         <div className="eventOrganiserContainer">
           <img
@@ -165,14 +172,49 @@ class OrganiserDetails extends Component {
           <p className="cardSubheading">
             Events Oraganised {eventOrganiser.eventsOrganised}
           </p>
-          <p className="cardSubheading">Venue-{eventOrganiser.venue}</p>
+          <p className="cardSubheading">Venue - {eventOrganiser.venue}</p>
           <p className="cardSubheading">
+            <span class="fa fa-star checked" />
+            <span class="fa fa-star checked" />
+            <span class="fa fa-star checked" />
+            <span class="fa fa-star checked" />
+            <span class="fa fa-star" />
             {eventOrganiser.ratings} Out of 300 reviews
           </p>
           <br />
           <hr />
           <br />
-          <p className="cardSubheading">{eventOrganiser.description}</p>
+          <p className="cardSubheading ">{eventOrganiser.description}</p>
+          <div className="row mt-3">
+            <div className="col-3">
+              <img
+                src={eventOrganiser.imgSrc}
+                className="eventOrganiserGallery"
+                alt={eventOrganiser.title}
+              />
+            </div>
+            <div className="col-3">
+              <img
+                src={eventOrganiser.imgSrc}
+                className="eventOrganiserGallery"
+                alt={eventOrganiser.title}
+              />
+            </div>
+            <div className="col-3">
+              <img
+                src={eventOrganiser.imgSrc}
+                className="eventOrganiserGallery"
+                alt={eventOrganiser.title}
+              />
+            </div>
+            <div className="col-3">
+              <img
+                src={eventOrganiser.imgSrc}
+                className="eventOrganiserGallery"
+                alt={eventOrganiser.title}
+              />
+            </div>
+          </div>
         </div>
       </div>
     );

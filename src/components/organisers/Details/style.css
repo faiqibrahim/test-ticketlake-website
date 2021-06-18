@@ -23,6 +23,7 @@
   margin-bottom: 0px;
   padding-bottom: 0px;
   outline-offset: 5px;
+  width: 73%;
 }
 
 .setContainerWidth {
@@ -47,23 +48,25 @@
   font-size: 15px;
 }
 
-.btn2 {
+.btnGrid {
   border: none;
   outline: none;
   padding: 15px 16px;
   height: 80%;
   margin-left: 10px;
-  background-color: #f1f1f1;
+  background-color: #f2f3f8;
   cursor: pointer;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
-.btn2:hover {
-  background-color: #ec1b23;
+.btnGrid:hover {
+  background-color: #4c5157;
   color: white;
 }
 
-.btn2.active {
-  background-color: red;
+.btnGrid.active {
+  background-color: #4c5157;
   color: white;
 }
 
@@ -88,14 +91,22 @@
 .eventOrganiserContainer {
   position: fixed;
   top: 200px;
-  width: 400px;
+  width: 480px;
   height: 750px;
   border-radius: 10px;
   border: 1px solid #d8dae3;
   right: 2%;
-  padding: 30px;
+  padding: 40px;
   background-color: #ffffff;
   z-index: inherit;
+}
+
+.cardSubheading .star-half {
+  color: #ffb500;
+}
+
+.cardSubheading .checked {
+  color: #ffb500;
 }
 
 .eventOrganiserContainer .cardSubheading {
@@ -104,8 +115,7 @@
 }
 
 .eventOrganiserImage {
-  width: 370px;
-  padding-right: 30px;
+  width: 400px;
 }
 
 .listViewCard .card {
@@ -113,4 +123,32 @@
   padding-top: 40px;
   padding-bottom: 40px;
   border: none;
+}
+
+.eventOrganiserContainer .eventOrganiserGallery {
+  height: 90px;
+  width: 90px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.eventOrganiserContainer .col-3 {
+  max-width: 23%;
+}
+
+.marginLeftAuto {
+  margin-left: auto;
+}
+
+.setHrWidth {
+  width: 71%;
+}
+
+.setWidth {
+  width: 71%;
+}
+
+.mb-100 .organiser-row {
+  margin-top: 56px;
 }
