@@ -59,7 +59,6 @@ const eventListingFilters = (props) => {
                                 onChange={(e) => props.changeCity(e)}
                                 className="chosen-select filterDropDowns">
                                 defaultValue={"Accra"}
-                                {/*<option selected={(props && props.location) ? "selected" : null}>Select City</option>*/}
                             {
                                 Array.isArray(city) && city.map((x, i) => {
                                     return (
