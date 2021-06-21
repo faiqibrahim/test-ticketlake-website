@@ -377,11 +377,11 @@ class SignUp extends Component {
                                             {/* <ModalHeader toggle={this.openModal}> */}
                                             <h3>Terms & Conditions</h3>
                                             {/* </ModalHeader> */}
-                                            <ModalBody style={{padding: '30px 0'}} className="left">
+                                            <ModalBody style={{padding: '0px 0px 40px 0px'}} className="left">
                                                <CollapseAbleComponent/>
                                             </ModalBody>
                                             {/* <ModalFooter> */}
-                                                <button className={'center-btn btn btn-danger buttonDefault defaultBackground'} onClick={this.verifyTermsAndCondtiiton}>
+                                                <button className={'center-btn btn btn-danger buttonDefault defaultBackground fw-bold '} onClick={this.verifyTermsAndCondtiiton}>
                                                     Agree Terms & Conditions
                                                 </button>
                                             {/* </ModalFooter> */}
