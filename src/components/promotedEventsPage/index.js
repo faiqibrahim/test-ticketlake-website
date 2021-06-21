@@ -156,7 +156,7 @@ class PromotedEventsPage extends Component {
                             <Heading
                                 style={{marginBottom: '0px', textAlign: 'left'}}
                                 heading={"Promoted Events"}
-                                text={"Navigate through number of thrilling events happening around"}/>
+                                text={"Navigate through number of outrageous events happening around"}/>
                         </div>
                     </section>
 

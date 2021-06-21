@@ -12,7 +12,7 @@ import {setPromotedEventsForHome} from '../../redux/event/event-actions';
 import {isNullOrEmpty, getMaxAndMinPrice} from '../../utils/common-utils';
 
 const pageHeading = "Promoted Events";
-const pageDescription = "Navigate through number of thrilling events happening around";
+const pageDescription = "Navigate through number of outrageous events happening around";
 
 class PromotedEvents extends Component {
 
@@ -103,7 +103,7 @@ class PromotedEvents extends Component {
                             <div>
                                 <TwoShadedButton
                                     buttonLink={'/events/promoted'}
-                                    buttonText={'Explore all Promoted Events'}
+                                    buttonText={'Explore all Events'}
                                 />
                             </div>
                         </div>
