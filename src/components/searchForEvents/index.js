@@ -145,11 +145,9 @@ class SearchFormEvents extends React.Component {
 
                                     <select placeholder="City"
                                             name="city"
-                                            defaultValue={"Location"}
+                                            defaultValue={"Accra"}
                                             className="main-search-select"
                                             onChange={this.onLocationChange}>
-                                        <option disabled value={"Location"}>Location</option>
-                                        <option>All</option>
                                         {
                                             Array.isArray(cities) && cities.map((city, index) => {
                                                 if(city.label !== ''){
