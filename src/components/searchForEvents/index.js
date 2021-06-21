@@ -129,7 +129,7 @@ class SearchFormEvents extends React.Component {
                                 <div className="main-search-input-item location autocomplete-container banner-seach-field">
                                     <input
                                             type="text"
-                                            placeholder="I am looking for.."
+                                            placeholder="Search anything ..."
                                             className="autocomplete-input"
                                             id="autocompleteid3"
                                             onChange={(e) => this.handleChange(e)}

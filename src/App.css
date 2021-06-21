@@ -1240,7 +1240,7 @@ label {
   border: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: url(/images/dropdown.png) no-repeat right center;
+  background: url(/images/dropdown-icon.png) no-repeat right center;
   background-size: 0.8em;
   background-position: calc(100% - 0.9em) center;
   background-repeat: no-repeat;
@@ -1248,14 +1248,14 @@ label {
 }
 
 .chosen-select {
-  background: url(/images/dropdown.png) #f2f3f8 no-repeat right center !important;
+  background: url(/images/dropdown-icon.png) #f2f3f8 no-repeat right center !important;
   background-size: 0.8em !important;
   background-position: calc(100% - 0.9em) center !important;
   background-repeat: no-repeat !important;
   cursor: pointer;
 }
 .main-search-select {
-  background: url(/images/dropdown.png) no-repeat right center !important;
+  background: url(/images/dropdown-icon.png) no-repeat right center !important;
   background-size: 0.8em !important;
   background-position: calc(100% - 0.9em) center !important;
   background-repeat: no-repeat !important;
@@ -1266,7 +1266,7 @@ label {
   border: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: url(/images/dropdown.png) #f2f3f8 no-repeat right center #f2f3f8;
+  background: url(/images/dropdown-icon.png) #f2f3f8 no-repeat right center #f2f3f8;
   background-size: 0.8em;
   background-position: calc(100% - 0.9em) center;
   background-repeat: no-repeat;
@@ -1275,7 +1275,7 @@ label {
   margin-top: 10px;
 }
 .custom-form .dropdown-select {
-  background: url(/images/dropdown.png) #f2f3f8 no-repeat right center !important;
+  background: url(/images/dropdown-icon.png) #f2f3f8 no-repeat right center !important;
   background-size: 0.8em !important;
   background-position: calc(100% - 0.9em) center !important;
   background-repeat: no-repeat !important;

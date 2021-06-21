@@ -177,7 +177,7 @@ class EventListingFilters extends React.Component {
                                     <label>Keyword</label>
                                     <input
                                         type="text"
-                                        placeholder="I am Looking for.."
+                                        placeholder="Search anything ..."
                                         className="autocomplete-input filterDropDowns"
                                         id="autocompleteid3"
                                         style={{padding: '12px 10px 11px 10px', height: '31px'}}
