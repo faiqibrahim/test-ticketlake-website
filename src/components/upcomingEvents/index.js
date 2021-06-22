@@ -68,7 +68,6 @@ class UpcomingEvents extends Component {
                                             buttonText={'View All Events'}
                                             float={true}
                                         />
-
                                     </div>
                                 </div>
                             </div>

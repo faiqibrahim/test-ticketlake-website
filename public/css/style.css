@@ -369,7 +369,7 @@ input[type="number"]
 }
 /*-------------Button---------------------------------------*/
 .btn {
-    padding: 0 80px 0 30px;
+    padding: 0 75px 0 30px;
     line-height: 40px;
     border-radius: 7px;
     color: #fff;
@@ -10606,6 +10606,10 @@ article.post-article .list-single-main-item {
     .section-team .team-box {
         margin: 0px 0px 20px 0px;
     }
+    .float-unset
+    {
+        float: unset !important;
+    }
 
 
 
@@ -12365,9 +12369,23 @@ input[type=number] {
         padding: 0px !important;
     }
 }
-@media only screen and  (max-width:285px) {
+@media only screen and  (max-width:300px) {
     span.sign-in {
         display: none;
+    }
+    .logo-wrp
+    {
+        width: 100px;
+    }
+    .header-content-wrp-bottom {
+        margin-top: 33px;
+    }
+    .big-pad-pr-item
+    {
+        padding: 20px 30px !important;
+    }
+    .footer-social-btns ul li:last-child {
+        margin-top: 10px;
     }
 }
 .row.align-item {
