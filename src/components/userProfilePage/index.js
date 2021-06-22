@@ -164,7 +164,7 @@ class UserProfile extends Component {
         border: ' 1px solid #eee',
         backgroundColor: '#F2F3F8',
         width: '100%',
-        padding: ' 14px 170px 14px 20px',
+        padding: ' 14px 20px 14px 20px',
         borderRadius: '6px',
         color: '#666',
         fontSize: '13px',

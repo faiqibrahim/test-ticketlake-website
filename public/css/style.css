@@ -2383,7 +2383,8 @@ section.parallax-section .bg, .hero-parallax .bg {
     padding: 0 16px;
     position: relative;
     color: #888DA0;
-    font-size: 12px;
+    font-size: 12px !important;
+    font-weight: unset !important;
 }
 
 .breadcrumbs.inline-breadcrumbs span {
@@ -7974,8 +7975,9 @@ article.post-article .list-single-main-item {
 
 .dasboard-avatar {
     overflow: hidden;
-    padding: 0 70px;
     position: relative;
+    width: 60%;
+    margin: auto;
 }
 
 .dasboard-avatar img {
@@ -10547,9 +10549,9 @@ article.post-article .list-single-main-item {
         padding: 0px 0px 0px 0px !important;
         margin-bottom: 30px;
     }
-    .btn.float-btn {
-        float: unset;
-    }
+    /*.btn.float-btn {*/
+    /*    float: unset;*/
+    /*}*/
     .desktop-view
     {
         display: none;
@@ -10614,11 +10616,7 @@ article.post-article .list-single-main-item {
 @media only screen and  (max-width: 540px) {
     .single-facts .inline-facts-wrap {
         width:calc(100% / 1) !important;
-
     }
-
-
-
     .home-btn, .show-search-button span {
         display: none;
     }
@@ -10723,8 +10721,8 @@ article.post-article .list-single-main-item {
     }
 
     .dasboard-avatar img {
-        width: 80px;
-        height: 80px;
+        width: 120px;
+        height: 120px;
     }
 
     .list-single-facts .inline-facts-wrap {
@@ -12388,4 +12386,12 @@ input[type=number] {
 }
 .category-desc {
     font-size: 16px !important;
+}
+.dashboard-info {
+    float: left;
+    width: 100%;
+}
+.dashboard-info-wrp {
+    float: left;
+    width: 100%;
 }
