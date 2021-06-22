@@ -35,7 +35,6 @@ class OrganiserDetails extends Component {
         <div>
           <Select
             placeholder="Sort by"
-            name="categories"
             className="chosen-select  filterDropDowns organiserCategorySelect sortBy customHeight"
           >
             <Option value="all">All</Option>
@@ -137,7 +136,7 @@ class OrganiserDetails extends Component {
                   this.setView(true);
                 }}
               >
-                <i class="fa fa-th-large" />
+                <i class="fas fa-th-large "></i>
               </button>
               <button
                 className={
@@ -148,7 +147,7 @@ class OrganiserDetails extends Component {
                   this.setView(false);
                 }}
               >
-                <i class="fa fa-bars" />
+                <i class="fas fa-list " />
               </button>
             </div>
 
@@ -174,11 +173,15 @@ class OrganiserDetails extends Component {
           </p>
           <p className="cardSubheading">Venue - {eventOrganiser.venue}</p>
           <p className="cardSubheading">
-            <span class="fa fa-star checked" />
-            <span class="fa fa-star checked" />
-            <span class="fa fa-star checked" />
-            <span class="fa fa-star checked" />
-            <span class="fa fa-star" />
+            <img src="/icons/star.svg" className="alignNone mr-2" alt="star" />
+            <img src="/icons/star.svg" className="alignNone mr-2" alt="star" />
+            <img src="/icons/star.svg" className="alignNone mr-2" alt="star" />
+            <img src="/icons/star.svg" className="alignNone mr-2" alt="star" />
+            <img
+              src="/icons/empty star.svg"
+              className="alignNone mr-2"
+              alt="star"
+            />
             {eventOrganiser.ratings} Out of 300 reviews
           </p>
           <br />
@@ -213,6 +216,9 @@ class OrganiserDetails extends Component {
                 className="eventOrganiserGallery"
                 alt={eventOrganiser.title}
               />
+              <div class="overlap">
+                <h2 className="textBlock">+3</h2>
+              </div>
             </div>
           </div>
         </div>

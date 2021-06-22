@@ -135,7 +135,7 @@ class Organisers extends Component {
             <img
               className="categoryIconStyling"
               alt={"categories"}
-              src={window.location.origin + "/icons/category.svg"}
+              src={window.location.origin + "/icons/category-red.svg"}
             />
           </div>
           <Select

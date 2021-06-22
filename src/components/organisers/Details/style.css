@@ -37,6 +37,7 @@
   font-size: 28px;
   font-weight: bold;
   color: #ec1b23;
+  padding-top: 15px;
 }
 
 .sortBy .ant-select-selection-selected-value::before {
@@ -51,13 +52,16 @@
 .btnGrid {
   border: none;
   outline: none;
-  padding: 15px 16px;
+  padding: 0px 16px;
   height: 80%;
   margin-left: 10px;
   background-color: #f2f3f8;
   cursor: pointer;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  height: 48px;
+  width: 65px;
+  font-size: 28px;
 }
 
 .btnGrid:hover {
@@ -151,4 +155,33 @@
 
 .mb-100 .organiser-row {
   margin-top: 56px;
+}
+
+.eventOrganiserContainer .alignNone {
+  vertical-align: inherit;
+}
+
+.bannerBackground .ant-breadcrumb a {
+  color: white;
+}
+
+.bannerBackground .ant-breadcrumb a:hover {
+  color: white;
+}
+
+.eventOrganiserContainer .overlap {
+  position: absolute;
+  padding: 45px 45px;
+  background-color: #03030396;
+  bottom: 0px;
+  border-radius: 10px;
+}
+
+.eventOrganiserContainer .textBlock {
+  position: absolute;
+  color: white;
+  transform: translate(-50%, -50%);
+  font-family: "NeuePlak";
+  font-size: 26px;
+  font-weight: bold;
 }
