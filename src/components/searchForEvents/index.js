@@ -26,8 +26,7 @@ class SearchFormEvents extends React.Component {
         dates: null,
         datesInput: null,
         categories: null,
-        keyword: null
-
+        keyword: null,
     };
 
     componentDidMount() {
@@ -109,6 +108,8 @@ class SearchFormEvents extends React.Component {
     render() {
         let cities = filteredCities();
         const {categories} = this.props;
+        const defaultCity = cities.length && cities[0].label;
+
         return (
             <HeroBanner
                 backgroundImage={window.location.origin + '/images/banner_1.png'}
@@ -145,13 +146,11 @@ class SearchFormEvents extends React.Component {
 
                                     <select placeholder="City"
                                             name="city"
-                                            defaultValue={"Location"}
+                                            defaultValue={defaultCity}
                                             className="main-search-select"
                                             onChange={this.onLocationChange}>
-                                        <option disabled value={"Location"}>Location</option>
-                                        <option>All</option>
                                         {
-                                            Array.isArray(cities) && cities.map((city, index) => {
+                                           cities.map((city, index) => {
                                                 if(city.label !== ''){
                                                     return (
                                                         <option key={index} value={city.value}>{city.label}</option>
