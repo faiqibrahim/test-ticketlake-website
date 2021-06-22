@@ -39,7 +39,7 @@ const eventListingFilters = (props) => {
                         <label>Keyword</label>
                         <input
                             type="text"
-                            placeholder="I am looking for.."
+                            placeholder="Search anything ..."
                             className="autocomplete-input filterDropDowns"
                             id="autocompleteid3"
                             style={{padding: '12px 10px 11px 10px', height: '49px'}}
