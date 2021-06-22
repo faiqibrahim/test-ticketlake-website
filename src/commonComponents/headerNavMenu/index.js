@@ -108,6 +108,7 @@ class HeaderNavMenu extends Component {
             pathname: pathURL,
             state: { parentCategory: item, breadCrumbs: breadCrumb, navLink: true }
         };
+        
 
         if (item.children.length > 0) {
             return (
