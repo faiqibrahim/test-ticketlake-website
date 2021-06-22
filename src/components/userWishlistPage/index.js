@@ -153,7 +153,7 @@ class Wishlist extends Component {
                             {
                                 this.props.processing ?
                                     <Loader/> :
-                                    <div>
+                                    <div className={"wishlist-box-wrp"}>
                                         {
                                             wishListEvents && wishListEvents.length > 0 ?
                                                 <>

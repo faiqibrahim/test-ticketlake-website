@@ -12395,3 +12395,59 @@ input[type=number] {
     float: left;
     width: 100%;
 }
+.dashboard-avatar-wrp {
+    float: left;
+    width: 100%;
+}
+
+@media only screen and (min-width: 541px) and (max-width: 1064px){
+    .dashboard-info {
+        padding: 0px 20px;
+    }
+    .dashboard-avatar-wrp {
+        width: 35%;
+    }
+    .dashboard-avatar-wrp .dasboard-avatar {
+        width: 100%;
+    }
+    .img-btn-wrp {
+        float: left;
+        width: 100%;
+        text-align: center;
+    }
+    .img-btn-wrp .change-img-btn {
+        margin: 20px auto;
+        float: unset;
+    }
+    .dashboard-info-wrp {
+        width: 65%;
+        padding-left: 25px;
+    }
+    .dashboard-info-wrp .dasboard-sidebar-item {
+        width: 100%;
+    }
+    .dasboard-sidebar-item:before {
+
+        transform: unset !important;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 950px) {
+    .wishlist-box-wrp .defaultCard.col-md-4 {
+        width: calc(100% / 2);
+        max-width: unset;
+    }
+}
+@media only screen and (min-width: 951px) and (max-width: 1024px) {
+    .wishlist-box-wrp .defaultCard.col-md-4 {
+        width: calc(100% / 2);
+        max-width: unset;
+    }
+}
+
+@media only screen and (min-width: 1065px) and (max-width: 1365px) {
+    .wishlist-box-wrp .defaultCard.col-md-4 {
+        width: calc(100% / 2);
+        max-width: unset;
+    }
+}
+
