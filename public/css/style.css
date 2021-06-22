@@ -10470,10 +10470,6 @@ article.post-article .list-single-main-item {
     .profile-tic-box {
         width: calc(100% / 2 - 20px) !important;
     }
-    
-    .mobile-app-wrp .custom-container .row .col-md-6:last-child {
-        display: none;
-    }
 
     .event-listing-wrp {
         padding: 2rem 0px !important;
@@ -12368,6 +12364,9 @@ input[type=number] {
     {
         padding: 0px !important;
     }
+    .mobile-app-wrp .custom-container .row .col-md-6:last-child {
+        display: none;
+    }
 }
 @media only screen and  (max-width:300px) {
     span.sign-in {
@@ -12388,6 +12387,19 @@ input[type=number] {
         margin-top: 10px;
     }
 }
+
+
+
+
+@media only screen and  (min-width:768px) and (max-width: 980px){
+    .big-pad-pr-item {
+        padding: 20px 30px !important;
+    }
+}
+
+
+
+
 .row.align-item {
     align-items: center;
 }

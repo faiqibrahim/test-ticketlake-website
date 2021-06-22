@@ -31,8 +31,6 @@ import moment from "moment";
 import axios from '../../utils/axios'
 
 const header = ["Date", "Transaction ID", "Payment Method", "Payment Type", "Amount", "Details"];
-// const [modal, setModal] = useState(false);
-// const toggle = () => setModal(!modal);
 
 class Wallet extends Component {
 
@@ -65,33 +63,19 @@ class Wallet extends Component {
                     isLaded: true,
                 })
 
-                //start tikcets key gernating
                 var ticketsState = this.state.modalDataFromApi.tickets
                 if (ticketsState !== null && ticketsState !== undefined) {
                     var ticketsArray = []
                     for (var key of Object.keys(ticketsState)) {
                         ticketsArray.push(key)
-                        // for (let i = 0; i < Object.keys(ticketsState).length; i++) {
-                        //     console.log('rizwan iiiii',Object.keys(ticketsState).length, ticketsState[key], ticketsArray,  i)
-                        // }
                     }
-                    // if (key!==undefined){
-                    //     console.log('rizwan 2222 +++', ticketsState[key])
-                    //     for (let i = 0; i < ticketsArray.length; i++) {
-                    //         // ticketsPriceArray.push(ticketsState[key][i].price)
-                    //     }
-                    // }
-                    // console.log('ticketsState key', ticketsArray)
-                    
                     this.setState({
                         ticketsState: ticketsArray,
                         isLoadedKey: true,
                     })
                    
                 }
-                //end tikcets key gernating
 
-                //start passes key gernating
                 var passesState = this.state.modalDataFromApi.passes
                 if (passesState !== null && passesState !== undefined) {
                     var passesArray = []
@@ -104,17 +88,13 @@ class Wallet extends Component {
                             passesPriceArray.push(passesState[passesKey][i].price)
                           }
                     }
-                    // console.log('rizwan iiiii +++', passesPriceArray)
                     this.setState({
                         passesState: passesArray,
                         passesPriceState: passesPriceArray,
                         isLoadedKey: true,
                     })
                 }
-                // array element length
-                // let a = response.data.passes.price;
-                // let sum =_.sum(response.data.passes.price)
-                //start passes key gernating
+
             })
             .catch(err => {
                 console.error('Error /consumers/get-order-details', err)
@@ -152,18 +132,6 @@ class Wallet extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
-
-        /************************* Uncomment this when wallet needs to implement *********************************/
-        // const { isCurrencyConverted, currencyConversion } = this.props;
-
-        // if(isCurrencyConverted !== prevProps.isCurrencyConverted && isCurrencyConverted) {
-        //     this.setState({ conversionRates: currencyConversion }, () => {
-        //         this.proceed();
-        //     })
-        // }
-    }
-
     toggle() {
         this.setState(prevState => ({
             modal: !prevState.modal
@@ -176,26 +144,6 @@ class Wallet extends Component {
             changePrice: val
         })
     }
-
-    /******************** Uncomment this when wallet needs to implement ***********************/
-        // proceed() {
-        //
-        //     const val = this.state.conversionRates.convertedAmount
-        //     if (isNaN(val) || val === 0) {
-        //         swal({
-        //                 title: 'Error',
-        //                 icon: "warning",
-        //                 text: 'Please enter a higher amount',
-        //             }
-        //         )
-        //     } else {
-        //         this.setState({
-        //             modal: false
-        //         });
-        //         this.props.setTopUpAmount(parseFloat(val));
-        //         this.props.history.push('/user/wallet/top-up');
-        //     }
-        // }
 
     getRate = (e) => {
         const amount = this.state.changePrice;
@@ -349,11 +297,6 @@ class Wallet extends Component {
                                                                                     {this.state.ticketsState.map((keyIs, i) => {
                                                                                         return (
                                                                                             this.state.modalDataFromApi.tickets[keyIs].map((data, i) => {
-                                                                                                // var da = []
-                                                                                                // da.push(data.price)
-                                                                                                // this.setState({
-                                                                                                //     ticketsPriceState:da
-                                                                                                // })
                                                                                                 return (
                                                                                                     <tr>
                                                                                                         <td>{keyIs}</td>
@@ -424,20 +367,10 @@ class Wallet extends Component {
                                                                         <td className="red-text">{this.state.modalDataFromApi.couponInfo.discountValue}
                                                                             {this.state.modalDataFromApi.couponInfo.discountType === 'fixed' ? 'GHS' : '%'} OFF
                                                                         </td>
-                                                                        {/* <td className="grey-text">
-                                                                            GHS {
-                                                                                    this.state.modalDataFromApi.couponInfo.discountType === 'fixed' ? 
-                                                                                        this.state.modalDataFromApi.couponInfo.discountValue 
-                                                                                        : 
-                                                                                        (this.state.modalData.transactionAmount*10)/100
-                                                                                        // (this.state.modalDataFromApi.couponInfo.discountValue*this.state.modalData.transactionAmount)/100 
-                                                                                }
-                                                                        </td> */}
                                                                     </tr>
                                                                     :
                                                                     null
                                                                 }
-                                                                {/* {this.state.modalDataFromApi.discountType==='fixed'?'GHS':'%'} */}
 
                                                                 </tbody>
                                                                 <tbody>

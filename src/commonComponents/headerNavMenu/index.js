@@ -33,8 +33,7 @@ class HeaderNavMenu extends Component {
         };
     }
 
-    helloRizwan = (a, navState) => {
-        // this.props.history.push("/events/listing/?id=" + a)
+    setPathToSession = (a, navState) => {
         sessionStorage.setItem('eventsListing', JSON.stringify(navState.state));
         this.props.history.push(navState)
     };
@@ -113,7 +112,7 @@ class HeaderNavMenu extends Component {
         if (item.children.length > 0) {
             return (
                 <UncontrolledDropdown key={i} nav inNavbar>
-                    <DropdownToggle nav caret onClick={() => this.helloRizwan(item._id, navState)}>
+                    <DropdownToggle nav caret onClick={() => this.setPathToSession(item._id, navState)}>
                         {item.name}
                     </DropdownToggle>
                     <DropdownMenu right className="one p-0 right-menu">
@@ -158,10 +157,10 @@ class HeaderNavMenu extends Component {
                     item.children.length > 0 ?
                         <UncontrolledDropdown key={i} nav inNavbar style={{ background: '#e8e8e8' }}
                             className="border-bottom mh">
-                            <DropdownToggle nav caret onClick={() => this.helloRizwan(item._id, navState)}>
+                            <DropdownToggle nav caret onClick={() => this.setPathToSession(item._id, navState)}>
                                 {item.name ? item.name : item.title}
                             </DropdownToggle>
-                            <DropdownMenu right className="rizwan one p-0 hee right-menu">
+                            <DropdownMenu right className="one p-0 hee right-menu">
                                 {item.children.map((item, i) => (
                                     this.lpFunctions(item, i, link, breadCrumbsState)
                                 ))}
@@ -216,7 +215,7 @@ class HeaderNavMenu extends Component {
                     <DropdownToggle nav caret>
                         More
                     </DropdownToggle>
-                    <DropdownMenu right className="rizwan one p-0 hee right-menu">
+                    <DropdownMenu right className="one p-0 hee right-menu">
                         {navJsx}
                     </DropdownMenu>
                 </UncontrolledDropdown>
