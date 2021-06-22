@@ -4,8 +4,8 @@ const GET_URL = () => {
 
   switch (REACT_APP_ENV.trim()) {
     case "dev":
-      // url = "http://192.168.2.50:5030/";
-      url = "https://api.qa.ticketlake.com/";
+      url = "http://192.168.2.50:5030/";
+      //url = "https://api.qa.ticketlake.com/";
       break;
     case "qa":
       url = "https://api.qa.ticketlake.com/";
