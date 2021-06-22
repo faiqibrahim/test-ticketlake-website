@@ -2,13 +2,7 @@
 node {
     app = null
     properties([disableConcurrentBuilds()])
-
- /*   stage('Set NodeJs') {
-        env.NODEJS_HOME = "${tool 'node-14'}"
-        env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
-        sh 'npm --version'
-    }*/
-
+    
     stage('Checkout Repository') {
         checkout scm
         sh 'git rev-parse --short HEAD > .git/commit-id'
