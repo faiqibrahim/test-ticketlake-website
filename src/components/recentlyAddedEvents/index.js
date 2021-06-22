@@ -113,7 +113,7 @@ class RecentlyAddedEvents extends Component {
 
         if (this.props.processing) {
             return (
-                <section className="light-red-bg up-coming-events">
+                <section className="up-coming-events">
                     <SectionHeading
                         heading={heading}
                         text={text && text ? text : ''}
@@ -124,7 +124,7 @@ class RecentlyAddedEvents extends Component {
         } else {
             if (isNullOrEmpty(event)) {
                 return (
-                    <section className="light-red-bg up-coming-events">
+                    <section className="up-coming-events">
                         <SectionHeading
                             heading={heading}
                             text={text && text ? text : ''}
@@ -140,7 +140,7 @@ class RecentlyAddedEvents extends Component {
                 buttonSettings.display = this.state.width > 1024 ? this.props.upcomingEventsHome.length > this.mainSliderSettings.slidesToShow : true;
 
                 return (
-                    <section className="light-red-bg up-coming-events">
+                    <section className="up-coming-events">
                         <SectionHeading
                             heading={heading}
                             text={text && text ? text : ''}

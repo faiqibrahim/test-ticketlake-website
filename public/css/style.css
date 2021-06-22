@@ -12380,3 +12380,12 @@ input[type=number] {
     font-size: 20px;
     float: left;
 }
+
+@media only screen and  (min-width:1025px) {
+    .category-desc {
+        width: 70%;
+    }
+}
+.category-desc {
+    font-size: 16px !important;
+}
