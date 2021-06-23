@@ -25,7 +25,7 @@ const eventListingFilters = (props) => {
 
     const {categories} = props;
     const {city} = props;
-
+    const defaultCity = city.length && city[0].label;
     return (
         <>
             <div className="mobile-list-controls fl-wrap mar-bot-cont" onClick={toggleShowOnMobile}>
@@ -39,7 +39,7 @@ const eventListingFilters = (props) => {
                         <label>Keyword</label>
                         <input
                             type="text"
-                            placeholder="I am looking for.."
+                            placeholder="Search anything ..."
                             className="autocomplete-input filterDropDowns"
                             id="autocompleteid3"
                             style={{padding: '12px 10px 11px 10px', height: '49px'}}
@@ -58,10 +58,9 @@ const eventListingFilters = (props) => {
                                 name="city"
                                 onChange={(e) => props.changeCity(e)}
                                 className="chosen-select filterDropDowns">
-                            <option disabled selected>Select City</option>
-                            <option selected={(props.location === 'All') ? "selected" : null}>All</option>
+                                defaultValue={defaultCity}
                             {
-                                Array.isArray(city) && city.map((x, i) => {
+                                city && city.map((x, i) => {
                                     return (
                                         <option key={i}
                                                 selected={(props.location === x.label) ? 'selected' : null}

@@ -23,7 +23,7 @@ const animatedCard = (props) => {
                                     )
                                 })}
 
-                                <br/><Moment format="ll">{props.date}</Moment></p>
+                                <br/><Moment format="DD/MM/YYYY">{props.date}</Moment></p>
                         </div>
                         {props.buttonText === 0 ?
                             <span className={"free-tag promoted-card-tag"}>

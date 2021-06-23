@@ -62,13 +62,12 @@ class UpcomingEvents extends Component {
                                 <div className="colomn-text fl-wrap pad-top-column-text_s">
                                     <div className="colomn-text-title">
                                         <h3>Explore Events</h3>
-                                        <p>Explore some of the best categories from ticketlake.</p>
+                                        <p className={"category-desc"}>Chalk out your entertainment by exploring the upcoming events based on your personal preferences.</p>
                                         <TwoShadedButton
                                             buttonLink={'/events/listing'}
                                             buttonText={'View All Events'}
                                             float={true}
                                         />
-
                                     </div>
                                 </div>
                             </div>
