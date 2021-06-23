@@ -33,7 +33,7 @@ class MobileAppBanner extends Component {
                             {/*process-wrap   end*/}
                         </div>
                         <div className="col-md-6" style={{position:'absolute',right:'0px'}}>
-                            <div className="images-collage-title color3-bg">Easy<span>Book</span></div>
+                            <div className="images-collage-title color3-bg">Share <span>Ticket</span></div>
                             <img alt={"Mobile-img"} src={window.location.origin + '/images/mobile.png'} style={{maxWidth:'101%'}}/>
                             <div className="collage-image-input">Search <i className="fa fa-search"/></div>
                             <div className="collage-image-btn color2-bg">Booking now</div>

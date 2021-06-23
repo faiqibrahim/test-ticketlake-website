@@ -8,7 +8,7 @@ import Movies from "../../components/moviesPage/Movies";
 
 
 class menuNavItem extends Component {
-    helloRizwan=()=>{
+    redirectToEventListing=()=>{
         this.props.history.push("/events/listing")
     }
 
@@ -28,7 +28,7 @@ class menuNavItem extends Component {
         ));
 
         displaySubmenu.push(<UncontrolledDropdown nav inNavbar>
-            <DropdownToggle nav caret onClick={this.helloRizwan}>
+            <DropdownToggle nav caret onClick={this.redirectToEventListing}>
                 {this.props.name}
             </DropdownToggle>
             <DropdownMenu right className="one p-0">
