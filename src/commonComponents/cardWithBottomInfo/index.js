@@ -13,7 +13,7 @@ const style = {
     },
     bottomTitle: {
         fontWeight: 700,
-        fontSize: '22px',
+        fontSize: '20px',
         color: 'black',
         textAlign: 'start',
         marginTop: '12px'
@@ -21,14 +21,16 @@ const style = {
     info: {
         color: '#878C9F',
         textAlign: 'start',
-        fontSize: '16px',
-        fontWeight: 500
+        fontSize: '14px',
+        fontWeight: 500,
+        marginBottom:'0px'
     }
 };
 
-const CardWithBottomInfo = ({imageSrc, title, address, noOfShows, distance, onClick}) => {
+const CardWithBottomInfo = (props) => {
+    const {imageSrc, title, address, noOfShows, distance, onClick,dates,country,venueTitle} = props;
     return (
-        <div className={'row cursor-pointer'} style={{width: '330px', marginBottom: '6%'}} onClick={onClick}>
+        <div className={'row cursor-pointer'} style={{width: '330px'}} onClick={onClick}>
             <div className={'col-md-12'}>
                 <div style={style.wrapper}>
                     <img alt='img' className={'animated-card-image'}
@@ -37,24 +39,29 @@ const CardWithBottomInfo = ({imageSrc, title, address, noOfShows, distance, onCl
             </div>
             <div className={'col-md-12'}>
                 <div className={'row'}>
-                    <div className={'col-md-8'}>
-                        <div style={style.bottomTitle}>
-                            {title}
-                        </div>
-                    </div>
-                    <div className={'col-md-3'} style={{textAlign: 'right'}}>
-                        <div style={{marginTop: '12px', display: 'grid'}}>
-                            <span style={{fontSize: '22px', fontWeight: 700, marginBottom: '-3px', color: 'black'}}>{distance}</span>
-                            <span style={{fontSize: '10px', fontWeight: 500, color: '#878C9F'}}>KM</span>
-                        </div>
-                    </div>
+                    {
+                        title ? <div className={'col-md-8'}>
+                            <div style={style.bottomTitle}>
+                                {title}
+                            </div>
+                        </div>:null
+                    }
+                    {
+                        distance ? <div className={'col-md-3'} style={{textAlign: 'right'}}>
+                            <div style={{marginTop: '12px', display: 'grid'}}>
+                                <span style={{fontSize: '20px', fontWeight: 700, marginBottom: '-3px', color: 'black'}}>{distance}</span>
+                                <span style={{fontSize: '10px', fontWeight: 500, color: '#878C9F'}}>KM</span>
+                            </div>
+                        </div>:null
+                    }
+
                 </div>
             </div>
-            <div className={'col-md-12'} style={{marginTop: '-8px'}}>
-                <div style={style.info}>{noOfShows} Shows</div>
+            <div className={`${dates ? 'padding-top col-md-12' : 'col-md-12'}` } >
+                <div style={style.info}>{noOfShows? noOfShows + " Shows": dates} </div>
             </div>
-            <div className={'col-md-12'} style={{marginTop: '-4px'}}>
-                <p style={style.info}>{address}</p>
+            <div className={'col-md-12'}>
+                <p style={style.info}>{address ? address + "," + country : venueTitle} </p>
             </div>
         </div>
     )

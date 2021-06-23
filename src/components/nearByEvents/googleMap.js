@@ -72,7 +72,7 @@ class GoogleMap extends Component {
 
         return (
 
-            <div className="map" style={{marginTop: '-52px'}}>
+            <div className="map listing-map" style={{marginTop: '-52px'}}>
                 <Map
                     google={this.props.google}
                     zoom={11}

@@ -12480,4 +12480,14 @@ input[type=number] {
         max-width: unset;
     }
 }
+.pb-40
+{
+    padding-bottom:40px ;
+}
+.padding-top {
+    padding-top: 15px;
+}
+.padding-bottom {
+    padding-bottom: 15px;
+}
 

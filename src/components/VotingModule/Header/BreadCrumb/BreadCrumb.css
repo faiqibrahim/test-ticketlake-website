@@ -1,14 +1,14 @@
-.breadcrumbs span > span{
+.votingBreadcrumbs .breadcrumbs span > span{
     font-family: 'NeuePlak';
     font-size:20px;
     font-weight: 600;
 }
-.breadcrumbs span > span a{
+.votingBreadcrumbs .breadcrumbs span > span a{
     color:#EC1B23;
     font-size:20px;
 }
 
-.separator:before{
+.votingBreadcrumbs .separator:before{
     font-family: "Font Awesome 5 Free";
     content: "\F054";
     font-weight: 900;
@@ -17,8 +17,8 @@
     margin:0 10px;
 }
 @media screen and (max-width:575px){
-    .breadcrumbs span > span,
-    .breadcrumbs span > span a{
+    .votingBreadcrumbs .breadcrumbs span > span,
+    .votingBreadcrumbs .breadcrumbs span > span a{
         font-size: 18px;
     }
 }

@@ -11,9 +11,10 @@ import DefaultCard from "../../commonComponents/defaultCard";
 import Heading from "../../commonComponents/heading";
 import Loader from "../../commonComponents/loader";
 // Helpers
-import { getCardDates, getMaxAndMinPrice } from "../../utils/common-utils";
+import {distance, getCardDates, getMaxAndMinPrice} from "../../utils/common-utils";
 import axios from "../../utils/axios";
 import GoogleMap from "./googleMap";
+import CardWithBottomInfo from "../../commonComponents/cardWithBottomInfo";
 
 let isWishlist = false;
 
@@ -148,61 +149,27 @@ class NearByEvents extends Component {
               </div>
             </div>
           </section>
-
-          {this.state.isloadedNearby ? (
-            <section className="light-red-bg small-padding" id="sec1">
-              <div className="container custom-container">
-                <div className="row">
-                  <div className="col-md-12">
-                    {this.state.nearByData.length > 0
-                      ? null
-                      : "Events not Found!"}
-                  </div>
-                </div>
-              </div>
-            </section>
-          ) : null}
-
           {this.state.switchView ? (
             // grid view
-            <section className="light-red-bg small-padding" id="sec1">
+            <section className="light-red-bg small-padding pb-40" id="sec1">
               <div className="container custom-container">
                 <div className="row">
                   {this.state.isloadedNearby ? (
                     this.state.nearByData.map((data, i) => {
                       return (
-                        <DefaultCard
-                          key={i}
-                          gridLg={3}
-                          gridMd={6}
-                          gridSm={12}
-                          auth={this.props.auth}
-                          cardTitle={data.eventTitle}
-                          venueName={data.venue && data.venue.name}
-                          image={data.bannerImageKey.imageUrl}
-                          cardLink={"#"}
-                          dates={getCardDates(data.eventDateTimeSlot)}
-                          isWishList={isWishlist}
-                          wishlistLink={() =>
-                            this.wishListToggleLink(data.eventSlotId)
-                          }
-                          cardAddress={data.venue ? data.venue.address : ""}
-                          country={data.venue ? data.venue.country : []}
-                          city={data.venue ? data.venue.city : []}
-                          onClick={() =>
-                            this.props.history.push(
-                              `/event/detail/${data.eventSlotId}`
-                            )
-                          }
-                          buttonText={getMaxAndMinPrice(data)}
-                          buttonLink={`/buy-ticket/${data.eventSlotId}`}
-                          sharing={this.sharingSocial}
-                          description={
-                            data.parentEventInfo &&
-                            data.parentEventInfo.description
-                          }
-                          id={data._id}
-                        />
+                          <CardWithBottomInfo
+                              key={i}
+                              id={data._id}
+                              auth={this.props.auth}
+                              imageSrc={data.bannerImageKey.imageUrl}
+                              onClick={() => this.props.history.push({
+                                              pathname: `/event/detail/${data.eventSlotId}`,
+                                              data: data,
+                                              })}
+                              venueTitle={data.venue ? data.venue.name : ""}
+                              dates={getCardDates(data.eventDateTimeSlot)}
+
+                          />
                       );
                     })
                   ) : (
@@ -211,44 +178,44 @@ class NearByEvents extends Component {
                     </div>
                   )}
                 </div>
-                <div className="row">
-                  <div className="col-lg-12 float-left">
-                    <div className="d-flex">
-                      {this.state.nearByData > 1 ? (
-                        <ReactPaginate
-                          previousLabel={<i className="fa fa-angle-left" />}
-                          nextLabel={<i className="fa fa-angle-right" />}
-                          breakLabel={"..."}
-                          breakClassName={"break-me"}
-                          pageCount={this.state.totalPages}
-                          marginPagesDisplayed={2}
-                          pageRangeDisplayed={5}
-                          onPageChange={(data) => this.loadMoreEvents(data)}
-                          containerClassName={
-                            "list-inline mx-auto justify-content-center pagination"
-                          }
-                          subContainerClassName={
-                            "list-inline-item pages pagination"
-                          }
-                          activeClassName={"active"}
-                        />
-                      ) : null}
+                {this.state.nearByData > 1 ? (
+                  <div className="row">
+                    <div className="col-lg-12 float-left">
+                      <div className="d-flex">
+                          <ReactPaginate
+                            previousLabel={<i className="fa fa-angle-left" />}
+                            nextLabel={<i className="fa fa-angle-right" />}
+                            breakLabel={"..."}
+                            breakClassName={"break-me"}
+                            pageCount={this.state.totalPages}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={(data) => this.loadMoreEvents(data)}
+                            containerClassName={
+                              "list-inline mx-auto justify-content-center pagination"
+                            }
+                            subContainerClassName={
+                              "list-inline-item pages pagination"
+                            }
+                            activeClassName={"active"}
+                          />
+                      </div>
                     </div>
                   </div>
-                </div>
+                ) : null}
               </div>
             </section>
           ) : (
             // list view
             <section className="light-red-bg small-padding" id="sec2">
-              <div className="container custom-container">
+              <div className="container custom-container nearbyLayout">
                 <div className="row" style={{ paddingBottom: "50px" }}>
                   <div className="col-md-6 list-view">
                     {this.state.isloadedNearby ? (
                       this.state.nearByData.map((data, i) => {
                         return (
                           <div
-                            className="row cursor-pointer"
+                            className="row cursor-pointer padding-bottom"
                             onClick={() =>
                               this.props.history.push(
                                 `/event/detail/${data.eventSlotId}`
@@ -257,20 +224,14 @@ class NearByEvents extends Component {
                             onMouseOver={() => this.listOver(data.venue)}
                           >
                             <div className="col-md-4 nearby-img">
-                              <img src={data.bannerImageKey.imageUrl} alt='img' />
+                              <img style={{ height: "130px" }} src={data.bannerImageKey.imageUrl} alt='img' />
                             </div>
                             <div className="col-md-8 nearby-text">
-                              <h5>{data.eventTitle}</h5>
-                              <p>
+                              <p style={{paddingTop: "40px"}}>
                                 {getCardDates(data.eventDateTimeSlot)}
                                 <br />
-                                {data.venue ? data.venue.address : ""},{" "}
-                                {data.venue ? data.venue.country : []}
+                                {data.venue ? data.venue.name : ""}
                               </p>
-                              <div className="km">
-                                <h5 className="km-count zero">05</h5>
-                                <span className="km-text">KM</span>
-                              </div>
                             </div>
                           </div>
                         );
@@ -278,34 +239,34 @@ class NearByEvents extends Component {
                     ) : (
                       <Loader />
                     )}
-                    <div className="row">
-                      <div className="col-lg-12 float-left">
-                        <div className="d-flex">
-                          {this.state.nearByData > 1 ? (
-                            <ReactPaginate
-                              previousLabel={<i className="fa fa-angle-left" />}
-                              nextLabel={<i className="fa fa-angle-right" />}
-                              breakLabel={"..."}
-                              breakClassName={"break-me"}
-                              pageCount={this.state.totalPages}
-                              marginPagesDisplayed={2}
-                              pageRangeDisplayed={5}
-                              onPageChange={(data) => this.loadMoreEvents(data)}
-                              containerClassName={
-                                "list-inline mx-auto justify-content-center pagination"
-                              }
-                              subContainerClassName={
-                                "list-inline-item pages pagination"
-                              }
-                              activeClassName={"active"}
-                            />
-                          ) : null}
+                    {this.state.nearByData > 1 ? (
+                      <div className="row">
+                        <div className="col-lg-12 float-left">
+                          <div className="d-flex">
+                              <ReactPaginate
+                                previousLabel={<i className="fa fa-angle-left" />}
+                                nextLabel={<i className="fa fa-angle-right" />}
+                                breakLabel={"..."}
+                                breakClassName={"break-me"}
+                                pageCount={this.state.totalPages}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                onPageChange={(data) => this.loadMoreEvents(data)}
+                                containerClassName={
+                                  "list-inline mx-auto justify-content-center pagination"
+                                }
+                                subContainerClassName={
+                                  "list-inline-item pages pagination"
+                                }
+                                activeClassName={"active"}
+                              />
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    ) : null}
                   </div>
                   <div className="col-md-6 map-placeholder">
-                    <div>
+                    <div className={"map-head"}>
                       {this.state.nearByData.length > 0 ? (
                         <div
                           style={{ width: "205px" }}
@@ -316,7 +277,7 @@ class NearByEvents extends Component {
                             src="/images/nearby-map-view.png"
                             className="switch-view-icon" alt='img'
                           />
-                          <p className="zero">
+                          <p className="zero pt-5">
                             Switch to Grid View{" "}
                             <span className="close-icon">x</span>
                           </p>
