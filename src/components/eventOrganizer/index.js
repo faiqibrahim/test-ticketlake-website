@@ -32,7 +32,7 @@ class EventOrganizer extends Component {
                                         <p>Ticketlake is tailor-made for you! Register with us today and get your events on our platform and instantly reach a wider audience never before possible!</p>
                                         <div onClick={() => this.openModal()}
                                              style={{cursor: 'pointer'}}
-                                             className={'btn color-bg float-btn'}>
+                                             className={'btn color-bg float-btn float-unset '}>
                                             Publish your events
                                             <i className={'fa fa-caret-right'}/>
                                         </div>

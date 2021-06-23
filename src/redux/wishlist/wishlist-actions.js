@@ -56,7 +56,7 @@ export const wishListToggle = (eventSlotId, dispatchSecond, isRemove, page, cb) 
                     dispatch(getWishlistEvents(true, page, 0, 6, true, cb));
                 }
                 let message =  respose.data && respose.data.isFavorite === true ?
-                    'Event has added to wishlist' : 'Event has removed from wishlist';
+                    'Event has been added to wishlist' : 'Event has been removed from wishlist';
                 NotificationManager.success(message,'',NOTIFICATION_TIME);
             })
             .catch(err => {

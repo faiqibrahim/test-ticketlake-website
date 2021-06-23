@@ -50,16 +50,42 @@ export default class CardSlider extends Component {
                 {
                     breakpoint: 600,
                     settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                        initialSlide: 1,
+                        centerPadding:"20px"
+                    }
+                },
+                {
+                    breakpoint: 580,
+                    settings: {
                         slidesToShow: 1,
                         slidesToScroll: 1,
-                        initialSlide: 1
+                        centerPadding:"80px"
                     }
                 },
                 {
                     breakpoint: 480,
                     settings: {
                         slidesToShow: 1,
-                        slidesToScroll: 1
+                        slidesToScroll: 1,
+                        centerPadding:"60px"
+                    }
+                },
+                {
+                    breakpoint: 400,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        centerPadding:"20px"
+                    }
+                },
+                {
+                    breakpoint: 300,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        centerPadding:"10px"
                     }
                 }
             ]
@@ -92,7 +118,9 @@ export default class CardSlider extends Component {
                         infinite: settings.infinite,
                         dots: true
                     }
-                })
+                }
+
+                )
         }else if(settings.isCategory){
             propsSettings.responsive.push(
                 {

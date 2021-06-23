@@ -85,36 +85,45 @@ class ProfileSidebar extends Component {
         return (
             <div className="dasboard-sidebar">
                 <div className="dasboard-sidebar-content fl-wrap">
-                    <div className="dasboard-avatar">
-                        {
-                            this.props.profilePictureProcessing ?
-                                <Loader style={{color: "white"}}/>
-                                :
-                                <img
-                                    src={profileImage && profileImage.imageUrl ? profileImage.imageUrl : '/images/default-dp.png'}
-                                    alt="img"/>
+                    <div className={"dashboard-info"}>
+                        <div className={"dashboard-avatar-wrp"}>
+                            <div className="dasboard-avatar">
+                                {
+                                    this.props.profilePictureProcessing ?
+                                        <Loader style={{color: "white"}}/>
+                                        :
+                                        <img
+                                            src={profileImage && profileImage.imageUrl ? profileImage.imageUrl : '/images/default-dp.png'}
+                                            alt="img"/>
 
-                        }
-                    </div>
+                                }
+                            </div>
+                            <div className={"img-btn-wrp"}>
+                                <input type={'file'}
+                                       ref={uploadElement => this.uploadElement = uploadElement}
+                                       accept={'.jpg,.jpeg,.png'}
+                                       hidden
+                                       onChange={this.onDrop}
+                                       className={"upload-img"}
+                                />
+                                <a href="dashboard-add-listing.html"
+                                   onClick={e => {
+                                       e.preventDefault();
+                                       this.uploadElement.click()
+                                   }}
+                                   className="ed-btn change-img-btn">Change image
+                                </a>
+                            </div>
+                        </div>
+                        <div className={"dashboard-info-wrp"}>
+                            <div className="dasboard-sidebar-item fl-wrap">
+                                <h3>
+                                    <span>Welcome </span>
+                                    {this.props.user ? this.props.user.name : "My Name"}
+                                </h3>
+                            </div>
+                        </div>
 
-                    <input type={'file'}
-                           ref={uploadElement => this.uploadElement = uploadElement}
-                           accept={'.jpg,.jpeg,.png'}
-                           hidden
-                           onChange={this.onDrop}/>
-
-                    <a href="dashboard-add-listing.html"
-                       onClick={e => {
-                           e.preventDefault();
-                           this.uploadElement.click()
-                       }}
-                       className="ed-btn">Change image</a>
-
-                    <div className="dasboard-sidebar-item fl-wrap">
-                        <h3>
-                            <span>Welcome </span>
-                            {this.props.user ? this.props.user.name : "My Name"}
-                        </h3>
                     </div>
                     <div className="user-stats fl-wrap">
                         <ul>

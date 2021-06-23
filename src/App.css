@@ -554,14 +554,16 @@ a.btn.color-bg:hover {
     right: 2%;
   }
 
-  .colomn-text.pad-top-column-text.fl-wrap a.down-btn.color3-bg {
-    width: 100% !important;
-  }
-
   .blockOnMobile {
     display: block;
     padding: 0px !important;
     margin: auto !important;
+  }
+}
+@media (max-width: 540px) {
+
+  .colomn-text.pad-top-column-text.fl-wrap a.down-btn.color3-bg {
+    width: 100% !important;
   }
 }
 
@@ -1648,16 +1650,6 @@ label {
   /* top: -2px; */
   border: none;
   background: #e8e8e8;
-}
-
-.rizwan .dropdown-toggle::after {
-  /* transform: rotate(270deg); */
-}
-
-.rizwan {
-  margin-left: 0px !important;
-  border: 0px;
-  top: unset;
 }
 
 .hee {
