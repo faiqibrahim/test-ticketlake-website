@@ -147,7 +147,9 @@ class Organisers extends Component {
             <Option value="all">All</Option>
 
             {categories.map((category) => (
-              <Option value={category.name}>{category.name}</Option>
+              <Option key={category.id} value={category.name}>
+                {category.name}
+              </Option>
             ))}
           </Select>
         </div>

@@ -38,13 +38,23 @@
   font-weight: bold;
   color: #ec1b23;
   padding-top: 15px;
+  overflow: hidden;
 }
 
-.sortBy .ant-select-selection-selected-value::before {
-  content: "Sort by:  ";
+.filterBy .ant-select-selection-selected-value::before {
+  content: "Filter by:  " !important;
 }
 
-.sortBy .ant-select-arrow svg {
+.events .ant-select-selection-selected-value::before {
+  content: "Events:  " !important;
+}
+
+.filterBy .ant-select-arrow svg {
+  color: #17224e;
+  font-size: 15px;
+}
+
+.events .ant-select-arrow svg {
   color: #17224e;
   font-size: 15px;
 }
@@ -52,16 +62,15 @@
 .btnGrid {
   border: none;
   outline: none;
-  padding: 0px 16px;
   height: 80%;
   margin-left: 10px;
   background-color: #f2f3f8;
   cursor: pointer;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
-  height: 48px;
-  width: 65px;
-  font-size: 28px;
+  height: 40px;
+  width: 40px;
+  font-size: 24px;
 }
 
 .btnGrid:hover {
@@ -88,7 +97,9 @@
 
 .eventCardImage {
   width: 100%;
+  height: 135px;
   border-radius: 10px;
+  float: auto;
   object-fit: contain;
 }
 
@@ -103,14 +114,6 @@
   padding: 40px;
   background-color: #ffffff;
   z-index: inherit;
-}
-
-.cardSubheading .star-half {
-  color: #ffb500;
-}
-
-.cardSubheading .checked {
-  color: #ffb500;
 }
 
 .eventOrganiserContainer .cardSubheading {
@@ -184,4 +187,55 @@
   font-family: "NeuePlak";
   font-size: 26px;
   font-weight: bold;
+}
+
+/** ******************** Overview Gallery Image ***************************** **/
+.overview-gallery-img {
+  height: 90px;
+  border-radius: 10px;
+  border: 1px solid #eeeeee;
+  background-repeat: no-repeat;
+  position: relative;
+  cursor: pointer !important;
+  background-size: cover;
+  background-position: center;
+}
+
+.overview-gallery-img p {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.overlapImg {
+  background-color: #03030396;
+  box-shadow: inset 2000px 0 0 0;
+  border-color: #03030396;
+  border: unset !important;
+}
+
+.vertical-text {
+  position: absolute;
+  color: #ffffff;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/** ******************** Model Carousel ***************************** **/
+.model-carousel .carousel.carousel-slider .control-arrow {
+  background: rgba(0, 0, 0, 0.2) !important;
+  height: 100px;
+  top: 40%;
+}
+
+.model-carousel .carousel .slide {
+  background: #fff;
+}
+
+.colWidth {
+  margin-top: 25px;
+  width: 22% !important;
+  margin-right: 2.166667% !important;
+  margin-left: 0px !important;
 }

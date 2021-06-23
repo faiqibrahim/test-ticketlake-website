@@ -65,7 +65,8 @@ const initState = {
     {
       id: 1,
       type: "Action & Thriller",
-      timings: "Fri, May 6 — Sun, June 4",
+      startTime: "Fri, May 6",
+      endTime: "Sun, July 4",
       imgSrc: "/images/events/enemylines.png",
       title: "Enemy Lines",
       shows: 7,
@@ -73,7 +74,8 @@ const initState = {
     {
       id: 2,
       type: "Action & Thriller",
-      timings: "Fri, May 6 — Sun, June 4",
+      startTime: "Fri, May 6",
+      endTime: "Sun, July 4",
       imgSrc: "/images/events/badboys.png",
       title: "Bad Boys for Life",
       shows: 7,
@@ -81,7 +83,8 @@ const initState = {
     {
       id: 3,
       type: "Action & Thriller",
-      timings: "Fri, May 6 — Sun, June 4",
+      startTime: "Fri, May 6",
+      endTime: "Sun, July 4",
       imgSrc: "/images/events/drive.png",
       title: "Drive",
       shows: 7,
@@ -89,7 +92,8 @@ const initState = {
     {
       id: 4,
       type: "Action & Thriller",
-      timings: "Fri, May 6 — Sun, June 4",
+      startTime: "Fri, May 6",
+      endTime: "Sun, June 24",
       imgSrc: "/images/events/actiongirls.png",
       title: "Action Girls",
       shows: 7,
@@ -97,7 +101,8 @@ const initState = {
     {
       id: 5,
       type: "Action & Thriller",
-      timings: "Fri, May 6 — Sun, June 4",
+      startTime: "Fri, May 6",
+      endTime: "Sun, June 4",
       imgSrc: "/images/events/enemylines.png",
       title: "Enemy Lines",
       shows: 7,
@@ -105,7 +110,8 @@ const initState = {
     {
       id: 6,
       type: "Action & Thriller",
-      timings: "Fri, May 6 — Sun, June 4",
+      startTime: "Fri, May 6",
+      endTime: "Sun, July 4",
       imgSrc: "/images/events/badboys.png",
       title: "Bad Boys for Life",
       shows: 7,
@@ -113,7 +119,8 @@ const initState = {
     {
       id: 7,
       type: "Action & Thriller",
-      timings: "Fri, May 6 — Sun, June 4",
+      startTime: "Fri, May 6",
+      endTime: "Sun, June 4",
       imgSrc: "/images/events/drive.png",
       title: "Drive",
       shows: 7,
@@ -121,7 +128,8 @@ const initState = {
     {
       id: 8,
       type: "Action & Thriller",
-      timings: "Fri, May 6 — Sun, June 4",
+      startTime: "Fri, May 6",
+      endTime: "Sun, June 4",
       imgSrc: "/images/events/actiongirls.png",
       title: "Action Girls",
       shows: 7,
@@ -132,10 +140,18 @@ const initState = {
     title: "Pop Sugar Event Planner",
     eventsOrganised: 50,
     venue: "Capri Complex, D4, Texas",
-    ratings: 4.5,
+    ratings: 4,
     description:
       "PopSugar Inc. is an American media & technology company that is the parent to the media property PopSugar and a monthly…read more.",
     imgSrc: "/images/events/drive.png",
+    gallaryImages: [
+      "/images/events/actiongirls.png",
+      "/images/events/drive.png",
+      "/images/events/badboys.png",
+      "/images/events/enemylines.png",
+      "/images/events/drive.png",
+      "/images/events/actiongirls.png",
+    ],
   },
   processing: false,
 };

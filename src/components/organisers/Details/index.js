@@ -6,13 +6,15 @@ import { Select } from "antd";
 import { connect } from "react-redux";
 import Loader from "../../../commonComponents/loader";
 import { Card } from "react-bootstrap";
-
+import moment from "moment";
+import EventOrganiserCard from "./EventOrganiserCard";
 const { Option } = Select;
 
 class OrganiserDetails extends Component {
   state = {
     eventsList: "",
     gridView: true,
+    processing: true,
   };
 
   getBreadcrumb = () => {
@@ -29,43 +31,132 @@ class OrganiserDetails extends Component {
     );
   };
 
-  renderFilter = () => {
+  handleDateChange = (e) => {};
+
+  renderDateFilter = () => {
     return (
-      <div className="category-filter  col-xl-2 col-lg-2 col-md-3 col-sm-12 col-xs-12 ">
+      <div className="category-filter  col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 ">
         <div>
           <Select
-            placeholder="Sort by"
-            className="chosen-select  filterDropDowns organiserCategorySelect sortBy customHeight"
+            defaultValue="all"
+            placeholder="filter by"
+            className="chosen-select  filterDropDowns organiserCategorySelect filterBy customHeight"
+            onChange={(e) => this.handleDateChange(e)}
           >
             <Option value="all">All</Option>
+            <Option value="today">Today</Option>
+            <Option value="yesterday">Tomorrow</Option>
+            <Option value="last7Days">Next 7 days</Option>
+            <Option value="last30Days">Next 30 days</Option>
           </Select>
         </div>
       </div>
     );
   };
 
-  getImageCards = () => {
+  setEvents = (e) => {
     const { eventsList } = this.props;
+
+    if (e === "all") {
+      return this.setState({ eventsList });
+    }
+
+    const currentMonth = moment().get("month") + 1;
+    const date = moment().get("date");
+    let filteredEvents;
+    if (e === "active") {
+      filteredEvents = eventsList.filter((event) => {
+        let dateArray = event.endTime.split(" ");
+
+        const eventMonth = moment()
+          .month(dateArray[1])
+          .format("M");
+
+        if (currentMonth < eventMonth) {
+          return event;
+        }
+
+        if (currentMonth > eventMonth) {
+          return null;
+        } else {
+          if (date < dateArray[2]) {
+            return event;
+          } else return null;
+        }
+      });
+    } else {
+      filteredEvents = eventsList.filter((event) => {
+        let dateArray = event.endTime.split(" ");
+
+        const eventMonth = moment()
+          .month(dateArray[1])
+          .format("M");
+
+        if (currentMonth > eventMonth) {
+          return event;
+        }
+
+        if (currentMonth < eventMonth) {
+          return null;
+        } else {
+          if (date > dateArray[2]) {
+            return event;
+          } else return null;
+        }
+      });
+    }
+
+    this.setState({ eventsList: filteredEvents });
+  };
+
+  renderEventFilter = () => {
+    return (
+      <div className="category-filter  col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 ">
+        <div>
+          <Select
+            defaultValue="all"
+            placeholder="Events"
+            className="chosen-select  filterDropDowns organiserCategorySelect events customHeight"
+            onChange={(e) => this.setEvents(e)}
+          >
+            <Option value="all">All</Option>
+            <Option value="active">Active</Option>
+            <Option value="past">Past</Option>
+          </Select>
+        </div>
+      </div>
+    );
+  };
+
+  componentDidMount() {
+    const { eventsList } = this.props;
+    this.setState({ eventsList, processing: false });
+  }
+
+  getImageCards = () => {
+    const { eventsList } = this.state;
     return (
       <div className="mb-100">
         <div className="row organiser-row">
-          {eventsList.map((item) => {
+          {eventsList.map((event) => {
             return (
               <div
                 className="col-xl-3 col-lg-3 col-md-4 col-xs-6 col-sm-6 marginBottom"
-                key={item.id}
+                key={event.id}
               >
-                <Card className="cardStyling">
+                <Card key={event.id} className="cardStyling">
                   <Card.Img
                     className="eventCardImage"
                     variant="top"
-                    src={item.imgSrc}
+                    src={event.imgSrc}
                   />
                   <div>
-                    <p className="cardTitle">{item.title}</p>
-                    <p className="cardSubheading">{item.type}</p>
-                    <p className="cardSubheading">{item.timings}</p>
-                    <p className="cardSubheading">{item.shows} Shows</p>
+                    <p className="cardTitle">{event.title}</p>
+                    <p className="cardSubheading">{event.type}</p>
+                    <p className="cardSubheading">
+                      {event.startTime}-{event.endTime}
+                    </p>
+                    <p className="cardSubheading">{event.shows} Shows</p>
                   </div>
                 </Card>
               </div>
@@ -82,20 +173,22 @@ class OrganiserDetails extends Component {
   };
 
   listView = () => {
-    const { eventsList } = this.props;
-    return eventsList.map((item) => (
-      <div className="listViewCard">
+    const { eventsList } = this.state;
+    return eventsList.map((event) => (
+      <div className="listViewCard" key={event.id}>
         <div className="card">
           <div className="row no-gutters">
             <div className="col-auto">
-              <img src={item.imgSrc} height="140px" alt="" />
+              <img src={event.imgSrc} height="135px" alt="" />
             </div>
-            <div class="col">
+            <div className="col">
               <div className="card-block px-4">
-                <h4 className="cardTitle">{item.title}</h4>
-                <p className="cardSubheading">{item.type}</p>
-                <p className="cardSubheading">{item.timings}</p>
-                <p className="cardSubheading">{item.shows} Shows</p>
+                <h4 className="cardTitle">{event.title}</h4>
+                <p className="cardSubheading">{event.type}</p>
+                <p className="cardSubheading">
+                  {event.startTime}-{event.endTime}
+                </p>
+                <p className="cardSubheading">{event.shows} Shows</p>
               </div>
             </div>
           </div>
@@ -106,11 +199,9 @@ class OrganiserDetails extends Component {
   };
 
   render() {
-    console.log("props=", this.props);
-    const { prosessing, eventOrganiser } = this.props;
-    const { gridView } = this.state;
-
-    if (prosessing) return <Loader />;
+    const { eventOrganiser } = this.props;
+    const { gridView, processing } = this.state;
+    if (processing) return <Loader style={{ marginTop: "170px" }} />;
 
     return (
       <div id="wrapper" className="textAlignLeft">
@@ -123,7 +214,7 @@ class OrganiserDetails extends Component {
 
         <div className="container  ">
           <div className=" customBorder row">
-            <p className="fontSetting col-xl-7 col-lg-7 col-md-7 col-sm-6 col-xs-6">
+            <p className="fontSetting col-xl-3 col-lg-3 col-md-8 col-sm-6 col-xs-6">
               30 Events
             </p>
             <div className="marginLeftAuto">
@@ -136,7 +227,7 @@ class OrganiserDetails extends Component {
                   this.setView(true);
                 }}
               >
-                <i class="fas fa-th-large "></i>
+                <i className="fas fa-th-large "></i>
               </button>
               <button
                 className={
@@ -147,11 +238,11 @@ class OrganiserDetails extends Component {
                   this.setView(false);
                 }}
               >
-                <i class="fas fa-list " />
+                <i className="fas fa-list " />
               </button>
             </div>
-
-            {this.renderFilter()}
+            {this.renderEventFilter()}
+            {this.renderDateFilter()}
           </div>
           <hr className="setHrWidth" />
         </div>
@@ -160,68 +251,7 @@ class OrganiserDetails extends Component {
             {gridView ? this.getImageCards() : this.listView()}
           </div>
         </div>
-        <div className="eventOrganiserContainer">
-          <img
-            src={eventOrganiser.imgSrc}
-            className="eventOrganiserImage"
-            alt="event organiser"
-          />
-
-          <h4 className="cardTitle">{eventOrganiser.title}</h4>
-          <p className="cardSubheading">
-            Events Oraganised {eventOrganiser.eventsOrganised}
-          </p>
-          <p className="cardSubheading">Venue - {eventOrganiser.venue}</p>
-          <p className="cardSubheading">
-            <img src="/icons/star.svg" className="alignNone mr-2" alt="star" />
-            <img src="/icons/star.svg" className="alignNone mr-2" alt="star" />
-            <img src="/icons/star.svg" className="alignNone mr-2" alt="star" />
-            <img src="/icons/star.svg" className="alignNone mr-2" alt="star" />
-            <img
-              src="/icons/empty star.svg"
-              className="alignNone mr-2"
-              alt="star"
-            />
-            {eventOrganiser.ratings} Out of 300 reviews
-          </p>
-          <br />
-          <hr />
-          <br />
-          <p className="cardSubheading ">{eventOrganiser.description}</p>
-          <div className="row mt-3">
-            <div className="col-3">
-              <img
-                src={eventOrganiser.imgSrc}
-                className="eventOrganiserGallery"
-                alt={eventOrganiser.title}
-              />
-            </div>
-            <div className="col-3">
-              <img
-                src={eventOrganiser.imgSrc}
-                className="eventOrganiserGallery"
-                alt={eventOrganiser.title}
-              />
-            </div>
-            <div className="col-3">
-              <img
-                src={eventOrganiser.imgSrc}
-                className="eventOrganiserGallery"
-                alt={eventOrganiser.title}
-              />
-            </div>
-            <div className="col-3">
-              <img
-                src={eventOrganiser.imgSrc}
-                className="eventOrganiserGallery"
-                alt={eventOrganiser.title}
-              />
-              <div class="overlap">
-                <h2 className="textBlock">+3</h2>
-              </div>
-            </div>
-          </div>
-        </div>
+        <EventOrganiserCard eventOrganiser={eventOrganiser} />
       </div>
     );
   }
