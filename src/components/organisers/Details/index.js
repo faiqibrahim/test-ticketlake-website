@@ -14,7 +14,7 @@ class OrganiserDetails extends Component {
   state = {
     eventsList: "",
     gridView: true,
-    processing: true,
+    filteredEvents: [],
   };
 
   getBreadcrumb = () => {
@@ -31,8 +31,6 @@ class OrganiserDetails extends Component {
     );
   };
 
-  handleDateChange = (e) => {};
-
   renderDateFilter = () => {
     return (
       <div className="category-filter  col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 ">
@@ -41,7 +39,6 @@ class OrganiserDetails extends Component {
             defaultValue="all"
             placeholder="filter by"
             className="chosen-select  filterDropDowns organiserCategorySelect filterBy customHeight"
-            onChange={(e) => this.handleDateChange(e)}
           >
             <Option value="all">All</Option>
             <Option value="today">Today</Option>
@@ -54,17 +51,18 @@ class OrganiserDetails extends Component {
     );
   };
 
-  setEvents = (e) => {
+  setEvents = (eventType) => {
     const { eventsList } = this.props;
 
-    if (e === "all") {
-      return this.setState({ eventsList });
+    if (eventType === "all") {
+      return this.setState({ filteredEvents: [] });
     }
 
     const currentMonth = moment().get("month") + 1;
     const date = moment().get("date");
     let filteredEvents;
-    if (e === "active") {
+
+    if (eventType === "active") {
       filteredEvents = eventsList.filter((event) => {
         let dateArray = event.endTime.split(" ");
 
@@ -106,7 +104,7 @@ class OrganiserDetails extends Component {
       });
     }
 
-    this.setState({ eventsList: filteredEvents });
+    this.setState({ filteredEvents });
   };
 
   renderEventFilter = () => {
@@ -117,7 +115,7 @@ class OrganiserDetails extends Component {
             defaultValue="all"
             placeholder="Events"
             className="chosen-select  filterDropDowns organiserCategorySelect events customHeight"
-            onChange={(e) => this.setEvents(e)}
+            onChange={(eventType) => this.setEvents(eventType)}
           >
             <Option value="all">All</Option>
             <Option value="active">Active</Option>
@@ -128,13 +126,7 @@ class OrganiserDetails extends Component {
     );
   };
 
-  componentDidMount() {
-    const { eventsList } = this.props;
-    this.setState({ eventsList, processing: false });
-  }
-
-  getImageCards = () => {
-    const { eventsList } = this.state;
+  getImageCards = (eventsList) => {
     return (
       <div className="mb-100">
         <div className="row organiser-row">
@@ -172,8 +164,7 @@ class OrganiserDetails extends Component {
     else this.setState({ gridView: false });
   };
 
-  listView = () => {
-    const { eventsList } = this.state;
+  listView = (eventsList) => {
     return eventsList.map((event) => (
       <div className="listViewCard" key={event.id}>
         <div className="card">
@@ -199,12 +190,14 @@ class OrganiserDetails extends Component {
   };
 
   render() {
-    const { eventOrganiser } = this.props;
-    const { gridView, processing } = this.state;
+    const { eventOrganiser, processing, eventsList } = this.props;
+    const { gridView, filteredEvents } = this.state;
+
+    const organiserEvents = filteredEvents.length ? filteredEvents : eventsList;
     if (processing) return <Loader style={{ marginTop: "170px" }} />;
 
     return (
-      <div id="wrapper" className="textAlignLeft">
+      <div id="wrapper" className="textAlignLeft organiser-details">
         <div className="bannerBackground">
           <div className="container ">
             <h2 className="bannerHeading">Popsugar Events Planner</h2>
@@ -215,7 +208,7 @@ class OrganiserDetails extends Component {
         <div className="container  ">
           <div className=" customBorder row">
             <p className="fontSetting col-xl-3 col-lg-3 col-md-8 col-sm-6 col-xs-6">
-              30 Events
+              {organiserEvents.length} Events
             </p>
             <div className="marginLeftAuto">
               <button
@@ -246,9 +239,12 @@ class OrganiserDetails extends Component {
           </div>
           <hr className="setHrWidth" />
         </div>
+
         <div className="container ">
           <div className="setWidth">
-            {gridView ? this.getImageCards() : this.listView()}
+            {gridView
+              ? this.getImageCards(organiserEvents)
+              : this.listView(organiserEvents)}
           </div>
         </div>
         <EventOrganiserCard eventOrganiser={eventOrganiser} />
