@@ -12510,3 +12510,13 @@ input[type=number] {
 {
     align-items: center;
 }
+.scrolled-header .sub-menu {
+     top: 43px;
+ }
+.cinemaDetail-wrp {
+    float: left;
+    width: 100%;
+}
+.nearby-text h5 {
+    cursor: pointer;
+}

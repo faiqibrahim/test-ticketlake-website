@@ -7,16 +7,13 @@ import { NavLink } from "react-router-dom";
 import { Breadcrumbs, BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 // Component
 
-import DefaultCard from "../../commonComponents/defaultCard";
 import Heading from "../../commonComponents/heading";
 import Loader from "../../commonComponents/loader";
 // Helpers
-import {distance, getCardDates, getMaxAndMinPrice} from "../../utils/common-utils";
+import {getCardDates} from "../../utils/common-utils";
 import axios from "../../utils/axios";
 import GoogleMap from "./googleMap";
 import CardWithBottomInfo from "../../commonComponents/cardWithBottomInfo";
-
-let isWishlist = false;
 
 class NearByEvents extends Component {
   constructor(props) {
