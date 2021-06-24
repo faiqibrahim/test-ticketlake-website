@@ -30,7 +30,9 @@ const EventOrganiserCard = ({ eventOrganiser }) => {
       <br />
       <hr />
       <br />
-      <p className="cardSubheading ">{eventOrganiser.description}</p>
+      <p className="cardSubheading descriptionContainer">
+        {eventOrganiser.description}
+      </p>
       <ModelGallery images={eventOrganiser.gallaryImages} />
     </div>
   );

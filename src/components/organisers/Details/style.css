@@ -106,14 +106,15 @@
 .eventOrganiserContainer {
   position: fixed;
   top: 200px;
-  width: 480px;
+  width: 27%;
   height: 750px;
   border-radius: 10px;
   border: 1px solid #d8dae3;
   right: 2%;
-  padding: 40px;
+  padding: 2%;
   background-color: #ffffff;
   z-index: inherit;
+  overflow: hidden;
 }
 
 .eventOrganiserContainer .cardSubheading {
@@ -122,7 +123,7 @@
 }
 
 .eventOrganiserImage {
-  width: 400px;
+  width: 99%;
 }
 
 .listViewCard .card {
@@ -187,6 +188,11 @@
   font-family: "NeuePlak";
   font-size: 26px;
   font-weight: bold;
+}
+
+.descriptionContainer {
+  height: 93px;
+  overflow: hidden;
 }
 
 /** ******************** Overview Gallery Image ***************************** **/
