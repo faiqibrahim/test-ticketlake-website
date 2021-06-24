@@ -127,7 +127,6 @@ class NearByCinemaDetail extends Component {
     };
 
     onTabClick = (tabValue) => {
-        const hrefValue = "#"
         this.setState({activeTab: tabValue});
         switch (tabValue) {
             case 1:
@@ -163,6 +162,7 @@ class NearByCinemaDetail extends Component {
     };
 
     render() {
+        const hrefValue = "#"
         switch (this.state.activeTab) {
             case 1:
                 cinemaEvents = this.props.showingInCinemaEventsInfo;
