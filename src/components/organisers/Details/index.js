@@ -12,7 +12,6 @@ const { Option } = Select;
 
 class OrganiserDetails extends Component {
   state = {
-    eventsList: "",
     gridView: true,
     filteredEvents: [],
   };
