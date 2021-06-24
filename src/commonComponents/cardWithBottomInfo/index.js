@@ -57,7 +57,7 @@ const CardWithBottomInfo = (props) => {
 
                 </div>
             </div>
-            <div className={`${dates ? 'padding-top col-md-12' : 'col-md-12'}` } >
+            <div className={`${dates ? 'padding-top'  : ''} col-md-12` } >
                 <div style={style.info}>{noOfShows? noOfShows + " Shows": dates} </div>
             </div>
             <div className={'col-md-12'}>
