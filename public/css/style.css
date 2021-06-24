@@ -12490,4 +12490,23 @@ input[type=number] {
 .padding-bottom {
     padding-bottom: 15px;
 }
+.pt-30
+{
+    padding-top: 30px;
+}
 
+.pt-0
+{
+    padding-top: 0px;
+}
+.map-head .map.listing-map {
+    margin-top: 0px !important;
+}
+.mh-100vh
+{
+    min-height: 100vh;
+}
+.alignItem-center
+{
+    align-items: center;
+}

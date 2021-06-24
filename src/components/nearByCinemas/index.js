@@ -168,10 +168,10 @@ class NearByCinemas extends Component {
                             </div>
                         </section>
                         :
-                        <section className="light-red-bg small-padding" id="sec2">
+                        <section className="light-red-bg small-padding pt-0" id="sec2">
                             <div className="container custom-container nearbyLayout">
                                 <div className={"row"}>
-                                    <div className={"col-md-6"}>
+                                    <div className={"col-md-6 pt-30 mh-100vh"}>
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <Heading
@@ -204,18 +204,18 @@ class NearByCinemas extends Component {
                                             {this.state.isloadedNearby ?
                                                 this.state.nearByData.map((data, i) => {
                                                     return (
-                                                        <div className='row cursor-pointer mt-30'
+                                                        <div className='row cursor-pointer mt-30 alignItem-center'
                                                              onClick={() => this.props.history.push({
                                                                  pathname: `/events/nearby-cinemas/detail/${data._id}`,
                                                                  data: data,
                                                              })}
                                                              onMouseOver={() => this.listOver(data.venue)}>
                                                             <div className="col-md-4 nearby-img">
-                                                                <img src={data.defaultImage ? data.defaultImage : '/images/card_2.png'} alt='img' />
+                                                                <img style={{height: "130px"}} src={data.defaultImage ? data.defaultImage : '/images/card_2.png'} alt='img' />
                                                             </div>
                                                             <div className="col-md-8 nearby-text">
                                                                 <h5>{data.name}</h5>
-                                                                <p>{data.numberOfOnGoingEvents} Shows
+                                                                <p style={{padding: "0", margin: "0"}}>{data.numberOfOnGoingEvents} Shows
                                                                     <br />
                                                                     {data.venue ? data.venue.address : data.address},
                                                                     {data.venue ? data.venue.country : data.country}
@@ -233,28 +233,29 @@ class NearByCinemas extends Component {
                                                 :
                                                 <Loader />
                                             }
-                                            <div className="row">
-                                                <div
-                                                    className="col-lg-12 float-left">
-                                                    <div className="d-flex">
-                                                        {this.state.nearByData > 1 ? (
-                                                            <ReactPaginate
-                                                                previousLabel={<i className="fa fa-angle-left" />}
-                                                                nextLabel={<i className="fa fa-angle-right" />}
-                                                                breakLabel={'...'}
-                                                                breakClassName={'break-me'}
-                                                                pageCount={this.state.totalPages}
-                                                                marginPagesDisplayed={2}
-                                                                pageRangeDisplayed={5}
-                                                                onPageChange={(data) => this.loadMoreEvents(data)}
-                                                                containerClassName={'list-inline mx-auto justify-content-center pagination'}
-                                                                subContainerClassName={'list-inline-item pages pagination'}
-                                                                activeClassName={'active'}
-                                                            />
-                                                        ) : null}
+                                            {this.state.nearByData > 1 ? (
+                                                <div className="row">
+                                                    <div
+                                                        className="col-lg-12 float-left">
+                                                        <div className="d-flex">
+                                                                <ReactPaginate
+                                                                    previousLabel={<i className="fa fa-angle-left" />}
+                                                                    nextLabel={<i className="fa fa-angle-right" />}
+                                                                    breakLabel={'...'}
+                                                                    breakClassName={'break-me'}
+                                                                    pageCount={this.state.totalPages}
+                                                                    marginPagesDisplayed={2}
+                                                                    pageRangeDisplayed={5}
+                                                                    onPageChange={(data) => this.loadMoreEvents(data)}
+                                                                    containerClassName={'list-inline mx-auto justify-content-center pagination'}
+                                                                    subContainerClassName={'list-inline-item pages pagination'}
+                                                                    activeClassName={'active'}
+                                                                />
+
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            ) : null}
                                         </div>
                                     </div>
                                     <div className="col-md-6 map-placeholder">
