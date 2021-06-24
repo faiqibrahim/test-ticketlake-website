@@ -23,7 +23,7 @@ const style = {
 };
 
 const CardWithBottomTitle = (props) => {
-    let {image, title, onClickWrp, data} = props;
+    let {image, onClickWrp, data} = props;
 
     return (
         <div className={'col-md-2'} style={{marginBottom: '40px', cursor : "pointer",marginRight : "50px"}}>
@@ -33,11 +33,11 @@ const CardWithBottomTitle = (props) => {
                      src={image ? image : '/images/card_3.png'}
                      onClick={() => onClickWrp(data)}/>
             </div>
-            <div className={'bottom-title'}  onClick={() => onClickWrp(data)}
-                 style={{cursor : "pointer"}}
-            >
-                {title? title : 'Title'}
-            </div>
+            {/*<div className={'bottom-title'}  onClick={() => onClickWrp(data)}*/}
+            {/*     style={{cursor : "pointer"}}*/}
+            {/*>*/}
+            {/*    {title? title : 'Title'}*/}
+            {/*</div>*/}
         </div>
     )
 };

@@ -23,7 +23,7 @@ const cardWithSideDetails = (props) => {
             <div className="col-md-8 nearby-text">
                 <h5 style={styles.title}  onClick={() => onClickWrp(data)} >{title ? title : 'Title'}</h5>
                 <p>{categories}<br/>
-                    {startDate} -- {endDate} <br/>
+                    {startDate} - {endDate} <br/>
                     {shows ? shows : 0} Shows
                 </p>
             </div>

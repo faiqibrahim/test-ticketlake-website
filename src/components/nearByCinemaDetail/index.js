@@ -163,25 +163,31 @@ class NearByCinemaDetail extends Component {
 
     render() {
         const hrefValue = "#"
+        let totalEvents = 0;
         switch (this.state.activeTab) {
             case 1:
                 cinemaEvents = this.props.showingInCinemaEventsInfo;
+                totalEvents = cinemaEvents && cinemaEvents.length;
                 heading = 'Showing Now';
                 break;
             case 2:
                 cinemaEvents = this.props.trendingEventsForCinemaInfo;
+                totalEvents = cinemaEvents && cinemaEvents.length;
                 heading = 'Trending';
                 break;
             case 3:
                 cinemaEvents = this.props.promotedEventsForCinemaInfo;
+                totalEvents = cinemaEvents && cinemaEvents.length;
                 heading = 'Promoted';
                 break;
             case 4:
                 cinemaEvents = this.props.upcomingEventsForCinemaInfo;
+                totalEvents = cinemaEvents && cinemaEvents.length;
                 heading = 'Upcoming';
                 break;
             default:
                 cinemaEvents = this.props.showingInCinemaEventsInfo;
+                totalEvents = cinemaEvents && cinemaEvents.length;
                 heading = 'Showing Now';
                 break;
         }
@@ -284,7 +290,7 @@ class NearByCinemaDetail extends Component {
                                 <div className={"container custom-container"}>
                                     <div className={'row'} style={styles.innerDiv}>
                                         <div className={'col-md-6'}>
-                                            <div className={'heading-text'}>{heading}</div>
+                                            <div className={'heading-text'}>{heading}<span className={"total-count"}>{`. ${totalEvents} Movies `}</span> </div>
                                         </div>
                                         <div className={'col-md-2 offset-4 cursor-pointer'} style={{textAlign: 'end'}}>
                                             <img
@@ -304,6 +310,8 @@ class NearByCinemaDetail extends Component {
                                                 {cinemaEvents && cinemaEvents.length > 0 ? cinemaEvents.map((data, i) => {
                                                     let array = data.categories && (data.categories.includes([], 0) ? data.categories[0] : data.categories);
                                                     let buttonText = getMaxAndMinPrice(data);
+                                                    let startDate = `${getDayFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventStartTime)}, ${getDateFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventStartTime)}`;
+                                                    let endDate = `${getDayFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventEndTime)}, ${getDateFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventEndTime)}`;
                                                     return (
                                                         <div className={'row'} style={{borderBottom: '1px solid #f2f2f2'}}>
                                                             <div className={'col-md-9'}>
@@ -319,8 +327,8 @@ class NearByCinemaDetail extends Component {
                                                                                     i === data.categories.length - 2 ? "& " : ", "}</span>
                                                                             )
                                                                         })}
-                                                                    startDate={`${getDayFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventStartTime)}, ${getDateFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventStartTime)}`}
-                                                                    endDate={`${getDayFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventEndTime)}, ${getDateFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventEndTime)}`}
+                                                                    startDate={startDate}
+                                                                    endDate={endDate}
                                                                     shows={data.eventVenues && data.eventVenues.length}
                                                                     onClickWrp={this.onClickWrp}
                                                                     data={data}
