@@ -62,6 +62,7 @@ class GoogleMap extends Component {
     };
 
     render() {
+        console.log("Hello called Props", this.props);
 
         const triangleCoords = [
             {lat: 25.774, lng: -80.190},
@@ -77,7 +78,7 @@ class GoogleMap extends Component {
                     google={this.props.google}
                     zoom={11}
                     style={mapStyles}
-                    initialCenter={{lat: this.props.longitude, lng: this.props.latitude}}
+                    initialCenter={{lat: this.props.latitude, lng: this.props.longitude}}
                 >
                     {this.displayMarkers()}
                     <InfoWindow
@@ -86,7 +87,6 @@ class GoogleMap extends Component {
                         <div className="direction-here">
                             <strong>{this.state.selectedPlace.title !== undefined ? this.state.selectedPlace.title.eventTitle : null}</strong>
                             <p>{this.state.selectedPlace.name}</p>
-                            {/* <p>Direction</p> */}
                         </div>
                     </InfoWindow>
                     <Polyline

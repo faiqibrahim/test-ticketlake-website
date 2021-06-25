@@ -31,40 +31,39 @@ class NearByEvents extends Component {
       latitude: null,
     };
   }
-  getCurrentPosition = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          this.getLatLong(position.coords.longitude, position.coords.latitude);
-        },
-        () => {
-          // this.handleLocationError();
-        },
-        {
-          enableHighAccuracy: true,
-        }
-      );
-      //  setTimeout(setValues, 2000);
-    } else {
-      //
-    }
-  };
-  getLatLong = (a, b) => {
-    this.setState({
-      longitude: a,
-      latitude: b,
-    });
-    this.getNearbyEvents(a, b);
-  };
+
   componentDidMount = () => {
     this.getCurrentPosition();
   };
-  getNearbyEvents = (a, b) => {
-    console.log("hello long lat", a, b);
+
+  getCurrentPosition = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const {longitude,latitude} = position.coords;
+            this.setState({
+              longitude,
+              latitude,
+            }, () => {
+              this.getNearbyEvents(longitude, latitude);
+            });
+          },
+          () => {
+            // this.handleLocationError();
+          },
+          {
+            enableHighAccuracy: true,
+          }
+      );
+    }
+  };
+
+
+  getNearbyEvents = (longitude, latitude) => {
     axios
       .post("/events/get-nearby-events", {
-        latitude: b,
-        longitude: a,
+        latitude,
+        longitude,
         paginate: true,
         page: 1,
         // "type":"past",
@@ -72,9 +71,14 @@ class NearByEvents extends Component {
         skip: 0,
       })
       .then((response) => {
+        const {data} = response.data;
+        data.forEach((dataItem)=>{
+          dataItem.latitude = dataItem.venue.latitude
+          dataItem.longitude = dataItem.venue.longitude
+        })
         this.setState({
           isloadedNearby: true,
-          nearByData: response.data.data,
+          nearByData: data,
         });
       })
       .catch((err) => {
@@ -238,6 +242,7 @@ class NearByEvents extends Component {
                             this.state.nearByData.map((data, i) => {
                               return (
                                   <div
+                                      key={i}
                                       className="row cursor-pointer padding-bottom mt-30"
                                       onClick={() =>
                                           this.props.history.push(

@@ -52,15 +52,16 @@ class NearByCinemas extends Component {
         }
     };
 
-    getLatLong = (a, b) => {
+    getLatLong = (longitude, latitude) => {
         this.setState({
-            longitude: b,
-            latitude: a
+            longitude,
+            latitude
+        },()=>{
+            this.getNearCinemas(longitude, latitude)
         });
-        this.getNearbyEvents(a, b)
     };
 
-    getNearbyEvents = (latitude, longitude) => {
+    getNearCinemas = (longitude, latitude) => {
         this.props.getNearByCinemas(latitude, longitude, (data) => {
             this.setState({
                 isloadedNearby: true,
