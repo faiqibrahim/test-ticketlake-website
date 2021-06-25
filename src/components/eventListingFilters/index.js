@@ -124,6 +124,7 @@ const eventListingFilters = (props) => {
             </div>
         </>
     );
+    
 
 };
 

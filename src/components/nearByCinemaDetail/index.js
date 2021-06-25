@@ -5,7 +5,7 @@ import {NavLink, withRouter} from "react-router-dom";
 import {Breadcrumbs, BreadcrumbsItem} from 'react-breadcrumbs-dynamic';
 import CardWithSideDetail from '../../commonComponents/cardWithSideDetails';
 import {connect} from "react-redux";
-import {getDateFromISO, getDayFromISO, getMovieCategoryID} from "../../utils/common-utils";
+import {getDateFromISO, getDayFromISO, getMaxAndMinPrice, getMovieCategoryID} from "../../utils/common-utils";
 import {
     showingInCinema,
     upcomingEventsForCinema,
@@ -151,28 +151,43 @@ class NearByCinemaDetail extends Component {
         this.setState({listView: listView, activeView: activeView});
     };
 
-    render() {
-        const hrefVal = "#";
+    onClickWrp = (data) => {
+        const {slotUuid} = data;
+        if (slotUuid) {
+            this.props.history.push({
+                pathname: `/buy-ticket/${slotUuid}`,
+                data: data,
+            });
+        }
+    };
 
+    render() {
+        const hrefValue = "#"
+        let totalEvents = 0;
         switch (this.state.activeTab) {
             case 1:
                 cinemaEvents = this.props.showingInCinemaEventsInfo;
+                totalEvents = cinemaEvents && cinemaEvents.length;
                 heading = 'Showing Now';
                 break;
             case 2:
                 cinemaEvents = this.props.trendingEventsForCinemaInfo;
+                totalEvents = cinemaEvents && cinemaEvents.length;
                 heading = 'Trending';
                 break;
             case 3:
                 cinemaEvents = this.props.promotedEventsForCinemaInfo;
+                totalEvents = cinemaEvents && cinemaEvents.length;
                 heading = 'Promoted';
                 break;
             case 4:
                 cinemaEvents = this.props.upcomingEventsForCinemaInfo;
+                totalEvents = cinemaEvents && cinemaEvents.length;
                 heading = 'Upcoming';
                 break;
             default:
                 cinemaEvents = this.props.showingInCinemaEventsInfo;
+                totalEvents = cinemaEvents && cinemaEvents.length;
                 heading = 'Showing Now';
                 break;
         }
@@ -232,7 +247,6 @@ class NearByCinemaDetail extends Component {
                                     </div>
                                 </div>
                             </section>
-
                             <section className="grey-blue-bg small-padding scroll-nav-container" id="sec2">
                                 <div className="scroll-nav-wrapper background-gray fl-wrap">
                                     <div className="hidden-map-container fl-wrap">
@@ -250,129 +264,109 @@ class NearByCinemaDetail extends Component {
                                                 <li>
                                                     <a className={this.state.activeTab === 1 ? "active-detail-li" : "detail-li"}
                                                        onClick={() => this.onTabClick(1)}
-                                                       href={hrefVal}>Showing</a>
+                                                       href={hrefValue}>Showing</a>
                                                 </li>
                                                 <li>
                                                     <a className={this.state.activeTab === 2 ? "active-detail-li" : "detail-li"}
                                                        onClick={() => this.onTabClick(2)}
-                                                       href={hrefVal}>Trending</a>
+                                                       href={hrefValue}>Trending</a>
                                                 </li>
                                                 <li>
                                                     <a className={this.state.activeTab === 3 ? "active-detail-li" : "detail-li"}
                                                        onClick={() => this.onTabClick(3)}
-                                                       href={hrefVal}>Promoted</a>
+                                                       href={hrefValue}>Promoted</a>
                                                 </li>
                                                 <li>
                                                     <a className={this.state.activeTab === 4 ? "active-detail-li" : "detail-li"}
                                                        onClick={() => this.onTabClick(4)}
-                                                       href={hrefVal}>Upcoming</a>
+                                                       href={hrefValue}>Upcoming</a>
                                                 </li>
                                             </ul>
                                         </nav>
                                     </div>
                                 </div>
                             </section>
-
-                            <div style={styles.mainDiv}>
-                                <div className={'row'} style={styles.innerDiv}>
-                                    <div className={'col-md-6'}>
-                                        <div className={'heading-text'}>{heading}</div>
-                                    </div>
-                                    <div className={'col-md-2 offset-4 cursor-pointer'} style={{textAlign: 'end'}}>
-                                        <img
-                                            src={this.state.activeView === 'list' ? '/images/views/list-white.svg' : '/images/views/list-gray.svg'}
-                                            onClick={() => this.onCardViewClick(true, 'list')}
-                                            alt="Img1"
-                                            style={this.state.activeView === 'list' ? styles.activeIcon1 : styles.icon1}/>
-                                        <img
-                                            src={this.state.activeView === 'thumbnail' ? '/images/views/calendar-white.svg' : '/images/views/calendar - gray.svg'}
-                                            onClick={() => this.onCardViewClick(false, 'thumbnail')}
-                                            alt="Img2"
-                                            style={this.state.activeView === 'thumbnail' ? styles.activeIcon2 : styles.icon2}/>
-                                    </div>
-
-                                    {/*<div className={'col-md-2'}>
-                                        <select name="selectedDate"
-                                                defaultValue={this.state.selectedDate}
-                                                style={{
-                                                    width: '100%',
-                                                    padding: '0px 0px 0px 10px',
-                                                    height: '40px'
-                                                }}
-                                                onChange={(e) => this.onDateChange(e)}
-                                                className="filterDropDowns chosen-select">
-                                            <option default>This Weekend</option>
-                                        </select>
-                                    </div>
-                                    <div className={'col-md-2'}>
-                                        <select name="selectedDate"
-                                                defaultValue={this.state.selectedDate}
-                                                style={{
-                                                    width: '100%',
-                                                    padding: '0px 0px 0px 10px',
-                                                    height: '40px'
-                                                }}
-                                                onChange={(e) => this.onDateChange(e)}
-                                                className="filterDropDowns chosen-select">
-                                            <option default>Sort by: Date</option>
-                                        </select>
-                                    </div>*/}
-
-                                </div>
-
-                                <div style={{
-                                    marginBottom: '10%',
-                                    marginTop: cinemaEvents && cinemaEvents.length > 0 ? '' : '7%'
-                                }}>
-                                    {this.state.listView ?
-                                        <>
-                                            {cinemaEvents && cinemaEvents.length > 0 ? cinemaEvents.map((data, i) => {
-                                                let array = data.categories && (data.categories.includes([], 0) ? data.categories[0] : data.categories);
-                                                return (
-                                                    <div className={'row'} style={{borderBottom: '1px solid #f2f2f2'}}>
-                                                        <div className={'col-md-9'}>
-                                                            <CardWithSideDetail
-                                                                image={data.eventImageURL ? data.eventImageURL : data.slotImageURL[0]}
-                                                                key={i}
-                                                                title={data._id}
-                                                                categories={
-                                                                    array.map((category, i) => {
-                                                                        return (
-                                                                            <span
-                                                                                key={i}>{category} {i === data.categories.length - 1 ? " " :
-                                                                                i === data.categories.length - 2 ? "& " : ", "}</span>
-                                                                        )
-                                                                    })}
-                                                                startDate={`${getDayFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventStartTime)}, ${getDateFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventStartTime)}`}
-                                                                endDate={`${getDayFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventEndTime)}, ${getDateFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventEndTime)}`}
-                                                                shows={data.eventVenues && data.eventVenues.length}
-                                                            />
-                                                        </div>
-                                                        <div className={'col-md-3'}
-                                                             style={{textAlign: 'right', top: '54px'}}>
-                                                            <button className='simpleButton width85 backgroundColorRed'>
-                                                                Buy Ticket in $7878
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            }) : <span>No Data Found!</span>}
-                                        </> :
-                                        <div className={'row'} style={{marginTop: '5%'}}>
-                                            {cinemaEvents && cinemaEvents.length > 0 ? cinemaEvents.map((data, i) => {
-                                                return (
-                                                    <CardWithBottomTitle
-                                                        image={data.eventImageURL ? data.eventImageURL : data.slotImageURL[0]}
-                                                        key={i}
-                                                        title={data._id}/>
-                                                )
-                                            }) : <span style={{textAlign: 'center'}}>No Data Found!</span>}
+                            <div className={"cinemaDetail-wrp"}>
+                                <div className={"container custom-container"}>
+                                    <div className={'row'} style={styles.innerDiv}>
+                                        <div className={'col-md-6'}>
+                                            <div className={'heading-text'}>{heading}<span className={"total-count"}>{`. ${totalEvents} Movies `}</span> </div>
                                         </div>
-                                    }
+                                        <div className={'col-md-2 offset-4 cursor-pointer'} style={{textAlign: 'end'}}>
+                                            <img
+                                                src={this.state.activeView === 'list' ? '/images/views/list-white.svg' : '/images/views/list-gray.svg'}
+                                                onClick={() => this.onCardViewClick(true, 'list')}
+                                                alt="Img1"
+                                                style={this.state.activeView === 'list' ? styles.activeIcon1 : styles.icon1}/>
+                                            <img
+                                                src={this.state.activeView === 'thumbnail' ? '/images/views/calendar-white.svg' : '/images/views/calendar - gray.svg'}
+                                                onClick={() => this.onCardViewClick(false, 'thumbnail')}
+                                                alt="Img2"
+                                                style={this.state.activeView === 'thumbnail' ? styles.activeIcon2 : styles.icon2}/>
+                                        </div>
+                                    </div>
+                                        {this.state.listView ?
+                                            <>
+                                                {cinemaEvents && cinemaEvents.length > 0 ? cinemaEvents.map((data, i) => {
+                                                    let array = data.categories && (data.categories.includes([], 0) ? data.categories[0] : data.categories);
+                                                    let buttonText = getMaxAndMinPrice(data);
+                                                    let startDate = `${getDayFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventStartTime)}, ${getDateFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventStartTime)}`;
+                                                    let endDate = `${getDayFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventEndTime)}, ${getDateFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventEndTime)}`;
+                                                    return (
+                                                        <div className={'row'} style={{borderBottom: '1px solid #f2f2f2'}}>
+                                                            <div className={'col-md-9'}>
+                                                                <CardWithSideDetail
+                                                                    image={data.eventImageURL ? data.eventImageURL : data.slotImageURL[0]}
+                                                                    key={i}
+                                                                    title={data._id}
+                                                                    categories={
+                                                                        array.map((category, i) => {
+                                                                            return (
+                                                                                <span
+                                                                                    key={i}>{category} {i === data.categories.length - 1 ? " " :
+                                                                                    i === data.categories.length - 2 ? "& " : ", "}</span>
+                                                                            )
+                                                                        })}
+                                                                    startDate={startDate}
+                                                                    endDate={endDate}
+                                                                    shows={data.eventVenues && data.eventVenues.length}
+                                                                    onClickWrp={this.onClickWrp}
+                                                                    data={data}
+                                                                />
+                                                            </div>
+                                                            <div className={'col-md-3'}
+                                                                 style={{textAlign: 'right', top: '54px'}}>
+                                                                <button className='simpleButton width85 backgroundColorRed'
+                                                                        onClick={() => this.onClickWrp(data)}
+                                                                >
+                                                                    {buttonText}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                }) : <Loader/>
+                                                }
+                                            </> :
+                                            <div className={'row'} style={styles.innerDiv}>
+                                                {cinemaEvents && cinemaEvents.length > 0 ? cinemaEvents.map((data, i) => {
+                                                    return (
+                                                        <CardWithBottomTitle
+                                                            image={data.eventImageURL ? data.eventImageURL : data.slotImageURL[0]}
+                                                            key={i}
+                                                            title={data._id}
+                                                            onClickWrp={this.onClickWrp}
+                                                            data={data}/>
+                                                    )
+                                                }) : <div className={"Error-msg-wrp"}>
+                                                        <div className={"Error-heading"}>Sorry, No Event Found.</div>
+                                                        <span className={"Error-sub-heading"}>There are no events.</span>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
                                 </div>
                             </div>
                         </div>
-                        <div className="limit-box fl-wrap"/>
                     </div>
                 );
             }

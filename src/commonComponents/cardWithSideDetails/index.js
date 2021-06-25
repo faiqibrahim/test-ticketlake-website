@@ -10,17 +10,20 @@ const styles = {
     }
 };
 
-const cardWithSideDetails = ({image, title, categories, startDate, endDate, shows}) => {
+const cardWithSideDetails = (props) => {
+    let {image, title, categories, startDate, endDate, shows, onClickWrp, data} = props;
+
     return (
 
         <div className='row' style={styles.wrap}>
             <div className="col-md-4 sideDetailCard-img">
-                <img src={image ? image : '/images/card_3.png'} alt='img'/>
+                <img src={image ? image : '/images/card_3.png'} alt='img'
+                     onClick={() => onClickWrp(data)}/>
             </div>
             <div className="col-md-8 nearby-text">
-                <h5 style={styles.title}>{title ? title : 'Title'}</h5>
+                <h5 style={styles.title}  onClick={() => onClickWrp(data)} >{title ? title : 'Title'}</h5>
                 <p>{categories}<br/>
-                    {startDate} -- {endDate} <br/>
+                    {startDate} - {endDate} <br/>
                     {shows ? shows : 0} Shows
                 </p>
             </div>

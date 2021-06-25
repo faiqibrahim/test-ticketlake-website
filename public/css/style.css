@@ -10293,6 +10293,9 @@ article.post-article .list-single-main-item {
         margin-bottom: 30px;
     }
 
+
+
+
     .home-grid .gallery-item, .article-masonry, .main-search-input-item, .main-search-button, .listing-item, .rooms-media, .rooms-details {
         width: 100%;
     }
@@ -10606,10 +10609,6 @@ article.post-article .list-single-main-item {
     {
         float: unset !important;
     }
-
-
-
-
 }
 
 
@@ -10937,6 +10936,17 @@ article.post-article .list-single-main-item {
     }
     .show-reg-form.modal-open.box-wrp.wishlist-box {
         width: auto !important;
+    }
+
+}
+@media only screen and  (min-width: 420px) and (max-width: 600px)  {
+    .hover-card-wrp.col-md-3 {
+        width: 50%;
+    }
+}
+@media only screen and  (min-width: 601px) and (max-width: 767px)  {
+    .hover-card-wrp.col-md-3 {
+        width: 33.33%;
     }
 }
 @media only screen and  (max-width: 460px) {
@@ -12480,4 +12490,47 @@ input[type=number] {
         max-width: unset;
     }
 }
+.pb-40
+{
+    padding-bottom:40px ;
+}
+.padding-top {
+    padding-top: 15px;
+}
+.padding-bottom {
+    padding-bottom: 15px;
+}
+.pt-30
+{
+    padding-top: 30px;
+}
 
+.pt-0
+{
+    padding-top: 0px;
+}
+.map-head .map.listing-map {
+    margin-top: 0px !important;
+}
+.mh-100vh
+{
+    min-height: 100vh;
+}
+.alignItem-center
+{
+    align-items: center;
+}
+.scrolled-header .sub-menu {
+     top: 43px;
+ }
+.cinemaDetail-wrp {
+    float: left;
+    width: 100%;
+}
+.nearby-text h5 {
+    cursor: pointer;
+}
+.total-count {
+    padding-left: 5px;
+    color: #ec1c24;
+}
