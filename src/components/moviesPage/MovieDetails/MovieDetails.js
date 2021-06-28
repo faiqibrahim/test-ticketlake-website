@@ -18,6 +18,8 @@ import MovieDetailSlider from "../../movieDetailSlider";
 
 import { getSubCategoriesEvents } from "../../../redux/movies/movie-action";
 import _ from "lodash";
+import {Helmet} from "react-helmet";
+
 
 class MovieDetails extends Component {
   state = {
@@ -59,6 +61,15 @@ class MovieDetails extends Component {
       this.props.getSubCategoriesEvents(categories);
     });
   };
+
+
+  pageTitle = () => {
+    return (
+        <Helmet>
+          <title>Movie Detail</title>
+        </Helmet>
+    )
+  }
 
   getBreadCrumbs = () => {
     return (
@@ -305,6 +316,7 @@ class MovieDetails extends Component {
       return (
         <div id="wrapper">
           <div className="content">
+            {this.pageTitle()}
             <Loader style={{ marginBottom: "20%" }} />
           </div>
         </div>

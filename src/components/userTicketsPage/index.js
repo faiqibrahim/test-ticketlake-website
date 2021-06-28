@@ -21,6 +21,7 @@ import {getStateObjForUrl} from './ticketHelper';
 import localAxios from 'axios';
 import {FILE_URL} from "../../utils/config";
 import store from "../../redux/store";
+import {Helmet} from "react-helmet";
 
 const header = ["SR#", "Name", "Event", "Status", "Type | Class", "Event Date", "Action"];
 const spanStyle = {
@@ -63,6 +64,16 @@ class Tickets extends Component {
         this.setState(state);
         this.getChangeFilters(state);
     };
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Tickets</title>
+            </Helmet>
+        )
+    }
+
+
 
     getChangeFilters = (state) => {
         if (state.ticket === "My Tickets" && state.status === "Upcoming") {
@@ -366,6 +377,7 @@ class Tickets extends Component {
             <AuthRoutes>
 
                     <div id="wrapper">
+                        {this.pageTitle()}
                         <UserPagesContainer
                             page={'ticket'}
                             breadcrumbs={breadCrumbs}

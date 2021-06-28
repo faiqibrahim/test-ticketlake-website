@@ -25,6 +25,7 @@ import {
 import CardWithHoverAnimation from "../../commonComponents/cardWithHoverAnimation";
 import { Modal, ModalBody } from "reactstrap";
 import CardWithInfo from "../../commonComponents/cardWithInfo";
+import {Helmet} from "react-helmet";
 
 let categoryKey = "categoryState";
 let updateSubCategory = true;
@@ -211,6 +212,14 @@ class Movies extends Component {
     });
   };
 
+  pageTitle = () => {
+    return (
+        <Helmet>
+          <title>Movies</title>
+        </Helmet>
+    )
+  }
+
   onClickWrp = (card) => {
     sessionStorage.setItem("parentEventDetail", JSON.stringify(card));
     if (card && card._id) {
@@ -235,6 +244,7 @@ class Movies extends Component {
         events = [...events, ...childCategory.events];
       });
     }
+
 
     return (
       <div id="wrapper">
@@ -490,6 +500,7 @@ class Movies extends Component {
       return (
         <div id="wrapper">
           <div className="content">
+            {this.pageTitle()}
             <Loader style={{ marginBottom: "20%" }} />
           </div>
         </div>

@@ -236,9 +236,10 @@ class CardWithHoverAnimation extends React.Component {
                   })}
               </>
             ) : (
-              <div style={{ textAlign: "center" }}>
-                No data found for this category!
-              </div>
+                <div className={"Error-msg-wrp w100"}>
+                  <div className={"Error-heading"}>Sorry, No Data Found.</div>
+                  <span className={"Error-sub-heading"}>There is no data found against this Category.</span>
+                </div>
             )}
           </>
         )}

@@ -30,6 +30,7 @@ import {STANDARD_EVENT, SERIES, RECUR} from "../../utils/config";
 // Helper
 import {getDateFromISO, getTimeFromISO, dateSplitter} from '../../utils/common-utils';
 import {valueAlreadyExists, dateAlreadyExists, getTags} from './detailPageHelper';
+import {Helmet} from "react-helmet";
 
 let isWishlist = false;
 let shareUrl = 'http://google.com/';
@@ -88,6 +89,14 @@ class EventDetail extends Component {
             this.setState({activeModal: ''});
         }
     };
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Event Detail</title>
+            </Helmet>
+        )
+    }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.singleEventDetail && nextProps.singleEventDetail.sections) {
@@ -418,6 +427,7 @@ class EventDetail extends Component {
 
                     <div id="wrapper">
                         <div className="content">
+                            {this.pageTitle()}
                             <section className="list-single-hero" data-scrollax-parent="true" id="sec1">
                                 <div className="bg par-elem" style={{
                                     float: 'left',

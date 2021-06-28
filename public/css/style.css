@@ -11380,6 +11380,7 @@ div.gm-style-mtc {
     border-radius: 7px;
     margin: 20px auto;
     display: inline-block;
+    text-align: center;
 }
 .w100
 {
@@ -12533,4 +12534,11 @@ input[type=number] {
 .total-count {
     padding-left: 5px;
     color: #ec1c24;
+}
+.loader-wrp
+{
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
 }

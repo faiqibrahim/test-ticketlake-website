@@ -18,6 +18,7 @@ import {getCountries, getCities} from '../../utils/common-utils';
 // Css
 import './style.css';
 import ReactPhoneInput from "react-phone-input-2";
+import {Helmet} from "react-helmet";
 
 const countries = [];
 let cities = [];
@@ -90,9 +91,7 @@ class UserProfile extends Component {
 
 
     onSaveChanges = (e) => {
-
         e.preventDefault();
-
         this.props.resetRedux();
 
         const preparingFormData = {
@@ -121,6 +120,14 @@ class UserProfile extends Component {
         );
 
     };
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Profile</title>
+            </Helmet>
+        )
+    }
 
     fetchCities(e) {
         cities = [];
@@ -316,6 +323,7 @@ class UserProfile extends Component {
         return (
             <AuthRoutes>
                 <div id="wrapper">
+                    {this.pageTitle()}
                     <UserPagesContainer
                         page={'profile'}
                         showUploadButton={true}

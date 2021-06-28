@@ -27,6 +27,8 @@ import {
     resetEventsRedux
 } from '../../redux/event/event-actions';
 import { getWishListIdsFromApi, wishListToggle } from '../../redux/wishlist/wishlist-actions';
+import {Helmet} from "react-helmet";
+
 
 // Helpers
 import { dateSplitter, getCardDates, getMaxAndMinPrice, NOTIFICATION_TIME } from '../../utils/common-utils';
@@ -465,6 +467,15 @@ class EventListing extends Component {
         return categoryName;
     };
 
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Events Listing</title>
+            </Helmet>
+        )
+    }
+
+
     /************************************ END ************************************/
 
     // Rendering Method
@@ -531,6 +542,7 @@ class EventListing extends Component {
 
                 <div id="wrapper">
                     <div className="content">
+                        {this.pageTitle()}
                         <section className="light-red-bg small-padding event-listing-wrp" id="sec1"
                             style={{ paddingTop: '0px' }}>
                             <div className="container custom-container">

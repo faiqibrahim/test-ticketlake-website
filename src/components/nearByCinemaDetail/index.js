@@ -14,6 +14,7 @@ import {
     setProcessing,
     setCinemaData
 } from '../../redux/movies/movie-action';
+import {Helmet} from "react-helmet";
 import CardWithBottomTitle from '../../commonComponents/cardWithBottomTitle';
 import {getAllCategories} from '../../redux/category/category-actions';
 
@@ -21,6 +22,7 @@ let cinemaEvents = [];
 let heading = 'Showing Now';
 let cinemaId;
 let cinemaData;
+
 
 const styles = {
     mainDiv: {
@@ -100,6 +102,14 @@ class NearByCinemaDetail extends Component {
             this.props.showingInCinema(this.state.movieCategoryID, cinemaId);
             this.props.setProcessing(false);
         }, 'v2');
+    }
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Cinema Detail</title>
+            </Helmet>
+        )
     }
 
     getBreadCrumbs = () => {
@@ -215,6 +225,7 @@ class NearByCinemaDetail extends Component {
                 return (
                     <div id="wrapper">
                         <div className="content">
+                            {this.pageTitle()}
                             <section className="list-single-hero" data-scrollax-parent="true" id="sec1">
                                 <div className="bg par-elem" style={{
                                     float: 'left',

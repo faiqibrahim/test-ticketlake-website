@@ -1,6 +1,8 @@
 // Library
 import React, { Component } from 'react';
 import Scrollchor from "react-scrollchor";
+import {Helmet} from "react-helmet";
+
 // Component
 
 class AboutUsPage extends Component {
@@ -9,6 +11,14 @@ class AboutUsPage extends Component {
         return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
     };
 
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>About Us</title>
+            </Helmet>
+        )
+    }
+
     render() {
         const hrefLink = '#';
 
@@ -16,6 +26,7 @@ class AboutUsPage extends Component {
             <div id="wrapper">
                 {/* content*/}
                 <div className="content">
+                    {this.pageTitle()}
                     {/*  section  */}
                     <section className="parallax-section single-par" data-scrollax-parent="true">
                         <div className="bg par-elem " style={{

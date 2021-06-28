@@ -14,6 +14,7 @@ import {getCardDates} from "../../utils/common-utils";
 import axios from "../../utils/axios";
 import GoogleMap from "./googleMap";
 import CardWithBottomInfo from "../../commonComponents/cardWithBottomInfo";
+import {Helmet} from "react-helmet";
 
 class NearByEvents extends Component {
   constructor(props) {
@@ -90,11 +91,21 @@ class NearByEvents extends Component {
       switchView: !this.state.switchView,
     });
   };
+
+  pageTitle = () => {
+    return (
+        <Helmet>
+          <title>Near By Events</title>
+        </Helmet>
+    )
+  }
+
   listOver = (listOver) => {};
   render() {
     return (
       <div id="wrapper" key={2}>
         <div className="content">
+          {this.pageTitle()}
           {this.state.switchView ?
               <section
                   id="sec2"
@@ -135,22 +146,22 @@ class NearByEvents extends Component {
                     {/* right section */}
                     {this.state.nearByData.length > 0 ? (
                         <div className="col-md-6">
-                    <span
-                        className="float-right cursor-pointer"
-                        onClick={this.switchView}
-                    >
-                      <img
-                          src="/images/nearby-map-view.png"
-                          className="switch-view-icon"
-                          alt='img'
-                      />
-                      Switch to Map View
-                    </span>
+                          <span
+                              className="float-right cursor-pointer"
+                              onClick={this.switchView}
+                          >
+                            <img
+                                src="/images/nearby-map-view.png"
+                                className="switch-view-icon"
+                                alt='img'
+                            />
+                            Switch to Map View
+                          </span>
                         </div>
                     ) : null}
                   </div>
                   <div className="row mt-30">
-                    {this.state.isloadedNearby ? (
+                    {this.state.isloadedNearby ? this.state.nearByData.length > 0 ? (
                         this.state.nearByData.map((data, i) => {
                           return (
                               <CardWithBottomInfo
@@ -168,7 +179,12 @@ class NearByEvents extends Component {
                               />
                           );
                         })
-                    ) : (
+                    ) :
+                        <div className={"Error-msg-wrp w100"}>
+                          <div className={"Error-heading"}>Sorry, No Event Found.</div>
+                          <span className={"Error-sub-heading"}>There are no events.</span>
+                        </div>
+                      : (
                         <div className="col-lg-12">
                           <Loader />
                         </div>

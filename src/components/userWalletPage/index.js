@@ -29,6 +29,7 @@ import {BreadcrumbsItem} from "react-breadcrumbs-dynamic";
 import {getTransactionHistory} from '../../redux/wallet/wallet-actions';
 import moment from "moment";
 import axios from '../../utils/axios'
+import {Helmet} from "react-helmet";
 
 const header = ["Date", "Transaction ID", "Payment Method", "Payment Type", "Amount", "Details"];
 
@@ -136,6 +137,14 @@ class Wallet extends Component {
         this.setState(prevState => ({
             modal: !prevState.modal
         }));
+    }
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Wallet</title>
+            </Helmet>
+        )
     }
 
     changePrice = (e) => {
@@ -495,6 +504,7 @@ class Wallet extends Component {
             <AuthRoutes>
 
                 <div id="wrapper">
+                    {this.pageTitle()}
                     <UserPagesContainer
                         page={'wallet'}
                         breadcrumbs={breadCrumbs}
