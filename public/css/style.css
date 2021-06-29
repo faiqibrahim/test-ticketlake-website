@@ -11938,9 +11938,9 @@ source {
     text-align: left;
     font-size: 12px;
 }
-.hover-card-wrp.col-md-3:first-child {
-    padding-left: 0;
-}
+/*.hover-card-wrp.col-md-3:first-child {*/
+/*    padding-left: 0;*/
+/*}*/
 .listing-avatar.wishlist-icon,
 .sale-window.share-icon{
     position: absolute;

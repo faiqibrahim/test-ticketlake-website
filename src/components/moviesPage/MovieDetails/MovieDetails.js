@@ -72,12 +72,13 @@ class MovieDetails extends Component {
   }
 
   getBreadCrumbs = () => {
+    const categoryId = this.getCategoryId();
     return (
       <>
         <BreadcrumbsItem glyph="home" to="/">
           Home Page
         </BreadcrumbsItem>
-        <BreadcrumbsItem to="/events/listing">All Movies</BreadcrumbsItem>
+        <BreadcrumbsItem to={`/movies/?id=${categoryId}`}>All Movies</BreadcrumbsItem>
         <BreadcrumbsItem to={"/event/detail/" + this.props.match.params.id}>
           Movie Detail
         </BreadcrumbsItem>
