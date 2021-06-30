@@ -6,7 +6,7 @@ import {NavLink, withRouter} from "react-router-dom";
 import {Breadcrumbs, BreadcrumbsItem} from 'react-breadcrumbs-dynamic';
 import CardWithSideDetail from '../../commonComponents/cardWithSideDetails';
 import {connect} from "react-redux";
-import {getDateFromISO, getDayFromISO, getMaxAndMinPrice, getMovieCategoryID} from "../../utils/common-utils";
+import {getDateFromISO, getDayFromISO, getMovieCategoryID} from "../../utils/common-utils";
 import {
     showingInCinema,
     upcomingEventsForCinema,
