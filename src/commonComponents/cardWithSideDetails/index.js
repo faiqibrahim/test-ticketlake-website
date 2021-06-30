@@ -11,12 +11,12 @@ const styles = {
 };
 
 const cardWithSideDetails = (props) => {
-    let {image, title, categories, startDate, endDate, shows, onClickWrp, data} = props;
+    let {image, title, categories, startDate, endDate, onClickWrp, data} = props;
 
     return (
 
         <div className='row' style={styles.wrap}>
-            <div className="col-md-4 sideDetailCard-img">
+            <div className="col-md-3 sideDetailCard-img">
                 <img src={image ? image : '/images/card_3.png'} alt='img'
                      onClick={() => onClickWrp(data)}/>
             </div>
@@ -24,7 +24,7 @@ const cardWithSideDetails = (props) => {
                 <h5 style={styles.title}  onClick={() => onClickWrp(data)} >{title ? title : 'Title'}</h5>
                 <p>{categories}<br/>
                     {startDate} - {endDate} <br/>
-                    {shows ? shows : 0} Shows
+                    {/*{shows ? shows : 0} Shows*/}
                 </p>
             </div>
         </div>

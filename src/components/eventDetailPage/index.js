@@ -23,6 +23,8 @@ import {getWishListIdsFromApi, wishListToggle} from "../../redux/wishlist/wishli
 import MapContainer from '../../commonComponents/googleMapComponent';
 // Error
 import Error from '../../commonComponents/error';
+import EventMessage from '../../commonComponents/eventMessage';
+
 //redux
 import {getEventDetail, getAllEventsDefault} from '../../redux/event/event-actions';
 //config
@@ -214,7 +216,6 @@ class EventDetail extends Component {
                         list.map(data => {
                             return (
                                 <div className="list-single-main-item fl-wrap pl-40 custom-section" id="sec3">
-
                                     <div className="list-single-main-item-title fl-wrap"
                                          style={{marginBottom: '30px', padding: '0px 0px 10px 0px'}}>
                                         <h3 style={{textTransform: 'capitalize', fontSize: '22px'}}>{data.label}</h3>
@@ -552,8 +553,11 @@ class EventDetail extends Component {
                                     <div className="container custom-container">
                                         <nav className="scroll-nav scroll-init">
                                             <ul className={'ulEventDetail'}>
-                                                <li><a className="act-scrlink" href={hrefLink}>Details</a>
-                                                </li>
+                                                <li><a className="act-scrlink" href={hrefLink}>Overview</a></li>
+                                                <li><a className="act-scrlink non-active" href={hrefLink}>Speakers</a></li>
+                                                <li><a className="act-scrlink non-active" href={hrefLink}>Guests</a></li>
+                                                <li><a className="act-scrlink non-active" href={hrefLink}>Contact</a></li>
+                                                <li><a className="act-scrlink non-active" href={hrefLink}>Policy</a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -628,7 +632,7 @@ class EventDetail extends Component {
                                                                                     fontSize: '14px',
                                                                                     marginBottom: 0,
                                                                                     paddingBottom: 2
-                                                                                }}>Location
+                                                                                }}>Venue
                                                                                     - {data.venue ? data.venue.address : 'Address'}</p>
                                                                             </div>
                                                                         </div>
@@ -706,25 +710,28 @@ class EventDetail extends Component {
                                                            fontSize: '14px'
                                                        }}>{data.parentEventInfo ? data.parentEventInfo.description : "Description"}</p>
                                                 </div>
-                                                <Gallery
-                                                    images={this.getImages()}
-                                                    enableImageSelection={false}
-                                                />
-
-                                                {
-                                                    data.agenda ?
-                                                        <div className="list-single-main-item fl-wrap pl-40"
-                                                             style={{marginTop: '20px'}}>
-                                                            <div className="row">
-                                                                <div className="col-md-12">
-                                                                    <div className="box-widget-item-header">
-                                                                        <h3> Agenda </h3>
+                                                <div className={"Gallery-section"} id={"gallery"}>
+                                                    <Gallery
+                                                        images={this.getImages()}
+                                                        enableImageSelection={false}
+                                                    />
+                                                </div>
+                                                <div className={"agenda-section"} id={"agenda"}>
+                                                    {
+                                                        data.agenda ?
+                                                            <div className="list-single-main-item fl-wrap pl-40"
+                                                                 style={{marginTop: '20px'}}>
+                                                                <div className="row">
+                                                                    <div className="col-md-12">
+                                                                        <div className="box-widget-item-header">
+                                                                            <h3> Agenda </h3>
+                                                                        </div>
+                                                                        <p style={{fontSize: '14px'}}>{data.agenda ? data.agenda : "Agenda"}</p>
                                                                     </div>
-                                                                    <p style={{fontSize: '14px'}}>{data.agenda ? data.agenda : "Agenda"}</p>
                                                                 </div>
-                                                            </div>
-                                                        </div> : null
-                                                }
+                                                            </div> : <EventMessage/>
+                                                    }
+                                                </div>
 
                                                 {
                                                     this.getGroupBySections(data.sections && data.sections, false)

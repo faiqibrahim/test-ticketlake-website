@@ -137,6 +137,31 @@ class SearchFormEvents extends React.Component {
                                             value={this.state.keyword}
                                         />
                                 </div>
+                                {/* Categories  Field */}
+                                <div className="main-search-input-item">
+                                    <div className="qty-dropdown fl-wrap">
+                                        <span className="inpt_dec filtersIcons">
+                                            <img alt={"categories"}
+                                                 src={window.location.origin + '/icons/group-icon.svg'}/>
+                                        </span>
+                                        <select data-placeholder="Category"
+                                                name="categories"
+                                                defaultValue={"Category"}
+                                                onChange={this.onCategoryChange}
+                                                className="main-search-select"
+                                        >
+                                            <option disabled value={"Category"}>Category</option>
+                                            <option>All</option>
+                                            {
+                                                Array.isArray(categories) && categories.map((x, i) => {
+                                                    return (
+                                                        <option key={i} value={x._id}>{x.name}</option>
+                                                    )
+                                                })
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
                                 <div className="main-search-input-item location"
                                      id="autocomplete-container">
                                             <span className="inpt_dec filtersIcons">
@@ -172,32 +197,6 @@ class SearchFormEvents extends React.Component {
                                         value={this.state.datesInput}
                                         className={'dateRange'}
                                     />
-                                </div>
-                                
-                                {/* Categories  Field */}
-                                <div className="main-search-input-item">
-                                    <div className="qty-dropdown fl-wrap">
-                                        <span className="inpt_dec filtersIcons">
-                                            <img alt={"categories"}
-                                                 src={window.location.origin + '/icons/group-icon.svg'}/>
-                                        </span>
-                                        <select data-placeholder="Category"
-                                                name="categories"
-                                                defaultValue={"Category"}
-                                                onChange={this.onCategoryChange}
-                                                className="main-search-select"
-                                        >
-                                            <option disabled value={"Category"}>Category</option>
-                                            <option>All</option>
-                                            {
-                                                Array.isArray(categories) && categories.map((x, i) => {
-                                                    return (
-                                                        <option key={i} value={x._id}>{x.name}</option>
-                                                    )
-                                                })
-                                            }
-                                        </select>
-                                    </div>
                                 </div>
                                 <button className="main-search-button color2-bg"
                                         onClick={this.handleSubmit}>

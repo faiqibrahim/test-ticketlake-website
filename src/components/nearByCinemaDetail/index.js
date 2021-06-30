@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Error from '../../commonComponents/error';
+import EventMessage from '../../commonComponents/eventMessage';
 import Loader from "../../commonComponents/loader/";
 import {NavLink, withRouter} from "react-router-dom";
 import {Breadcrumbs, BreadcrumbsItem} from 'react-breadcrumbs-dynamic';
@@ -81,6 +82,7 @@ class NearByCinemaDetail extends Component {
         activeView: 'list',
         categories: [],
         movieCategoryID: ''
+
     };
 
     componentDidMount() {
@@ -162,14 +164,86 @@ class NearByCinemaDetail extends Component {
     };
 
     onClickWrp = (data) => {
-        const {slotUuid} = data;
-        if (slotUuid) {
+        sessionStorage.setItem("parentEventDetail", JSON.stringify(data));
+        const {_id} = data;
+        if (_id) {
             this.props.history.push({
-                pathname: `/buy-ticket/${slotUuid}`,
+                pathname: `/movie/detail/${_id}`,
                 data: data,
             });
         }
     };
+
+    showListView = (cinemaEvents) =>{
+        if(!cinemaEvents.length) return <EventMessage/>
+        return (
+            <>
+                {cinemaEvents.map((data, i) => {
+                    let categoryArr = data.categories && (data.categories.includes([], 0) ? data.categories[0] : data.categories);
+                    let startDate = `${getDayFromISO(data.startDateTime && data.startDateTime)}, ${getDateFromISO(data.startDateTime && data.startDateTime)}`;
+                    let endDate = `${getDayFromISO(data.endDateTime && data.endDateTime)}, ${getDateFromISO(data.endDateTime && data.endDateTime)}`;
+                    return (
+                        <div className={'row'} style={{borderBottom: '1px solid #f2f2f2'}}>
+                            <div className={'col-md-9'}>
+                                <CardWithSideDetail
+                                    image={data.bannerImageKey && data.bannerImageKey.imageUrl}
+                                    key={i}
+                                    title={data.title}
+                                    categories={
+                                        categoryArr.map((category, j) => {
+                                            return (
+                                                <span
+                                                    key={j}>{category.title} {j === data.categories.length - 1 ? " " :
+                                                    j === data.categories.length - 2 ? "& " : ", "}</span>
+                                            )
+                                        })}
+                                    startDate={startDate}
+                                    endDate={endDate}
+                                    onClickWrp={this.onClickWrp}
+                                    data={data}
+                                />
+                            </div>
+                            <div className={'col-md-3'}
+                                 style={{textAlign: 'right', top: '54px'}}>
+                                <button className='simpleButton width85 backgroundColorRed'
+                                        onClick={() => this.onClickWrp(data)}
+                                >
+                                    {
+                                        data.eventMaximumTicketClassPrice
+                                            ? data.eventMaximumTicketClassPrice ===
+                                            data.eventMinimumTicketClassPrice
+                                            ? `Buy Tickets from GHS${data.eventMaximumTicketClassPrice}`
+                                            : `Buy Tickets from GHS${data.eventMinimumTicketClassPrice} - GHS${data.eventMaximumTicketClassPrice}`
+                                            : "Buy Tickets"
+                                    }
+                                </button>
+                            </div>
+                        </div>
+                    )
+                })
+                }
+            </>
+        )
+    }
+
+    showBoxView = (cinemaEvents) =>{
+        if(!cinemaEvents.length) return <EventMessage/>
+        return (
+            <div className={'row'} style={styles.innerDiv}>
+                {cinemaEvents.map((data, i) => {
+                    return (
+                        <CardWithBottomTitle
+                            image={data.bannerImageKey && data.bannerImageKey.imageUrl}
+                            key={i}
+                            title={data.title}
+                            onClickWrp={this.onClickWrp}
+                            data={data}/>
+                    )
+                })
+                }
+            </div>
+        )
+    }
 
     render() {
         const hrefValue = "#"
@@ -182,11 +256,13 @@ class NearByCinemaDetail extends Component {
                 break;
             case 2:
                 cinemaEvents = this.props.trendingEventsForCinemaInfo;
+
                 totalEvents = cinemaEvents && cinemaEvents.length;
                 heading = 'Trending';
                 break;
             case 3:
                 cinemaEvents = this.props.promotedEventsForCinemaInfo;
+
                 totalEvents = cinemaEvents && cinemaEvents.length;
                 heading = 'Promoted';
                 break;
@@ -216,172 +292,116 @@ class NearByCinemaDetail extends Component {
                     </div>
                 </div>
             );
-        } else {
-            if (this.props.error) {
-                return (
-                    <Error/>
-                )
-            } else {
-                return (
-                    <div id="wrapper">
-                        <div className="content">
-                            {this.pageTitle()}
-                            <section className="list-single-hero" data-scrollax-parent="true" id="sec1">
-                                <div className="bg par-elem" style={{
-                                    float: 'left',
-                                    backgroundImage: `url('${cinemaData && cinemaData.defaultImage}')`,
-                                    translateY: '30%'
-                                }}/>
-                                <div className="list-single-hero-title fl-wrap">
-                                    <div className="container custom-container">
-                                        <div className="row">
-                                            <div className="col-md-12">
-                                                <div className="listing-rating-wrap">
-                                                    <div className="listing-rating card-popup-rainingvis"
-                                                         data-starrating2={5}/>
-                                                </div>
-                                                <h2 style={{marginBottom: '0'}}>
-                                                    <span>{cinemaData && cinemaData.name}</span>
-                                                </h2>
-                                                <p style={{
-                                                    textAlign: 'left',
-                                                    color: '#ffffff',
-                                                    marginTop: '5%',
-                                                    paddingBottom: '0px'
-                                                }}>
-                                                    {cinemaData && cinemaData.numberOfOnGoingEvents} Movies
-                                                    , {cinemaData && cinemaData.address}
-                                                </p>
-                                            </div>
+        }
+        if (this.props.error) {
+            return (
+                <Error/>
+            )
+        }
+        return (
+            <div id="wrapper">
+                <div className="content">
+                    {this.pageTitle()}
+                    <section className="list-single-hero" data-scrollax-parent="true" id="sec1">
+                        <div className="bg par-elem" style={{
+                            float: 'left',
+                            backgroundImage: `url('${cinemaData && cinemaData.defaultImage}')`,
+                            translateY: '30%'
+                        }}/>
+                        <div className="list-single-hero-title fl-wrap">
+                            <div className="container custom-container">
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="listing-rating-wrap">
+                                            <div className="listing-rating card-popup-rainingvis"
+                                                 data-starrating2={5}/>
                                         </div>
-                                        {this.getBreadCrumbs()}
+                                        <h2 style={{marginBottom: '0'}}>
+                                            <span>{cinemaData && cinemaData.name}</span>
+                                        </h2>
+                                        <p style={{
+                                            textAlign: 'left',
+                                            color: '#ffffff',
+                                            marginTop: '5%',
+                                            paddingBottom: '0px'
+                                        }}>
+                                            {cinemaData && cinemaData.numberOfOnGoingEvents} Movies
+                                            , {cinemaData && cinemaData.address}
+                                        </p>
                                     </div>
                                 </div>
-                            </section>
-                            <section className="grey-blue-bg small-padding scroll-nav-container" id="sec2">
-                                <div className="scroll-nav-wrapper background-gray fl-wrap">
-                                    <div className="hidden-map-container fl-wrap">
-                                        <input id="pac-input" className="controls fl-wrap controls-mapwn" type="text"
-                                               placeholder="What Nearby ?   Bar , Gym , Restaurant "/>
-                                        <div className="map-container">
-                                            <div id="singleMap" data-latitude="40.7427837"
-                                                 data-longitude="-73.11445617675781"/>
-                                        </div>
-                                    </div>
-                                    <div className="clearfix"/>
-                                    <div className="container custom-container">
-                                        <nav className="scroll-nav scroll-init">
-                                            <ul className={'ulEventDetail background-white'}>
-                                                <li>
-                                                    <a className={this.state.activeTab === 1 ? "active-detail-li" : "detail-li"}
-                                                       onClick={() => this.onTabClick(1)}
-                                                       href={hrefValue}>Showing</a>
-                                                </li>
-                                                <li>
-                                                    <a className={this.state.activeTab === 2 ? "active-detail-li" : "detail-li"}
-                                                       onClick={() => this.onTabClick(2)}
-                                                       href={hrefValue}>Trending</a>
-                                                </li>
-                                                <li>
-                                                    <a className={this.state.activeTab === 3 ? "active-detail-li" : "detail-li"}
-                                                       onClick={() => this.onTabClick(3)}
-                                                       href={hrefValue}>Promoted</a>
-                                                </li>
-                                                <li>
-                                                    <a className={this.state.activeTab === 4 ? "active-detail-li" : "detail-li"}
-                                                       onClick={() => this.onTabClick(4)}
-                                                       href={hrefValue}>Upcoming</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </section>
-                            <div className={"cinemaDetail-wrp"}>
-                                <div className={"container custom-container"}>
-                                    <div className={'row'} style={styles.innerDiv}>
-                                        <div className={'col-md-6'}>
-                                            <div className={'heading-text'}>{heading}<span className={"total-count"}>{`. ${totalEvents} Movies `}</span> </div>
-                                        </div>
-                                        <div className={'col-md-2 offset-4 cursor-pointer'} style={{textAlign: 'end'}}>
-                                            <img
-                                                src={this.state.activeView === 'list' ? '/images/views/list-white.svg' : '/images/views/list-gray.svg'}
-                                                onClick={() => this.onCardViewClick(true, 'list')}
-                                                alt="Img1"
-                                                style={this.state.activeView === 'list' ? styles.activeIcon1 : styles.icon1}/>
-                                            <img
-                                                src={this.state.activeView === 'thumbnail' ? '/images/views/calendar-white.svg' : '/images/views/calendar - gray.svg'}
-                                                onClick={() => this.onCardViewClick(false, 'thumbnail')}
-                                                alt="Img2"
-                                                style={this.state.activeView === 'thumbnail' ? styles.activeIcon2 : styles.icon2}/>
-                                        </div>
-                                    </div>
-                                        {this.state.listView ?
-                                            <>
-                                                {cinemaEvents && cinemaEvents.length > 0 ? cinemaEvents.map((data, i) => {
-                                                    let array = data.categories && (data.categories.includes([], 0) ? data.categories[0] : data.categories);
-                                                    let buttonText = getMaxAndMinPrice(data);
-                                                    let startDate = `${getDayFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventStartTime)}, ${getDateFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventStartTime)}`;
-                                                    let endDate = `${getDayFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventEndTime)}, ${getDateFromISO(data.eventDateTimeSlot && data.eventDateTimeSlot.eventEndTime)}`;
-                                                    return (
-                                                        <div className={'row'} style={{borderBottom: '1px solid #f2f2f2'}}>
-                                                            <div className={'col-md-9'}>
-                                                                <CardWithSideDetail
-                                                                    image={data.eventImageURL ? data.eventImageURL : data.slotImageURL[0]}
-                                                                    key={i}
-                                                                    title={data._id}
-                                                                    categories={
-                                                                        array.map((category, i) => {
-                                                                            return (
-                                                                                <span
-                                                                                    key={i}>{category} {i === data.categories.length - 1 ? " " :
-                                                                                    i === data.categories.length - 2 ? "& " : ", "}</span>
-                                                                            )
-                                                                        })}
-                                                                    startDate={startDate}
-                                                                    endDate={endDate}
-                                                                    shows={data.eventVenues && data.eventVenues.length}
-                                                                    onClickWrp={this.onClickWrp}
-                                                                    data={data}
-                                                                />
-                                                            </div>
-                                                            <div className={'col-md-3'}
-                                                                 style={{textAlign: 'right', top: '54px'}}>
-                                                                <button className='simpleButton width85 backgroundColorRed'
-                                                                        onClick={() => this.onClickWrp(data)}
-                                                                >
-                                                                    {buttonText}
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    )
-                                                }) : <Loader/>
-                                                }
-                                            </> :
-                                            <div className={'row'} style={styles.innerDiv}>
-                                                {cinemaEvents && cinemaEvents.length > 0 ? cinemaEvents.map((data, i) => {
-                                                    return (
-                                                        <CardWithBottomTitle
-                                                            image={data.eventImageURL ? data.eventImageURL : data.slotImageURL[0]}
-                                                            key={i}
-                                                            title={data._id}
-                                                            onClickWrp={this.onClickWrp}
-                                                            data={data}/>
-                                                    )
-                                                }) : <div className={"Error-msg-wrp"}>
-                                                        <div className={"Error-heading"}>Sorry, No Event Found.</div>
-                                                        <span className={"Error-sub-heading"}>There are no events.</span>
-                                                    </div>
-                                                }
-                                            </div>
-                                        }
-                                </div>
+                                {this.getBreadCrumbs()}
                             </div>
                         </div>
+                    </section>
+                    <section className="grey-blue-bg small-padding scroll-nav-container" id="sec2">
+                        <div className="scroll-nav-wrapper background-gray fl-wrap">
+                            <div className="hidden-map-container fl-wrap">
+                                <input id="pac-input" className="controls fl-wrap controls-mapwn" type="text"
+                                       placeholder="What Nearby ?   Bar , Gym , Restaurant "/>
+                                <div className="map-container">
+                                    <div id="singleMap" data-latitude="40.7427837"
+                                         data-longitude="-73.11445617675781"/>
+                                </div>
+                            </div>
+                            <div className="clearfix"/>
+                            <div className="container custom-container">
+                                <nav className="scroll-nav scroll-init">
+                                    <ul className={'ulEventDetail background-white'}>
+                                        <li>
+                                            <a className={this.state.activeTab === 1 ? "active-detail-li" : "detail-li"}
+                                               onClick={() => this.onTabClick(1)}
+                                               href={hrefValue}>Showing</a>
+                                        </li>
+                                        <li>
+                                            <a className={this.state.activeTab === 2 ? "active-detail-li" : "detail-li"}
+                                               onClick={() => this.onTabClick(2)}
+                                               href={hrefValue}>Trending</a>
+                                        </li>
+                                        <li>
+                                            <a className={this.state.activeTab === 3 ? "active-detail-li" : "detail-li"}
+                                               onClick={() => this.onTabClick(3)}
+                                               href={hrefValue}>Promoted</a>
+                                        </li>
+                                        <li>
+                                            <a className={this.state.activeTab === 4 ? "active-detail-li" : "detail-li"}
+                                               onClick={() => this.onTabClick(4)}
+                                               href={hrefValue}>Upcoming</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </section>
+                    <div className={"cinemaDetail-wrp"}>
+                        <div className={"container custom-container"}>
+                            <div className={'row'} style={styles.innerDiv}>
+                                <div className={'col-md-6'}>
+                                    <div className={'heading-text'}>{heading}<span className={"total-count"}>{`. ${totalEvents} Movies `}</span> </div>
+                                </div>
+                                <div className={'col-md-2 offset-4 cursor-pointer'} style={{textAlign: 'end'}}>
+                                    <img
+                                        src={this.state.activeView === 'list' ? '/images/views/list-white.svg' : '/images/views/list-gray.svg'}
+                                        onClick={() => this.onCardViewClick(true, 'list')}
+                                        alt="Img1"
+                                        style={this.state.activeView === 'list' ? styles.activeIcon1 : styles.icon1}/>
+                                    <img
+                                        src={this.state.activeView === 'thumbnail' ? '/images/views/calendar-white.svg' : '/images/views/calendar - gray.svg'}
+                                        onClick={() => this.onCardViewClick(false, 'thumbnail')}
+                                        alt="Img2"
+                                        style={this.state.activeView === 'thumbnail' ? styles.activeIcon2 : styles.icon2}/>
+                                </div>
+                            </div>
+                            {this.state.listView ?
+                                this.showListView(cinemaEvents)
+                                 :
+                                this.showBoxView(cinemaEvents)
+                            }
+                        </div>
                     </div>
-                );
-            }
-        }
+                </div>
+            </div>
+        );
     }
 }
 
