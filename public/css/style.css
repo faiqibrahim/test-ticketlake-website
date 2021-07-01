@@ -12596,3 +12596,8 @@ input[type=number] {
     background: transparent !important;
     color: #363636 !important;
 }
+.read-or-hide {
+    display: block;
+    color: #ec1c24;
+    cursor: pointer;
+}

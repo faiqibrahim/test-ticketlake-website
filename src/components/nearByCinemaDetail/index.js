@@ -258,18 +258,18 @@ class NearByCinemaDetail extends Component {
                 cinemaEvents = this.props.trendingEventsForCinemaInfo;
 
                 totalEvents = cinemaEvents && cinemaEvents.length;
-                heading = 'Trending';
+                heading = 'Trending Now';
                 break;
             case 3:
                 cinemaEvents = this.props.promotedEventsForCinemaInfo;
 
                 totalEvents = cinemaEvents && cinemaEvents.length;
-                heading = 'Promoted';
+                heading = 'Promoted Now';
                 break;
             case 4:
                 cinemaEvents = this.props.upcomingEventsForCinemaInfo;
                 totalEvents = cinemaEvents && cinemaEvents.length;
-                heading = 'Upcoming';
+                heading = 'Upcoming Now';
                 break;
             default:
                 cinemaEvents = this.props.showingInCinemaEventsInfo;
