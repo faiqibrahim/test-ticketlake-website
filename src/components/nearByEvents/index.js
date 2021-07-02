@@ -14,6 +14,7 @@ import {getCardDates} from "../../utils/common-utils";
 import axios from "../../utils/axios";
 import GoogleMap from "./googleMap";
 import CardWithBottomInfo from "../../commonComponents/cardWithBottomInfo";
+import EventMessage from '../../commonComponents/eventMessage';
 import {Helmet} from "react-helmet";
 
 class NearByEvents extends Component {
@@ -180,10 +181,7 @@ class NearByEvents extends Component {
                           );
                         })
                     ) :
-                        <div className={"Error-msg-wrp w100"}>
-                          <div className={"Error-heading"}>Sorry, No Event Found.</div>
-                          <span className={"Error-sub-heading"}>There are no events.</span>
-                        </div>
+                        <EventMessage/>
                       : (
                         <div className="col-lg-12">
                           <Loader />
