@@ -56,7 +56,7 @@ const reducer = (state = initState, action) => {
     case actions.SET_CATEGORY_AND_SECTION_ID:
       setCategoryAndSectionId(newState, action.payload);
       break;
-    case PROCESSING:
+    case actions.PROCESSING:
       setProcessing(newState, action.payload);
       break;
     case CINEMA_DATA:

@@ -195,12 +195,15 @@ export const showingInCinema = (categoryId, cinemaId, paginate = true, page = 1,
     return (dispatch, getState) => {
         let eventsCountry = getState().user.eventsCountry;
         JSONObj.country = eventsCountry.label;
+        dispatch(setProcessing(true));
         axios.post(SHOWING_IN_CINEMAS, JSONObj, SERVER_API_VERSION)
             .then(response => {
                 const data = response.data;
-                dispatch(setShowingInCinemaInfo(data && data.data));
+                dispatch(setShowingInCinemaInfo(data && data.data))
+                dispatch(setProcessing(false));
             })
             .catch(err => {
+                dispatch(setProcessing(false));
                 console.error('err', err);
                 let errorMessage = handleError(err);
                 NotificationManager.error(errorMessage, '', NOTIFICATION_TIME);
@@ -220,14 +223,18 @@ export const upcomingEventsForCinema = (categoryId, cinemaId, paginate = true, p
         venues: [cinemaId]
     };
     return (dispatch, getState) => {
+        dispatch(setProcessing(true));
         let eventsCountry = getState().user.eventsCountry;
         JSONObj.country = eventsCountry.label;
         axios.post(UPCOMING_EVENTS_FOR_CINEMA, JSONObj,SERVER_API_VERSION)
             .then(response => {
                 const data = response.data;
                 dispatch(setUpcomingEventsForCinema(data && data.data));
+                dispatch(setProcessing(false));
+
             })
             .catch(err => {
+                dispatch(setProcessing(false));
                 console.error('err', err);
                 let errorMessage = handleError(err);
                 NotificationManager.error(errorMessage, '', NOTIFICATION_TIME);
@@ -247,12 +254,15 @@ export const promotedEventsForCinema = (categoryId, cinemaId, paginate = true, p
         venues: [cinemaId]
     };
     return (dispatch) => {
+        dispatch(setProcessing(true));
         axios.post(PROMOTED_EVENTS_FOR_CINEMA, JSONObj,SERVER_API_VERSION)
             .then(response => {
                 const data = response.data;
                 dispatch(setPromotedEventsForCinema(data && data.data));
+                dispatch(setProcessing(false));
             })
             .catch(err => {
+                dispatch(setProcessing(false));
                 console.error('err', err);
                 let errorMessage = handleError(err);
                 NotificationManager.error(errorMessage, '', NOTIFICATION_TIME);
@@ -270,12 +280,15 @@ export const trendingEventsForCinema = (categoryId, cinemaId, paginate = true, p
         venues: [cinemaId]
     };
     return (dispatch) => {
+        dispatch(setProcessing(true));
         axios.post(TRENDING_EVENTS_FOR_CINEMA, JSONObj,SERVER_API_VERSION)
             .then(response => {
                 const data = response.data;
                 dispatch(setTrendingEventsForCinema(data && data.data));
+                dispatch(setProcessing(false));
             })
             .catch(err => {
+                dispatch(setProcessing(false));
                 console.error('err', err);
                 let errorMessage = handleError(err);
                 NotificationManager.error(errorMessage, '', NOTIFICATION_TIME);

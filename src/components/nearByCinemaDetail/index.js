@@ -17,6 +17,7 @@ import {
 } from '../../redux/movies/movie-action';
 import {Helmet} from "react-helmet";
 import CardWithBottomTitle from '../../commonComponents/cardWithBottomTitle';
+import HeaderTabs from '../../commonComponents/headerTabs';
 import {getAllCategories} from '../../redux/category/category-actions';
 
 let cinemaEvents = [];
@@ -73,6 +74,8 @@ const styles = {
     }
 };
 
+const tabs = ["Showing","Trending","Upcoming","Promoted"];
+
 class NearByCinemaDetail extends Component {
 
     state = {
@@ -88,7 +91,7 @@ class NearByCinemaDetail extends Component {
     componentDidMount() {
         cinemaId = this.props.match.params.id;
         cinemaData = this.props.location.data;
-        this.props.setProcessing(true);
+        //this.props.setProcessing(true);
         if (cinemaData !== undefined){
             this.props.setCinemaData(cinemaData);
         }
@@ -102,7 +105,7 @@ class NearByCinemaDetail extends Component {
                 this.setState({movieCategoryID})
             }
             this.props.showingInCinema(this.state.movieCategoryID, cinemaId);
-            this.props.setProcessing(false);
+            //this.props.setProcessing(false);
         }, 'v2');
     }
 
@@ -175,10 +178,10 @@ class NearByCinemaDetail extends Component {
     };
 
     showListView = (cinemaEvents) =>{
-        if(!cinemaEvents.length) return <EventMessage/>
         return (
             <>
-                {cinemaEvents.map((data, i) => {
+                {
+                    cinemaEvents.length > 0 ? cinemaEvents.map((data, i) => {
                     let categoryArr = data.categories && (data.categories.includes([], 0) ? data.categories[0] : data.categories);
                     let startDate = `${getDayFromISO(data.startDateTime && data.startDateTime)}, ${getDateFromISO(data.startDateTime && data.startDateTime)}`;
                     let endDate = `${getDayFromISO(data.endDateTime && data.endDateTime)}, ${getDateFromISO(data.endDateTime && data.endDateTime)}`;
@@ -220,7 +223,7 @@ class NearByCinemaDetail extends Component {
                             </div>
                         </div>
                     )
-                })
+                }):<EventMessage/>
                 }
             </>
         )
@@ -245,9 +248,42 @@ class NearByCinemaDetail extends Component {
         )
     }
 
+    renderCinemaDetail = (totalEvents) => {
+        return(
+            <div className={"cinemaDetail-wrp"}>
+                <div className={"container custom-container"}>
+                    <div className={'row'} style={styles.innerDiv}>
+                        <div className={'col-md-6'}>
+                            <div className={'heading-text'}>{heading}<span className={"total-count"}>{`. ${totalEvents} Movies `}</span> </div>
+                        </div>
+                        <div className={'col-md-2 offset-4 cursor-pointer'} style={{textAlign: 'end'}}>
+                            <img
+                                src={this.state.activeView === 'list' ? '/images/views/list-white.svg' : '/images/views/list-gray.svg'}
+                                onClick={() => this.onCardViewClick(true, 'list')}
+                                alt="Img1"
+                                style={this.state.activeView === 'list' ? styles.activeIcon1 : styles.icon1}/>
+                            <img
+                                src={this.state.activeView === 'thumbnail' ? '/images/views/calendar-white.svg' : '/images/views/calendar - gray.svg'}
+                                onClick={() => this.onCardViewClick(false, 'thumbnail')}
+                                alt="Img2"
+                                style={this.state.activeView === 'thumbnail' ? styles.activeIcon2 : styles.icon2}/>
+                        </div>
+                    </div>
+                    {this.state.listView ?
+                        this.showListView(cinemaEvents)
+                        :
+                        this.showBoxView(cinemaEvents)
+                    }
+                </div>
+            </div>
+        )
+    }
+
     render() {
         const hrefValue = "#"
         let totalEvents = 0;
+        const {activeTab} = this.state;
+        const {processing} = this.props;
         switch (this.state.activeTab) {
             case 1:
                 cinemaEvents = this.props.showingInCinemaEventsInfo;
@@ -256,7 +292,6 @@ class NearByCinemaDetail extends Component {
                 break;
             case 2:
                 cinemaEvents = this.props.trendingEventsForCinemaInfo;
-
                 totalEvents = cinemaEvents && cinemaEvents.length;
                 heading = 'Trending Now';
                 break;
@@ -284,15 +319,7 @@ class NearByCinemaDetail extends Component {
             cinemaData = locallySavedCinemaInfo
         }
 
-        if (this.props.processing) {
-            return (
-                <div id="wrapper">
-                    <div className="content">
-                        <Loader style={{marginBottom: "20%"}}/>
-                    </div>
-                </div>
-            );
-        }
+
         if (this.props.error) {
             return (
                 <Error/>
@@ -348,57 +375,18 @@ class NearByCinemaDetail extends Component {
                             <div className="container custom-container">
                                 <nav className="scroll-nav scroll-init">
                                     <ul className={'ulEventDetail background-white'}>
-                                        <li>
-                                            <a className={this.state.activeTab === 1 ? "active-detail-li" : "detail-li"}
-                                               onClick={() => this.onTabClick(1)}
-                                               href={hrefValue}>Showing</a>
-                                        </li>
-                                        <li>
-                                            <a className={this.state.activeTab === 2 ? "active-detail-li" : "detail-li"}
-                                               onClick={() => this.onTabClick(2)}
-                                               href={hrefValue}>Trending</a>
-                                        </li>
-                                        <li>
-                                            <a className={this.state.activeTab === 3 ? "active-detail-li" : "detail-li"}
-                                               onClick={() => this.onTabClick(3)}
-                                               href={hrefValue}>Promoted</a>
-                                        </li>
-                                        <li>
-                                            <a className={this.state.activeTab === 4 ? "active-detail-li" : "detail-li"}
-                                               onClick={() => this.onTabClick(4)}
-                                               href={hrefValue}>Upcoming</a>
-                                        </li>
+                                        <HeaderTabs
+                                            tabs = {tabs}
+                                            onTabClick={(tab) => this.onTabClick(tab)}
+                                            hrefValue ={hrefValue}
+                                            activeTab = {activeTab}
+                                        />
                                     </ul>
                                 </nav>
                             </div>
                         </div>
                     </section>
-                    <div className={"cinemaDetail-wrp"}>
-                        <div className={"container custom-container"}>
-                            <div className={'row'} style={styles.innerDiv}>
-                                <div className={'col-md-6'}>
-                                    <div className={'heading-text'}>{heading}<span className={"total-count"}>{`. ${totalEvents} Movies `}</span> </div>
-                                </div>
-                                <div className={'col-md-2 offset-4 cursor-pointer'} style={{textAlign: 'end'}}>
-                                    <img
-                                        src={this.state.activeView === 'list' ? '/images/views/list-white.svg' : '/images/views/list-gray.svg'}
-                                        onClick={() => this.onCardViewClick(true, 'list')}
-                                        alt="Img1"
-                                        style={this.state.activeView === 'list' ? styles.activeIcon1 : styles.icon1}/>
-                                    <img
-                                        src={this.state.activeView === 'thumbnail' ? '/images/views/calendar-white.svg' : '/images/views/calendar - gray.svg'}
-                                        onClick={() => this.onCardViewClick(false, 'thumbnail')}
-                                        alt="Img2"
-                                        style={this.state.activeView === 'thumbnail' ? styles.activeIcon2 : styles.icon2}/>
-                                </div>
-                            </div>
-                            {this.state.listView ?
-                                this.showListView(cinemaEvents)
-                                 :
-                                this.showBoxView(cinemaEvents)
-                            }
-                        </div>
-                    </div>
+                    {processing ? <div className="loader-wrp"><Loader/></div> : this.renderCinemaDetail(totalEvents)}
                 </div>
             </div>
         );
