@@ -1,5 +1,4 @@
 import * as actions from "./movie-action-types";
-import { PROCESSING } from "../user/user-actions";
 import { CINEMA_DATA } from "./movie-action-types";
 
 const initState = {
