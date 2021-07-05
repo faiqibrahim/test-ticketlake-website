@@ -48,6 +48,31 @@ const eventListingFilters = (props) => {
                         />
                     </div>
                 </div>
+                <div className="col-sm-5ths list-search-box fullWidthOnSmallScreen">
+                    <div className="col-list-search-input-item fl-wrap location autocomplete-container">
+                        <label>Event Category</label>
+                        <span className="inpt_dec top-postion filtersIcons">
+                            <img alt={"categories"} src={window.location.origin + '/icons/group-icon.svg'}/>
+                        </span>
+                        <select data-placeholder="Category"
+                                name="categories"
+                                onChange={(e) => props.changeCategory(e)}
+                                className="chosen-select  filterDropDowns">
+                            <option disabled selected>Select Category</option>
+                            <option selected={(props.category === 'All') ? "selected" : null}>All</option>
+                            {
+                                Array.isArray(categories) && categories.map((x, i) => {
+                                    return (
+                                        <option
+                                            key={i}
+                                            selected={(props.category === x._id) ? "selected" : null}
+                                            value={x._id}>{x.name}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </div>
+                </div>
                 <div className="col-md-5ths list-search-box fullWidthOnSmallScreen">
                     <div className="col-list-search-input-item fl-wrap location autocomplete-container">
                         <label>City</label>
@@ -87,31 +112,7 @@ const eventListingFilters = (props) => {
                         />
                     </div>
                 </div>
-                <div className="col-sm-5ths list-search-box fullWidthOnSmallScreen">
-                    <div className="col-list-search-input-item fl-wrap location autocomplete-container">
-                        <label>Event Category</label>
-                        <span className="inpt_dec top-postion filtersIcons">
-                            <img alt={"categories"} src={window.location.origin + '/icons/group-icon.svg'}/>
-                        </span>
-                        <select data-placeholder="Category"
-                                name="categories"
-                                onChange={(e) => props.changeCategory(e)}
-                                className="chosen-select  filterDropDowns">
-                                <option disabled selected>Select Category</option>
-                                <option selected={(props.category === 'All') ? "selected" : null}>All</option>
-                                {
-                                    Array.isArray(categories) && categories.map((x, i) => {
-                                        return (
-                                            <option
-                                                key={i}
-                                                selected={(props.category === x._id) ? "selected" : null}
-                                                value={x._id}>{x.name}</option>
-                                        )
-                                    })
-                                }
-                        </select>
-                    </div>
-                </div>
+
                 <div className="col-md-5ths fullWidthOnSmallScreen custom-btn">
                     <div className="col-list-search-input-item fl-wrap">
                         <button className="header-search-button" id={'searchButton'}

@@ -26,7 +26,7 @@ const CardWithBottomTitle = (props) => {
     let {image, onClickWrp, data} = props;
 
     return (
-        <div className={'col-md-2'} style={{marginBottom: '40px', cursor : "pointer",marginRight : "50px"}}>
+        <div className={'col-md-3'} style={{marginBottom: '40px', cursor : "pointer"}}>
             <div key={'1'}
                  style={style.outerDiv}>
                 <img style={style.image} alt='img'

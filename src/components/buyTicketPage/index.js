@@ -22,6 +22,8 @@ import {
   getDateAndTimeFromIso,
   hasTicketsQuantity,
 } from "../../utils/common-utils";
+import {Helmet} from "react-helmet";
+
 // Redux
 import {
   setStep,
@@ -111,6 +113,15 @@ class BuyTicketPage extends Component {
       passData: passData,
     });
   };
+
+  pageTitle = () => {
+    return (
+        <Helmet>
+          <title>Buy Ticket</title>
+        </Helmet>
+    )
+  }
+
 
   onInputChange = (name, val, event, ticketClassId, uniqueId) => {
     const billS = this.props.billSummary;
@@ -610,6 +621,7 @@ class BuyTicketPage extends Component {
         <AuthRoutes>
           <div id="wrapper">
             <div className="content">
+              {this.pageTitle()}
               <div className="breadcrumbs-fs">
                 <div className="container">
                   <Breadcrumbs />

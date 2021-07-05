@@ -9,6 +9,7 @@ import {BreadcrumbsItem} from "react-breadcrumbs-dynamic";
 import {changeConsumerPassword} from "../../redux/user/user-actions";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 class ChangePassword extends Component {
 
@@ -36,6 +37,14 @@ class ChangePassword extends Component {
         state[e.target.name] = e.target.value;
         this.setState(state);
     };
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Change Password</title>
+            </Helmet>
+        )
+    }
 
     getInputs = () => {
         return (
@@ -95,6 +104,7 @@ class ChangePassword extends Component {
             <AuthRoutes>
                 <div id="wrapper">
                     <div className="content">
+                        {this.pageTitle()}
                         <UserPagesContainer
                             page={'change-password'}
                             breadcrumbs={breadCrumbs}>

@@ -15,6 +15,7 @@ import {BreadcrumbsItem} from "react-breadcrumbs-dynamic";
 import {Modal, ModalBody, ModalHeader} from "reactstrap";
 import ReactPaginate from 'react-paginate';
 import {FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton} from "react-share";
+import {Helmet} from "react-helmet";
 
 let shareUrl = 'http://google.com/';
 
@@ -61,6 +62,14 @@ class Wishlist extends Component {
             });
         }
     };
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Wishlist</title>
+            </Helmet>
+        )
+    }
 
 
     sharingSocial = (id) => {
@@ -230,6 +239,7 @@ class Wishlist extends Component {
 
             <div id="wrapper">
                 <div className="content">
+                    {this.pageTitle()}
                     <UserPagesContainer
                         page={'wishlist'}
                         breadcrumbs={breadCrumbs}>

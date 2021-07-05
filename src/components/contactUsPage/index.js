@@ -4,6 +4,8 @@ import MapContainer from "../../commonComponents/googleMapComponent";
 // Component
 import ToolTip from '../../commonComponents/toolTip';
 import {ticketLakeFbLink, ticketLakeInstagramLink, ticketLakeTwitterLink, ticketLakeYoutubeLink} from '../../utils/constant';
+import {Helmet} from "react-helmet";
+
 
 const imgStyle = {
     width: '37px'
@@ -23,6 +25,15 @@ class ContactUsPage extends Component {
         this.setState({isTooltipOpen: !isTooltipOpen});
     };
 
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Contact Us</title>
+            </Helmet>
+        )
+    }
+
     render() {
         const {isTooltipOpen} = this.state;
         const hrefLink = "#";
@@ -30,6 +41,7 @@ class ContactUsPage extends Component {
                 <div id="wrapper">
                     {/* content*/}
                     <div className="content">
+                        {this.pageTitle()}
                         {/* map-view-wrap */}
                         <div className="map-view-wrap">
                             <div className="container custom-container">

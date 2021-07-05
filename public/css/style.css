@@ -11002,6 +11002,56 @@ article.post-article .list-single-main-item {
     }
 
 }
+@media only screen and  (max-width: 349px) {
+    .username-wrp
+    {
+        width: 29px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+}
+@media only screen and  (min-width: 450px) and (max-width: 524px) {
+    .username-wrp
+    {
+        width: 29px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+}
+@media only screen and  (min-width: 768px) and (max-width: 878px) {
+    .username-wrp
+    {
+        width: 29px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+}
+@media only screen and  (min-width: 1231px) and (max-width: 1362px) {
+    .username-wrp
+    {
+        width: 29px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+}
+@media only screen and  (min-width: 1362px) and (max-width: 1522px) {
+    .scrolled-header .username-wrp
+    {
+        width: 29px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+}
 
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
@@ -11380,6 +11430,7 @@ div.gm-style-mtc {
     border-radius: 7px;
     margin: 20px auto;
     display: inline-block;
+    text-align: center;
 }
 .w100
 {
@@ -11937,9 +11988,9 @@ source {
     text-align: left;
     font-size: 12px;
 }
-.hover-card-wrp.col-md-3:first-child {
-    padding-left: 0;
-}
+/*.hover-card-wrp.col-md-3:first-child {*/
+/*    padding-left: 0;*/
+/*}*/
 .listing-avatar.wishlist-icon,
 .sale-window.share-icon{
     position: absolute;
@@ -12378,7 +12429,7 @@ input[type=number] {
         display: none;
     }
 }
-@media only screen and  (max-width:300px) {
+@media only screen and  (max-width:316px) {
     span.sign-in {
         display: none;
     }
@@ -12533,4 +12584,20 @@ input[type=number] {
 .total-count {
     padding-left: 5px;
     color: #ec1c24;
+}
+.loader-wrp
+{
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+.non-active {
+    background: transparent !important;
+    color: #363636 !important;
+}
+.read-or-hide {
+    display: block;
+    color: #ec1c24;
+    cursor: pointer;
 }

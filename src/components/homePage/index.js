@@ -13,6 +13,8 @@ import Loader from "../../commonComponents/loader";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {getWishListIdsFromApi} from '../../redux/wishlist/wishlist-actions';
+import {Helmet} from "react-helmet";
+
 
 class Main extends Component {
     componentDidMount() {
@@ -22,10 +24,20 @@ class Main extends Component {
         }
     }
 
-    renderHomePage = () => {
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Home</title>
+            </Helmet>
+        )
+    }
+
+renderHomePage = () => {
         return (
             <div id="wrapper">
                 <div className="content">
+                    {this.pageTitle()}
                     <SearchForEvents/>
                     {/*<Section/>*/}
                     <PromotedEvents/>

@@ -18,6 +18,8 @@ import MovieDetailSlider from "../../movieDetailSlider";
 
 import { getSubCategoriesEvents } from "../../../redux/movies/movie-action";
 import _ from "lodash";
+import {Helmet} from "react-helmet";
+
 
 class MovieDetails extends Component {
   state = {
@@ -60,13 +62,23 @@ class MovieDetails extends Component {
     });
   };
 
+
+  pageTitle = () => {
+    return (
+        <Helmet>
+          <title>Movie Detail</title>
+        </Helmet>
+    )
+  }
+
   getBreadCrumbs = () => {
+    const categoryId = this.getCategoryId();
     return (
       <>
         <BreadcrumbsItem glyph="home" to="/">
           Home Page
         </BreadcrumbsItem>
-        <BreadcrumbsItem to="/events/listing">All Movies</BreadcrumbsItem>
+        <BreadcrumbsItem to={`/movies/?id=${categoryId}`}>All Movies</BreadcrumbsItem>
         <BreadcrumbsItem to={"/event/detail/" + this.props.match.params.id}>
           Movie Detail
         </BreadcrumbsItem>
@@ -305,6 +317,7 @@ class MovieDetails extends Component {
       return (
         <div id="wrapper">
           <div className="content">
+            {this.pageTitle()}
             <Loader style={{ marginBottom: "20%" }} />
           </div>
         </div>

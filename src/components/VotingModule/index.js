@@ -3,6 +3,8 @@ import {getVotingEvents} from './data-fetcher';
 import VotingEventsContent from './VotingPage/VotingEventsContent/VotingEventsContent';
 import VotingHeader from './Header/Layout/Layout';
 import './RouteWrapper/RouteWrapper.css';
+import {Helmet} from "react-helmet";
+
 
 class VotingEvents extends Component{
     state = {
@@ -24,7 +26,16 @@ class VotingEvents extends Component{
 
         })
     }
-    
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Voting</title>
+            </Helmet>
+        )
+    }
+
+
     render(){
 
         if(this.state.loading) return <p>Component Loading!</p> 
@@ -33,6 +44,7 @@ class VotingEvents extends Component{
             <Fragment>
                 <div className="container">
                     <div className="votingContainer">
+                        {this.pageTitle()}
                         <div className="headerContainer">
                             <VotingHeader 
                                 pageTitle = "Votings"
