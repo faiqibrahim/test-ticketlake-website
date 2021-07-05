@@ -2,19 +2,32 @@
 import React from 'react';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 import moment from "moment/moment";
-import {getDateFromISO} from "../../utils/common-utils";
+import {dateSplitter, getDateFromISO} from "../../utils/common-utils";
 
-const eventListingFilters = (props) => {
+class eventListingFilters extends React.Component {
 
-    let date = [new Date(moment().format()), new Date(moment().format())];
-    let currentDate = false;
+    state = {
+        dates: null,
+        datesInput: null,
+        currentDate:false
+    };
+    
+    
+    onDateChange = (date) => {
 
-    if(props.date) {
-        if((getDateFromISO(props.date[0]) === getDateFromISO(date[0])) && (getDateFromISO(props.date[1]) === getDateFromISO(date[1]))){
-            currentDate = true
+        if(this.props.date) {
+            if((getDateFromISO(this.props.date[0]) === getDateFromISO(date[0])) && (getDateFromISO(this.props.date[1]) === getDateFromISO(date[1]))){
+                this.setState({currentDate: true});
+            }
+        }else {
+            let date = [new Date(moment().format()), new Date(moment().format())];
+            let fromDateTime = dateSplitter(date[0]);
+            let toDateTime = dateSplitter(date[1]);
+            this.setState({datesInput: date,dates: encodeURI(fromDateTime + ' ' + toDateTime)});
         }
-    }
-    const toggleShowOnMobile = () => {
+    };
+    
+    toggleShowOnMobile = () => {
         const container = document.getElementById('filtersContainer');
         if (container.style.display === '' || container.style.display === 'none') {
             container.style.display = 'block';
@@ -23,12 +36,15 @@ const eventListingFilters = (props) => {
         }
     };
 
-    const {categories} = props;
-    const {city} = props;
-    const defaultCity = city.length && city[0].label;
+    render(){
+
+        const {categories} =this.props;
+        const {city} = this.props;
+        const defaultCity = city.length && city[0].label;
+
     return (
         <>
-            <div className="mobile-list-controls fl-wrap mar-bot-cont" onClick={toggleShowOnMobile}>
+            <div className="mobile-list-controls fl-wrap mar-bot-cont" onClick={this.toggleShowOnMobile}>
                 <div className="mlc show-list-wrap-search fl-wrap">
                     <i className="fa fa-filter" style={{color: 'white'}}/> Filter
                 </div>
@@ -43,8 +59,8 @@ const eventListingFilters = (props) => {
                             className="autocomplete-input filterDropDowns"
                             id="autocompleteid3"
                             style={{padding: '12px 10px 11px 10px', height: '49px'}}
-                            onChange={(e) => props.handleChange(e)}
-                            value={props.search}
+                            onChange={(e) => this.props.handleChange(e)}
+                            value={this.props.search}
                         />
                     </div>
                 </div>
@@ -56,16 +72,16 @@ const eventListingFilters = (props) => {
                         </span>
                         <select data-placeholder="Category"
                                 name="categories"
-                                onChange={(e) => props.changeCategory(e)}
+                                onChange={(e) => this.props.changeCategory(e)}
                                 className="chosen-select  filterDropDowns">
-                            <option disabled selected>Select Category</option>
-                            <option selected={(props.category === 'All') ? "selected" : null}>All</option>
+                            <option disabled selected>Category</option>
+                            <option selected={(this.props.category === 'All') ? "selected" : null}>All</option>
                             {
                                 Array.isArray(categories) && categories.map((x, i) => {
                                     return (
                                         <option
                                             key={i}
-                                            selected={(props.category === x._id) ? "selected" : null}
+                                            selected={(this.props.category === x._id) ? "selected" : null}
                                             value={x._id}>{x.name}</option>
                                     )
                                 })
@@ -81,14 +97,14 @@ const eventListingFilters = (props) => {
                         </span>
                         <select data-placeholder="City"
                                 name="city"
-                                onChange={(e) => props.changeCity(e)}
+                                onChange={(e) => this.props.changeCity(e)}
                                 className="chosen-select filterDropDowns">
-                                defaultValue={defaultCity}
+                            defaultValue={defaultCity}
                             {
                                 city && city.map((x, i) => {
                                     return (
                                         <option key={i}
-                                                selected={(props.location === x.label) ? 'selected' : null}
+                                                selected={(this.props.location === x.label) ? 'selected' : null}
                                                 value={x.value}>{x.label}</option>
                                     )
                                 })
@@ -103,8 +119,8 @@ const eventListingFilters = (props) => {
                             <img src={window.location.origin + '/icons/clock-icon.svg'} alt={"clock"}/>
                         </span>
                         <DateRangePicker
-                            onChange={(e) => props.changeDate(e)}
-                            value={currentDate ? '' : props.date}
+                            onChange={(e) => this.props.changeDate(e)}
+                            value={this.state.currentDate ? '' : this.props.date}
                             className={'filterDateRange'}
                             calendarIcon={null}
                             clearIcon={null}
@@ -116,7 +132,7 @@ const eventListingFilters = (props) => {
                 <div className="col-md-5ths fullWidthOnSmallScreen custom-btn">
                     <div className="col-list-search-input-item fl-wrap">
                         <button className="header-search-button" id={'searchButton'}
-                                onClick={props.handleSearch} style={{height: '50px'}}>
+                                onClick={this.props.handleSearch} style={{height: '50px'}}>
                             <i className="fas fa-search"/>
                             Search
                         </button>
@@ -125,6 +141,8 @@ const eventListingFilters = (props) => {
             </div>
         </>
     );
+}
+
     
 
 };
