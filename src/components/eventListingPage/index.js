@@ -579,7 +579,7 @@ class EventListing extends Component {
                                                         {!allEvents.length ?
                                                             <div className={"Error-msg-wrp w100"}>
                                                                 <div className={"Error-heading"}>Sorry, No Event Found.</div>
-                                                                <span className={"Error-sub-heading"}>There are no liked events in your wishlist.</span>
+                                                                <span className={"Error-sub-heading"}>There are no events found under current search, Please search again with different keywords. </span>
                                                             </div>
                                                             :
 
