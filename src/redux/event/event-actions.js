@@ -8,7 +8,7 @@ import {
   GET_ALL_SLOTS_DATA_OF_EVENT,
 } from "../../utils/config";
 // Helpers
-import { getRandom, NOTIFICATION_TIME } from "../../utils/common-utils";
+import {NOTIFICATION_TIME } from "../../utils/common-utils";
 import { handleError } from "../../utils/store-utils";
 import { NotificationManager } from "react-notifications";
 
