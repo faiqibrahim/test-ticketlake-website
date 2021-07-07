@@ -8,6 +8,8 @@ import DatePicker from "react-datepicker";
 // import Select from 'react-select'
 import ReactPhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import validator from "validator";
+import { isValidPhoneNumber } from "react-phone-number-input";
 
 // Redux
 import {resetRedux, saveFormData, verifyUser} from '../../redux/user/user-actions';
@@ -119,18 +121,40 @@ class SignUp extends Component {
         this.setState(state);
     };
 
+    getPhoneNumberValid = (phoneNumber) => {
+        return isValidPhoneNumber(phoneNumber);
+    };
+
+    getEmailValid = (email) => {
+        return validator.isEmail(email);
+    };
+
     onSaveChanges = (e) => {
         e.preventDefault();
-        const state = {...this.state};
-        if (state.name === ''){
-            this.setState({errorName: "Please enter the name"});
-        }if(state.email === '') {
-            this.setState({errorEmail: "Please enter an email address"});
-        }if(state.password === '') {
-            this.setState({errorPassword: "Please enter the password"});
-        }if(state.phone === '') {
-            this.setState({errorPhone: "Please enter the phone"});
-        }if(state.country === '') {
+        const state = {...this.state };
+        const { phone, email } = this.state;
+        let isEmailValid = this.getEmailValid(email);
+        let isValidNumber = this.getPhoneNumberValid(phone);
+
+        if (state.name === '') {
+            this.setState({ errorName: "Please enter the name" });
+        }
+        if (isEmailValid) {
+            this.setState({ errorEmail: "" });
+        }
+        if (!isEmailValid) {
+            this.setState({ errorEmail: "Please enter valid Email" });
+        }
+        if (state.password === '') {
+            this.setState({ errorPassword: "Please enter the password" });
+        }
+        if (isValidNumber) {
+            this.setState({ errorPhone: "" });
+        }
+        if (!isValidNumber) {
+            this.setState({ errorPhone: "Please enter valid phone Number" });
+        }
+        if(state.country === '') {
             this.setState({errorCountry: "Please enter the country"});
         }if(state.city === '') {
             this.setState({errorCity: "Please enter the city"});
@@ -261,13 +285,12 @@ class SignUp extends Component {
                         <Form onSubmit={this.onSaveChanges}>
                             <div className="custom-form">
                                 <div className="main-register-form" id="main-register-form2">
-
                                     <div className={"field-wrp"}>
                                         <label style={{marginBottom:'10px'}}>Email <span>*</span> </label>
                                         <Input name="email" id="email" type="email" placeholder="Email"
                                                value={this.state.email}
                                                onChange={this.onInputChange}/>
-                                        {this.state.errorEmail !== '' ? (this.state.email === '') ? <span className={"signup-error-message"} style={{color: 'red'}}>{this.state.errorEmail}</span> : null : null }
+                                               {this.state.errorEmail === '' ? undefined : <span className = {"signup-error-message"} style = {{ color: 'red' } } > { this.state.errorEmail } < /span> }
                                     </div>
 
                                     <div className={"field-wrp"}>
@@ -281,8 +304,6 @@ class SignUp extends Component {
                                     <div className={"field-wrp"}>
                                         <label style={{marginBottom:'10px'}}>Name <span>*</span> </label>
                                         <Input name="name" id="name" type="text" placeholder="Name" value={this.state.name}
-                                            //required
-                                            //validations={[required]}
                                                onChange={this.onInputChange}/>
                                         {this.state.errorName !== '' ? (this.state.name === '') ? <span className={"signup-error-message"} style={{color: 'red'}}>{this.state.errorName}</span> : null : null }
                                     </div>
@@ -291,14 +312,13 @@ class SignUp extends Component {
                                         <label style={{marginBottom:'10px'}}>Phone Number <span>*</span> </label>
                                         <div>
                                             <ReactPhoneInput
-                                                //required
                                                 countryCodeEditable={false}
                                                 country={this.state.defaultCountry}
                                                 value={this.state.phone}
                                                 onChange={this.handlePhoneChange}
                                             />
                                         </div>
-                                        {this.state.errorPhone !== '' ? (this.state.phone === '') ? <span className={"signup-error-message"} style={{color: 'red'}}>{this.state.errorPhone}</span> : null : null }
+                                        {this.state.errorPhone === '' ? undefined : <span className = {"signup-error-message"} style = {{ color: 'red' } } > { this.state.errorPhone } < /span> }
                                     </div>
 
                                     <div className={"field-wrp"}>
@@ -363,7 +383,6 @@ class SignUp extends Component {
                                             onChange={this.agreeTermsAndCondition}
                                             checked={this.state.agreeTermsAndCondition}
                                             className="terms-and-condition-main"
-                                            //required
                                         >
                                                 Agree to
                                         </Checkbox>

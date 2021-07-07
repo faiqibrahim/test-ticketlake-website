@@ -172,7 +172,7 @@ export const setPromotedEventsForHome = (pageSize = 5) => {
       })
       .then((res) => {
         dispatch(setProcessing(false));
-        dispatch(setPromotedEventsHome(getRandom(res.data.data, 5)));
+        dispatch(setPromotedEventsHome(res.data.data));
       })
       .catch((err) => {
         dispatch(setProcessing(false));
