@@ -186,7 +186,7 @@ class EventListing extends Component {
                 city = query.location;
             }
             if (query.keyword) {
-                keyword = query.keyword;
+                keyword = query.keyword.split("&");
             }
             this.getEventListingState(false);
             this.setState({
