@@ -71,8 +71,6 @@ const userPagesContainer = (props) => {
                                 <div className="dasboard-menu-btn color3-bg" onClick={() => toggleShowOnMobile()}>Dashboard Menu <i
                                     className="fal fa-bars"/></div>
                                 <ul className="dasboard-menu-wrap" id={'filtersContainer'}>
-
-
                                     {
                                         tabs.map((item, i) => (
                                             <li key={i}>
@@ -84,8 +82,7 @@ const userPagesContainer = (props) => {
                                             </li>
                                         ))
                                     }
-
-
+                                    
                                 </ul>
                             </div>
                         </div>
