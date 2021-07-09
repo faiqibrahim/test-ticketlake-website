@@ -69,6 +69,7 @@ class SearchFormEvents extends React.Component {
         const location = this.state.location;
         const dates = this.state.dates;
         const keyword = this.state.keyword;
+
         const url = [];
         let isError = false;
 
@@ -79,9 +80,8 @@ class SearchFormEvents extends React.Component {
             url.push("location=" + location);
         }
         if (keyword) {
-            url.push("keyword=" + keyword);
+            url.push("keyword=" + encodeURIComponent(keyword));
         }
-
         if (dates) {
             let date1 = new Date(this.state.datesInput[0]);
             let date2 = new Date(this.state.datesInput[1]);

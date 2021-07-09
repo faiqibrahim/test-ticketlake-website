@@ -135,7 +135,6 @@ class EventListing extends Component {
 
 
     componentDidMount() {
-        // this.props.resetEventsRedux('allEvents');
         this.props.getAllCategories();
         if (this.props.wishLists === null && this.props.auth) {
             this.props.getWishListIdsFromApi();
@@ -186,8 +185,9 @@ class EventListing extends Component {
                 city = query.location;
             }
             if (query.keyword) {
-                keyword = query.keyword.split("&");
+                keyword = query.keyword;
             }
+
             this.getEventListingState(false);
             this.setState({
                 storeCategories: category,
@@ -256,9 +256,8 @@ class EventListing extends Component {
         let isError = false;
         const url = [];
 
-
         if (this.state.keyword) {
-            url.push("keyword=" + encodeURI(this.state.keyword));
+            url.push("keyword=" + encodeURIComponent(this.state.keyword));
         }
 
         if (this.state.storeCategories) {
@@ -377,7 +376,6 @@ class EventListing extends Component {
         this.setState({
             keyword: event.target.value
         })
-
     };
 
     sharingSocial = (id) => {
@@ -441,9 +439,8 @@ class EventListing extends Component {
     getSearchTitle = () => {
         let categoryName = "All";
         let { location } = this.props;
-        const query = location.search !== "" ? queryString.parse(location.search)
-            :
-            queryString.parseUrl(location.pathname).query;
+        const query = location.search !== "" ? queryString.parse(location.search):queryString.parseUrl(location.pathname).query;
+
         let storeCategories = query.id;
 
         let { categories } = this.props;

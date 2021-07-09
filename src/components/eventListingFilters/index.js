@@ -42,7 +42,7 @@ class eventListingFilters extends React.Component {
         const {city} = this.props;
         const defaultCity = city.length && city[0].label;
 
-    return (
+        return (
         <>
             <div className="mobile-list-controls fl-wrap mar-bot-cont" onClick={this.toggleShowOnMobile}>
                 <div className="mlc show-list-wrap-search fl-wrap">
