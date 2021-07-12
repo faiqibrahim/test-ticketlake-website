@@ -9,7 +9,14 @@ import Select, {components} from 'react-select'
 
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {resetRedux, saveFormData, updateUser, fetchUserProfile,saveBackUrl} from "../../redux/user/user-actions";
+import {
+    resetRedux,
+    saveFormData,
+    updateUser,
+    fetchUserProfile,
+    saveBackUrl,
+    getAllTickets
+} from "../../redux/user/user-actions";
 import AuthRoutes from '../../commonComponents/authRotes';
 import UserPagesContainer from '../../commonComponents/userPagesContainer';
 import {BreadcrumbsItem} from "react-breadcrumbs-dynamic";
@@ -45,7 +52,7 @@ class UserProfile extends Component {
         this.setCity = this.setCity.bind(this);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         getCountries().forEach((data) => {
             countries.push({
                 value: data,
@@ -78,7 +85,10 @@ class UserProfile extends Component {
             cities = citiesArr;
         }
 
-        this.props.fetchUserProfile();
+        const userData = await this.props.fetchUserProfile();
+        console.log("Hello called Mother Affer",userData);
+
+        this.fetchProfileStats(userData);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -87,6 +97,12 @@ class UserProfile extends Component {
                 profileImageKey: nextProps.profileImage
             })
         }
+    }
+
+
+    fetchProfileStats = (userData) =>{
+      console.log("Hello called Mother",userData);
+
     }
 
 
@@ -179,6 +195,24 @@ class UserProfile extends Component {
         textIndent: '20px',
         marginBottom: '0px'
     };
+
+    convertNumberValue = (value) => {
+        // Nine Zeroes for Billions
+        return Math.abs(Number(value)) >= 1.0e+9
+
+            ? (Math.abs(Number(value)) / 1.0e+9).toFixed(2) + "B"
+            // Six Zeroes for Millions
+            : Math.abs(Number(value)) >= 1.0e+6
+
+                ? (Math.abs(Number(value)) / 1.0e+6).toFixed(2) + "M"
+                // Three Zeroes for Thousands
+                : Math.abs(Number(value)) >= 1.0e+3
+
+                    ? (Math.abs(Number(value)) / 1.0e+3).toFixed(2) + "K"
+
+                    : Math.abs(Number(value));
+
+    }
 
         getProfile = () => {
         const ValueContainer = ({children, ...props}) => {
@@ -317,9 +351,17 @@ class UserProfile extends Component {
     };
 
     render() {
+        console.log("Hello mother Called",this.props.profileData)
         const breadCrumbs = [];
         breadCrumbs.push(<BreadcrumbsItem key={0} glyph='home' to='/'>Home</BreadcrumbsItem>);
         breadCrumbs.push(<BreadcrumbsItem key={1} to='/user/profile'>User Profile</BreadcrumbsItem>);
+
+        let filteredNumber = this.convertNumberValue(this.props.userWallet.availableBalance);
+        let walletBalance = `GHS ${this.props.userWallet ? filteredNumber : ` "GHS 0.00" `}`;
+
+        const { ticketPagination = {} } = this.props;
+        const { myTicketsCount = 0 } = ticketPagination;
+
         return (
             <AuthRoutes>
                 <div id="wrapper">
@@ -328,6 +370,8 @@ class UserProfile extends Component {
                         page={'profile'}
                         showUploadButton={true}
                         breadcrumbs={breadCrumbs}
+                        walletBalance={walletBalance}
+                        userTickets={myTicketsCount}
 
                     >
                         {this.getProfile()}
@@ -346,6 +390,13 @@ const mapStateToProps = (state) => {
         user: state.user.user,
         profileImage: state.user.profileImage,
         error: state.user.error,
+        profileData:state.user.profileData,
+        userWallet: state.user.userWallet,
+        ticketPagination: state.user.ticketPagination,
+
+
+
+
     }
 };
 const connectedComponent = connect(mapStateToProps, {
@@ -353,6 +404,7 @@ const connectedComponent = connect(mapStateToProps, {
     saveFormData,
     updateUser,
     fetchUserProfile,
-    saveBackUrl
+    saveBackUrl,
+    getAllTickets
 })(UserProfile);
 export default withRouter(connectedComponent);

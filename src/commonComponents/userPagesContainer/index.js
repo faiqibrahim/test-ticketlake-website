@@ -8,6 +8,7 @@ import {Breadcrumbs} from "react-breadcrumbs-dynamic";
 
 
 const userPagesContainer = (props) => {
+    console.log("Hello Mother Called ",props.whishlistTickets);
     const toggleShowOnMobile = () => {
         const container = document.getElementById('filtersContainer');
         if (container.style.display === '' || container.style.display === 'none') {
@@ -27,19 +28,22 @@ const userPagesContainer = (props) => {
             name: 'Wallet',
             link: '/user/wallet',
             isActiveClass: props.page === 'wallet' ? "user-profile-act" : null,
-            icon: 'fas fa-wallet'
+            icon: 'fas fa-wallet',
+            tag:props.walletBalance
         },
         {
             name: 'Wishlist',
             link: '/user/wishlist',
             isActiveClass: props.page === 'wishlist' ? "user-profile-act" : null,
-            icon: 'far fa-heart'
+            icon: 'far fa-heart',
+            tag:props.whishlistTickets
         },
         {
             name: 'Ticket',
             link: '/user/ticket',
             isActiveClass: props.page === 'ticket' ? "user-profile-act" : null,
-            icon: 'far fa-calendar-check'
+            icon: 'far fa-calendar-check',
+            tag:props.userTickets
         },
         {
             name: 'Change Password',
@@ -78,6 +82,7 @@ const userPagesContainer = (props) => {
                                                          className={item.isActiveClass}>
                                                     <i className={item.icon}/>
                                                     {item.name}
+                                                    {item.tag === undefined ? null : <span className={"tag"}>{item.tag}</span>}
                                                 </NavLink>
                                             </li>
                                         ))

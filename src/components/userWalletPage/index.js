@@ -418,10 +418,7 @@ class Wallet extends Component {
         )
     };
 
-    getWallet = () => {
-        let filteredNumber = this.convertNumberValue(this.props.userWallet.availableBalance);
-        let walletBalance = `GHS ${this.props.userWallet ? filteredNumber : ` "GHS 0.00" `}`
-
+    getWallet = (walletBalance) => {
         const hrefLink = "#";
         return (
             <>
@@ -500,6 +497,10 @@ class Wallet extends Component {
         breadCrumbs.push(<BreadcrumbsItem glyph='home' to='/' key={1}>Home Page</BreadcrumbsItem>);
         breadCrumbs.push(<BreadcrumbsItem to='/user/wallet' key={2}>User Wallet</BreadcrumbsItem>);
 
+        let filteredNumber = this.convertNumberValue(this.props.userWallet.availableBalance);
+        let walletBalance = `GHS ${this.props.userWallet ? filteredNumber : ` "GHS 0.00" `}`
+
+
         return (
             <AuthRoutes>
 
@@ -508,8 +509,10 @@ class Wallet extends Component {
                     <UserPagesContainer
                         page={'wallet'}
                         breadcrumbs={breadCrumbs}
+                        walletBalance = {walletBalance}
+
                     >
-                        {this.getWallet()}
+                        {this.getWallet(walletBalance)}
                     </UserPagesContainer>
                 </div>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
@@ -523,9 +526,7 @@ class Wallet extends Component {
                         </FormGroup>
                         {
                             this.props.isUserLoading ?
-                                <>
-                                    <p style={{color: 'green'}}>Loading! Please wait...</p>
-                                </>
+                                <Loader/>
                                 : null
                         }
                     </ModalBody>
