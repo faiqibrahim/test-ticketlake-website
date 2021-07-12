@@ -12611,3 +12611,8 @@ input[type=number] {
     height: auto !important;
     margin-left: 5px !important;
 }
+
+.nearby-box-wrp {
+    margin-right: 30px;
+    margin-bottom: 40px;
+}

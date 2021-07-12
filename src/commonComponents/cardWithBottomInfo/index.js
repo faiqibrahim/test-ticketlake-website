@@ -30,38 +30,42 @@ const style = {
 const CardWithBottomInfo = (props) => {
     const {imageSrc, title, address, noOfShows, distance, onClick,dates,country,venueTitle} = props;
     return (
-        <div className={'row cursor-pointer'} style={{width: '330px'}} onClick={onClick}>
-            <div className={'col-md-12'}>
-                <div style={style.wrapper}>
-                    <img alt='img' className={'animated-card-image'}
-                         src={imageSrc ? imageSrc : '/images/card_2.png'}/>
+        <div className={'nearby-box-wrp cursor-pointer'} onClick={onClick}>
+            <div className={'row'}>
+                <div className={'col-md-12'}>
+                    <div style={style.wrapper}>
+                        <img alt='img' className={'animated-card-image'}
+                             src={imageSrc ? imageSrc : '/images/card_2.png'}/>
+                    </div>
                 </div>
             </div>
-            <div className={'col-md-12'}>
-                <div className={'row'}>
-                    {
-                        title ? <div className={'col-md-8'}>
-                            <div style={style.bottomTitle}>
-                                {title}
-                            </div>
-                        </div>:null
-                    }
-                    {
-                        distance ? <div className={'col-md-3'} style={{textAlign: 'right'}}>
-                            <div style={{marginTop: '12px', display: 'grid'}}>
-                                <span style={{fontSize: '20px', fontWeight: 700, marginBottom: '-3px', color: 'black'}}>{distance}</span>
-                                <span style={{fontSize: '10px', fontWeight: 500, color: '#878C9F'}}>KM</span>
-                            </div>
-                        </div>:null
-                    }
+            <div className={'row'}>
+                {
+                    title ? <div className={'col-md-8'}>
+                        <div style={style.bottomTitle}>
+                            {title}
+                        </div>
+                    </div>:null
+                }
+                {
+                    distance ? <div className={'col-md-4'} style={{textAlign: 'right'}}>
+                        <div style={{marginTop: '12px', display: 'grid'}}>
+                            <span style={{fontSize: '20px', fontWeight: 700, marginBottom: '-3px', color: 'black'}}>{distance}</span>
+                            <span style={{fontSize: '10px', fontWeight: 500, color: '#878C9F'}}>KM</span>
+                        </div>
+                    </div>:null
+                }
 
+            </div>
+            <div className={`${dates ? 'padding-top'  : ''} row` } >
+                <div className={'col-md-12'}>
+                    <div style={style.info}>{noOfShows? noOfShows + " Shows": dates} </div>
                 </div>
             </div>
-            <div className={`${dates ? 'padding-top'  : ''} col-md-12` } >
-                <div style={style.info}>{noOfShows? noOfShows + " Shows": dates} </div>
-            </div>
-            <div className={'col-md-12'}>
-                <p style={style.info}>{address ? address + "," + country : venueTitle} </p>
+            <div className={'row'}>
+                <div className={'col-md-12'}>
+                    <p style={style.info}>{address ? address + "," + country : venueTitle} </p>
+                </div>
             </div>
         </div>
     )

@@ -32,18 +32,18 @@ const userPagesContainer = (props) => {
             tag:props.walletBalance
         },
         {
-            name: 'Wishlist',
-            link: '/user/wishlist',
-            isActiveClass: props.page === 'wishlist' ? "user-profile-act" : null,
-            icon: 'far fa-heart',
-            tag:props.whishlistTickets
-        },
-        {
             name: 'Ticket',
             link: '/user/ticket',
             isActiveClass: props.page === 'ticket' ? "user-profile-act" : null,
             icon: 'far fa-calendar-check',
             tag:props.userTickets
+        },
+        {
+            name: 'Wishlist',
+            link: '/user/wishlist',
+            isActiveClass: props.page === 'wishlist' ? "user-profile-act" : null,
+            icon: 'far fa-heart',
+            tag:props.whishlistTickets
         },
         {
             name: 'Change Password',
