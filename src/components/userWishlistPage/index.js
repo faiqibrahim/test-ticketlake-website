@@ -145,10 +145,7 @@ class Wishlist extends Component {
     };
 
 
-    getWishList = () => {
-        const {status, wishList:filteredWishList} = this.state;
-        const {wishList} = this.props;
-        const wishListEvents = status === "all" ? wishList : filteredWishList;
+    getWishList = (wishListEvents) => {
         return (
             <section className="middle-padding" style={{minHeight: '400px'}}>
                 <div className="container custom-container">
@@ -235,6 +232,10 @@ class Wishlist extends Component {
         breadCrumbs.push(<BreadcrumbsItem glyph='home' to='/'>Home Page</BreadcrumbsItem>);
         breadCrumbs.push(<BreadcrumbsItem to='/user/wishlist'>User Wishlist</BreadcrumbsItem>);
 
+        const {status, wishList:filteredWishList} = this.state;
+        const {wishList} = this.props;
+        const wishListEvents = status === "all" ? wishList : filteredWishList;
+
         return (
 
             <div id="wrapper">
@@ -242,8 +243,10 @@ class Wishlist extends Component {
                     {this.pageTitle()}
                     <UserPagesContainer
                         page={'wishlist'}
-                        breadcrumbs={breadCrumbs}>
-                        {this.getWishList()}
+                        breadcrumbs={breadCrumbs}
+                        whishlistTickets = {wishListEvents && wishListEvents.length}
+                    >
+                        {this.getWishList(wishListEvents)}
                     </UserPagesContainer>
                 </div>
             </div>

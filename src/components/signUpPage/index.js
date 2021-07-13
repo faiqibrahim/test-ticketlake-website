@@ -8,6 +8,8 @@ import DatePicker from "react-datepicker";
 // import Select from 'react-select'
 import ReactPhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import validator from "validator";
+import { isValidPhoneNumber } from "react-phone-number-input";
 
 // Redux
 import {resetRedux, saveFormData, verifyUser} from '../../redux/user/user-actions';
@@ -23,6 +25,16 @@ import CollapseAbleComponent from './collapsableComponent';
 
 const countries = [];
 let cities = [];
+const errorMessages = {
+
+    name:"Please enter name",
+    email:"Please enter email",
+    password:"Password should contain at least 7 to 15 characters, one numeric digit and a special character",
+    phoneNumber:"Please enter valid phone number",
+    country:"Please enter country",
+    city:"Please enter city",
+    DOB:"Please enter Date of birth"
+};
 
 class SignUp extends Component {
 
@@ -37,14 +49,6 @@ class SignUp extends Component {
             country: '',
             city: '',
             dateOfBirth: '',
-            errorName: '',
-            errorEmail: '',
-            errorPassword: '',
-            errorPhone: '',
-            errorCountry: '',
-            errorCity: '',
-            errorDOB: '',
-            error:'',
             selectedCountry: '',
             selectedOptionCity: '',
             defaultCountry: 'gh',
@@ -52,7 +56,8 @@ class SignUp extends Component {
             phoneData: {dialCode: 233, countryCode: 'gh'},
             fbData:[],
             agreeTermsAndCondition:false,
-            modalOpen: false
+            modalOpen: false,
+            error:{}
         };
 
     }
@@ -114,56 +119,75 @@ class SignUp extends Component {
     };
 
     onInputChange = (e) => {
+        const {value,name} = e.target
         let state = {...this.state};
-        state[e.target.name] = e.target.value;
+        const {error} = state;
+        error[name] = ""
+        if(!value.trim()) {
+            error[name] = errorMessages[name];
+        }
+        state[name] = value;
+        state.error = {...error}
         this.setState(state);
+    };
+
+    getPhoneNumberValid = (phoneNumber) => {
+        return isValidPhoneNumber(phoneNumber);
+    };
+
+    getEmailValid = (email) => {
+        return validator.isEmail(email);
+    };
+
+    getPasswordValid = (password) => {
+        let pswRegx=  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+        if(password.match(pswRegx)) {
+            return true;
+        }else{
+            return false;
+        }
     };
 
     onSaveChanges = (e) => {
         e.preventDefault();
-        const state = {...this.state};
-        if (state.name === ''){
-            this.setState({errorName: "Please enter the name"});
-        }if(state.email === '') {
-            this.setState({errorEmail: "Please enter an email address"});
-        }if(state.password === '') {
-            this.setState({errorPassword: "Please enter the password"});
-        }if(state.phone === '') {
-            this.setState({errorPhone: "Please enter the phone"});
+        const state = {...this.state };
+        const { name,phone, email, error,password,country,city,dateOfBirth} = state;
+        let isEmailValid = this.getEmailValid(email);
+        let isValidNumber = this.getPhoneNumberValid(phone);
+        let isValidPassword = this.getPasswordValid(password);
+
+        if (state.name === '') {
+            error.name = errorMessages.name;
+        }if (!isEmailValid) {
+            error.email = errorMessages.email;
+        }if (!isValidPassword) {
+            error.password = errorMessages.password;
+        }if (!isValidNumber) {
+            error.phone =  errorMessages.phoneNumber;
         }if(state.country === '') {
-            this.setState({errorCountry: "Please enter the country"});
+            error.country = errorMessages.country;
         }if(state.city === '') {
-            this.setState({errorCity: "Please enter the city"});
+            error.city = errorMessages.city;
         }if(state.dateOfBirth === '') {
-            this.setState({errorDOB: "Please enter the DOB"});
-        } else {
+            error.DOB = errorMessages.DOB;
+        }
+
+        if(Object.keys(error).length){
+            this.setState({error})
+        }
+        else {
             this.props.resetRedux();
             this.setState({error:''},()=>{
-                let stateData;
-                if(this.state.name!==undefined){
-                    stateData = {
-                        name: this.state.name,
-                        email: this.state.email,
-                        password: this.state.password,
-                        phoneNumber: this.state.phone,
-                        country: this.state.country,
-                        city: this.state.city,
-                        dateOfBirth: getDateFromISO(this.state.dateOfBirth),
-                        faceBookID:this.state.fbData.userID
+                let requestData = {
+                    name,
+                    email,
+                    password,
+                    phoneNumber: phone,
+                    country,
+                    city,
+                    dateOfBirth: getDateFromISO(dateOfBirth),
                     };
-                }
-                else{
-                    stateData = {
-                    name: this.state.name,
-                    email: this.state.email,
-                    password: this.state.password,
-                    phoneNumber: this.state.phone,
-                    country: this.state.country,
-                    city: this.state.city,
-                    dateOfBirth: getDateFromISO(this.state.dateOfBirth),
-                    };
-            }
-                this.props.saveFormData(stateData);
+                this.props.saveFormData(requestData);
 
                 this.props.verifyUser(
                     (userState) => {
@@ -181,6 +205,11 @@ class SignUp extends Component {
     };
 
     handleChange = (date) => {
+        let state = {...this.state};
+        const {error} = state;
+        error["DOB"] = ""
+        state["DOB"] = date;
+        state.error = {...error}
         this.setState({
             dateOfBirth: date
         });
@@ -222,6 +251,14 @@ class SignUp extends Component {
     };
 
     handlePhoneChange = (value) => {
+        let state = {...this.state};
+        const {error} = state;
+        error["phone"] = ""
+        if(!value.trim()) {
+            error["phone"] = errorMessages["phone"];
+        }
+        state["phone"] = value;
+        state.error = {...error}
         this.setState({phone: value});
     };
 
@@ -238,7 +275,7 @@ class SignUp extends Component {
             modalOpen: !this.state.modalOpen
         })
     }
-    verifyTermsAndCondtiiton = () =>{
+    verifyTermsAndCondition = () =>{
         this.setState({
             modalOpen: !this.state.modalOpen,
             agreeTermsAndCondition: true
@@ -252,6 +289,7 @@ class SignUp extends Component {
                 paddingLeft: 20
             })
         };
+        const {error} = this.state;
         return (
             <div id="tab-2" className="tab-content" style={{display: 'block'}}>
                 <h3>Sign up <span>TicketLake</span></h3>
@@ -261,13 +299,12 @@ class SignUp extends Component {
                         <Form onSubmit={this.onSaveChanges}>
                             <div className="custom-form">
                                 <div className="main-register-form" id="main-register-form2">
-
                                     <div className={"field-wrp"}>
                                         <label style={{marginBottom:'10px'}}>Email <span>*</span> </label>
                                         <Input name="email" id="email" type="email" placeholder="Email"
                                                value={this.state.email}
                                                onChange={this.onInputChange}/>
-                                        {this.state.errorEmail !== '' ? (this.state.email === '') ? <span className={"signup-error-message"} style={{color: 'red'}}>{this.state.errorEmail}</span> : null : null }
+                                               {error.email &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.email} < /span> }
                                     </div>
 
                                     <div className={"field-wrp"}>
@@ -275,30 +312,29 @@ class SignUp extends Component {
                                         <Input name="password" type="password" placeholder="Password"
                                                value={this.state.password}
                                                onChange={this.onInputChange}/>
-                                        {this.state.errorPassword !== '' ? (this.state.password === '') ? <span className={"signup-error-message"} style={{color: 'red'}}>{this.state.errorPassword}</span> : null : null }
+                                               {error.password &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.password} < /span> }
                                     </div>
 
                                     <div className={"field-wrp"}>
                                         <label style={{marginBottom:'10px'}}>Name <span>*</span> </label>
                                         <Input name="name" id="name" type="text" placeholder="Name" value={this.state.name}
-                                            //required
-                                            //validations={[required]}
                                                onChange={this.onInputChange}/>
-                                        {this.state.errorName !== '' ? (this.state.name === '') ? <span className={"signup-error-message"} style={{color: 'red'}}>{this.state.errorName}</span> : null : null }
+                                               {error.name &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.name} < /span> }
+
                                     </div>
 
                                     <div className={"field-wrp"}>
                                         <label style={{marginBottom:'10px'}}>Phone Number <span>*</span> </label>
                                         <div>
                                             <ReactPhoneInput
-                                                //required
                                                 countryCodeEditable={false}
                                                 country={this.state.defaultCountry}
                                                 value={this.state.phone}
                                                 onChange={this.handlePhoneChange}
                                             />
                                         </div>
-                                        {this.state.errorPhone !== '' ? (this.state.phone === '') ? <span className={"signup-error-message"} style={{color: 'red'}}>{this.state.errorPhone}</span> : null : null }
+                                        {error.phone &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.phone} < /span> }
+
                                     </div>
 
                                     <div className={"field-wrp"}>
@@ -315,7 +351,7 @@ class SignUp extends Component {
                                                 )
                                             })}
                                         </select>
-                                        {this.state.errorCountry !== '' ? (this.state.country.value === '') ? <span className={"signup-error-message"} style={{color: 'red'}}>{this.state.errorCountry}</span> : null : null }
+                                        {error.country &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.country} < /span> }
                                     </div>
 
                                     <div className={"field-wrp"}>
@@ -331,7 +367,7 @@ class SignUp extends Component {
                                                 )
                                             })}
                                         </select>
-                                        {this.state.errorCity !== '' ? (this.state.city.value === '') ? <span className={"signup-error-message"} style={{color: 'red'}}>{this.state.errorCity}</span> : null : null }
+                                        {error.city &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.city} < /span> }
                                     </div>
 
                                     <div className={"field-wrp"}>
@@ -339,7 +375,6 @@ class SignUp extends Component {
                                         <div className={"row dateOfBirth"}>
                                             <div className={"col-md-12"}>
                                                 <DatePicker
-                                                    //required
                                                     placeholderText={"Date of Birth"}
                                                     selected={this.state.dateOfBirth}
                                                     onChange={this.handleChange}
@@ -355,7 +390,7 @@ class SignUp extends Component {
                                                 />
                                             </div>
                                         </div>
-                                        {this.state.errorDOB !== '' ? (this.state.dateOfBirth === '') ? <span className={"signup-error-message"} style={{color: 'red'}}>{this.state.errorDOB}</span> : null : null }
+                                        {error.DOB &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.DOB} < /span> }
                                     </div>
 
                                     <div className="terms-and-condition-wrap">
@@ -363,7 +398,6 @@ class SignUp extends Component {
                                             onChange={this.agreeTermsAndCondition}
                                             checked={this.state.agreeTermsAndCondition}
                                             className="terms-and-condition-main"
-                                            //required
                                         >
                                                 Agree to
                                         </Checkbox>
@@ -381,7 +415,7 @@ class SignUp extends Component {
                                                <CollapseAbleComponent/>
                                             </ModalBody>
                                             {/* <ModalFooter> */}
-                                                <button className={'center-btn btn btn-danger buttonDefault defaultBackground fw-bold '} onClick={this.verifyTermsAndCondtiiton}>
+                                                <button className={'center-btn btn btn-danger buttonDefault defaultBackground fw-bold '} onClick={this.verifyTermsAndCondition}>
                                                     Agree Terms & Conditions
                                                 </button>
                                             {/* </ModalFooter> */}

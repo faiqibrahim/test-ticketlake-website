@@ -113,9 +113,12 @@ class EventDetail extends Component {
         return (
             <span className="text">
                 {this.state.toggle ? text.slice(0, 250) : text}
-                <span onClick={toggleReadMore} className="read-or-hide">
-        {this.state.toggle ? "Read more" : " Show less"}
-      </span>
+                {
+                    text.length > 250 && <span onClick={toggleReadMore} className="read-or-hide">
+                        {this.state.toggle ? "Read more" : " Show less"}
+                    </span>
+                }
+
             </span>
         );
     };

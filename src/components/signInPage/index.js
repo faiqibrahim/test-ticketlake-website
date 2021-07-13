@@ -62,7 +62,7 @@ class SignIn extends Component {
             // localStorage.setItem("googleLoacalData", JSON.stringify(response));
             if(this.state.googleLoginData!==undefined){
                 axios.post('/consumers/login-with-google', {
-                    "CLIENT_ID": '661662365752-h8k9cqqraki79b68jhfjm9sprusqq6ja.apps.googleusercontent.com',
+                    "CLIENT_ID": '661662365752-lvjk2j5l5n8ip5d15h71u4j0052i4fmd.apps.googleusercontent.com',
                     "token": this.state.googleLoginData.tokenId
                 })
                     .then(response => {
@@ -151,7 +151,7 @@ class SignIn extends Component {
                                 textButton=""
                             />
                             <GoogleLogin
-                                clientId="661662365752-h8k9cqqraki79b68jhfjm9sprusqq6ja.apps.googleusercontent.com"
+                                clientId="661662365752-lvjk2j5l5n8ip5d15h71u4j0052i4fmd.apps.googleusercontent.com"
                                 buttonText=""
                                 onSuccess={this.responseGoogle}
                                 onFailure={this.responseGoogle}

@@ -208,6 +208,14 @@ class ViewMore extends Component {
     });
   };
 
+  getParentCategoryId = () => {
+    let url_string = window.location.href;
+    let url = new URL(url_string);
+    const id = url.searchParams.get("id")
+    return id;
+  };
+
+
   render() {
     const { categoryId } = this.props;
     return (

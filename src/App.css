@@ -2615,8 +2615,16 @@ input[type="number"] {
   right: 30px !important;
 }
 .gm-svpc {
-  left: -30px !important;
+  left: -50px !important;
 }
+.gm-bundled-control .gmnoprint
+{
+  left: -50px !important;
+}
+
+
+
+
 .direction-here {
   width: 200px;
   text-align: left;

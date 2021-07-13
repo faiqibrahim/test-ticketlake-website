@@ -282,10 +282,7 @@ class Tickets extends Component {
         )
     };
 
-    getTicket = () => {
-
-        const { ticketPagination = {} } = this.props;
-        const { guestTicketsCount = 0, myTicketsCount = 0 } = ticketPagination;
+    getTicket = (guestTicketsCount,myTicketsCount) => {
         const hrefVal = "#";
         return (
             <section className="middle-padding">
@@ -373,6 +370,9 @@ class Tickets extends Component {
         const breadCrumbs = [];
         breadCrumbs.push(<BreadcrumbsItem glyph='home' to='/' key={1}>Home Page</BreadcrumbsItem>);
         breadCrumbs.push(<BreadcrumbsItem to='/user/ticket' key={2}>User Ticket</BreadcrumbsItem>);
+        const { ticketPagination = {} } = this.props;
+        const { guestTicketsCount = 0, myTicketsCount = 0 } = ticketPagination;
+
         return (
             <AuthRoutes>
 
@@ -381,8 +381,9 @@ class Tickets extends Component {
                         <UserPagesContainer
                             page={'ticket'}
                             breadcrumbs={breadCrumbs}
+                            userTickets={myTicketsCount}
                         >
-                            {this.getTicket()}
+                            {this.getTicket(guestTicketsCount,myTicketsCount)}
 
                         </UserPagesContainer>
                     </div>
