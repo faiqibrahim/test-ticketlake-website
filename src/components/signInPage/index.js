@@ -11,6 +11,7 @@ import GoogleLogin from 'react-google-login';
 
 import axios from '../../utils/axios';
 import {NotificationManager} from "react-notifications";
+import {Helmet} from "react-helmet";
 
 class SignIn extends Component {
 
@@ -113,6 +114,14 @@ class SignIn extends Component {
         this.props.login(this.state.email, this.state.password);
     };
 
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Sign in</title>
+            </Helmet>
+        )
+    }
+
     getForm = () => {
         const hrefVal = "#";
         return (
@@ -181,6 +190,7 @@ class SignIn extends Component {
     render() {
         return (
             <div>
+                {this.pageTitle()}
                 {this.checkAuth()}
                 {this.getLoader()}
                 {this.getForm()}

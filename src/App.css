@@ -404,6 +404,7 @@ table tr:last-child td:last-child {
 .customTable td,
 .customTable th {
   padding: 15px 20px;
+  font-weight: bold;
 }
 
 .customTable td {
