@@ -173,7 +173,7 @@ class NearByCinemas extends Component {
                         <section className="light-red-bg small-padding pt-0" id="sec2">
                             <div className="container custom-container nearbyLayout">
                                 <div className={"row"}>
-                                    <div className={"col-md-6 pt-30 mh-100vh"}>
+                                    <div className={"col-md-6 pt-30 mh-100vh pb-30"}>
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <Heading
