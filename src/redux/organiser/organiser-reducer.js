@@ -141,6 +141,14 @@ const initState = {
     eventsOrganised: 50,
     venue: "Capri Complex, D4, Texas",
     ratings: 4,
+    ratingImages: [
+      { src: "/icons/star.svg" },
+      { src: "/icons/star.svg" },
+      { src: "/icons/star.svg" },
+      { src: "/icons/star.svg" },
+      { src: "/icons/empty star.svg" },
+    ],
+    totalReviews: 300,
     description:
       "PopSugar Inc. is an American media & technology company that is the parent to the media property PopSugar and a monthly…read more.",
     imgSrc: "/images/events/drive.png",
@@ -153,6 +161,7 @@ const initState = {
       "/images/events/actiongirls.png",
     ],
   },
+
   processing: false,
 };
 

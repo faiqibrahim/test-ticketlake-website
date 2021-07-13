@@ -40,7 +40,7 @@
     "react-dom": "^16.8.4",
     "react-ellipsis-text": "^1.2.0",
     "react-facebook-login": "^4.1.1",
-    "react-flags-select": "^1.1.10",
+    "react-flags-select": "^1.1.13",
     "react-google-login": "^5.1.0",
     "react-google-maps": "^9.4.5",
     "react-grid-gallery": "^0.5.5",

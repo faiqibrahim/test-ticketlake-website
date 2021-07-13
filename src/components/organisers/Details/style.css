@@ -118,12 +118,11 @@
 .eventOrganiserContainer {
   position: fixed;
   top: 200px;
-  width: 27%;
-  height: 750px;
+  width: 400px;
   border-radius: 10px;
   border: 1px solid #d8dae3;
   right: 2%;
-  padding: 2%;
+  padding: 1%;
   background-color: #ffffff;
   z-index: inherit;
   overflow: hidden;
@@ -203,8 +202,13 @@
 }
 
 .descriptionContainer {
-  height: 93px;
+  height: 125px;
   overflow: hidden;
+}
+
+.eventOrganiserContainer .borderBottom {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 /** ******************** Overview Gallery Image ***************************** **/
