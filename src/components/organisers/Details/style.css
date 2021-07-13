@@ -1,20 +1,12 @@
 .bannerBackground {
   background-color: #1a1a1a;
-  height: 400px;
   width: 100%;
+  text-align: center;
 }
 
 .textAlignLeft {
   text-align: left;
   position: relative;
-}
-
-.itemColor .ant-breadcrumb-separator {
-  color: white;
-}
-
-.ant-breadcrumb .ant-breadcrumb-link span a {
-  color: white;
 }
 
 .customBorder {
@@ -95,16 +87,11 @@
   width: 50px;
 }
 
-.ant-breadcrumb-link {
-  font-size: 18px;
-  font-family: "NeuePlak";
-}
-
 .bannerHeading {
   font-size: 56px;
-  font-family: "NeuePlak";
+  font-family: "Monotype - NeuePlak Text Bold";
   color: #ffffff;
-  padding-top: 171px;
+  margin-bottom: 0.5em;
 }
 
 .eventCardImage {
@@ -116,12 +103,10 @@
 }
 
 .eventOrganiserContainer {
-  position: fixed;
-  top: 200px;
+  position: relative;
   width: 400px;
   border-radius: 10px;
   border: 1px solid #d8dae3;
-  right: 2%;
   padding: 1%;
   background-color: #ffffff;
   z-index: inherit;
@@ -174,14 +159,6 @@
 
 .eventOrganiserContainer .alignNone {
   vertical-align: inherit;
-}
-
-.bannerBackground .ant-breadcrumb a {
-  color: white;
-}
-
-.bannerBackground .ant-breadcrumb a:hover {
-  color: white;
 }
 
 .eventOrganiserContainer .overlap {
@@ -260,4 +237,56 @@
   width: 22% !important;
   margin-right: 2.166667% !important;
   margin-left: 0px !important;
+}
+
+.eventOrganiserTopImage {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  object-position: 0% 100%;
+}
+
+.eventTypesText {
+  font-size: 18px;
+  color: #ffffff;
+  margin-bottom: 0.5em;
+}
+
+.ratingStarText {
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.tabsBackground {
+  background-color: #f2f3f8;
+  padding: 20px;
+}
+
+.tabsBackground .tabscontainer {
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.customTabBtn {
+  padding: 20px;
+  color: #272525;
+  background-color: #ffffff;
+  border: none;
+  width: 200px;
+  font-size: 18px;
+  font-family: "NeuePlak";
+}
+
+.eventsBtnBorderRadius {
+  border-radius: 10px 0 0 10px;
+}
+
+.reviewsBtnBorderRadius {
+  border-radius: 0px 10px 10px 0px;
+}
+
+.customTabBtnActive {
+  color: #ffffff;
+  background-color: #ec1b23;
 }

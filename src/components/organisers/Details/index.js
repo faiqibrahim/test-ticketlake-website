@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Breadcrumb } from "antd";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import "./style.css";
 import { Select } from "antd";
 import { connect } from "react-redux";
@@ -14,20 +13,7 @@ class OrganiserDetails extends Component {
   state = {
     gridView: true,
     filteredEvents: [],
-  };
-
-  getBreadcrumb = () => {
-    return (
-      <Breadcrumb className="itemColor" separator="//">
-        <Breadcrumb.Item>
-          <Link to={"/"}>Home</Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>
-          <Link to={"/organisers"}>Event Organisers</Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>Pop sugar </Breadcrumb.Item>
-      </Breadcrumb>
-    );
+    eventsBtn: true,
   };
 
   renderDateFilter = () => {
@@ -197,13 +183,8 @@ class OrganiserDetails extends Component {
 
     return (
       <div id="wrapper" className="textAlignLeft organiser-details">
-        <div className="bannerBackground">
-          <div className="container ">
-            <h2 className="bannerHeading">Popsugar Events Planner</h2>
-            {this.getBreadcrumb()}
-          </div>
-        </div>
-
+        {this.getBanner(eventOrganiser)}
+        {this.tabsContainer(organiserEvents)}
         <div className="container  ">
           <div className=" customBorder row">
             <p className="fontSetting col-xl-3 col-lg-3 col-md-8 col-sm-6 col-xs-6">
@@ -245,11 +226,87 @@ class OrganiserDetails extends Component {
               ? this.getImageCards(organiserEvents)
               : this.listView(organiserEvents)}
           </div>
+          <EventOrganiserCard eventOrganiser={eventOrganiser} />
         </div>
-        <EventOrganiserCard eventOrganiser={eventOrganiser} />
       </div>
     );
   }
+
+  getBanner(eventOrganiser) {
+    return (
+      <div className="bannerBackground">
+        <div className="container ">
+          <img
+            src={eventOrganiser.imgSrc}
+            className="mt-5 mb-3 eventOrganiserTopImage "
+            alt="event planner"
+          />
+          <p className="bannerHeading">{eventOrganiser.title}</p>
+          <p className="eventTypesText">{eventOrganiser.eventTypes}</p>
+          <p className="ratingStarText pb-5 mb-0">
+            {eventOrganiser.ratingImages.map((image) => (
+              <img src={image.src} className="alignNone mr-2" alt="star" />
+            ))}
+            {eventOrganiser.ratings} Out of {eventOrganiser.totalReviews}{" "}
+            <u>reviews</u>
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  tabsContainer = (organiserEvents) => {
+    const { eventsBtn, detailsBtn, reviewsBtn } = this.state;
+
+    return (
+      <div className="tabsBackground">
+        <div className="container tabscontainer">
+          <button
+            onClick={() => {
+              this.setState({
+                eventsBtn: true,
+                detailsBtn: false,
+                reviewsBtn: false,
+              });
+            }}
+            className={`customTabBtn eventsBtnBorderRadius ${
+              eventsBtn ? "customTabBtnActive" : null
+            }`}
+          >
+            Events ({organiserEvents.length})
+          </button>
+          <button
+            onClick={() => {
+              this.setState({
+                eventsBtn: false,
+                detailsBtn: true,
+                reviewsBtn: false,
+              });
+            }}
+            className={`customTabBtn ${
+              detailsBtn ? "customTabBtnActive" : null
+            }`}
+          >
+            Details{" "}
+          </button>
+          <button
+            onClick={() => {
+              this.setState({
+                eventsBtn: false,
+                detailsBtn: false,
+                reviewsBtn: true,
+              });
+            }}
+            className={`customTabBtn reviewsBtnBorderRadius ${
+              reviewsBtn ? "customTabBtnActive" : null
+            }`}
+          >
+            Reviews{" "}
+          </button>
+        </div>
+      </div>
+    );
+  };
 }
 
 const mapStateToProps = (state) => {

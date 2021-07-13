@@ -7,19 +7,6 @@ class EventOrganiserCard extends Component {
     hide: false,
   };
 
-  componentDidMount() {
-    window.addEventListener("scroll", this.onScroll, false);
-  }
-
-  onScroll = (e) => {
-    const { scrollTop, scrollHeight, clientHeight } = e.target.scrollingElement;
-    const scrollPercentage = ((scrollTop + clientHeight) / scrollHeight) * 100;
-
-    this.setState({ hide: scrollPercentage >= 85 });
-
-    console.log(scrollPercentage);
-  };
-
   render() {
     const { eventOrganiser } = this.props;
     const { hide } = this.state;

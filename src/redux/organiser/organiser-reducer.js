@@ -151,7 +151,9 @@ const initState = {
     totalReviews: 300,
     description:
       "PopSugar Inc. is an American media & technology company that is the parent to the media property PopSugar and a monthly…read more.",
-    imgSrc: "/images/events/drive.png",
+    imgSrc: "/images/events/pop-sugar.png",
+    eventTypes:
+      "Digital Marketing. Talent Management. Event Planning. Creators of The Rum Punch Brunch.",
     gallaryImages: [
       "/images/events/actiongirls.png",
       "/images/events/drive.png",
