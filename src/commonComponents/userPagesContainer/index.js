@@ -51,6 +51,7 @@ const userPagesContainer = (props) => {
             isActiveClass: props.page === 'change-password' ? "user-profile-act" : null,
             icon: 'far fa-keyboard'
         }
+        
     ];
     return (
         <AuthRoutes>
