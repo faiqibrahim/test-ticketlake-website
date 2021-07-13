@@ -32,6 +32,7 @@ class NearByCinemas extends Component {
     componentDidMount = () => {
         this.props.getVenueTypes(() => {
             this.getCurrentPosition();
+
         })
     };
 
