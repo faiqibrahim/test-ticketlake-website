@@ -851,7 +851,6 @@ export const fetchUserProfile = () => {
         dispatch(setProfileData(response.data.data));
       })
       .catch((err) => {
-        //err && err.response && err.response.data && err.response.data._error
         dispatch(setProcessing(false));
       });
   };

@@ -28,20 +28,18 @@ export const PAYMENT_RESPONSE_CODE = {
 
 // Movies URL
 export const GET_TRENDING_EVENTS = "/events/fetch-trending-events";
-export const GET_SHOWING_IN_CINEMAS_EVENTS =
-  "/events/fetch-parent-events-for-consumers";
+export const GET_SHOWING_IN_CINEMAS_EVENTS ="/events/fetch-parent-events-for-consumers";
 export const GET_UPCOMING_EVENTS = "/events/fetch-parent-events-for-consumers";
 export const GET_NEAR_BY_EVENTS = "/events/fetch-nearby-parent-events";
 export const GET_ALL_SUB_CATEGORIES = "/categories/get-all-sub-categories/";
-export const GET_SUB_CATEGORY_EVENTS =
-  "/events/fetch-parent-events-for-consumers";
+export const GET_SUB_CATEGORY_EVENTS = "/events/fetch-parent-events-for-consumers";
 export const GET_MOVIE_SLOT_DETAIL = "/events/get-event-slot-details/";
 
 // Cinema URL
-export const SHOWING_IN_CINEMAS = "/events/get-current-active-dates-events";
-export const UPCOMING_EVENTS_FOR_CINEMA = "/events/get-upcoming-dates-events";
-export const PROMOTED_EVENTS_FOR_CINEMA = "/events/get-all-promoted-events";
-export const TRENDING_EVENTS_FOR_CINEMA = "/events/get-trending-events";
+export const SHOWING_IN_CINEMAS = "/events/fetch-parent-events-for-consumers";
+export const UPCOMING_EVENTS_FOR_CINEMA = "/events/fetch-parent-events-for-consumers";
+export const PROMOTED_EVENTS_FOR_CINEMA = "/events/fetch-parent-events-for-consumers";
+export const TRENDING_EVENTS_FOR_CINEMA = "/events/fetch-trending-events";
 
 // Venues URL
 export const GET_ALL_VENUE_TYPES = "/venue-types";

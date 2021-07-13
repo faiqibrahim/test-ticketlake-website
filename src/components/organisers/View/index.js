@@ -8,6 +8,7 @@ import "./style.css";
 import { Card } from "react-bootstrap";
 
 import { getAllCategories } from "../../../redux/category/category-actions";
+import {Helmet} from "react-helmet";
 
 const { Option } = Select;
 
@@ -67,6 +68,14 @@ class Organisers extends Component {
       </section>
     );
   };
+
+  pageTitle = () => {
+    return (
+        <Helmet>
+          <title>Organisers</title>
+        </Helmet>
+    )
+  }
 
   getBreadcrumb = () => {
     const crumbsJSON = [
@@ -164,6 +173,8 @@ class Organisers extends Component {
     return (
       <div id="wrapper">
         <div className="content">
+          {this.pageTitle()}
+
           {this.getBanner()}
 
           {this.getBreadcrumb()}

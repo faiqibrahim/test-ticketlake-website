@@ -21,6 +21,7 @@ import {getStateObjForUrl} from './ticketHelper';
 import localAxios from 'axios';
 import {FILE_URL} from "../../utils/config";
 import store from "../../redux/store";
+import {Helmet} from "react-helmet";
 
 const header = ["SR#", "Name", "Event", "Status", "Type | Class", "Event Date", "Action"];
 const spanStyle = {
@@ -63,6 +64,16 @@ class Tickets extends Component {
         this.setState(state);
         this.getChangeFilters(state);
     };
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Tickets</title>
+            </Helmet>
+        )
+    }
+
+
 
     getChangeFilters = (state) => {
         if (state.ticket === "My Tickets" && state.status === "Upcoming") {
@@ -271,10 +282,7 @@ class Tickets extends Component {
         )
     };
 
-    getTicket = () => {
-
-        const { ticketPagination = {} } = this.props;
-        const { guestTicketsCount = 0, myTicketsCount = 0 } = ticketPagination;
+    getTicket = (guestTicketsCount,myTicketsCount) => {
         const hrefVal = "#";
         return (
             <section className="middle-padding">
@@ -362,15 +370,20 @@ class Tickets extends Component {
         const breadCrumbs = [];
         breadCrumbs.push(<BreadcrumbsItem glyph='home' to='/' key={1}>Home Page</BreadcrumbsItem>);
         breadCrumbs.push(<BreadcrumbsItem to='/user/ticket' key={2}>User Ticket</BreadcrumbsItem>);
+        const { ticketPagination = {} } = this.props;
+        const { guestTicketsCount = 0, myTicketsCount = 0 } = ticketPagination;
+
         return (
             <AuthRoutes>
 
                     <div id="wrapper">
+                        {this.pageTitle()}
                         <UserPagesContainer
                             page={'ticket'}
                             breadcrumbs={breadCrumbs}
+                            userTickets={myTicketsCount}
                         >
-                            {this.getTicket()}
+                            {this.getTicket(guestTicketsCount,myTicketsCount)}
 
                         </UserPagesContainer>
                     </div>

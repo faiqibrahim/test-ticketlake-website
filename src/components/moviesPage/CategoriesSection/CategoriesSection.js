@@ -79,7 +79,10 @@ class CategoriesSection extends Component {
               </div>
             </div>
           ) : (
-            <div>No Data Found!</div>
+              <div className={"Error-msg-wrp w100"}>
+                <div className={"Error-heading"}>Sorry, No cast Found.</div>
+                <span className={"Error-sub-heading"}>There is no cast.</span>
+              </div>
           )}
         </Container>
       </section>

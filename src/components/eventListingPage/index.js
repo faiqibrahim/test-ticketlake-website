@@ -27,6 +27,8 @@ import {
     resetEventsRedux
 } from '../../redux/event/event-actions';
 import { getWishListIdsFromApi, wishListToggle } from '../../redux/wishlist/wishlist-actions';
+import {Helmet} from "react-helmet";
+
 
 // Helpers
 import { dateSplitter, getCardDates, getMaxAndMinPrice, NOTIFICATION_TIME } from '../../utils/common-utils';
@@ -133,7 +135,6 @@ class EventListing extends Component {
 
 
     componentDidMount() {
-        // this.props.resetEventsRedux('allEvents');
         this.props.getAllCategories();
         if (this.props.wishLists === null && this.props.auth) {
             this.props.getWishListIdsFromApi();
@@ -186,6 +187,7 @@ class EventListing extends Component {
             if (query.keyword) {
                 keyword = query.keyword;
             }
+
             this.getEventListingState(false);
             this.setState({
                 storeCategories: category,
@@ -254,9 +256,8 @@ class EventListing extends Component {
         let isError = false;
         const url = [];
 
-
         if (this.state.keyword) {
-            url.push("keyword=" + encodeURI(this.state.keyword));
+            url.push("keyword=" + encodeURIComponent(this.state.keyword));
         }
 
         if (this.state.storeCategories) {
@@ -375,7 +376,6 @@ class EventListing extends Component {
         this.setState({
             keyword: event.target.value
         })
-
     };
 
     sharingSocial = (id) => {
@@ -439,9 +439,8 @@ class EventListing extends Component {
     getSearchTitle = () => {
         let categoryName = "All";
         let { location } = this.props;
-        const query = location.search !== "" ? queryString.parse(location.search)
-            :
-            queryString.parseUrl(location.pathname).query;
+        const query = location.search !== "" ? queryString.parse(location.search):queryString.parseUrl(location.pathname).query;
+
         let storeCategories = query.id;
 
         let { categories } = this.props;
@@ -464,6 +463,15 @@ class EventListing extends Component {
 
         return categoryName;
     };
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Events Listing</title>
+            </Helmet>
+        )
+    }
+
 
     /************************************ END ************************************/
 
@@ -531,6 +539,7 @@ class EventListing extends Component {
 
                 <div id="wrapper">
                     <div className="content">
+                        {this.pageTitle()}
                         <section className="light-red-bg small-padding event-listing-wrp" id="sec1"
                             style={{ paddingTop: '0px' }}>
                             <div className="container custom-container">
@@ -567,7 +576,7 @@ class EventListing extends Component {
                                                         {!allEvents.length ?
                                                             <div className={"Error-msg-wrp w100"}>
                                                                 <div className={"Error-heading"}>Sorry, No Event Found.</div>
-                                                                <span className={"Error-sub-heading"}>There are no liked events in your wishlist.</span>
+                                                                <span className={"Error-sub-heading"}>There are no events found under current search, Please search again with different keywords. </span>
                                                             </div>
                                                             :
 

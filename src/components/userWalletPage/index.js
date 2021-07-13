@@ -29,6 +29,7 @@ import {BreadcrumbsItem} from "react-breadcrumbs-dynamic";
 import {getTransactionHistory} from '../../redux/wallet/wallet-actions';
 import moment from "moment";
 import axios from '../../utils/axios'
+import {Helmet} from "react-helmet";
 
 const header = ["Date", "Transaction ID", "Payment Method", "Payment Type", "Amount", "Details"];
 
@@ -136,6 +137,14 @@ class Wallet extends Component {
         this.setState(prevState => ({
             modal: !prevState.modal
         }));
+    }
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Wallet</title>
+            </Helmet>
+        )
     }
 
     changePrice = (e) => {
@@ -409,10 +418,7 @@ class Wallet extends Component {
         )
     };
 
-    getWallet = () => {
-        let filteredNumber = this.convertNumberValue(this.props.userWallet.availableBalance);
-        let walletBalance = `GHS ${this.props.userWallet ? filteredNumber : ` "GHS 0.00" `}`
-
+    getWallet = (walletBalance) => {
         const hrefLink = "#";
         return (
             <>
@@ -491,15 +497,22 @@ class Wallet extends Component {
         breadCrumbs.push(<BreadcrumbsItem glyph='home' to='/' key={1}>Home Page</BreadcrumbsItem>);
         breadCrumbs.push(<BreadcrumbsItem to='/user/wallet' key={2}>User Wallet</BreadcrumbsItem>);
 
+        let filteredNumber = this.convertNumberValue(this.props.userWallet.availableBalance);
+        let walletBalance = `GHS ${this.props.userWallet ? filteredNumber : ` "GHS 0.00" `}`
+
+
         return (
             <AuthRoutes>
 
                 <div id="wrapper">
+                    {this.pageTitle()}
                     <UserPagesContainer
                         page={'wallet'}
                         breadcrumbs={breadCrumbs}
+                        walletBalance = {walletBalance}
+
                     >
-                        {this.getWallet()}
+                        {this.getWallet(walletBalance)}
                     </UserPagesContainer>
                 </div>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
@@ -513,9 +526,7 @@ class Wallet extends Component {
                         </FormGroup>
                         {
                             this.props.isUserLoading ?
-                                <>
-                                    <p style={{color: 'green'}}>Loading! Please wait...</p>
-                                </>
+                                <Loader/>
                                 : null
                         }
                     </ModalBody>

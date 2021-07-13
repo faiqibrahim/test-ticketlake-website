@@ -44,6 +44,7 @@
     "react-google-login": "^5.1.0",
     "react-google-maps": "^9.4.5",
     "react-grid-gallery": "^0.5.5",
+    "react-helmet": "^6.1.0",
     "react-infinity-menu": "^4.0.0",
     "react-infinity-menu-2": "^1.0.9",
     "react-lines-ellipsis": "^0.14.1",

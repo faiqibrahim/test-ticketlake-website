@@ -10293,6 +10293,9 @@ article.post-article .list-single-main-item {
         margin-bottom: 30px;
     }
 
+
+
+
     .home-grid .gallery-item, .article-masonry, .main-search-input-item, .main-search-button, .listing-item, .rooms-media, .rooms-details {
         width: 100%;
     }
@@ -10606,10 +10609,6 @@ article.post-article .list-single-main-item {
     {
         float: unset !important;
     }
-
-
-
-
 }
 
 
@@ -10938,6 +10937,17 @@ article.post-article .list-single-main-item {
     .show-reg-form.modal-open.box-wrp.wishlist-box {
         width: auto !important;
     }
+
+}
+@media only screen and  (min-width: 420px) and (max-width: 600px)  {
+    .hover-card-wrp.col-md-3 {
+        width: 50%;
+    }
+}
+@media only screen and  (min-width: 601px) and (max-width: 767px)  {
+    .hover-card-wrp.col-md-3 {
+        width: 33.33%;
+    }
 }
 @media only screen and  (max-width: 460px) {
 
@@ -10989,6 +10999,56 @@ article.post-article .list-single-main-item {
     .header-right-nav-wrp
     {
         width: 60% !important;
+    }
+
+}
+@media only screen and  (max-width: 349px) {
+    .username-wrp
+    {
+        width: 29px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+}
+@media only screen and  (min-width: 450px) and (max-width: 524px) {
+    .username-wrp
+    {
+        width: 29px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+}
+@media only screen and  (min-width: 768px) and (max-width: 878px) {
+    .username-wrp
+    {
+        width: 29px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+}
+@media only screen and  (min-width: 1231px) and (max-width: 1362px) {
+    .username-wrp
+    {
+        width: 29px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+}
+@media only screen and  (min-width: 1362px) and (max-width: 1522px) {
+    .scrolled-header .username-wrp
+    {
+        width: 29px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 }
@@ -11370,6 +11430,7 @@ div.gm-style-mtc {
     border-radius: 7px;
     margin: 20px auto;
     display: inline-block;
+    text-align: center;
 }
 .w100
 {
@@ -11927,9 +11988,9 @@ source {
     text-align: left;
     font-size: 12px;
 }
-.hover-card-wrp.col-md-3:first-child {
-    padding-left: 0;
-}
+/*.hover-card-wrp.col-md-3:first-child {*/
+/*    padding-left: 0;*/
+/*}*/
 .listing-avatar.wishlist-icon,
 .sale-window.share-icon{
     position: absolute;
@@ -12208,7 +12269,7 @@ input[type=number] {
 }
 .header-actions-column .action-item
 {
-    padding-right: 15px;
+    padding-right: 12px;
 }
 .header-actions-column .action-item:last-child
 {
@@ -12368,7 +12429,7 @@ input[type=number] {
         display: none;
     }
 }
-@media only screen and  (max-width:300px) {
+@media only screen and  (max-width:316px) {
     span.sign-in {
         display: none;
     }
@@ -12480,4 +12541,78 @@ input[type=number] {
         max-width: unset;
     }
 }
+.pb-40
+{
+    padding-bottom:40px ;
+}
+.padding-top {
+    padding-top: 15px;
+}
+.padding-bottom {
+    padding-bottom: 15px;
+}
+.pt-30
+{
+    padding-top: 30px;
+}
 
+.pt-0
+{
+    padding-top: 0px;
+}
+.map-head .map.listing-map {
+    margin-top: 0px !important;
+}
+.mh-100vh
+{
+    min-height: 100vh;
+}
+.alignItem-center
+{
+    align-items: center;
+}
+.scrolled-header .sub-menu {
+     top: 43px;
+ }
+.cinemaDetail-wrp {
+    float: left;
+    width: 100%;
+}
+.nearby-text h5 {
+    cursor: pointer;
+}
+.total-count {
+    padding-left: 5px;
+    color: #ec1c24;
+}
+.loader-wrp
+{
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+.non-active {
+    background: transparent !important;
+    color: #363636 !important;
+}
+.read-or-hide {
+    display: block;
+    color: #ec1c24;
+    cursor: pointer;
+}
+.tag {
+    width: auto !important;
+    border-radius: 10px !important;
+    display: inline-block !important;
+    padding: 3px 10px;
+    font-size: 9px !important;
+    font-weight: 600;
+    height: auto !important;
+    margin-left: 5px !important;
+}
+
+.nearby-box-wrp {
+    margin-right: 30px;
+    margin-bottom: 40px;
+}

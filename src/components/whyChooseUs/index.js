@@ -5,6 +5,7 @@ import {Row, Col, Container} from 'reactstrap';
 import SectionHeading from "../../commonComponents/sectionHeading";
 import CardWithIcon from '../../commonComponents/cardWithIcon';
 import axios from '../../utils/axios'
+import Loader from "../../commonComponents/loader";
 // Data Array
 const cards = [
     {
@@ -74,57 +75,60 @@ class WhyChooseUs extends Component {
                     </Row>
                     <Row>
                     {this.state.isLoadedKey?
-                    <div class=" single-facts fl-wrap">
-                        <div class="inline-facts-wrap col-md-3">
-                            <div class="inline-facts">
-                                <img src="icons/new-visitors.svg" alt='img'/>
-                                <div class="milestone-counter">
-                                    <div class="stats animaper">
-                                        <div class="num" data-content="0" data-num="254">{this.state.statistics.newVisitorCount}</div>
+                        <div class=" single-facts fl-wrap">
+                            <div class="inline-facts-wrap col-md-3">
+                                <div class="inline-facts">
+                                    <img src="icons/new-visitors.svg" alt='img'/>
+                                    <div class="milestone-counter">
+                                        <div class="stats animaper">
+                                            <div class="num" data-content="0" data-num="254">{this.state.statistics.newVisitorCount}</div>
+                                        </div>
                                     </div>
+                                    <h6>New Visitors Every Week</h6>
                                 </div>
-                                <h6>New Visitors Every Week</h6>
+                            </div>
+
+                            <div class="inline-facts-wrap col-md-3">
+                                <div class="inline-facts">
+                                    <img src="icons/happy-customers.svg" alt='img'/>
+                                    <div class="milestone-counter">
+                                        <div class="stats animaper">
+                                            <div class="num" data-content="0" data-num="12168">{this.state.statistics.happyCustomers}</div>
+                                        </div>
+                                    </div>
+                                    <h6>Happy Customers</h6>
+                                </div>
+                            </div>
+
+                            <div class="inline-facts-wrap col-md-3">
+                                <div class="inline-facts">
+                                    <img src="icons/new-events.svg" alt='img'/>
+                                    <div class="milestone-counter">
+                                        <div class="stats animaper">
+                                            <div class="num" data-content="0" data-num="172">{this.state.statistics.newEventsEveryWeek}</div>
+                                        </div>
+                                    </div>
+                                    <h6>New Events Every Week</h6>
+                                </div>
+                            </div>
+
+                            <div class="inline-facts-wrap col-md-3">
+                                <div class="inline-facts">
+                                    <img src="icons/shared-ticket.svg" alt='img'/>
+                                    <div class="milestone-counter">
+                                        <div class="stats animaper">
+                                            <div class="num" data-content="0" data-num="732">{this.state.statistics.sharedTickets}</div>
+                                        </div>
+                                    </div>
+                                    <h6>Shared Tickets</h6>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="inline-facts-wrap col-md-3">
-                            <div class="inline-facts">
-                                <img src="icons/happy-customers.svg" alt='img'/>
-                                <div class="milestone-counter">
-                                    <div class="stats animaper">
-                                        <div class="num" data-content="0" data-num="12168">{this.state.statistics.happyCustomers}</div>
-                                    </div>
-                                </div>
-                                <h6>Happy Customers</h6>
-                            </div>
+                        :
+                        <div className={"loader-wrp"}>
+                            <Loader/>
                         </div>
-                        
-                        <div class="inline-facts-wrap col-md-3">
-                            <div class="inline-facts">
-                                <img src="icons/new-events.svg" alt='img'/>
-                                <div class="milestone-counter">
-                                    <div class="stats animaper">
-                                        <div class="num" data-content="0" data-num="172">{this.state.statistics.newEventsEveryWeek}</div>
-                                    </div>
-                                </div>
-                                <h6>New Events Every Week</h6>
-                            </div>
-                        </div>
-                        
-                        <div class="inline-facts-wrap col-md-3">
-                            <div class="inline-facts">
-                                <img src="icons/shared-ticket.svg" alt='img'/>
-                                <div class="milestone-counter">
-                                    <div class="stats animaper">
-                                        <div class="num" data-content="0" data-num="732">{this.state.statistics.sharedTickets}</div>
-                                    </div>
-                                </div>
-                                <h6>Shared Tickets</h6>
-                            </div>
-                        </div>
-                    </div>
-                    :
-                    'loading'}
+                    }
                     </Row>
                 </Container>
             </section>

@@ -23,6 +23,8 @@ import {getWishListIdsFromApi, wishListToggle} from "../../redux/wishlist/wishli
 import MapContainer from '../../commonComponents/googleMapComponent';
 // Error
 import Error from '../../commonComponents/error';
+import EventMessage from '../../commonComponents/eventMessage';
+
 //redux
 import {getEventDetail, getAllEventsDefault} from '../../redux/event/event-actions';
 //config
@@ -30,6 +32,8 @@ import {STANDARD_EVENT, SERIES, RECUR} from "../../utils/config";
 // Helper
 import {getDateFromISO, getTimeFromISO, dateSplitter} from '../../utils/common-utils';
 import {valueAlreadyExists, dateAlreadyExists, getTags} from './detailPageHelper';
+import {Helmet} from "react-helmet";
+import Moment from "react-moment";
 
 let isWishlist = false;
 let shareUrl = 'http://google.com/';
@@ -45,7 +49,8 @@ class EventDetail extends Component {
         date: '',
         time: '',
         activeModal: '',
-        timeArray: []
+        timeArray: [],
+        toggle: true
     };
 
     componentDidUpdate(prevProps) {
@@ -88,6 +93,38 @@ class EventDetail extends Component {
             this.setState({activeModal: ''});
         }
     };
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Event Detail</title>
+            </Helmet>
+        )
+    }
+
+    readMore = ( description) => {
+        const {toggle} = this.state;
+        const text = description;
+        const toggleReadMore = () => {
+            this.setState({
+                toggle:!toggle
+            })
+        };
+        return (
+            <span className="text">
+                {this.state.toggle ? text.slice(0, 250) : text}
+                {
+                    text.length > 250 && <span onClick={toggleReadMore} className="read-or-hide">
+                        {this.state.toggle ? "Read more" : " Show less"}
+                    </span>
+                }
+
+            </span>
+        );
+    };
+
+
+
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.singleEventDetail && nextProps.singleEventDetail.sections) {
@@ -205,7 +242,6 @@ class EventDetail extends Component {
                         list.map(data => {
                             return (
                                 <div className="list-single-main-item fl-wrap pl-40 custom-section" id="sec3">
-
                                     <div className="list-single-main-item-title fl-wrap"
                                          style={{marginBottom: '30px', padding: '0px 0px 10px 0px'}}>
                                         <h3 style={{textTransform: 'capitalize', fontSize: '22px'}}>{data.label}</h3>
@@ -418,6 +454,7 @@ class EventDetail extends Component {
 
                     <div id="wrapper">
                         <div className="content">
+                            {this.pageTitle()}
                             <section className="list-single-hero" data-scrollax-parent="true" id="sec1">
                                 <div className="bg par-elem" style={{
                                     float: 'left',
@@ -542,8 +579,11 @@ class EventDetail extends Component {
                                     <div className="container custom-container">
                                         <nav className="scroll-nav scroll-init">
                                             <ul className={'ulEventDetail'}>
-                                                <li><a className="act-scrlink" href={hrefLink}>Details</a>
-                                                </li>
+                                                <li><a className="act-scrlink" href={hrefLink}>Overview</a></li>
+                                                {/*<li><a className="act-scrlink non-active" href={hrefLink}>Speakers</a></li>*/}
+                                                {/*<li><a className="act-scrlink non-active" href={hrefLink}>Guests</a></li>*/}
+                                                {/*<li><a className="act-scrlink non-active" href={hrefLink}>Contact</a></li>*/}
+                                                {/*<li><a className="act-scrlink non-active" href={hrefLink}>Policy</a></li>*/}
                                             </ul>
                                         </nav>
                                     </div>
@@ -574,7 +614,9 @@ class EventDetail extends Component {
                                                                                     marginBottom: 0,
                                                                                     paddingBottom: 2
                                                                                 }}>Date
-                                                                                    - {data.eventDateTimeSlot ? getDateFromISO(data.eventDateTimeSlot.eventStartTime) : '-'}</p>
+                                                                                    - {data.eventDateTimeSlot ? <Moment format="DD/MM/YYYY">{data.eventDateTimeSlot.eventStartTime}</Moment> : '-'}
+
+                                                                                </p>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -618,7 +660,7 @@ class EventDetail extends Component {
                                                                                     fontSize: '14px',
                                                                                     marginBottom: 0,
                                                                                     paddingBottom: 2
-                                                                                }}>Location
+                                                                                }}>Venue
                                                                                     - {data.venue ? data.venue.address : 'Address'}</p>
                                                                             </div>
                                                                         </div>
@@ -694,27 +736,32 @@ class EventDetail extends Component {
                                                        style={{
                                                            marginBottom: "initial",
                                                            fontSize: '14px'
-                                                       }}>{data.parentEventInfo ? data.parentEventInfo.description : "Description"}</p>
+                                                       }}>Description -
+                                                        {this.readMore(data.parentEventInfo && data.parentEventInfo.description)}
+                                                    </p>
                                                 </div>
-                                                <Gallery
-                                                    images={this.getImages()}
-                                                    enableImageSelection={false}
-                                                />
-
-                                                {
-                                                    data.agenda ?
-                                                        <div className="list-single-main-item fl-wrap pl-40"
-                                                             style={{marginTop: '20px'}}>
-                                                            <div className="row">
-                                                                <div className="col-md-12">
-                                                                    <div className="box-widget-item-header">
-                                                                        <h3> Agenda </h3>
+                                                <div className={"Gallery-section"} id={"gallery"}>
+                                                    <Gallery
+                                                        images={this.getImages()}
+                                                        enableImageSelection={false}
+                                                    />
+                                                </div>
+                                                <div className={"agenda-section"} id={"agenda"}>
+                                                    {
+                                                        data.agenda ?
+                                                            <div className="list-single-main-item fl-wrap pl-40"
+                                                                 style={{marginTop: '20px'}}>
+                                                                <div className="row">
+                                                                    <div className="col-md-12">
+                                                                        <div className="box-widget-item-header">
+                                                                            <h3> Agenda </h3>
+                                                                        </div>
+                                                                        <p style={{fontSize: '14px'}}>{data.agenda ? data.agenda : "Agenda"}</p>
                                                                     </div>
-                                                                    <p style={{fontSize: '14px'}}>{data.agenda ? data.agenda : "Agenda"}</p>
                                                                 </div>
-                                                            </div>
-                                                        </div> : null
-                                                }
+                                                            </div> : <EventMessage/>
+                                                    }
+                                                </div>
 
                                                 {
                                                     this.getGroupBySections(data.sections && data.sections, false)

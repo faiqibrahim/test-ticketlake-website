@@ -31,8 +31,6 @@ class PromotedEvents extends Component {
         let counter = 1;
         let cardClass = '';
         const events = this.props.promotedEventsHome;
-
-
         if (this.props.processing) {
             return (
                 <section id="sec2" className={'mt-5 promoted-event-wrp'} style={{padding: "0px"}}>
@@ -70,7 +68,7 @@ class PromotedEvents extends Component {
                                 text={pageDescription}
                             />
                             <div className="gallery-items fl-wrap mr-bot spad home-grid ri">
-                                {events.map((neweventList, i) => {
+                                {events.map((newEventList, i) => {
                                         if (counter === 2) {
                                             cardClass = 'gallery-item gallery-item-second';
                                         } else {
@@ -79,18 +77,18 @@ class PromotedEvents extends Component {
                                         counter++;
                                         return (
                                             <AnimatedCards
-                                                cardWidth={neweventList.cardWidth}
-                                                cardImage={neweventList.bannerImageKey.imageUrl}
-                                                heading={neweventList.heading}
-                                                paragraph={neweventList.paragraph}
-                                                date={neweventList.eventDateTimeSlot.eventStartTime}
+                                                cardWidth={newEventList.cardWidth}
+                                                cardImage={newEventList.bannerImageKey.imageUrl}
+                                                heading={newEventList.heading}
+                                                paragraph={newEventList.paragraph}
+                                                date={newEventList.eventDateTimeSlot.eventStartTime}
                                                 cardClass={cardClass}
-                                                cardLink={`event/detail/${neweventList.eventSlotId}`}
+                                                cardLink={`event/detail/${newEventList.eventSlotId}`}
                                                 key={i}
-                                                item={neweventList}
-                                                eventTitle={neweventList.eventTitle}
-                                                categoriesArr={neweventList.categories}
-                                                buttonText={getMaxAndMinPrice(neweventList)}
+                                                item={newEventList}
+                                                eventTitle={newEventList.eventTitle}
+                                                categoriesArr={newEventList.categories}
+                                                buttonText={getMaxAndMinPrice(newEventList)}
                                             />
                                         );
 
