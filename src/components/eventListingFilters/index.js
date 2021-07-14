@@ -15,7 +15,7 @@ class eventListingFilters extends React.Component {
 
     render(){
 
-        const {categories} =this.props;
+        const {categories} = this.props;
         const {city} = this.props;
         const defaultCity = city.length && city[0].label;
         return (
