@@ -3,15 +3,8 @@ import "./style.css";
 import ModelGallery from "./ModelGallery";
 
 class EventOrganiserCard extends Component {
-  state = {
-    hide: false,
-  };
-
   render() {
     const { eventOrganiser, style } = this.props;
-    const { hide } = this.state;
-    console.log("stye", style);
-    if (hide) return null;
 
     return (
       <div className="eventOrganiserContainer" style={style}>
