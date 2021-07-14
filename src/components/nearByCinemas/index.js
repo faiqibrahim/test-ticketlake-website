@@ -10,9 +10,10 @@ import { distance } from '../../utils/common-utils';
 import GoogleMap from "../nearByEvents/googleMap";
 import { getVenueTypes, getNearByCinemas } from '../../redux/venues/venue-action';
 import CardWithBottomInfo from '../../commonComponents/cardWithBottomInfo';
+import {getAllCategories} from '../../redux/category/category-actions';
+import _ from "lodash";
 
 class NearByCinemas extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -30,16 +31,23 @@ class NearByCinemas extends Component {
     }
 
     componentDidMount = () => {
-        this.props.getVenueTypes(() => {
-            this.getCurrentPosition();
-
-        })
+        this.props.getAllCategories(categories => {
+            this.props.getVenueTypes(() => {
+                const moviesCategories =  this.getMoviesCategories(categories);
+                this.getCurrentPosition(moviesCategories);
+            })
+        }, "v2");
     };
 
-    getCurrentPosition = () => {
+
+    getMoviesCategories = (categories,title="Movies") => _.flatten(categories.filter(category=>category.title === title)
+                                    .map(category=>[category._id, ...category.children.map(childCat =>childCat._id)]));
+
+
+    getCurrentPosition = (categories) => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
-                this.getLatLong(position.coords.longitude, position.coords.latitude)
+                this.getLatLong(position.coords.longitude, position.coords.latitude, categories)
             },
                 () => {
                     // this.handleLocationError();
@@ -53,22 +61,22 @@ class NearByCinemas extends Component {
         }
     };
 
-    getLatLong = (longitude, latitude) => {
+    getLatLong = (longitude, latitude, categories = []) => {
         this.setState({
             longitude,
             latitude
         },()=>{
-            this.getNearCinemas(longitude, latitude)
+            this.getNearCinemas(longitude, latitude, categories)
         });
     };
 
-    getNearCinemas = (longitude, latitude) => {
+    getNearCinemas = (longitude, latitude, categories = []) => {
         this.props.getNearByCinemas(latitude, longitude, (data) => {
             this.setState({
                 isloadedNearby: true,
                 nearByData: data
             })
-        });
+        },categories);
     };
 
     switchView = () => {
@@ -294,9 +302,10 @@ class NearByCinemas extends Component {
 const mapStateToProps = (state) => {
     return {
         auth: state.user.authenticated,
-        nearByData: state.venue.nearByCinemas
+        nearByData: state.venue.nearByCinemas,
+        categories: state.category.categories
     }
 };
 
-const connectedComponent = connect(mapStateToProps, { getVenueTypes, getNearByCinemas })(NearByCinemas);
+const connectedComponent = connect(mapStateToProps, { getVenueTypes, getNearByCinemas,getAllCategories })(NearByCinemas);
 export default withRouter(connectedComponent);
