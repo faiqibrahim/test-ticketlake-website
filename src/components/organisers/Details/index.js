@@ -7,6 +7,8 @@ import Loader from "../../../commonComponents/loader";
 import { Card } from "react-bootstrap";
 import moment from "moment";
 import EventOrganiserCard from "./EventOrganiserCard";
+import { StickyContainer, Sticky } from "react-sticky";
+
 const { Option } = Select;
 
 class OrganiserDetails extends Component {
@@ -18,7 +20,7 @@ class OrganiserDetails extends Component {
 
   renderDateFilter = () => {
     return (
-      <div className="category-filter  col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 ">
+      <div className="category-filter  col-xl-2 col-lg-3 col-md-3 col-sm-6 col-xs-6 ">
         <div>
           <Select
             defaultValue="all"
@@ -94,7 +96,7 @@ class OrganiserDetails extends Component {
 
   renderEventFilter = () => {
     return (
-      <div className="category-filter  col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 ">
+      <div className="category-filter  col-xl-2 col-lg-3 col-md-3 col-sm-6 col-xs-6  ">
         <div>
           <Select
             defaultValue="all"
@@ -113,12 +115,12 @@ class OrganiserDetails extends Component {
 
   getImageCards = (eventsList) => {
     return (
-      <div className="mb-100">
+      <div className="mb-100 setWidth">
         <div className="row organiser-row">
           {eventsList.map((event) => {
             return (
               <div
-                className="col-xl-3 col-lg-3 col-md-4 col-xs-6 col-sm-6 marginBottom"
+                className="col-xl-3 col-lg-4 col-md-6 marginBottom"
                 key={event.id}
               >
                 <Card key={event.id} className="cardStyling">
@@ -130,7 +132,7 @@ class OrganiserDetails extends Component {
                   <div>
                     <p className="cardTitle">{event.title}</p>
                     <p className="cardSubheading">{event.type}</p>
-                    <p className="cardSubheading">
+                    <p className="cardSubheading" style={{ color: "#EC1B23" }}>
                       {event.startTime}-{event.endTime}
                     </p>
                     <p className="cardSubheading">{event.shows} Shows</p>
@@ -161,7 +163,7 @@ class OrganiserDetails extends Component {
               <div className="card-block px-4">
                 <h4 className="cardTitle">{event.title}</h4>
                 <p className="cardSubheading">{event.type}</p>
-                <p className="cardSubheading">
+                <p className="cardSubheading" style={{ color: "#EC1B23" }}>
                   {event.startTime}-{event.endTime}
                 </p>
                 <p className="cardSubheading">{event.shows} Shows</p>
@@ -177,7 +179,9 @@ class OrganiserDetails extends Component {
   render() {
     const { eventOrganiser, processing, eventsList } = this.props;
     const { gridView, filteredEvents } = this.state;
-
+    // console.log("props", window.screen.width);
+    // if (window.screen.width < 768) this.setState({ gridView: false });
+    // console.log("grid vew", gridView);
     const organiserEvents = filteredEvents.length ? filteredEvents : eventsList;
     if (processing) return <Loader style={{ marginTop: "170px" }} />;
 
@@ -187,46 +191,60 @@ class OrganiserDetails extends Component {
         {this.tabsContainer(organiserEvents)}
         <div className="container  ">
           <div className=" customBorder row">
-            <p className="fontSetting col-xl-3 col-lg-3 col-md-8 col-sm-6 col-xs-6">
+            <p className="fontSetting col-xl-3 col-lg-3 col-md-3 col-sm-12 ">
               {organiserEvents.length} Events
             </p>
             <div className="marginLeftAuto">
               <button
-                className={
-                  "btnChanging btnGrid " +
-                  (this.state.gridView ? "active" : null)
-                }
-                onClick={() => {
-                  this.setView(true);
-                }}
-              >
-                <i className="fas fa-th-large "></i>
-              </button>
-              <button
-                className={
-                  "btnChanging btnGrid " +
-                  (!this.state.gridView ? "active" : null)
-                }
+                className="btnGrid"
                 onClick={() => {
                   this.setView(false);
                 }}
               >
-                <i className="fas fa-list " />
+                {gridView ? (
+                  <img src="/icons/list.svg" height="52px" alt="list icon" />
+                ) : (
+                  <img
+                    src="/icons/list-active.svg"
+                    height="52px"
+                    alt="list icon"
+                  />
+                )}
+              </button>
+              <button
+                className="btnGrid "
+                onClick={() => {
+                  this.setView(true);
+                }}
+              >
+                {gridView ? (
+                  <img
+                    src="/icons/grid-active.svg"
+                    height="52px"
+                    alt="list icon"
+                  />
+                ) : (
+                  <img src="/icons/grid.svg" height="52px" alt="grid icon" />
+                )}
               </button>
             </div>
             {this.renderEventFilter()}
             {this.renderDateFilter()}
           </div>
-          <hr className="setHrWidth" />
+          <hr />
         </div>
 
         <div className="container ">
-          <div className="setWidth">
+          <EventOrganiserCard
+            style={{ marginTop: !gridView ? "40px" : "0px" }}
+            eventOrganiser={eventOrganiser}
+          />
+
+          <div className="">
             {gridView
               ? this.getImageCards(organiserEvents)
               : this.listView(organiserEvents)}
           </div>
-          <EventOrganiserCard eventOrganiser={eventOrganiser} />
         </div>
       </div>
     );
@@ -259,52 +277,58 @@ class OrganiserDetails extends Component {
     const { eventsBtn, detailsBtn, reviewsBtn } = this.state;
 
     return (
-      <div className="tabsBackground">
-        <div className="container tabscontainer">
-          <button
-            onClick={() => {
-              this.setState({
-                eventsBtn: true,
-                detailsBtn: false,
-                reviewsBtn: false,
-              });
-            }}
-            className={`customTabBtn eventsBtnBorderRadius ${
-              eventsBtn ? "customTabBtnActive" : null
-            }`}
-          >
-            Events ({organiserEvents.length})
-          </button>
-          <button
-            onClick={() => {
-              this.setState({
-                eventsBtn: false,
-                detailsBtn: true,
-                reviewsBtn: false,
-              });
-            }}
-            className={`customTabBtn ${
-              detailsBtn ? "customTabBtnActive" : null
-            }`}
-          >
-            Details{" "}
-          </button>
-          <button
-            onClick={() => {
-              this.setState({
-                eventsBtn: false,
-                detailsBtn: false,
-                reviewsBtn: true,
-              });
-            }}
-            className={`customTabBtn reviewsBtnBorderRadius ${
-              reviewsBtn ? "customTabBtnActive" : null
-            }`}
-          >
-            Reviews{" "}
-          </button>
-        </div>
-      </div>
+      <StickyContainer>
+        <Sticky>
+          {() => (
+            <div className="tabsBackground ">
+              <div className="container  tabscontainer">
+                <button
+                  onClick={() => {
+                    this.setState({
+                      eventsBtn: true,
+                      detailsBtn: false,
+                      reviewsBtn: false,
+                    });
+                  }}
+                  className={`customTabBtn eventsBtnBorderRadius ${
+                    eventsBtn ? "customTabBtnActive" : null
+                  }`}
+                >
+                  Events ({organiserEvents.length})
+                </button>
+                <button
+                  onClick={() => {
+                    this.setState({
+                      eventsBtn: false,
+                      detailsBtn: true,
+                      reviewsBtn: false,
+                    });
+                  }}
+                  className={`customTabBtn ${
+                    detailsBtn ? "customTabBtnActive" : null
+                  }`}
+                >
+                  Details{" "}
+                </button>
+                <button
+                  onClick={() => {
+                    this.setState({
+                      eventsBtn: false,
+                      detailsBtn: false,
+                      reviewsBtn: true,
+                    });
+                  }}
+                  className={`customTabBtn reviewsBtnBorderRadius ${
+                    reviewsBtn ? "customTabBtnActive" : null
+                  }`}
+                >
+                  Reviews{" "}
+                </button>
+              </div>
+            </div>
+          )}
+        </Sticky>
+      </StickyContainer>
     );
   };
 }

@@ -8,13 +8,13 @@ class EventOrganiserCard extends Component {
   };
 
   render() {
-    const { eventOrganiser } = this.props;
+    const { eventOrganiser, style } = this.props;
     const { hide } = this.state;
-
+    console.log("stye", style);
     if (hide) return null;
 
     return (
-      <div className="eventOrganiserContainer">
+      <div className="eventOrganiserContainer" style={style}>
         <img
           src={eventOrganiser.imgSrc}
           className="eventOrganiserImage"
@@ -30,7 +30,8 @@ class EventOrganiserCard extends Component {
           {eventOrganiser.ratingImages.map((image) => (
             <img src={image.src} className="alignNone mr-2" alt="star" />
           ))}
-          {eventOrganiser.ratings} Out of {eventOrganiser.totalReviews} reviews
+          {eventOrganiser.ratings} Out of {eventOrganiser.totalReviews}{" "}
+          <u>reviews</u>
         </p>
 
         <p className="cardSubheading descriptionContainer">
