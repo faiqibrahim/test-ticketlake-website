@@ -1,8 +1,6 @@
 // library
 import React from 'react';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
-import moment from "moment/moment";
-import {dateSplitter, getDateFromISO} from "../../utils/common-utils";
 
 class eventListingFilters extends React.Component {
 
