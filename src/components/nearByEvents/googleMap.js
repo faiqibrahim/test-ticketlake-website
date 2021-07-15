@@ -62,8 +62,6 @@ class GoogleMap extends Component {
     };
 
     render() {
-        console.log("Hello called Props", this.props);
-
         const triangleCoords = [
             {lat: 25.774, lng: -80.190},
             {lat: 18.466, lng: -66.118},

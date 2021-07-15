@@ -24,7 +24,7 @@ export const getVenueTypes = (cb) => {
     }
 };
 
-export const getNearByCinemas = (latitude, longitude, cb) => {
+export const getNearByCinemas = (latitude, longitude, cb,categories) => {
     return (dispatch, getState) => {
         const {venueTypes} = getState().venue;
         let venueTypeID = '';
@@ -44,7 +44,8 @@ export const getNearByCinemas = (latitude, longitude, cb) => {
                         let JSONObj = {
                             venueTypes: [venueTypeID],
                             latitude: latitude,
-                            longitude: longitude
+                            longitude: longitude,
+                            categories:categories
                         };
                         axios.post(`${GET_NEAREST_VENUES}?paginate=true&page=1&skip=30`, JSONObj)
                             .then(response => {

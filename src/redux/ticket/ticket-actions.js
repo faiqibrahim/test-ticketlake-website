@@ -123,19 +123,17 @@ export const getEventDetail = (id) => {
     dispatch(setProcessing(true));
     axios
       .get(EVENTS_GET_EVENT_DETAIL + id)
-      .then((responce) => {
+      .then((response) => {
         dispatch(setError(false));
-
-        const checkEventForDate = checkEvent(responce.data.data);
-
+        const checkEventForDate = checkEvent(response.data.data);
         dispatch(
-          setTicketCurrency(responce.data.data.parentEventInfo.currency)
+          setTicketCurrency(response.data.data.parentEventInfo.currency)
         );
-        const ticketData = getTicketClassConfigData(responce);
+        const ticketData = getTicketClassConfigData(response);
 
-        dispatch(setSeats(responce, ticketData));
-        dispatch(setEvent(responce));
-        const passesData = getPassesConfigData(responce);
+        dispatch(setSeats(response, ticketData));
+        dispatch(setEvent(response));
+        const passesData = getPassesConfigData(response);
         dispatch(
           setPassesTicketClasses(getPassesTicketClassesData(passesData))
         );

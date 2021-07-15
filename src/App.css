@@ -404,6 +404,7 @@ table tr:last-child td:last-child {
 .customTable td,
 .customTable th {
   padding: 15px 20px;
+  font-weight: bold;
 }
 
 .customTable td {
@@ -3409,5 +3410,8 @@ input[type="number"] {
 .pl-0
 {
   padding-left: 0px;
+}
+.pb-30 {
+  padding-bottom: 30px;
 }
 /******************************* End ************************************/

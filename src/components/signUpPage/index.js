@@ -16,8 +16,10 @@ import {resetRedux, saveFormData, verifyUser} from '../../redux/user/user-action
 import connect from 'react-redux/es/connect/connect';
 import Loader from "../../commonComponents/loader";
 import { Checkbox} from 'antd';
-// import { SettingOutlined } from '@ant-design/icons';
 import {Modal, ModalBody} from 'reactstrap';
+
+import {Helmet} from "react-helmet";
+
 
 // Helpers
 import {getCountries, getCities, getDateFromISO} from '../../utils/common-utils';
@@ -147,6 +149,14 @@ class SignUp extends Component {
             return false;
         }
     };
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Sign up</title>
+            </Helmet>
+        )
+    }
 
     onSaveChanges = (e) => {
         e.preventDefault();
@@ -443,6 +453,8 @@ class SignUp extends Component {
     render() {
         return (
             <div>
+                {this.pageTitle()}
+
                 {this.getForm()}
             </div>
         )
