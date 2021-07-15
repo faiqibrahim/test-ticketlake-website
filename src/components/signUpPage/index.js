@@ -9,17 +9,15 @@ import DatePicker from "react-datepicker";
 import ReactPhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import validator from "validator";
-import { isValidPhoneNumber } from "react-phone-number-input";
+import { isPossiblePhoneNumber } from "react-phone-number-input";
 
 // Redux
 import {resetRedux, saveFormData, verifyUser} from '../../redux/user/user-actions';
 import connect from 'react-redux/es/connect/connect';
 import Loader from "../../commonComponents/loader";
 import { Checkbox} from 'antd';
+// import { SettingOutlined } from '@ant-design/icons';
 import {Modal, ModalBody} from 'reactstrap';
-
-import {Helmet} from "react-helmet";
-
 
 // Helpers
 import {getCountries, getCities, getDateFromISO} from '../../utils/common-utils';
@@ -116,7 +114,7 @@ class SignUp extends Component {
                 name:''
             })
         }
-        
+
         this.props.resetRedux();
     };
 
@@ -134,7 +132,7 @@ class SignUp extends Component {
     };
 
     getPhoneNumberValid = (phoneNumber) => {
-        return isValidPhoneNumber(phoneNumber);
+        return isPossiblePhoneNumber(phoneNumber);
     };
 
     getEmailValid = (email) => {
@@ -150,23 +148,14 @@ class SignUp extends Component {
         }
     };
 
-    pageTitle = () => {
-        return (
-            <Helmet>
-                <title>Sign up</title>
-            </Helmet>
-        )
-    }
-
     onSaveChanges = (e) => {
         e.preventDefault();
-        const state = {...this.state };
-        const { name,phone, email, error,password,country,city,dateOfBirth} = state;
+        const { name,phone, email, error,password,country,city,dateOfBirth} = this.state;
         let isEmailValid = this.getEmailValid(email);
         let isValidNumber = this.getPhoneNumberValid(phone);
         let isValidPassword = this.getPasswordValid(password);
 
-        if (state.name === '') {
+        if (name === '') {
             error.name = errorMessages.name;
         }if (!isEmailValid) {
             error.email = errorMessages.email;
@@ -174,11 +163,11 @@ class SignUp extends Component {
             error.password = errorMessages.password;
         }if (!isValidNumber) {
             error.phone =  errorMessages.phoneNumber;
-        }if(state.country === '') {
+        }if(country === '') {
             error.country = errorMessages.country;
-        }if(state.city === '') {
+        }if(city === '') {
             error.city = errorMessages.city;
-        }if(state.dateOfBirth === '') {
+        }if(dateOfBirth === '') {
             error.DOB = errorMessages.DOB;
         }
 
@@ -261,6 +250,7 @@ class SignUp extends Component {
     };
 
     handlePhoneChange = (value) => {
+        console.log("value", value)
         let state = {...this.state};
         const {error} = state;
         error["phone"] = ""
@@ -269,7 +259,7 @@ class SignUp extends Component {
         }
         state["phone"] = value;
         state.error = {...error}
-        this.setState({phone: value});
+        this.setState({phone: `+${value}`});
     };
 
     agreeTermsAndCondition = (e) =>{
@@ -344,7 +334,6 @@ class SignUp extends Component {
                                             />
                                         </div>
                                         {error.phone &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.phone} < /span> }
-
                                     </div>
 
                                     <div className={"field-wrp"}>
@@ -453,8 +442,6 @@ class SignUp extends Component {
     render() {
         return (
             <div>
-                {this.pageTitle()}
-
                 {this.getForm()}
             </div>
         )
