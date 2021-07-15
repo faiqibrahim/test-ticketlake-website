@@ -1,0 +1,120 @@
+@media (max-width: 767px) {
+  .detailsTitle {
+    font-family: "Monotype - NeuePlak Text Bold";
+    font-size: 20px;
+    color: #17224e;
+    padding-bottom: 0;
+  }
+
+  .veneueText {
+    font-family: "NeuePlak";
+    font-size: 16px;
+    color: #555555;
+    margin-bottom: 0;
+    padding-bottom: 0px;
+  }
+
+  .description {
+    font-family: "NeuePlak";
+    font-size: 14px;
+    color: #555555;
+    padding-top: 1rem;
+  }
+
+  .reviewerImage {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #d8dae3;
+  }
+
+  .reviewerName {
+    font-family: "Monotype - NeuePlak Text Semi Bold";
+    font-size: 20px;
+    color: #17224e;
+  }
+
+  .review {
+    font-family: "NeuePlak";
+    font-size: 14px;
+    color: #555555;
+  }
+
+  .stickyReviewContainer {
+    padding-left: 37px;
+    padding-right: 36px;
+    padding-top: 52px;
+    padding-bottom: 24px;
+    border-radius: 20px 20px 0 0px;
+    background-color: #ffffff;
+    bottom: 0px;
+    position: fixed;
+    width: 87%;
+    margin: 0 auto;
+    z-index: 5;
+  }
+
+  .writeReviewBtn {
+    height: 48px;
+    width: 94%;
+    margin: auto;
+    border: none;
+    background-color: #ec1b23;
+    border-radius: 8px;
+    color: #ffffff;
+  }
+
+  .ratingheading {
+    font-size: 18px;
+    color: #747a95;
+    font-family: "Monotype - NeuePlak Text Semi Bold";
+  }
+}
+
+.customInputname {
+  height: 48px;
+  background-color: #ffffff;
+  border: 1px solid #747a9533;
+  border-radius: 8px;
+  font-family: "NeuePlak";
+  font-size: 14px;
+  width: 100%;
+  padding-left: 10px;
+}
+
+.customTextArea {
+  background-color: #ffffff;
+  border: 1px solid #747a9533;
+  border-radius: 8px;
+  font-family: "NeuePlak";
+  font-size: 14px;
+  width: 100%;
+  padding-left: 10px;
+  margin-top: 20px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+
+.customlabel {
+  height: 48px;
+  background-color: #ffffff;
+  border: 1px solid #747a9533;
+  border-radius: 8px;
+  font-family: "NeuePlak";
+  font-size: 14px;
+  width: 100%;
+  padding-left: 10px;
+  padding-top: 3px;
+}
+
+.postBtn {
+  height: 48px;
+  background-color: #ec1b23;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Monotype - NeuePlak Text Semi Bold";
+  border-radius: 8px;
+  width: 100%;
+  border: none;
+  margin-top: 20px;
+}

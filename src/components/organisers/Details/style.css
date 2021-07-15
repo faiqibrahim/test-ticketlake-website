@@ -169,6 +169,7 @@
 .descriptionContainer {
   height: 125px;
   overflow: hidden;
+  display: inline;
 }
 
 .eventOrganiserContainer .borderBottom {
@@ -259,10 +260,11 @@
 .tabsBackground .tabscontainer {
   background-color: #ffffff;
   border-radius: 10px;
+  padding-left: 0;
 }
 
 .customTabBtn {
-  padding: 20px;
+  padding: 15px;
   color: #272525;
   background-color: #ffffff;
   border: none;
@@ -290,7 +292,7 @@
   }
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 1760px) {
   .tabscontainer {
     padding: 0px;
   }
@@ -356,6 +358,17 @@
 @media (max-width: 767px) {
   .eventOrganiserContainer {
     display: none;
+  }
+
+  .filterDropDowns.organiserCategorySelect > div {
+    padding: 5px 0px;
+  }
+  .eventOrganiserTopImage {
+    width: 142px;
+    height: 141px;
+  }
+  .overview-gallery-img {
+    height: 90px;
   }
 
   .btnGrid {
@@ -436,4 +449,12 @@
   .category-filter.col-sm-6 {
     width: 50%;
   }
+}
+
+.readMoreBtn {
+  color: #ec1b23;
+  border: none;
+  background-color: #ffffff;
+  font-size: 18px;
+  font-family: "NeuePlak";
 }

@@ -140,17 +140,17 @@ const initState = {
     title: "Pop Sugar Event Planner",
     eventsOrganised: 50,
     venue: "Capri Complex, D4, Texas",
-    ratings: 4,
+    ratings: 4.5,
     ratingImages: [
       { src: "/icons/star.svg" },
       { src: "/icons/star.svg" },
       { src: "/icons/star.svg" },
       { src: "/icons/star.svg" },
-      { src: "/icons/empty star.svg" },
+      { src: "/icons/half-star.svg" },
     ],
     totalReviews: 300,
     description:
-      "PopSugar Inc. is an American media & technology company that is the parent to the media property PopSugar and a monthly…read more.",
+      "PopSugar Inc. is an American media & technology company that is the parent to the media property PopSugar and a monthly.",
     imgSrc: "/images/events/pop-sugar.png",
     eventTypes:
       "Digital Marketing. Talent Management. Event Planning. Creators of The Rum Punch Brunch.",
@@ -161,6 +161,37 @@ const initState = {
       "/images/events/enemylines.png",
       "/images/events/drive.png",
       "/images/events/actiongirls.png",
+    ],
+
+    reviews: [
+      {
+        id: 1,
+        name: "Clara Smith",
+        review:
+          "Hi, I’m Clara – a traveller, educator, engineer and author with a mission: to help foster a scientifically literate society",
+        image: "/images/instagram/1.jpg",
+      },
+      {
+        id: 2,
+        name: "John Doe",
+        review:
+          "Hi, I’m Clara – a traveller, educator, engineer and author with a mission: to help foster a scientifically literate societye",
+        image: "/images/instagram/1.jpg",
+      },
+      {
+        id: 3,
+        name: "Clara Smith",
+        review:
+          "Hi, I’m Clara – a traveller, educator, engineer and author with a mission: to help foster a scientifically literate society",
+        image: "/images/instagram/1.jpg",
+      },
+      {
+        id: 4,
+        name: "Clara Smith",
+        review:
+          "Hi, I’m Clara – a traveller, educator, engineer and author with a mission: to help foster a scientifically literate society",
+        image: "/images/instagram/1.jpg",
+      },
     ],
   },
 

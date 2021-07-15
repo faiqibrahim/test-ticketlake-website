@@ -4,7 +4,16 @@ import ModelGallery from "./ModelGallery";
 
 class EventOrganiserCard extends Component {
   render() {
-    const { eventOrganiser, style } = this.props;
+    const { eventOrganiser, style, handleDetails } = this.props;
+    let description = eventOrganiser.description;
+    const characterArray = eventOrganiser.description.split("");
+    let readMore = false;
+
+    if (characterArray.length > 110) {
+      description = description.slice(0, 110);
+      description += "...";
+      readMore = true;
+    }
 
     return (
       <div className="eventOrganiserContainer" style={style}>
@@ -26,10 +35,18 @@ class EventOrganiserCard extends Component {
           {eventOrganiser.ratings} Out of {eventOrganiser.totalReviews}{" "}
           <u>reviews</u>
         </p>
+        {readMore ? (
+          <>
+            {" "}
+            <p className="cardSubheading descriptionContainer">{description}</p>
+            <button onClick={handleDetails} className="readMoreBtn">
+              read more
+            </button>{" "}
+          </>
+        ) : (
+          <p className="cardSubheading descriptionContainer">{description}</p>
+        )}
 
-        <p className="cardSubheading descriptionContainer">
-          {eventOrganiser.description}
-        </p>
         <ModelGallery images={eventOrganiser.gallaryImages} />
       </div>
     );

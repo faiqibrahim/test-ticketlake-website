@@ -8,6 +8,8 @@ import { Card } from "react-bootstrap";
 import moment from "moment";
 import EventOrganiserCard from "./EventOrganiserCard";
 import Sticky from "react-stickynode";
+import Details from "./detailsPage";
+import Reviews from "./reviews";
 
 const { Option } = Select;
 
@@ -190,9 +192,25 @@ class OrganiserDetails extends Component {
     window.removeEventListener("resize", this.updateDimensions);
   }
 
+  setDetailsState = () => {
+    this.setState(
+      this.setState({
+        eventsBtn: false,
+        detailsBtn: true,
+        reviewsBtn: false,
+      })
+    );
+  };
+
   render() {
     const { eventOrganiser, processing, eventsList } = this.props;
-    const { gridView, filteredEvents } = this.state;
+    const {
+      gridView,
+      filteredEvents,
+      eventsBtn,
+      detailsBtn,
+      reviewsBtn,
+    } = this.state;
     console.log("state", this.state);
     const organiserEvents = filteredEvents.length ? filteredEvents : eventsList;
     if (processing) return <Loader style={{ marginTop: "170px" }} />;
@@ -201,63 +219,78 @@ class OrganiserDetails extends Component {
       <div id="wrapper" className="textAlignLeft organiser-details">
         {this.getBanner(eventOrganiser)}
         {this.tabsContainer(organiserEvents)}
-        <div className="container  ">
-          <div className=" customBorder row">
-            <p className="fontSetting col-xl-3 col-lg-3 col-md-3 col-sm-12 ">
-              {organiserEvents.length} Events
-            </p>
-            <div className="marginLeftAuto">
-              <button
-                className="btnGrid"
-                onClick={() => {
-                  this.setView(false);
-                }}
-              >
-                {gridView ? (
-                  <img src="/icons/list.svg" height="52px" alt="list icon" />
-                ) : (
-                  <img
-                    src="/icons/list-active.svg"
-                    height="52px"
-                    alt="list icon"
-                  />
-                )}
-              </button>
-              <button
-                className="btnGrid "
-                onClick={() => {
-                  this.setView(true);
-                }}
-              >
-                {gridView ? (
-                  <img
-                    src="/icons/grid-active.svg"
-                    height="52px"
-                    alt="list icon"
-                  />
-                ) : (
-                  <img src="/icons/grid.svg" height="52px" alt="grid icon" />
-                )}
-              </button>
+        {detailsBtn && <Details {...eventOrganiser} />}
+        {reviewsBtn && <Reviews {...eventOrganiser} />}
+        {eventsBtn && (
+          <>
+            <div className="container  ">
+              <div className=" customBorder row">
+                <p className="fontSetting col-xl-3 col-lg-3 col-md-3 col-sm-12 ">
+                  {organiserEvents.length} Events
+                </p>
+                <div className="marginLeftAuto">
+                  <button
+                    className="btnGrid"
+                    onClick={() => {
+                      this.setView(false);
+                    }}
+                  >
+                    {gridView ? (
+                      <img
+                        src="/icons/list.svg"
+                        height="52px"
+                        alt="list icon"
+                      />
+                    ) : (
+                      <img
+                        src="/icons/list-active.svg"
+                        height="52px"
+                        alt="list icon"
+                      />
+                    )}
+                  </button>
+                  <button
+                    className="btnGrid "
+                    onClick={() => {
+                      this.setView(true);
+                    }}
+                  >
+                    {gridView ? (
+                      <img
+                        src="/icons/grid-active.svg"
+                        height="52px"
+                        alt="list icon"
+                      />
+                    ) : (
+                      <img
+                        src="/icons/grid.svg"
+                        height="52px"
+                        alt="grid icon"
+                      />
+                    )}
+                  </button>
+                </div>
+                {this.renderEventFilter()}
+                {this.renderDateFilter()}
+              </div>
+              <hr />
             </div>
-            {this.renderEventFilter()}
-            {this.renderDateFilter()}
-          </div>
-          <hr />
-        </div>
 
-        <div className="container ">
-          <EventOrganiserCard
-            style={{ marginTop: !gridView ? "40px" : "0px" }}
-            eventOrganiser={eventOrganiser}
-          />
+            <div className="container ">
+              <EventOrganiserCard
+                style={{ marginTop: !gridView ? "40px" : "0px" }}
+                eventOrganiser={eventOrganiser}
+                handleDetails={this.setDetailsState}
+              />
 
-          <div className="">
-            {gridView
-              ? this.getImageCards(organiserEvents)
-              : this.listView(organiserEvents)}
-          </div>
-        </div>
+              <div className="">
+                {gridView
+                  ? this.getImageCards(organiserEvents)
+                  : this.listView(organiserEvents)}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     );
   }
