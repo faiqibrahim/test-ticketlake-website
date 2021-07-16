@@ -96,7 +96,7 @@ class NearByEvents extends Component {
   pageTitle = () => {
     return (
         <Helmet>
-          <title>Near By Events</title>
+          <title>NearBy Events</title>
         </Helmet>
     )
   }
@@ -161,7 +161,7 @@ class NearByEvents extends Component {
                         </div>
                     ) : null}
                   </div>
-                  <div className="row mt-30">
+                  <div className="row mt-30 nearby-row-wrp">
                     {this.state.isloadedNearby ? this.state.nearByData.length > 0 ? (
                         this.state.nearByData.map((data, i) => {
                           return (
