@@ -253,7 +253,7 @@
 
 .tabsBackground {
   background-color: #f2f3f8;
-  padding: 20px;
+  padding: 15px;
   position: relative;
 }
 
@@ -264,13 +264,18 @@
 }
 
 .customTabBtn {
-  padding: 15px;
+  padding: 10px;
   color: #272525;
   background-color: #ffffff;
   border: none;
   width: 200px;
   font-size: 18px;
   font-family: "NeuePlak";
+}
+
+.tabscontainer .customTabBtn:hover {
+  background-color: #ec1b23;
+  color: #ffffff;
 }
 
 .eventsBtnBorderRadius {
@@ -413,7 +418,7 @@
   }
 
   .customTabBtn {
-    padding: 10px;
+    padding: 7px;
   }
 
   .customBorder {

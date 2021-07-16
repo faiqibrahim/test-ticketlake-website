@@ -29,8 +29,13 @@ class EventOrganiserCard extends Component {
         </p>
         <p className="cardSubheading ">Venue - {eventOrganiser.venue}</p>
         <p className="cardSubheading borderBottom">
-          {eventOrganiser.ratingImages.map((image) => (
-            <img src={image.src} className="alignNone mr-2" alt="star" />
+          {eventOrganiser.ratingImages.map((image, index) => (
+            <img
+              src={image.src}
+              className="alignNone mr-2"
+              key={index}
+              alt="star"
+            />
           ))}
           {eventOrganiser.ratings} Out of {eventOrganiser.totalReviews}{" "}
           <u>reviews</u>

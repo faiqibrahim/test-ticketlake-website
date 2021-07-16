@@ -161,6 +161,12 @@ const initState = {
       "/images/events/enemylines.png",
       "/images/events/drive.png",
       "/images/events/actiongirls.png",
+      "/images/events/actiongirls.png",
+      "/images/events/drive.png",
+      "/images/events/badboys.png",
+      "/images/events/enemylines.png",
+      "/images/events/drive.png",
+      "/images/events/actiongirls.png",
     ],
 
     reviews: [
