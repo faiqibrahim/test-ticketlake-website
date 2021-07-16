@@ -148,7 +148,7 @@ class NearByEvents extends Component {
                     {this.state.nearByData.length > 0 ? (
                         <div className="col-md-6">
                           <span
-                              className="float-right cursor-pointer"
+                              className="float-right cursor-pointer font-weight-bold"
                               onClick={this.switchView}
                           >
                             <img
@@ -312,7 +312,7 @@ class NearByEvents extends Component {
                         <div className={"map-head"}>
                           {this.state.nearByData.length > 0 ?
                               <div style={{ width: '205px' }}
-                                   className="float-left switch-grid-view cursor-pointer"
+                                   className="float-left switch-grid-view cursor-pointer font-weight-bold"
                                    onClick={this.switchView}>
                                 <img src="/images/nearby-map-view.png"
                                      alt='img'

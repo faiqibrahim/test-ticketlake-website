@@ -4,7 +4,7 @@ const style = {
     wrapper: {
         position: 'relative',
         backgroundColor: '#303030',
-        borderRadius: '12px',
+        borderRadius: '8px',
         overflow: 'hidden',
         boxShadow: '0px 2px 4px 0px rgba(0,0,0,0.5)',
         height:'180px',

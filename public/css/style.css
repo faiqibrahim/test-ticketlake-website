@@ -12615,8 +12615,8 @@ input[type=number] {
 
 .nearby-box-wrp
 {
-    width: calc(100% / 5 - 20px);
-    margin: 0px 10px 40px 10px;
+    width: calc(100% / 5 - 25px);
+    margin: 0px 10px 40px 15px;
 }
 
 @media only screen and (min-width:1600px) {
@@ -12677,4 +12677,10 @@ input[type=number] {
 .w20
 {
     width: 20% !important;
+}
+.red-color {
+    color: #ec1c24;
+}
+.green-color {
+    color: #00B74A;
 }
