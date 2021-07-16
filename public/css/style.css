@@ -12621,35 +12621,35 @@ input[type=number] {
 
 @media only screen and (min-width:1600px) {
     .nearby-box-wrp{
-        width: calc(100% / 5 - 20px);
+        width: calc(100% / 5 - 25px);
     }
 }
 @media only screen and (min-width: 1025px) and  (max-width: 1599px)  {
     .nearby-box-wrp{
-        width: calc(100% / 4 - 20px);
+        width: calc(100% / 4 - 25px);
     }
 
 }
 @media (max-width: 1024px) {
     .nearby-box-wrp{
-        width: calc(100% / 3 - 20px);
+        width: calc(100% / 3 - 25px);
     }
 
 }
 @media (max-width: 768px) {
     .nearby-box-wrp{
-        width: calc(100% / 3 - 20px);
+        width: calc(100% / 3 - 25px);
     }
 }
 
 @media (max-width: 767px) {
     .nearby-box-wrp{
-        width: calc(100% / 2 - 20px);
+        width: calc(100% / 2 - 25px);
     }
 }
-@media (max-width: 400px) {
+@media (max-width: 450px) {
     .nearby-box-wrp{
-        width: calc(100% / 1 - 20px);
+        width: calc(100% / 1 - 25px);
     }
 }
 
@@ -12671,6 +12671,12 @@ input[type=number] {
         width: 100%;
     }
 }
+@media (max-width: 1100px) {
+    .hide-on-mobileView{
+        display: none;
+    }
+}
+
 .w80{
     width: 80% !important;
 }
@@ -12683,4 +12689,8 @@ input[type=number] {
 }
 .green-color {
     color: #00B74A;
+}
+.table
+{
+    color:#666 !important;
 }

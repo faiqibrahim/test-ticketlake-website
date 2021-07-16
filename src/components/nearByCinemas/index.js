@@ -124,7 +124,7 @@ class NearByCinemas extends Component {
                                     </div>
                                     {/* right section */}
                                     {this.state.nearByData.length > 0 ?
-                                        <div className="col-md-6">
+                                        <div className="col-md-6 hide-on-mobileView">
                                             <span className="float-right cursor-pointer font-weight-bold" onClick={this.switchView}>
                                                 <img alt='img' src="/images/nearby-map-view.png" className="switch-view-icon" />
                                                     Switch to Map View
