@@ -23,6 +23,12 @@
   float: left;
 }
 
+.emptyColumn {
+  background-color: #ffffff;
+  border-radius: 0 10px 10px 0;
+  margin-left: 0;
+}
+
 .tabscontainer .customTabBtnActive {
   background-color: #ec1b23;
   color: #ffffff;
@@ -214,6 +220,11 @@
   height: 135px;
 }
 
+.borderRadiusAndColor {
+  background-color: white;
+  border-radius: 0 10px 10px 0;
+}
+
 /** ******************** Model Carousel ***************************** **/
 .model-carousel .carousel.carousel-slider .control-arrow {
   background: rgba(0, 0, 0, 0.2) !important;
@@ -267,7 +278,7 @@
   color: #272525;
   background-color: #ffffff;
   border: none;
-  width: 200px;
+  width: 100%;
   font-size: 18px;
   font-family: "NeuePlak";
 }
@@ -366,6 +377,9 @@
     display: none;
   }
 
+  .emptyColumn {
+    display: none;
+  }
   .filterDropDowns.organiserCategorySelect > div {
     padding: 5px 0px;
   }
@@ -389,10 +403,6 @@
   .customBorder .col-md-2 {
     flex: 0 0 50%;
     max-width: 50%;
-  }
-
-  .customTabBtn {
-    width: 33.3333%;
   }
 
   .bannerHeading {

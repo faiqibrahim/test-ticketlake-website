@@ -164,24 +164,33 @@ class OrganiserDetails extends Component {
       <Sticky enabled={true} top={offSet ? 60 : 110} innerZ={6}>
         <div className="tabsBackground ">
           <div className="container  tabscontainer ">
-            <CustomButton
-              value={`Events (${eventsList.length})`}
-              handleClick={this.setEventsState}
-              active={eventsBtn}
-              styling={"eventsBtnBorderRadius"}
-            />
-            <CustomButton
-              value={"Details"}
-              handleClick={this.setDetailsState}
-              active={detailsBtn}
-              styling={""}
-            />
-            <CustomButton
-              value={"Reviews"}
-              handleClick={this.setReviewsState}
-              active={reviewsBtn}
-              styling={"reviewsBtnBorderRadius"}
-            />
+            <div className="row">
+              <div className="col-lg-2 col-md-3 col-sm-4 col-4 pr-0">
+                <CustomButton
+                  value={`Events (${eventsList.length})`}
+                  handleClick={this.setEventsState}
+                  active={eventsBtn}
+                  styling={"eventsBtnBorderRadius"}
+                />
+              </div>
+              <div className="col-lg-2 col-md-3 col-sm-4 col-4 p-0">
+                <CustomButton
+                  value={"Details"}
+                  handleClick={this.setDetailsState}
+                  active={detailsBtn}
+                  styling={""}
+                />{" "}
+              </div>
+              <div className="col-lg-2 col-md-3 col-sm-4 col-4 p-0 borderRadiusAndColor">
+                <CustomButton
+                  value={"Reviews"}
+                  handleClick={this.setReviewsState}
+                  active={reviewsBtn}
+                  styling={"reviewsBtnBorderRadius"}
+                />
+              </div>
+              <div className="col-lg-6 col-md-3 emptyColumn p-0"></div>
+            </div>
           </div>
         </div>
       </Sticky>
