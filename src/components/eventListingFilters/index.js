@@ -1,32 +1,9 @@
 // library
 import React from 'react';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
-import moment from "moment/moment";
-import {dateSplitter, getDateFromISO} from "../../utils/common-utils";
 
 class eventListingFilters extends React.Component {
 
-    state = {
-        dates: null,
-        datesInput: null,
-        currentDate:false
-    };
-    
-    
-    onDateChange = (date) => {
-
-        if(this.props.date) {
-            if((getDateFromISO(this.props.date[0]) === getDateFromISO(date[0])) && (getDateFromISO(this.props.date[1]) === getDateFromISO(date[1]))){
-                this.setState({currentDate: true});
-            }
-        }else {
-            let date = [new Date(moment().format()), new Date(moment().format())];
-            let fromDateTime = dateSplitter(date[0]);
-            let toDateTime = dateSplitter(date[1]);
-            this.setState({datesInput: date,dates: encodeURI(fromDateTime + ' ' + toDateTime)});
-        }
-    };
-    
     toggleShowOnMobile = () => {
         const container = document.getElementById('filtersContainer');
         if (container.style.display === '' || container.style.display === 'none') {
@@ -38,10 +15,9 @@ class eventListingFilters extends React.Component {
 
     render(){
 
-        const {categories} =this.props;
+        const {categories} = this.props;
         const {city} = this.props;
         const defaultCity = city.length && city[0].label;
-
         return (
         <>
             <div className="mobile-list-controls fl-wrap mar-bot-cont" onClick={this.toggleShowOnMobile}>
@@ -120,7 +96,7 @@ class eventListingFilters extends React.Component {
                         </span>
                         <DateRangePicker
                             onChange={(e) => this.props.changeDate(e)}
-                            value={this.state.currentDate ? '' : this.props.date}
+                            value={this.props.date}
                             className={'filterDateRange'}
                             calendarIcon={null}
                             clearIcon={null}

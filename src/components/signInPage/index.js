@@ -11,6 +11,7 @@ import GoogleLogin from 'react-google-login';
 
 import axios from '../../utils/axios';
 import {NotificationManager} from "react-notifications";
+import {Helmet} from "react-helmet";
 
 class SignIn extends Component {
 
@@ -59,7 +60,6 @@ class SignIn extends Component {
         }, () => {
 
             this.props.loginGoogleData(this.state.googleLoginData)
-            // localStorage.setItem("googleLoacalData", JSON.stringify(response));
             if(this.state.googleLoginData!==undefined){
                 axios.post('/consumers/login-with-google', {
                     "CLIENT_ID": '661662365752-lvjk2j5l5n8ip5d15h71u4j0052i4fmd.apps.googleusercontent.com',
@@ -112,6 +112,14 @@ class SignIn extends Component {
         e.preventDefault();
         this.props.login(this.state.email, this.state.password);
     };
+
+    pageTitle = () => {
+        return (
+            <Helmet>
+                <title>Sign in</title>
+            </Helmet>
+        )
+    }
 
     getForm = () => {
         const hrefVal = "#";
@@ -181,6 +189,7 @@ class SignIn extends Component {
     render() {
         return (
             <div>
+                {this.pageTitle()}
                 {this.checkAuth()}
                 {this.getLoader()}
                 {this.getForm()}

@@ -96,7 +96,7 @@ class NearByEvents extends Component {
   pageTitle = () => {
     return (
         <Helmet>
-          <title>Near By Events</title>
+          <title>NearBy Events</title>
         </Helmet>
     )
   }
@@ -146,9 +146,9 @@ class NearByEvents extends Component {
                     </div>
                     {/* right section */}
                     {this.state.nearByData.length > 0 ? (
-                        <div className="col-md-6">
+                        <div className="col-md-6 hide-on-mobileView">
                           <span
-                              className="float-right cursor-pointer"
+                              className="float-right cursor-pointer font-weight-bold"
                               onClick={this.switchView}
                           >
                             <img
@@ -161,7 +161,7 @@ class NearByEvents extends Component {
                         </div>
                     ) : null}
                   </div>
-                  <div className="row mt-30">
+                  <div className="row mt-30 nearby-row-wrp">
                     {this.state.isloadedNearby ? this.state.nearByData.length > 0 ? (
                         this.state.nearByData.map((data, i) => {
                           return (
@@ -219,7 +219,7 @@ class NearByEvents extends Component {
               <section className="light-red-bg small-padding pt-0" id="sec2">
                 <div className="container custom-container nearbyLayout">
                   <div className={"row"}>
-                    <div className={"col-md-6 pt-30 mh-100vh"}>
+                    <div className={"col-md-6 pt-30 mh-100vh pb-30"}>
                       <div className="row">
                         <div className="col-md-12">
                           <Heading
@@ -312,7 +312,7 @@ class NearByEvents extends Component {
                         <div className={"map-head"}>
                           {this.state.nearByData.length > 0 ?
                               <div style={{ width: '205px' }}
-                                   className="float-left switch-grid-view cursor-pointer"
+                                   className="float-left switch-grid-view cursor-pointer font-weight-bold"
                                    onClick={this.switchView}>
                                 <img src="/images/nearby-map-view.png"
                                      alt='img'

@@ -31,7 +31,7 @@ import moment from "moment";
 import axios from '../../utils/axios'
 import {Helmet} from "react-helmet";
 
-const header = ["Date", "Transaction ID", "Payment Method", "Payment Type", "Amount", "Details"];
+const header = ["Date", "Transaction ID", "Payment Method", "Type", "Amount", "Details"];
 
 class Wallet extends Component {
 
@@ -217,12 +217,14 @@ class Wallet extends Component {
                 return (
 
                     <tr key={data._id}>
-                        <td>{moment(data.createdAt).format("MM/DD/YYYY")}</td>
+                        <td>{moment(data.createdAt).format("MM-DD-YYYY")}</td>
                         <td>{data.transactionId}</td>
                         <td>{data.paymentMethod}</td>
                         <td>{data.type}</td>
                         <td style={{display: 'inline-flex'}}>
-                            {data.transactionAmount && data.transactionAmount.toFixed(2)}
+                            <span className={`${data.paymentMethod !== 'Refund' && data.paymentMethod !== 'Top-up' ? 'red-color' : 'green-color'}`}>
+                                {data.transactionAmount && data.transactionAmount.toFixed(2)}
+                            </span>
                         </td>
                         <td>
                             {data.paymentMethod !== 'Refund' && data.paymentMethod !== 'Top-up' ?
@@ -426,7 +428,7 @@ class Wallet extends Component {
                     <div className="container custom-container">
                         <div className="dasboard-wrap fl-wrap">
                             <HeadingWithButton
-                                heading={'My Wallet'}
+                                heading={'Wallet'}
                                 buttonText={'+ Top-up balance'}
                                 clicker={this.toggle}
                             />
@@ -435,7 +437,7 @@ class Wallet extends Component {
                                     <div className="inline-facts">
                                         <div className="milestone-counter">
                                             <div className="stats animaper">
-                                                Available balance
+                                                Current balance
                                             </div>
                                         </div>
                                         <br/>

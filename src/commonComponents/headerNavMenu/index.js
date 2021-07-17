@@ -424,10 +424,10 @@ class HeaderNavMenu extends Component {
                                     {this.renderWebsiteMoreCategories(menu.length + selectedCategories.length)}
 
                                     <li key={menu.length + selectedCategories.length + 1}>
-                                        <a href={hrefLink}>Near By<span><i className="fas fa-caret-down" /></span></a>
+                                        <a href={hrefLink}>NearBy<span><i className="fas fa-caret-down" /></span></a>
                                         <ul className="sub-menu">
-                                            <NavLink to="/events/nearby-events">Near By Events</NavLink>
-                                            <NavLink to="/events/nearby-cinemas">Near By Cinema</NavLink>
+                                            <NavLink to="/events/nearby-events">NearBy Events</NavLink>
+                                            <NavLink to="/events/nearby-cinemas">NearBy Cinemas</NavLink>
                                         </ul>
                                     </li>
                                     <li key={menu.length + selectedCategories.length + 2}>

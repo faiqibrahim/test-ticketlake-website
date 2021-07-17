@@ -23,7 +23,7 @@ import {FILE_URL} from "../../utils/config";
 import store from "../../redux/store";
 import {Helmet} from "react-helmet";
 
-const header = ["SR#", "Name", "Event", "Status", "Type | Class", "Event Date", "Action"];
+const header = ["Ticket#", "Event", "Type | Class", "Event Date", "Action"];
 const spanStyle = {
     color: "#EC1C24",
     cursor: "pointer"
@@ -240,24 +240,24 @@ class Tickets extends Component {
                                     <td>
                                         {++i}
                                     </td>
-                                    <td>
-                                        {data.purchaseDetails.name}
-                                    </td>
+                                    {/*<td>*/}
+                                    {/*    {data.purchaseDetails.name}*/}
+                                    {/*</td>*/}
                                     <td>
                                         {data.eventInfo.eventTitle}
                                     </td>
-                                    <td>
-                                        {
-                                            data.ticketStatus === 'VALID' ?
-                                                <span className={'badge badge-success'}
-                                                      style={{fontSize: '12px'}}>{data.ticketStatus}</span>
-                                                : data.ticketStatus === 'REFUNDED' ?
-                                                <span className={'badge badge-warning'}
-                                                      style={{fontSize: '12px'}}>{data.ticketStatus}</span> :
-                                                <span className={'badge badge-danger'}
-                                                      style={{fontSize: '12px'}}>{data.ticketStatus}</span>
-                                        }
-                                    </td>
+                                    {/*<td>*/}
+                                    {/*    {*/}
+                                    {/*        data.ticketStatus === 'VALID' ?*/}
+                                    {/*            <span className={'badge badge-success'}*/}
+                                    {/*                  style={{fontSize: '12px'}}>{data.ticketStatus}</span>*/}
+                                    {/*            : data.ticketStatus === 'REFUNDED' ?*/}
+                                    {/*            <span className={'badge badge-warning'}*/}
+                                    {/*                  style={{fontSize: '12px'}}>{data.ticketStatus}</span> :*/}
+                                    {/*            <span className={'badge badge-danger'}*/}
+                                    {/*                  style={{fontSize: '12px'}}>{data.ticketStatus}</span>*/}
+                                    {/*    }*/}
+                                    {/*</td>*/}
                                     <td>
                                         {data.type} {data.ticketClassInfo.ticketClassName ? "|" : ''} {data.ticketClassInfo.ticketClassName}
                                     </td>

@@ -50,7 +50,7 @@ class EventListing extends Component {
         city: '',
         keyword: null,
         allSearchedEvents: [],
-        date: [null, null],
+        date: [new Date(), new Date()],
         from: null,
         to: null,
         doSearch: false,
