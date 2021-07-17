@@ -12,6 +12,7 @@ import GridView from "./gridView";
 import Banner from "./banner";
 import EventsFilter from "./eventsFilter";
 import DateFiliter from "./dateFilter";
+import CustomButton from "./customTabButton";
 
 class OrganiserDetails extends Component {
   state = {
@@ -91,6 +92,22 @@ class OrganiserDetails extends Component {
     );
   };
 
+  setEventsState = () => {
+    this.setState({
+      eventsBtn: true,
+      detailsBtn: false,
+      reviewsBtn: false,
+    });
+  };
+
+  setReviewsState = () => {
+    this.setState({
+      eventsBtn: false,
+      detailsBtn: false,
+      reviewsBtn: true,
+    });
+  };
+
   render() {
     const { eventOrganiser, processing, eventsList } = this.props;
     const { gridView, eventsBtn, detailsBtn, reviewsBtn } = this.state;
@@ -146,43 +163,25 @@ class OrganiserDetails extends Component {
     return (
       <Sticky enabled={true} top={offSet ? 60 : 110} innerZ={6}>
         <div className="tabsBackground ">
-          <div className="container  tabscontainer">
-            <button
-              onClick={() => {
-                this.setState({
-                  eventsBtn: true,
-                  detailsBtn: false,
-                  reviewsBtn: false,
-                });
-              }}
-              className={`customTabBtn eventsBtnBorderRadius ${
-                eventsBtn ? "customTabBtnActive" : null
-              }`}
-            >
-              Events ({eventsList.length})
-            </button>
-            <button
-              onClick={this.setDetailsState}
-              className={`customTabBtn ${
-                detailsBtn ? "customTabBtnActive" : null
-              }`}
-            >
-              Details
-            </button>
-            <button
-              onClick={() => {
-                this.setState({
-                  eventsBtn: false,
-                  detailsBtn: false,
-                  reviewsBtn: true,
-                });
-              }}
-              className={`customTabBtn reviewsBtnBorderRadius ${
-                reviewsBtn ? "customTabBtnActive" : null
-              }`}
-            >
-              Reviews{" "}
-            </button>
+          <div className="container  tabscontainer ">
+            <CustomButton
+              value={`Events (${eventsList.length})`}
+              handleClick={this.setEventsState}
+              active={eventsBtn}
+              styling={"eventsBtnBorderRadius"}
+            />
+            <CustomButton
+              value={"Details"}
+              handleClick={this.setDetailsState}
+              active={detailsBtn}
+              styling={""}
+            />
+            <CustomButton
+              value={"Reviews"}
+              handleClick={this.setReviewsState}
+              active={reviewsBtn}
+              styling={"reviewsBtnBorderRadius"}
+            />
           </div>
         </div>
       </Sticky>

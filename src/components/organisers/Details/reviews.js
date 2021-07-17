@@ -4,12 +4,32 @@ import { Modal, ModalBody } from "reactstrap";
 import classes from "./style.module.css";
 import Ratings from "./ratings";
 class Reviews extends Component {
-  state = { isOpen: false };
+  state = { isOpen: false, isReviewBtnHidden: false };
 
   toggle = () => {
     let { isOpen } = this.state;
     this.setState({ isOpen: !isOpen });
   };
+  componentDidMount() {
+    window.addEventListener("scroll", this.onScroll, false);
+  }
+  onScroll = (e) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.target.scrollingElement;
+    const currentScrollLevel = scrollTop + clientHeight;
+
+    const footerElementHeightElement = document.querySelector("#main-footer");
+    if (footerElementHeightElement) {
+      this.setState({
+        isReviewBtnHidden:
+          currentScrollLevel >=
+          scrollHeight - footerElementHeightElement.clientHeight,
+      });
+    }
+  };
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.onScroll, false);
+  }
+
   render() {
     const { reviews } = this.props;
     const { isOpen } = this.state;
@@ -58,16 +78,22 @@ class Reviews extends Component {
                 </div>
               );
             })}
-            <div className={classes.stickyReviewContainer}>
-              <button
-                onClick={() => {
-                  this.setState({ isOpen: true });
-                }}
-                className={classes.writeReviewBtn}
+            {!this.state.isReviewBtnHidden && (
+              <div
+                className={classes.stickyReviewContainer}
+                id="writeReviewBtn"
               >
-                Write A Review
-              </button>
-            </div>
+                <hr className={classes.hr} />
+                <button
+                  onClick={() => {
+                    this.setState({ isOpen: true });
+                  }}
+                  className={classes.writeReviewBtn}
+                >
+                  Write A Review
+                </button>
+              </div>
+            )}
           </div>
 
           <div className={`col-lg-4 col-md-4 mt-5 ${classes.displayNone}`}>
