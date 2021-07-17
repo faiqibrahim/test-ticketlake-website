@@ -144,7 +144,7 @@ class Organisers extends Component {
             <img
               className="categoryIconStyling"
               alt={"categories"}
-              src={window.location.origin + "/icons/category.svg"}
+              src={window.location.origin + "/icons/category-red.svg"}
             />
           </div>
           <Select
@@ -156,7 +156,9 @@ class Organisers extends Component {
             <Option value="all">All</Option>
 
             {categories.map((category) => (
-              <Option value={category.name}>{category.name}</Option>
+              <Option key={category.id} value={category.name}>
+                {category.name}
+              </Option>
             ))}
           </Select>
         </div>

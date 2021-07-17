@@ -1,21 +1,21 @@
 // Library
-import React from 'react';
-import { Input } from 'reactstrap';
-import { NotificationManager } from 'react-notifications';
-import BASE_SERVER from '../../utils/config'
-import ToolTip from '../../commonComponents/toolTip';
+import React from "react";
+import { Input } from "reactstrap";
+import { NotificationManager } from "react-notifications";
+import BASE_SERVER from "../../utils/config";
+import ToolTip from "../../commonComponents/toolTip";
 import {
-    ticketLakeFbLink,
-    ticketLakeInstagramLink,
-    ticketLakeTwitterLink,
-    ticketLakeYoutubeLink,
-    tickLakeWhatsAppLink
-} from '../../utils/constant';
+  ticketLakeFbLink,
+  ticketLakeInstagramLink,
+  ticketLakeTwitterLink,
+  ticketLakeYoutubeLink,
+  tickLakeWhatsAppLink,
+} from "../../utils/constant";
 import { NavLink } from "react-router-dom";
 
 // Components
-import SubFooter from '../../commonComponents/subFooter';
-import Axios from 'axios';
+import SubFooter from "../../commonComponents/subFooter";
+import Axios from "axios";
 import { getAllCategories } from "../../redux/category/category-actions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -24,297 +24,393 @@ const eventLimit = 7;
 
 // Style
 const footerLinkStyle = {
-    color: '#ACAEB2',
-    textAlign: 'left',
-    width: '100%',
-    float: 'left',
-    margin: '2px 0',
-    fontWeight: 400
+  color: "#ACAEB2",
+  textAlign: "left",
+  width: "100%",
+  float: "left",
+  margin: "2px 0",
+  fontWeight: 400,
 };
 
 const socialMediaStyle = {
-    color: 'white',
-    textAlign: 'left',
-    width: '100%',
-    float: 'left',
-    margin: '2px 0',
-    fontWeight: 400
+  color: "white",
+  textAlign: "left",
+  width: "100%",
+  float: "left",
+  margin: "2px 0",
+  fontWeight: 400,
 };
 
 const imgStyle = {
-    width: '42px'
+  width: "42px",
 };
 
 class Footer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      subscribeValue: "",
+      isTooltipOpen: false,
+      categories: [],
+    };
+  }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            subscribeValue: '',
-            isTooltipOpen: false,
-            categories: []
-        }
+  componentDidMount() {
+    this.props.fetchAllCategories((categories) => {
+      sessionStorage.setItem("categories", JSON.stringify(categories));
+      this.setState({
+        categories,
+      });
+    });
+  }
+
+  subscribeNowValue = (e) => {
+    this.setState({
+      subscribeValue: e.target.value,
+    });
+  };
+
+  onToggleTooltip = () => {
+    const { isTooltipOpen } = this.state;
+    this.setState({ isTooltipOpen: !isTooltipOpen });
+  };
+
+  subscribeNow = (value) => {
+    let subscribe_email = this.state.subscribeValue;
+    if (value) {
+      if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(subscribe_email)) {
+        Axios.get(
+          `${BASE_SERVER}api/v1/subscriptions/subscribe-me/${subscribe_email}`
+        )
+          .then((response) => {
+            NotificationManager.success(
+              "You are successfully subscribed!",
+              "",
+              3000
+            );
+            this.setState({ subscribeValue: "" });
+          })
+          .catch((error) => {
+            NotificationManager.error(error.response.data._error);
+          });
+      } else {
+        NotificationManager.error("Invalid email!", "", 3000);
+      }
     }
+  };
 
-    componentDidMount() {
-        this.props.fetchAllCategories((categories) => {
-            sessionStorage.setItem('categories', JSON.stringify(categories));
-            this.setState({
-                categories
+  onNavClick = (item) => {
+    let obj = {
+      parentCategory: item,
+      navLink: true,
+    };
+    sessionStorage.setItem("eventsListing", JSON.stringify(obj));
+  };
+
+  getEventBullets = () => {
+    let categories = this.state.categories;
+    let { selectedCategories } = this.props;
+    let breadCrumbsState = [];
+
+    return (
+      categories &&
+      categories.map((item, i) => {
+        if (i < eventLimit) {
+          selectedCategories = selectedCategories.filter(
+            (category) => category.title === item.name
+          );
+          let link = `/events/listing`;
+
+          if (selectedCategories && selectedCategories.length) {
+            link = selectedCategories[0].link;
+            breadCrumbsState.push({
+              category: item,
+              url: `${link}/?id=${item._id}`,
+              mainLink: link,
             });
-        });
-    }
+          }
+          let pathName = `${link}/?id=${item._id}`;
 
-    subscribeNowValue = (e) => {
-        this.setState({
-            subscribeValue: e.target.value
-        })
-    };
+          return (
+            <li key={i}>
+              <NavLink
+                style={footerLinkStyle}
+                to={{
+                  pathname: pathName,
+                  state: {
+                    parentCategory: item,
+                    breadCrumbs: breadCrumbsState,
+                    navLink: true,
+                  },
+                }}
+                onClick={() => this.onNavClick(item)}
+              >
+                {item.name}
+              </NavLink>
+            </li>
+          );
+        } else return null;
+      })
+    );
+  };
 
-    onToggleTooltip = () => {
-        const { isTooltipOpen } = this.state;
-        this.setState({ isTooltipOpen: !isTooltipOpen });
-    };
+  render() {
+    const { isTooltipOpen } = this.state;
+    const hrefLink = "#";
+    return (
+      <footer className="main-footer" id="main-footer">
+        <div className="footer-inner">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-4 col-lg-4 col-xl-3" span={8}>
+                <div className="footer-widget fl-wrap">
+                  <h3>Ticketlake</h3>
+                  <div className="pull-left">
+                    <p style={{ textAlign: "left", color: "#ACAEB2" }}>
+                      Ticketlake is an amazing platform to help users purchase
+                      tickets globally with great range of coupons and
+                      promotions
+                    </p>
+                  </div>
+                </div>
+                <ul className="footer-contacts fl-wrap red-text">
+                  <li>
+                    <span>{/*<i className="far fa-envelope"/>*/}</span>
+                    <a href={hrefLink}>info@ticketlake.com</a>
+                  </li>
+                  <li>
+                    <span>{/*<i className="fas fa-map-marker-alt"/>*/}</span>
+                    <p
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: "400",
+                        color: "#999999",
+                        marginBottom: "0px",
+                        paddingBottom: "0",
+                      }}
+                    >
+                      Odotei Tsui Avenue, Dzorwulu (GA-121-9846) - Accra, Ghana
+                    </p>
+                  </li>
+                  <li>
+                    <span>{/*<i className="fas fa-phone"/>*/}</span>
+                    <a href={hrefLink}>
+                      +233 (0) 30 296 3020 | +233 (0) 55 252 0555
+                    </a>
+                  </li>
+                </ul>
+              </div>
 
-    subscribeNow = (value) => {
-        let subscribe_email = this.state.subscribeValue;
-        if (value) {
-            if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(subscribe_email)) {
-                Axios.get(`${BASE_SERVER}api/v1/subscriptions/subscribe-me/${subscribe_email}`)
-                    .then((response) => {
-                        NotificationManager.success("You are successfully subscribed!", '', 3000);
-                        this.setState({ subscribeValue: '' })
-                    })
-                    .catch((error) => {
-                        NotificationManager.error(error.response.data._error)
-                    });
-            } else {
-                NotificationManager.error("Invalid email!", '', 3000);
-            }
-        }
-    };
-
-    onNavClick = (item) => {
-        let obj = {
-            parentCategory: item,
-            navLink: true
-        };
-        sessionStorage.setItem('eventsListing', JSON.stringify(obj));
-    };
-
-    getEventBullets = () => {
-        let categories = this.state.categories;
-        let { selectedCategories } = this.props;
-        let breadCrumbsState = [];
-
-        return categories && categories.map((item, i) => {
-            if (i < eventLimit) {
-                selectedCategories = selectedCategories.filter(category => category.title === item.name);
-                let link = `/events/listing`;
-
-                if (selectedCategories && selectedCategories.length) {
-                    link = selectedCategories[0].link;
-                    breadCrumbsState.push({ category: item, url: `${link}/?id=${item._id}`, mainLink: link });
-                }
-                let pathName = `${link}/?id=${item._id}`;
-
-                return (
-                    <li key={i}>
-                        <NavLink
-                            style={footerLinkStyle}
-                            to={{
-                                pathname: pathName,
-                                state: { parentCategory: item, breadCrumbs: breadCrumbsState, navLink: true }
-                            }} onClick={() => this.onNavClick(item)}>{item.name}</NavLink>
-                    </li>
-                )
-            } else return null;
-        });
-    };
-
-    render() {
-        const { isTooltipOpen } = this.state;
-        const hrefLink = '#';
-        return (
-            <footer className="main-footer">
-                <div className="footer-inner">
-                    <div className="container">
-                        <div className="row">
-
-                            <div className="col-md-4 col-lg-4 col-xl-3" span={8}>
-
-                                <div className="footer-widget fl-wrap">
-                                    <h3>Ticketlake</h3>
-                                    <div className='pull-left'>
-                                        <p style={{ textAlign: 'left', color: "#ACAEB2" }}>Ticketlake is an amazing
-                                        platform to help users purchase tickets globally with great range of coupons
-                                            and promotions</p>
-                                    </div>
-                                </div>
-                                <ul className="footer-contacts fl-wrap red-text">
-                                    <li>
-                                        <span>
-                                            {/*<i className="far fa-envelope"/>*/}
-                                        </span>
-                                        <a href={hrefLink}>info@ticketlake.com</a>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            {/*<i className="fas fa-map-marker-alt"/>*/}
-                                        </span>
-                                        <p style={{
-
-                                            fontSize: '13px',
-                                            fontWeight: '400',
-                                            color: '#999999',
-                                            marginBottom: '0px',
-                                            paddingBottom: '0'
-                                        }}>
-                                            Odotei Tsui Avenue, Dzorwulu (GA-121-9846) - Accra, Ghana
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            {/*<i className="fas fa-phone"/>*/}
-                                        </span>
-                                        <a href={hrefLink}>
-                                            +233 (0) 30 296 3020 | +233 (0) 55 252 0555
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div className="col-md-4 col-lg-4 col-xl-2 offset-xl-1" span={5}
-                                style={{ marginBottom: '17px' }}>
-                                <div className="footer-widget fl-wrap">
-                                    <h3>Explore</h3>
-                                    <div className='pull-left'>
-                                        <ul className="footer-contacts-custom">
-                                            <li>
-                                                <a title="Footer Links" href="/about-us" style={footerLinkStyle}>About Ticketlake</a>
-                                            </li>
-                                            <li>
-                                                <a title="Footer Links" href="/organisers" style={footerLinkStyle}>Event Organisers</a>
-                                            </li>
-                                            <li>
-                                                <a title="Footer Links" href="/about-us" style={footerLinkStyle}>Services</a>
-                                            </li>
-                                            <li>
-                                                <a title="Footer Links" href="/" style={footerLinkStyle}>Clients & Partners</a>
-                                            </li>
-                                            <li>
-                                                <a title="Footer Links" href="https://organizers.ticketlake.com/" target="_blank" rel="noopener noreferrer" style={footerLinkStyle}>Become an Organiser</a>
-                                            </li>
-                                            <li>
-                                                <a title="Footer Links" href="/" style={footerLinkStyle}>Gigs</a>
-                                            </li>
-                                            <li>
-                                                <a title="Footer Links" href="/" style={footerLinkStyle}>News & Articles</a>
-                                            </li>
-                                            <li>
-                                                <a title="Footer Links" href="/" style={footerLinkStyle}>International</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-4 col-lg-4 col-xl-2 offset-xl-1" span={5}
-                                style={{ marginBottom: '17px' }}>
-                                <div className="footer-widget fl-wrap">
-                                    <h3>Events</h3>
-                                </div>
-                                <div className='pull-left'>
-                                    <ul className="footer-contacts-custom">
-                                        {this.getEventBullets()}
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="col-md-5 col-lg-5 col-xl-3" span={6}>
-                                <div className="footer-widget fl-wrap">
-                                    <h3>Social Media</h3>
-                                </div>
-
-                                <div className="footer-social-btns">
-                                    <ul>
-                                        <li>
-                                            <a href={ticketLakeFbLink}
-                                                style={socialMediaStyle} target={"_blank"}>
-                                                <i className="fab fa-facebook-f" /></a>
-                                        </li>
-                                        <li>
-                                            <img src={'/images/socialMedia/instagram.svg'}
-                                                className={'pointer'}
-                                                onClick={() => window.open(ticketLakeInstagramLink)}
-                                                alt="Instagram"
-                                                style={imgStyle} />
-                                        </li>
-                                        <li>
-                                            <a href={ticketLakeTwitterLink} style={socialMediaStyle}
-                                                target={"_blank"}>
-                                                <i className="fab fa-twitter" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <img src={'/images/socialMedia/Youtube.svg'}
-                                                className={'pointer'}
-                                                onClick={() => window.open(ticketLakeYoutubeLink)}
-                                                alt="Youtube"
-                                                style={imgStyle} />
-                                        </li>
-                                        <li>
-                                            <img src={'/images/socialMedia/whatsapp-1.svg'}
-                                                className={'pointer'}
-                                                id="footerPageIcon"
-                                                alt="WhatsApp"
-                                                onClick={() => window.open(tickLakeWhatsAppLink)}
-                                                style={imgStyle} />
-                                            <ToolTip isOpen={isTooltipOpen}
-                                                target={'footerPageIcon'}
-                                                toggle={this.onToggleTooltip}
-                                                value={'Chat With us'}
-
-                                            />
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div className="footer-widget fl-wrap">
-                                    <h3 style={{ marginTop: '50px' }}>Subscribe</h3>
-                                </div>
-                                <div className="subscribe-form">
-                                    <Input value={this.state.subscribeValue} type="email" name="email"
-                                        id="examplePassword" placeholder="Enter your email"
-                                        onChange={(value) => this.subscribeNowValue(value)}
-                                        className="autocomplete-input" />
-                                    <button onClick={this.subscribeNow} className="color2-bg subscribe-btn"
-                                        style={{ background: '#494949' }}>Subscribe
-                                    </button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+              <div
+                className="col-md-4 col-lg-4 col-xl-2 offset-xl-1"
+                span={5}
+                style={{ marginBottom: "17px" }}
+              >
+                <div className="footer-widget fl-wrap">
+                  <h3>Explore</h3>
+                  <div className="pull-left">
+                    <ul className="footer-contacts-custom">
+                      <li>
+                        <a
+                          title="Footer Links"
+                          href="/about-us"
+                          style={footerLinkStyle}
+                        >
+                          About Ticketlake
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          title="Footer Links"
+                          href="/organisers"
+                          style={footerLinkStyle}
+                        >
+                          Event Organisers
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          title="Footer Links"
+                          href="/about-us"
+                          style={footerLinkStyle}
+                        >
+                          Services
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          title="Footer Links"
+                          href="/"
+                          style={footerLinkStyle}
+                        >
+                          Clients & Partners
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          title="Footer Links"
+                          href="https://organizers.ticketlake.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={footerLinkStyle}
+                        >
+                          Become an Organiser
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          title="Footer Links"
+                          href="/"
+                          style={footerLinkStyle}
+                        >
+                          Gigs
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          title="Footer Links"
+                          href="/"
+                          style={footerLinkStyle}
+                        >
+                          News & Articles
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          title="Footer Links"
+                          href="/"
+                          style={footerLinkStyle}
+                        >
+                          International
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="col-md-4 col-lg-4 col-xl-2 offset-xl-1"
+                span={5}
+                style={{ marginBottom: "17px" }}
+              >
+                <div className="footer-widget fl-wrap">
+                  <h3>Events</h3>
+                </div>
+                <div className="pull-left">
+                  <ul className="footer-contacts-custom">
+                    {this.getEventBullets()}
+                  </ul>
+                </div>
+              </div>
+              <div className="col-md-5 col-lg-5 col-xl-3" span={6}>
+                <div className="footer-widget fl-wrap">
+                  <h3>Social Media</h3>
                 </div>
 
-                <SubFooter />
-            </footer>
+                <div className="footer-social-btns">
+                  <ul>
+                    <li>
+                      <a
+                        href={ticketLakeFbLink}
+                        style={socialMediaStyle}
+                        target={"_blank"}
+                      >
+                        <i className="fab fa-facebook-f" />
+                      </a>
+                    </li>
+                    <li>
+                      <img
+                        src={"/images/socialMedia/instagram.svg"}
+                        className={"pointer"}
+                        onClick={() => window.open(ticketLakeInstagramLink)}
+                        alt="Instagram"
+                        style={imgStyle}
+                      />
+                    </li>
+                    <li>
+                      <a
+                        href={ticketLakeTwitterLink}
+                        style={socialMediaStyle}
+                        target={"_blank"}
+                      >
+                        <i className="fab fa-twitter" />
+                      </a>
+                    </li>
+                    <li>
+                      <img
+                        src={"/images/socialMedia/Youtube.svg"}
+                        className={"pointer"}
+                        onClick={() => window.open(ticketLakeYoutubeLink)}
+                        alt="Youtube"
+                        style={imgStyle}
+                      />
+                    </li>
+                    <li>
+                      <img
+                        src={"/images/socialMedia/whatsapp-1.svg"}
+                        className={"pointer"}
+                        id="footerPageIcon"
+                        alt="WhatsApp"
+                        onClick={() => window.open(tickLakeWhatsAppLink)}
+                        style={imgStyle}
+                      />
+                      <ToolTip
+                        isOpen={isTooltipOpen}
+                        target={"footerPageIcon"}
+                        toggle={this.onToggleTooltip}
+                        value={"Chat With us"}
+                      />
+                    </li>
+                  </ul>
+                </div>
 
-        );
-    }
+                <div className="footer-widget fl-wrap">
+                  <h3 style={{ marginTop: "50px" }}>Subscribe</h3>
+                </div>
+                <div className="subscribe-form">
+                  <Input
+                    value={this.state.subscribeValue}
+                    type="email"
+                    name="email"
+                    id="examplePassword"
+                    placeholder="Enter your email"
+                    onChange={(value) => this.subscribeNowValue(value)}
+                    className="autocomplete-input"
+                  />
+                  <button
+                    onClick={this.subscribeNow}
+                    className="color2-bg subscribe-btn"
+                    style={{ background: "#494949" }}
+                  >
+                    Subscribe
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <SubFooter />
+      </footer>
+    );
+  }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchAllCategories: (cb) => dispatch(getAllCategories(cb, 'v2'))
-    }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchAllCategories: (cb) => dispatch(getAllCategories(cb, "v2")),
+  };
 };
 
-const mapStateToProps = state => {
-    return {
-        categories: state.category.categories,
-        selectedCategories: state.category.selectedCategories
-    }
+const mapStateToProps = (state) => {
+  return {
+    categories: state.category.categories,
+    selectedCategories: state.category.selectedCategories,
+  };
 };
 
-const connected = connect(mapStateToProps, mapDispatchToProps)(Footer);
+const connected = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Footer);
 export default withRouter(connected);

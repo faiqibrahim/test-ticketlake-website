@@ -26,6 +26,7 @@
 
 .breadcrumbContainer .breadcrumbs span > span {
   letter-spacing: 0.5px;
+  font-size: 20px;
 }
 .breadcrumbContainer .breadcrumbs .separator::before {
   margin: 0px 15px;
@@ -34,6 +35,11 @@
 .breadcrumbContainer .breadcrumbs span:last-child,
 .breadcrumbContainer .breadcrumbs .separator::before {
   color: #ec1b23 !important;
+}
+
+.breadcrumbContainer .breadcrumbs span:last-child,
+.breadcrumbContainer .breadcrumbs .separator::after {
+  font-family: "Monotype - NeuePlak Text Semi Bold";
 }
 
 .customHeight {
@@ -139,8 +145,7 @@
 
 .cardTitle {
   font-size: 24px;
-  font-family: "neuePlak";
-  font-weight: bold;
+  font-family: "Monotype - NeuePlak Text Bold";
   padding-top: 12px;
   padding-bottom: 12px;
   margin: 0px;
@@ -188,4 +193,12 @@
   border: 1px solid #d8dae3;
   border-radius: 10px;
   padding: 10px 0px;
+}
+
+.breadcrumbContainer .separator::before {
+  font-family: "Font Awesome 5 Free";
+  content: "\F054";
+  font-weight: 900;
+  font-size: 15px;
+  margin: 0 10px;
 }

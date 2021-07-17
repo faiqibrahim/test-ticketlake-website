@@ -1,0 +1,213 @@
+.customInputname {
+  height: 48px;
+  background-color: #ffffff;
+  border: 1px solid #747a9533;
+  border-radius: 8px;
+  font-family: "NeuePlak";
+  font-size: 14px;
+  width: 100%;
+  padding-left: 10px;
+}
+
+.customTextArea {
+  background-color: #ffffff;
+  border: 1px solid #747a9533;
+  border-radius: 8px;
+  font-family: "NeuePlak";
+  font-size: 14px;
+  width: 100%;
+  padding-left: 10px;
+  margin-top: 20px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+
+.galleryImages {
+  width: 100%;
+}
+
+.loadMoreBtn {
+  background-color: #ec1b23;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 5px 30px 10px 30px;
+  display: block;
+  margin: auto;
+  font-family: "NeuePlak";
+  font-size: 24px;
+  margin-top: 15px;
+}
+.customlabel {
+  height: 48px;
+  background-color: #ffffff;
+  border: 1px solid #747a9533;
+  border-radius: 8px;
+  font-family: "NeuePlak";
+  font-size: 14px;
+  width: 100%;
+  padding-left: 10px;
+  padding-top: 3px;
+}
+
+.postBtn {
+  height: 48px;
+  background-color: #ec1b23;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Monotype - NeuePlak Text Semi Bold";
+  border-radius: 8px;
+  width: 100%;
+  border: none;
+  margin-top: 20px;
+}
+
+.reviewerImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #d8dae3;
+}
+
+.reviewerName {
+  font-family: "Monotype - NeuePlak Text Bold";
+  font-size: 28px;
+  color: #17224e;
+}
+
+.review {
+  font-family: "NeuePlak";
+  font-size: 20px;
+  color: #555555;
+}
+
+.writeReviewBtn {
+  display: none;
+}
+
+.ratingheading {
+  font-size: 24px;
+  color: #747a95;
+  font-family: "Monotype - NeuePlak Text Bold";
+}
+
+.detailsTitle {
+  font-family: "Monotype - NeuePlak Text Bold";
+  font-size: 28px;
+  color: #17224e;
+  padding-bottom: 0;
+}
+
+.veneueText {
+  font-family: "Monotype - NeuePlak Text Bold";
+  font-size: 20px;
+  color: #555555;
+  margin-bottom: 0;
+  padding-bottom: 0px;
+}
+
+.description {
+  font-family: "NeuePlak";
+  font-size: 18px;
+  color: #555555;
+  padding-top: 1rem;
+}
+
+.hr {
+  width: 10%;
+  border-radius: 10px;
+  border: 4px solid #e3e4ea;
+  margin: auto;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 767px) {
+  .detailsTitle {
+    font-family: "Monotype - NeuePlak Text Bold";
+    font-size: 20px;
+    color: #17224e;
+    padding-bottom: 0;
+  }
+
+  .veneueText {
+    font-family: "NeuePlak";
+    font-size: 16px;
+    color: #555555;
+    margin-bottom: 0;
+    padding-bottom: 0px;
+  }
+
+  .description {
+    font-family: "NeuePlak";
+    font-size: 14px;
+    color: #555555;
+    padding-top: 1rem;
+  }
+
+  .loadMoreBtn {
+    background-color: #ec1b23;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    display: block;
+    margin: auto;
+    font-family: "NeuePlak";
+    font-size: 18px;
+    margin-top: 5px;
+  }
+
+  .reviewerImage {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #d8dae3;
+  }
+
+  .reviewerName {
+    font-family: "Monotype - NeuePlak Text Semi Bold";
+    font-size: 20px;
+    color: #17224e;
+  }
+
+  .review {
+    font-family: "NeuePlak";
+    font-size: 14px;
+    color: #555555;
+  }
+
+  .stickyReviewContainer {
+    padding-left: 37px;
+    padding-right: 36px;
+    padding-top: 15px;
+    padding-bottom: 12px;
+    border-radius: 20px 20px 0 0px;
+    background-color: #ffffff;
+    bottom: 0px;
+    position: fixed;
+    width: 87%;
+    margin: 0 auto;
+    z-index: 5;
+  }
+
+  .writeReviewBtn {
+    height: 48px;
+    width: 94%;
+    margin: auto;
+    border: none;
+    background-color: #ec1b23;
+    border-radius: 8px;
+    color: #ffffff;
+    display: list-item;
+  }
+
+  .ratingheading {
+    font-size: 18px;
+    color: #747a95;
+    font-family: "Monotype - NeuePlak Text Semi Bold";
+  }
+
+  .displayNone {
+    display: none;
+  }
+}
