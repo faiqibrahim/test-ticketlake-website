@@ -4,11 +4,10 @@ const style = {
     wrapper: {
         position: 'relative',
         backgroundColor: '#303030',
-        height: '182px',
-        borderRadius: '12px',
-        width: '278px',
+        borderRadius: '8px',
         overflow: 'hidden',
         boxShadow: '0px 2px 4px 0px rgba(0,0,0,0.5)',
+        height:'180px',
         transition: 'height 0.3s, box-shadow 0.3s'
     },
     bottomTitle: {
@@ -34,21 +33,21 @@ const CardWithBottomInfo = (props) => {
             <div className={'row'}>
                 <div className={'col-md-12'}>
                     <div style={style.wrapper}>
-                        <img alt='img' className={'animated-card-image'}
+                        <img alt='img' className={'animated-card-image nearby-img'}
                              src={imageSrc ? imageSrc : '/images/card_2.png'}/>
                     </div>
                 </div>
             </div>
             <div className={'row'}>
                 {
-                    title ? <div className={'col-md-8'}>
+                    title ? <div className={'col-md-8 w80'}>
                         <div style={style.bottomTitle}>
                             {title}
                         </div>
                     </div>:null
                 }
                 {
-                    distance ? <div className={'col-md-4'} style={{textAlign: 'right'}}>
+                    distance ? <div className={'col-md-4 w20'} style={{textAlign: 'right'}}>
                         <div style={{marginTop: '12px', display: 'grid'}}>
                             <span style={{fontSize: '20px', fontWeight: 700, marginBottom: '-3px', color: 'black'}}>{distance}</span>
                             <span style={{fontSize: '10px', fontWeight: 500, color: '#878C9F'}}>KM</span>

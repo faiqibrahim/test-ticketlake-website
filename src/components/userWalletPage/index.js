@@ -222,7 +222,9 @@ class Wallet extends Component {
                         <td>{data.paymentMethod}</td>
                         <td>{data.type}</td>
                         <td style={{display: 'inline-flex'}}>
-                            {data.transactionAmount && data.transactionAmount.toFixed(2)}
+                            <span className={`${data.paymentMethod !== 'Refund' && data.paymentMethod !== 'Top-up' ? 'red-color' : 'green-color'}`}>
+                                {data.transactionAmount && data.transactionAmount.toFixed(2)}
+                            </span>
                         </td>
                         <td>
                             {data.paymentMethod !== 'Refund' && data.paymentMethod !== 'Top-up' ?

@@ -124,8 +124,8 @@ class NearByCinemas extends Component {
                                     </div>
                                     {/* right section */}
                                     {this.state.nearByData.length > 0 ?
-                                        <div className="col-md-6">
-                                            <span className="float-right cursor-pointer" onClick={this.switchView}>
+                                        <div className="col-md-6 hide-on-mobileView">
+                                            <span className="float-right cursor-pointer font-weight-bold" onClick={this.switchView}>
                                                 <img alt='img' src="/images/nearby-map-view.png" className="switch-view-icon" />
                                                     Switch to Map View
                                                 </span>
@@ -133,7 +133,7 @@ class NearByCinemas extends Component {
                                         : null
                                     }
                                 </div>
-                                <div className="row mt-30">
+                                <div className="row mt-30 nearby-row-wrp">
                                         {this.state.isloadedNearby ?
                                             this.state.nearByData.map((data, i) => {
                                                 return (
@@ -146,7 +146,8 @@ class NearByCinemas extends Component {
                                                                         address={data.address}
                                                                         country={data.country}
                                                                         noOfShows={data.numberOfOnGoingEvents}
-                                                                        distance={distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K')}
+                                                                        distance={distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') > 9 ? distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') : "0" + distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') }
+
                                                     />
                                                 )
                                             })
@@ -232,7 +233,7 @@ class NearByCinemas extends Component {
                                                                 </p>
                                                                 <div className="km">
                                                                     <h5 className="km-count zero">
-                                                                        {distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K')}
+                                                                        {distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') > 9 ? distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') : "0" + distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') }
                                                                     </h5>
                                                                     <span className="km-text">KM</span>
                                                                 </div>
