@@ -18,6 +18,7 @@ const GET_URL = () => {
     default:
       break;
   }
+
   return url;
 };
 
