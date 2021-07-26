@@ -261,7 +261,6 @@ class SignUp extends Component {
     };
 
     handlePhoneChange = (value) => {
-        console.log("value", value)
         let state = {...this.state};
         const {error} = state;
         error["phone"] = ""
