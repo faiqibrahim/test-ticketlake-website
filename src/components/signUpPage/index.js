@@ -88,7 +88,6 @@ class SignUp extends Component {
                 });
             });
 
-
             cities = citiesArr;
 
             this.setState({selectedOptionCity:cities[0].value,city:citiesArr[0].value})
@@ -127,6 +126,7 @@ class SignUp extends Component {
             error[name] = errorMessages[name];
         }
         state[name] = value;
+        console.log("onInputChange", {...error})
         state.error = {...error}
         this.setState(state);
     };
@@ -148,9 +148,19 @@ class SignUp extends Component {
         }
     };
 
+    isAllKeyEmpty = (object) => {
+        for (let key in object) {
+             if(object[key] !== ""){
+                 return false;
+             }
+        }
+        return true;
+    }
+
     onSaveChanges = (e) => {
         e.preventDefault();
-        const { name,phone, email, error,password,country,city,dateOfBirth} = this.state;
+        const {name,phone, email, error,password,country,city,dateOfBirth} = this.state;
+
         let isEmailValid = this.getEmailValid(email);
         let isValidNumber = this.getPhoneNumberValid(phone);
         let isValidPassword = this.getPasswordValid(password);
@@ -171,7 +181,7 @@ class SignUp extends Component {
             error.DOB = errorMessages.DOB;
         }
 
-        if(Object.keys(error).length){
+        if(!this.isAllKeyEmpty(error)){
             this.setState({error})
         }
         else {
@@ -186,6 +196,7 @@ class SignUp extends Component {
                     city,
                     dateOfBirth: getDateFromISO(dateOfBirth),
                     };
+
                 this.props.saveFormData(requestData);
 
                 this.props.verifyUser(
