@@ -2328,7 +2328,7 @@ input[type="number"] {
 }
 .transaction-modal {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1400px;
   text-align: left;
   position: absolute;
   margin: auto;

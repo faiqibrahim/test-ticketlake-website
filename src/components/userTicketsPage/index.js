@@ -53,7 +53,6 @@ class Tickets extends Component {
     }
 
     componentDidMount() {
-        // document.title = "Ticket Lake - User Tickets";
         this.props.getAllTickets('', '', page, 10, true);
     }
 

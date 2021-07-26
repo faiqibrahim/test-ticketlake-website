@@ -299,8 +299,7 @@ class Wallet extends Component {
                                                                 </tr>
                                                                 </thead>
                                                                 {this.state.isLoadedKey ?
-                                                                    <tbody className="border-bottom"
-                                                                           key={this.state.isLoadedKey}>
+                                                                    <tbody className="border-bottom middle-section" key={this.state.isLoadedKey}>
                                                                     {this.state.modalDataFromApi.tickets !== null ?
                                                                         <>
                                                                             {this.state.ticketsState !== undefined && this.state.ticketsState !== null ?
@@ -312,7 +311,7 @@ class Wallet extends Component {
                                                                                                     <tr>
                                                                                                         <td>{keyIs}</td>
                                                                                                         <td>GHS {data.price}</td>
-                                                                                                        <td>{this.state.modalDataFromApi.tickets[keyIs].length}</td>
+                                                                                                        <td>x {this.state.modalDataFromApi.tickets[keyIs].length}</td>
                                                                                                         <td>GHS {data.price}</td>
                                                                                                     </tr>
                                                                                                 )
@@ -343,7 +342,7 @@ class Wallet extends Component {
                                                                                                     <tr key={i}>
                                                                                                         <td>Passes {data.ticketClassInfo.ticketClassName}</td>
                                                                                                         <td>GHS {data.price}</td>
-                                                                                                        <td>{this.state.modalDataFromApi.passes[keyIs].length}</td>
+                                                                                                        <td>x {this.state.modalDataFromApi.passes[keyIs].length}</td>
                                                                                                         <td>GHS {data.price}</td>
                                                                                                     </tr>
                                                                                                 )
@@ -505,7 +504,6 @@ class Wallet extends Component {
 
         return (
             <AuthRoutes>
-
                 <div id="wrapper">
                     {this.pageTitle()}
                     <UserPagesContainer
