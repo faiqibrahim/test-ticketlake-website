@@ -1,7 +1,6 @@
 // Library
 import React from "react";
 import { Col } from "reactstrap";
-import { NavLink } from "react-router-dom";
 // Components
 import TwoShadedButtonBuy from "../twoShadedButtonBuy";
 import TwoShadedButton from "../twoShadedButton";
@@ -62,7 +61,7 @@ class DefaultCardMovieDetail extends React.Component {
           </h3>
 
           <div className="geodir-category-location location fl-wrap">
-            <NavLink className="map-item">
+            <div className="map-item">
               <img
                 src={window.location.origin + "/images/icons/location-red.svg"}
                 alt="location"
@@ -77,11 +76,11 @@ class DefaultCardMovieDetail extends React.Component {
                 <div>{venueName || "N/A"}</div>
                 {distance && <div>{`${distance} KM`}</div>}
               </span>
-            </NavLink>
+            </div>
           </div>
 
           <div className="geodir-category-location date fl-wrap">
-            <NavLink className="map-item">
+            <div className="map-item">
                 <img src={window.location.origin + '/images/icons/time-red.svg'} alt='img'
                      style={{verticalAlign: 'sub', width: '14px', marginRight: '8px'}}/>
               <span className={"date"}>
@@ -91,7 +90,7 @@ class DefaultCardMovieDetail extends React.Component {
                     moment(props.endDate).format('ll')
                   : "N/A"}
               </span>
-            </NavLink>
+            </div>
           </div>
           <div className="geodir-category-short-desc">
             <span className="three-line-text">{props.description}</span>
