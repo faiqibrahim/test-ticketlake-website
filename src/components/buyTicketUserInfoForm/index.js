@@ -33,7 +33,7 @@ class buyTicketUserInfoForm extends React.Component {
   };
 
   handlePhoneInputChange = (value) => {
-    let phoneNumber = value;
+    let phoneNumber = `+${value}`;
     let isValidNumber = this.getPhoneNumberValid(phoneNumber);
     if (isValidNumber) {
       this.getGuestInformation(phoneNumber);
