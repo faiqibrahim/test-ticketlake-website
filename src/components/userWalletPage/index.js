@@ -215,7 +215,6 @@ class Wallet extends Component {
             </tbody> :
             Array.isArray(this.props.transactionHistory) && this.props.transactionHistory.map(data => {
                 return (
-
                     <tr key={data._id}>
                         <td>{moment(data.createdAt).format("MM-DD-YYYY")}</td>
                         <td>{data.transactionId}</td>
@@ -246,8 +245,8 @@ class Wallet extends Component {
                                             <div className="row">
                                                 {/*start left aside */}
                                                 <div className="col-md-3 red-bg">
-                                                        <span color="secondary" className="close-button"
-                                                              onClick={this.canceltoggle2}>X</span>
+                                                        <span color="secondary" className="close-button close-btn-styling"
+                                                              onClick={this.canceltoggle2}>x</span>
                                                     <div className="row" style={{padding: '20px'}}>
                                                         <div className="col-md-12">
                                                             <h2>GHS {this.state.modalData.transactionAmount}</h2>
@@ -297,7 +296,7 @@ class Wallet extends Component {
                                                                     <th>Quantity</th>
                                                                     <th>Total</th>
                                                                 </tr>
-                                                                </thead>
+                                                                 </thead>
                                                                 {this.state.isLoadedKey ?
                                                                     <tbody className="border-bottom middle-section" key={this.state.isLoadedKey}>
                                                                     {this.state.modalDataFromApi.tickets !== null ?
@@ -308,11 +307,11 @@ class Wallet extends Component {
                                                                                         return (
                                                                                             this.state.modalDataFromApi.tickets[keyIs].map((data, i) => {
                                                                                                 return (
-                                                                                                    <tr>
-                                                                                                        <td>{keyIs}</td>
-                                                                                                        <td>GHS {data.price}</td>
-                                                                                                        <td>x {this.state.modalDataFromApi.tickets[keyIs].length}</td>
-                                                                                                        <td>GHS {data.price}</td>
+                                                                                                    <tr className={"middle-section-tr"}>
+                                                                                                        <td className={"first-column"}>{keyIs}</td>
+                                                                                                        <td className={"second-column"}>GHS {data.price}</td>
+                                                                                                        <td className={"third-column"}>x {this.state.modalDataFromApi.tickets[keyIs].length}</td>
+                                                                                                        <td className={"fourth-column"}>GHS {data.price}</td>
                                                                                                     </tr>
                                                                                                 )
                                                                                             })
@@ -364,7 +363,7 @@ class Wallet extends Component {
                                                                     this.state.modalData.type && (this.state.modalData.type).toLowerCase().includes('wallet'.toLowerCase()) ?
                                                                         <tr>
                                                                             <td>Wallet Balance</td>
-                                                                            <td className="grey-text">GHS {this.state.modalData.lastBalance}</td>
+                                                                            <td className="grey-text">GHS {this.state.modalData.lastBalance} <span className={"remaining-balance"}>Remaining</span></td>
                                                                             <td className="grey-text"/>
                                                                             <td className="grey-text">{this.state.modalData.eventCurrency} {this.state.modalData.transactionAmount}</td>
                                                                         </tr> : null
