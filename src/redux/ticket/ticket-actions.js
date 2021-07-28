@@ -108,7 +108,7 @@ export const setClientToken = () => {
     dispatch(setProcessing(true));
     axios
       .get(CLIENT_ID_GET)
-      .then((responce) => {
+      .then((response) => {
         dispatch(setProcessing(false));
       })
       .catch((err) => {
@@ -125,15 +125,29 @@ export const getEventDetail = (id) => {
       .get(EVENTS_GET_EVENT_DETAIL + id)
       .then((response) => {
         dispatch(setError(false));
-        const checkEventForDate = checkEvent(response.data.data);
-        dispatch(
-          setTicketCurrency(response.data.data.parentEventInfo.currency)
-        );
-        const ticketData = getTicketClassConfigData(response);
+        const { data: eventDetail } = response.data;
+        const {
+          parentEventInfo,
+          ticketClasses,
+          seats: eventSeats,
+        } = eventDetail;
+        const {
+          currency,
+          ticketClassesConfig,
+          customSeatingPlan: customSeats,
+        } = parentEventInfo;
+        const checkEventForDate = checkEvent(eventDetail);
 
-        dispatch(setSeats(response, ticketData));
+        dispatch(setTicketCurrency(currency));
+        const ticketData = getTicketClassConfigData(
+          ticketClassesConfig,
+          ticketClasses
+        );
+
+        customSeats && dispatch(setSeats(eventSeats.seats, ticketData));
         dispatch(setEvent(response));
         const passesData = getPassesConfigData(response);
+
         dispatch(
           setPassesTicketClasses(getPassesTicketClassesData(passesData))
         );
@@ -212,8 +226,8 @@ export const setBillSummary = (arr, wallet = 0) => {
   };
 };
 
-const setSeats = (res, ticketData) => {
-  const seatDataFromResponse = res.data.data.seats.seats[0].seats;
+const setSeats = (eventSeats, ticketData) => {
+  const seatDataFromResponse = eventSeats[0].seats;
   const seats = getSeatsFromResponse(seatDataFromResponse, ticketData);
 
   const assignedSeatFlag = checkSeatsAssigned(seats) > 0;

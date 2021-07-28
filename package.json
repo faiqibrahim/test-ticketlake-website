@@ -25,6 +25,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "moment-range": "^4.0.2",
+    "padzeros": "^0.2.2",
     "path-to-regexp": "^3.0.0",
     "query-string": "^6.7.0",
     "rc-menu": "^7.5.3",

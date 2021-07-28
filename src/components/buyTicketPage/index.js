@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 import { NotificationManager } from "react-notifications";
 import { Breadcrumbs, BreadcrumbsItem } from "react-breadcrumbs-dynamic";
+import padZeros from "padzeros";
 // Component
 
 import ResultForHeading from "../../commonComponents/resultForHeading";
@@ -22,7 +23,7 @@ import {
   getDateAndTimeFromIso,
   hasTicketsQuantity,
 } from "../../utils/common-utils";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 // Redux
 import {
@@ -51,6 +52,8 @@ class BuyTicketPage extends Component {
       passData: null,
       eventId: undefined,
       bills: [],
+      purchaseType: "",
+      seatsType: "",
     };
   }
 
@@ -73,9 +76,9 @@ class BuyTicketPage extends Component {
     ) {
       this.props.setUserPurchasedTickets(
         nextProps.event &&
-        nextProps.event.data &&
-        nextProps.event.data.data &&
-        nextProps.event.data.data._id,
+          nextProps.event.data &&
+          nextProps.event.data.data &&
+          nextProps.event.data.data._id,
         (data) => {
           userTicketData = data;
           if (userTicketData != null) {
@@ -116,12 +119,11 @@ class BuyTicketPage extends Component {
 
   pageTitle = () => {
     return (
-        <Helmet>
-          <title>Buy Ticket</title>
-        </Helmet>
-    )
-  }
-
+      <Helmet>
+        <title>Buy Ticket</title>
+      </Helmet>
+    );
+  };
 
   onInputChange = (name, val, event, ticketClassId, uniqueId) => {
     const billS = this.props.billSummary;
@@ -137,17 +139,15 @@ class BuyTicketPage extends Component {
         ) {
           obj.ticketClassQty = parseInt(val);
         }
-        if(val > obj.ticketClassQty)
-        {
+        if (val > obj.ticketClassQty) {
           NotificationManager.error(
-              "You cannot select more than Available Tickets.",
-              "",
-              3000
+            "You cannot select more than Available Tickets.",
+            "",
+            3000
           );
-        }else
-          {
-            obj.ticketClassQty = val;
-          }
+        } else {
+          obj.ticketClassQty = val;
+        }
       }
     });
 
@@ -438,12 +438,12 @@ class BuyTicketPage extends Component {
     this.setState({ step: this.state.step + 1 });
   };
 
-  getViewFromState = (data, ticketClassData) => {
+  renderBuyTicketForm = (data, ticketClassData) => {
     const { billSummary } = this.props;
     const eventTime = getDateAndTimeFromIso(
       data.eventDateTimeSlot.eventStartTime
     );
-    let { step } = this.state;
+    const { step } = this.state;
 
     switch (step) {
       case 1:
@@ -504,59 +504,90 @@ class BuyTicketPage extends Component {
     }
   };
 
+  renderBreadCrumbs = () => {
+    return (
+      <div className="breadcrumbs-fs no-bg">
+        <BreadcrumbsItem glyph="home" to="/">
+          Home Page
+        </BreadcrumbsItem>
+        <BreadcrumbsItem to="/events/listing">All Events</BreadcrumbsItem>
+        <BreadcrumbsItem to={"/event/detail/" + this.props.match.params.id}>
+          Event Detail
+        </BreadcrumbsItem>
+        <BreadcrumbsItem to={"/event/buy/ticket/" + this.props.match.params.id}>
+          Buy Ticket
+        </BreadcrumbsItem>
+
+        <div className="breadcrumbs-hero-buttom fl-wrap buy-ticket-bc">
+          <div className="breadcrumbs">
+            <Breadcrumbs
+              item={NavLink}
+              finalItem={"span"}
+              finalProps={{
+                style: { color: "red" },
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  getFormSteps = (step) => {
+    const steps = [
+      {
+        title: "Selection",
+      },
+      {
+        title: "Add More Information",
+      },
+      {
+        title: "Checkout",
+      },
+    ];
+
+    return (
+      <div className="col-lg-12 whiteBackground">
+        <ul id="progressbar">
+          {steps.map((item, index) => (
+            <li
+              key={item.title}
+              className={step === index + 1 ? "active" : null}
+              style={{ width: 100 / steps.length + "%" }}
+            >
+              <span>{padZeros(index + 1, 2)}.</span>
+              {item.title}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
+
   getForm = () => {
-    if (!this.props.processing && this.props.event && this.props.event.data) {
-      const oldData = this.props.event && this.props.event.data;
-      const data = oldData.data;
-      let { step } = this.state;
-      const ticketClassesFilteredData = this.props.billSummary;
-
-
+    const { event, billSummary } = this.props;
+    if (event && event.data) {
+      const { step } = this.state;
+      const { data } = event.data;
+      const { eventTitle, eventDateTimeSlot, parentEventInfo } = data;
+      const { eventStartTime } = eventDateTimeSlot;
+      const { customSeatingPlan: customSeats } = parentEventInfo;
       return (
         <div id="wrapper">
+          {this.renderPassInformationModal(data)}
+
           <div className="content">
             <section className="Checkout-wrp gre light-red-bg">
               <div className="container custom-container">
-                <div className="breadcrumbs-fs no-bg">
-                  {this.renderPassInformationModal(data)}
-                  <BreadcrumbsItem glyph="home" to="/">
-                    Home Page
-                  </BreadcrumbsItem>
-                  <BreadcrumbsItem to="/events/listing">
-                    All Events
-                  </BreadcrumbsItem>
-                  <BreadcrumbsItem
-                    to={"/event/detail/" + this.props.match.params.id}
-                  >
-                    Event Detail
-                  </BreadcrumbsItem>
-                  <BreadcrumbsItem
-                    to={"/event/buy/ticket/" + this.props.match.params.id}
-                  >
-                    Buy Ticket
-                  </BreadcrumbsItem>
+                {this.renderBreadCrumbs()}
 
-                  <div className="breadcrumbs-hero-buttom fl-wrap buy-ticket-bc">
-                    <div className="breadcrumbs">
-                      <Breadcrumbs
-                        item={NavLink}
-                        finalItem={"span"}
-                        finalProps={{
-                          style: { color: "red" },
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
                 <ResultForHeading
                   firstText={"Buy Ticket: "}
                   secondText={
-                    data.eventTitle
-                      ? data.eventTitle +
-                      " / " +
-                      getDateAndTimeFromIso(
-                        data.eventDateTimeSlot.eventStartTime
-                      )
+                    eventTitle
+                      ? eventTitle +
+                        " / " +
+                        getDateAndTimeFromIso(eventStartTime)
                       : "Event Title"
                   }
                 />
@@ -572,37 +603,19 @@ class BuyTicketPage extends Component {
                   }}
                 >
                   <div className="col-lg-8 col-md-12 col-sm-12 float-left whiteBackground">
-                    <div className="col-lg-12 whiteBackground">
-                      <ul id="progressbar">
-                        <li className={step === 1 ? "active" : null}>
-                          <span>01.</span>
-                          Select Tickets
-                        </li>
-                        <li className={step === 2 ? "active" : null}>
-                          <span>02.</span>
-                          Add Information
-                        </li>
-                        <li
-                          className={
-                            step === 3 || step === 4 || step === 5 || step === 6
-                              ? "active"
-                              : null
-                          }
-                        >
-                          <span>03.</span>
-                          Checkout
-                        </li>
-                      </ul>
-                    </div>
-                    {this.getViewFromState(data, ticketClassesFilteredData)}
+                    {this.getFormSteps(step)}
+                    {customSeats && this.renderBuyTicketForm(data, billSummary)}
                   </div>
+
                   <div className="col-lg-4 col-md-12 col-sm-12 float-left billSummaryContainer">
-                    <BillSummary
-                      forward={this.changeStepForward}
-                      backward={this.changeStepBackward}
-                      currentStep={step}
-                      paymentPage={this.goToPayment}
-                    />
+                    {customSeats && (
+                      <BillSummary
+                        forward={this.changeStepForward}
+                        backward={this.changeStepBackward}
+                        currentStep={step}
+                        paymentPage={this.goToPayment}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
