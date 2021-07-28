@@ -55,7 +55,7 @@ class GoogleMap extends Component {
                     lat: store.venue ? store.venue.latitude : store.latitude,
                     lng: store.venue ? store.venue.longitude : store.longitude
                 }}
-                onMouseover={this.onMarkerClick}
+                onClick={this.onMarkerClick}
                 // onMousemove={this.onMarkerRemove}
             />
         })
