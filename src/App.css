@@ -3438,5 +3438,9 @@ input[type="number"] {
   left: 25px;
   font-weight: bold;
 }
+.country:nth-child(28),
+.country:nth-child(41){
+  display: none;
+}
 
 /******************************* End ************************************/
