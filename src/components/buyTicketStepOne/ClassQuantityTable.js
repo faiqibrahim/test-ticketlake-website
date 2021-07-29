@@ -6,7 +6,7 @@ class ClassQuanityTable extends React.Component {
     this.state = {};
   }
   render() {
-    const { heading, eventTime, bodyContent, isPassView } = this.props;
+    const { heading, eventTime, bodyContent, isPassView, style } = this.props;
 
     const headers = ["Class", "Price", "Available", "Qty."];
     if (isPassView) {
@@ -25,7 +25,7 @@ class ClassQuanityTable extends React.Component {
         >
           {`${heading} (${eventTime})`}
         </h4>
-        <div className="table-responsive">
+        <div className="table-responsive" style={style}>
           <table className="table table-borderless customTable">
             <thead>
               <tr>

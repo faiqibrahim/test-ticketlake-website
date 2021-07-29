@@ -35,7 +35,7 @@ class BuyTicketStepOne extends React.Component {
   displayClassesTable = () => {
     const { isStandard, ticketClasses, passClasses } = this.props;
     return (
-      <div style={{ paddingRight: "15px" }}>
+      <div style={{ paddingRight: "15px", height: "inherit" }}>
         <ClassQuanityTable
           heading={"Tickets"}
           bodyContent={ticketClasses}
@@ -151,7 +151,9 @@ class BuyTicketStepOne extends React.Component {
 
   renderCustomView = () => {
     return (
-      <div style={{ paddingLeft: "15px" }}>{this.displayClassesTable()}</div>
+      <div style={{ paddingLeft: "15px", height: "inherit" }}>
+        {this.displayClassesTable()}
+      </div>
     );
   };
 
