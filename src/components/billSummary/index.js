@@ -342,10 +342,7 @@ class BillSummary extends Component {
             <h1>Bill Summary</h1>
             {billData.forEach((item, i) => {
               if (item.ticketClassType === "REGULAR") {
-                if (
-                  item.availableTickets > 0 &&
-                  this.props.seats[item.ticketClassName].length
-                ) {
+                if (item.availableTickets > 0) {
                   sum.push(item.ticketClassPrice * item.ticketClassQty);
 
                   displayData.push(

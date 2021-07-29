@@ -1,0 +1,21 @@
+.seatsView .ant-form-item-label {
+  color: #000;
+}
+
+.seatsView .ant-form-item-control {
+  text-align: left !important;
+}
+.seatsView .ant-radio-wrapper:hover .ant-radio,
+.seatsView .ant-radio:hover .ant-radio-inner,
+.seatsView .ant-radio-checked .ant-radio-inner,
+.seatsView .ant-radio-input:focus + .ant-radio-inner {
+  border-color: #ec1c24;
+}
+
+.seatsView .ant-radio-inner::after {
+  background-color: #ec1c24;
+}
+
+.seatsView .radioGroup .ant-radio-wrapper {
+  margin-right: 1.5em;
+}

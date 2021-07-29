@@ -14,6 +14,7 @@ export const getTicketClassConfigData = (classesConfig, ticketClasses) => {
       );
     }
   });
+  console.log("Tickets", classData);
   return classData;
 };
 
@@ -31,7 +32,6 @@ export const formatObject = (obj) => {
   return {
     uniqueId: obj._id ? obj._id : obj.ticketClassId,
     ticketClassId: obj.ticketClassId,
-    ticketClassConfigId: obj._id,
     ticketClassName: obj.ticketClassName,
     ticketClassColor: obj.ticketClassColor,
     ticketClassPrice: obj.ticketClassPrice,
@@ -278,6 +278,7 @@ export const getPassesConfigData = (res) => {
     }
   });
 
+  console.log("passes", classData);
   return classData;
 };
 

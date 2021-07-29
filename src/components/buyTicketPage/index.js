@@ -210,10 +210,7 @@ class BuyTicketPage extends Component {
     const _this = this;
     arr.forEach((singleItem, i) => {
       if (singleItem.ticketClassType === "REGULAR") {
-        if (
-          singleItem.availableTickets > 0 &&
-          this.props.seats[singleItem.ticketClassName].length
-        ) {
+        if (singleItem.availableTickets > 0) {
           jsx.push(
             <tr key={i}>
               <td>{singleItem.ticketClassName}</td>
@@ -390,7 +387,7 @@ class BuyTicketPage extends Component {
 
   changeStepForward = () => {
     if (this.state.step === 1) {
-      let billsData = this.state.bills;
+      let billsData = this.props.bills || [];
       let buyingFreeTicketsCount = this.getBuyingFreeTickets(billsData);
       let totalFreeTickets = buyingFreeTicketsCount + totalFreeTicketCount;
       if (!(this.props.seatsAssignedFlag || this.props.passesAssignedFlag)) {
@@ -438,13 +435,30 @@ class BuyTicketPage extends Component {
     this.setState({ step: this.state.step + 1 });
   };
 
-  renderBuyTicketForm = (data, ticketClassData) => {
-    const { billSummary } = this.props;
-    const eventTime = getDateAndTimeFromIso(
-      data.eventDateTimeSlot.eventStartTime
+  hasPassAndTickets = (classData) => {
+    const isTickets = Boolean(
+      classData.filter(
+        ({ ticketClassType, availableTickets }) =>
+          ticketClassType === "REGULAR" && availableTickets > 0
+      ).length
     );
-    const { step } = this.state;
 
+    const isPasses = Boolean(
+      classData.filter(({ availablePassCount }) => availablePassCount > 0)
+        .length
+    );
+
+    return { isTickets, isPasses };
+  };
+  renderBuyTicketForm = (data, ticketClassData, customSeatingPlan) => {
+    const { billSummary } = this.props;
+    const { eventDateTimeSlot, parentEventInfo } = data;
+    const eventTime = getDateAndTimeFromIso(eventDateTimeSlot.eventStartTime);
+    const isStandard =
+      parentEventInfo && parentEventInfo.eventType === "STANDARD";
+
+    const { step } = this.state;
+    console.log(ticketClassData);
     switch (step) {
       case 1:
         return (
@@ -453,12 +467,9 @@ class BuyTicketPage extends Component {
             eventTime={eventTime}
             ticketClasses={this.getFormView(ticketClassData)}
             passClasses={this.getPassesView(ticketClassData)}
-            currency={this.props.currency}
-            processing={this.props.processing}
-            isStandard={
-              data.parentEventInfo &&
-              data.parentEventInfo.eventType === "STANDARD"
-            }
+            ticketsAndPassesInfo={this.hasPassAndTickets(ticketClassData)}
+            isStandard={isStandard}
+            customSeatingPlan={customSeatingPlan}
           />
         );
       case 2:
@@ -604,18 +615,16 @@ class BuyTicketPage extends Component {
                 >
                   <div className="col-lg-8 col-md-12 col-sm-12 float-left whiteBackground">
                     {this.getFormSteps(step)}
-                    {customSeats && this.renderBuyTicketForm(data, billSummary)}
+                    {this.renderBuyTicketForm(data, billSummary, customSeats)}
                   </div>
 
                   <div className="col-lg-4 col-md-12 col-sm-12 float-left billSummaryContainer">
-                    {customSeats && (
-                      <BillSummary
-                        forward={this.changeStepForward}
-                        backward={this.changeStepBackward}
-                        currentStep={step}
-                        paymentPage={this.goToPayment}
-                      />
-                    )}
+                    <BillSummary
+                      forward={this.changeStepForward}
+                      backward={this.changeStepBackward}
+                      currentStep={step}
+                      paymentPage={this.goToPayment}
+                    />
                   </div>
                 </div>
               </div>
