@@ -170,11 +170,11 @@ class Movies extends Component {
     return (
       <div className="card-wrp">
         <CardWithHoverAnimation
-          cards={eventsArray}
-          tabCards={tabCards}
-          firstBtnTitle={"Play Trailer"}
-          secondBtnTitle={"Buy Tickets"}
-          key={Math.random(0, eventsArray.length)}
+            cards={eventsArray}
+            tabCards={tabCards}
+            firstBtnTitle={"Play Trailer"}
+            secondBtnTitle={"Buy Tickets"}
+            key={Math.random(0, eventsArray.length)}
         />
       </div>
     );
