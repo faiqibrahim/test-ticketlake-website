@@ -19,3 +19,7 @@
 .seatsView .radioGroup .ant-radio-wrapper {
   margin-right: 1.5em;
 }
+
+#chart {
+  height: 500px;
+}

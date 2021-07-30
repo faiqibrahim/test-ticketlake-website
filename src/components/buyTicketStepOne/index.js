@@ -2,7 +2,9 @@
 import React from "react";
 import ClassQuanityTable from "./ClassQuantityTable";
 import { Radio, Form } from "antd";
+import { SeatsioSeatingChart } from "@seatsio/seatsio-react";
 import "./style.css";
+import { seatsIOPublicKey } from "../../utils/constant";
 
 const SeatsRadio = (props) => {
   const { value, onChange, radioOptions, name } = props;
@@ -39,6 +41,7 @@ class BuyTicketStepOne extends React.Component {
         <ClassQuanityTable
           heading={"Tickets"}
           bodyContent={ticketClasses}
+          style={{ height: "inherit" }}
           {...this.props}
         />
         {!isStandard && (
@@ -46,6 +49,7 @@ class BuyTicketStepOne extends React.Component {
             heading={"Passes"}
             bodyContent={passClasses}
             isPassView={!isStandard && passClasses && passClasses.length}
+            style={{ height: "inherit" }}
             {...this.props}
           />
         )}
@@ -136,6 +140,23 @@ class BuyTicketStepOne extends React.Component {
     );
   };
 
+  displayVenue = () => {
+    const { eventDetail } = this.props;
+    const { purchaseType, seatSelection } = this.state;
+
+    if (seatSelection === "auto") return null;
+
+    const renderOn = purchaseType === "ticket" ? "seatSelection" : "seatsType";
+    return (
+      <div style={this.animatedStyle(renderOn)}>
+        <SeatsioSeatingChart
+          workspaceKey={seatsIOPublicKey}
+          event={eventDetail.eventSlotId}
+          region="eu"
+        />
+      </div>
+    );
+  };
   renderSeatsView = () => {
     return (
       <div className="col-md-12 text-left mb-5 seatsView">
@@ -144,6 +165,7 @@ class BuyTicketStepOne extends React.Component {
           {this.displaySeatSelection()}
           {this.displaySeatType()}
           {this.displayClasses()}
+          {this.displayVenue()}
         </React.Fragment>
       </div>
     );
