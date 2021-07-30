@@ -18,14 +18,8 @@ export const getTicketClassConfigData = (classesConfig, ticketClasses) => {
   return classData;
 };
 
-const searchInArr = (arr, index) => {
-  let array = "";
-  arr.forEach((singleItem) => {
-    if (singleItem.ticketClassId === index) {
-      array = singleItem;
-    }
-  });
-  return array;
+const searchInArr = (classesArray, classId) => {
+  return classesArray.filter((item) => item.ticketClassId === classId)[0];
 };
 
 export const formatObject = (obj) => {
@@ -244,27 +238,22 @@ export const formatObjectForPasses = (obj) => {
   };
 };
 
-export const getPassesConfigData = (res) => {
-  const configArr =
-    res &&
-    res.data &&
-    res.data.data &&
-    res.data.data.parentEventInfo &&
-    res.data.data.parentEventInfo.passConfigs;
-  const classesArr =
-    res && res.data && res.data.data && res.data.data.ticketClasses;
-  const ticketConfigArray =
-    res &&
-    res.data &&
-    res.data.data &&
-    res.data.data.parentEventInfo &&
-    res.data.data.parentEventInfo.ticketClassesConfig;
+export const getPassesConfigData = (
+  ticketClasses,
+  passConfigs,
+  ticketClassesConfig
+) => {
+  const passConfigArray = [...passConfigs];
+  const ticketClassesArray = [...ticketClasses];
+  const ticketConfigArray = [...ticketClassesConfig];
+
   let classData = [];
-  configArr.forEach((singleItem) => {
-    if (parseInt(singleItem.availablePassCount) > 0 && singleItem.isValid) {
+  passConfigArray.forEach((singleItem) => {
+    const { isValid, ticketClassId } = singleItem;
+    if (parseInt(singleItem.availablePassCount) > 0 && isValid) {
       ticketConfigArray.forEach((ticketConfigItem) => {
         if (ticketConfigItem.ticketClassType === "PASS") {
-          const arraySearch = searchInArr(classesArr, singleItem.ticketClassId);
+          const arraySearch = searchInArr(ticketClassesArray, ticketClassId);
           if (ticketConfigItem._id === arraySearch.ticketClassId) {
             const data = formatObjectForPasses({
               ...arraySearch,

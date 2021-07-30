@@ -135,6 +135,7 @@ export const getEventDetail = (id) => {
           currency,
           ticketClassesConfig,
           customSeatingPlan: customSeats,
+          passConfigs,
         } = parentEventInfo;
         const checkEventForDate = checkEvent(eventDetail);
 
@@ -145,8 +146,14 @@ export const getEventDetail = (id) => {
         );
 
         customSeats && dispatch(setSeats(eventSeats.seats, ticketData));
+
         dispatch(setEvent(response));
-        const passesData = getPassesConfigData(response);
+
+        const passesData = getPassesConfigData(
+          ticketClasses,
+          passConfigs,
+          ticketClassesConfig
+        );
 
         dispatch(
           setPassesTicketClasses(getPassesTicketClassesData(passesData))
