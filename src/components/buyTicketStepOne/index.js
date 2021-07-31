@@ -167,11 +167,13 @@ class BuyTicketStepOne extends React.Component {
     return (
       <div style={this.animatedStyle(renderOnValue)}>
         <SeatsioSeatingChart
+          region="eu"
+          showLegend
           workspaceKey={seatsIOPublicKey}
           event={eventDetail.eventSlotId}
-          region="eu"
-          pricing={getVenuePrices(purchaseType, ticketClassData)}
           objectWithoutPricingSelectable={false}
+          legend={{ hideNonSelectableCategories: true }}
+          pricing={getVenuePrices(purchaseType, ticketClassData)}
           priceFormatter={(price) => {
             return `${currency} ${price}`;
           }}
