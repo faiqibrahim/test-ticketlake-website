@@ -127,35 +127,44 @@ class BuyTicketPage extends Component {
   };
 
   onInputChange = (name, val, event, ticketClassId, uniqueId) => {
-    const billS = this.props.billSummary;
-    billS.forEach((obj) => {
-      if (
+    const bills = this.props.billSummary;
+    const itemIndex = bills.findIndex(
+      (obj) =>
         obj.ticketClassName === name &&
         obj.ticketClassId === ticketClassId &&
         obj.uniqueId === uniqueId
-      ) {
-        if (
-          parseInt(val) <= parseInt(event.target.max) &&
-          parseInt(val) >= parseInt(event.target.min)
-        ) {
-          obj.ticketClassQty = parseInt(val);
-        }
-        if (val > obj.ticketClassQty) {
-          NotificationManager.error(
-            "You cannot select more than Available Tickets.",
-            "",
-            3000
-          );
-        } else {
-          obj.ticketClassQty = val;
-        }
-      }
-    });
+    );
 
-    this.props.setBillSummary(billS);
-    this.setState({ bills: billS });
+    if (
+      parseInt(val) <= parseInt(event.target.max) &&
+      parseInt(val) >= parseInt(event.target.min)
+    ) {
+      bills[itemIndex].ticketClassQty = parseInt(val);
+    } else if (val > bills[itemIndex].ticketClassQty) {
+      NotificationManager.error(
+        "You cannot select more than Available Tickets.",
+        "",
+        3000
+      );
+    }
+
+    this.props.setBillSummary(bills);
+    this.setState({ bills });
   };
 
+  onSeatChange = (name, value, selected = true) => {
+    const { billSummary } = this.props;
+    const bills = [...billSummary];
+    const itemIndex = bills.findIndex((item) => item.ticketClassName === name);
+    const { ticketClassQty } = bills[itemIndex];
+
+    bills[itemIndex].ticketClassQty = selected
+      ? ticketClassQty + parseInt(value)
+      : ticketClassQty - parseInt(value);
+
+    this.props.setBillSummary(bills);
+    this.setState({ bills });
+  };
   resetBillSummary = () => {
     const { billSummary, setBillSummary } = this.props;
     const bills = [...billSummary];
@@ -433,7 +442,7 @@ class BuyTicketPage extends Component {
   };
 
   renderBuyTicketForm = (data, ticketClassData, customSeatingPlan) => {
-    const { billSummary } = this.props;
+    const { billSummary, currency } = this.props;
     const { eventDateTimeSlot, parentEventInfo } = data;
     const eventTime = getDateAndTimeFromIso(eventDateTimeSlot.eventStartTime);
     const isStandard =
@@ -447,14 +456,17 @@ class BuyTicketPage extends Component {
             eventDetail={data}
             eventTime={eventTime}
             isStandard={isStandard}
+            currency={currency}
             customSeatingPlan={customSeatingPlan}
+            ticketClassData={ticketClassData}
             ticketClasses={this.getFormView(ticketClassData)}
             passClasses={this.getPassesView(ticketClassData)}
-            resetBill={this.resetBillSummary}
             seatProps={{ purchaseType, seatSelection, seatsType }}
             setSeatState={(seatState, cb) =>
               this.setState(seatState, cb && cb())
             }
+            onSeatChange={this.onSeatChange}
+            resetBill={this.resetBillSummary}
           />
         );
       case 2:

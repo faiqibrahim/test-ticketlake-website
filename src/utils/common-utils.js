@@ -195,3 +195,34 @@ export const isCustomEvent = (event) => {
   const { parentEventInfo } = event;
   return parentEventInfo.customSeatingPlan;
 };
+
+export const getPrices = (filteredData) => {
+  const lookup = {};
+  const prices = [];
+  filteredData.forEach((item) => {
+    const { ticketClassName, ticketClassPrice } = item;
+
+    if (!(ticketClassName in lookup)) {
+      lookup[ticketClassName] = 1;
+      prices.push({ category: ticketClassName, price: ticketClassPrice });
+    }
+  });
+
+  return prices;
+};
+
+export const getVenuePrices = (type, classData) => {
+  if (!classData || !type) return [];
+
+  if (type === "ticket") {
+    const ticketClasses = classData.filter(
+      (item) => item.ticketClassType !== "PASS" && item.availableTickets
+    );
+    return getPrices(ticketClasses);
+  } else {
+    const passClasses = classData.filter(
+      (item) => item.ticketClassType === "PASS" && item.availableTickets
+    );
+    return getPrices(passClasses);
+  }
+};
