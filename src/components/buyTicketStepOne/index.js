@@ -25,15 +25,6 @@ const SeatsRadio = (props) => {
 };
 
 class BuyTicketStepOne extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      purchaseType: "",
-      seatSelection: "",
-      seatsType: "",
-    };
-  }
-
   displayClassesTable = () => {
     const { isStandard, ticketClasses, passClasses } = this.props;
     return (
@@ -57,8 +48,7 @@ class BuyTicketStepOne extends React.Component {
     );
   };
 
-  animatedStyle = (key) => {
-    const value = this.state[key];
+  animatedStyle = (value) => {
     return {
       height: value ? "auto" : "0",
       marginBottom: value ? "24px" : "0",
@@ -68,7 +58,14 @@ class BuyTicketStepOne extends React.Component {
   };
 
   displayPurchaseType = () => {
-    const { ticketClasses, passClasses } = this.props;
+    const {
+      ticketClasses,
+      passClasses,
+      seatProps,
+      setSeatState,
+      resetBill,
+    } = this.props;
+
     const typeOptions = [];
     ticketClasses.length > 0 &&
       typeOptions.push({ value: "ticket", name: "Ticket" });
@@ -78,13 +75,17 @@ class BuyTicketStepOne extends React.Component {
       <Form.Item label={"Select Purchase Type"}>
         <SeatsRadio
           name={"purchaseType"}
-          value={this.state["purchaseType"]}
+          value={seatProps.purchaseType}
           radioOptions={typeOptions}
           onChange={({ target }) =>
-            this.setState({
-              purchaseType: target.value,
-              seatSelection: "",
-            })
+            setSeatState(
+              {
+                purchaseType: target.value,
+                seatSelection: "",
+                seatsType: "",
+              },
+              resetBill()
+            )
           }
         />
       </Form.Item>
@@ -92,20 +93,25 @@ class BuyTicketStepOne extends React.Component {
   };
 
   displaySeatSelection = () => {
+    const { seatProps, setSeatState, resetBill } = this.props;
+    const { purchaseType, seatSelection } = seatProps;
     return (
       <Form.Item
         label="Seats Selection"
-        style={this.animatedStyle("purchaseType")}
+        style={this.animatedStyle(purchaseType)}
       >
         <SeatsRadio
           name={"seatSelection"}
-          value={this.state["seatSelection"]}
+          value={seatSelection}
           radioOptions={[
             { value: "preferred", name: "Preferred" },
             { value: "auto", name: "Auto" },
           ]}
           onChange={({ target }) =>
-            this.setState({ seatSelection: target.value, seatsType: "" })
+            setSeatState(
+              { seatSelection: target.value, seatsType: "" },
+              resetBill()
+            )
           }
         />
       </Form.Item>
@@ -113,42 +119,44 @@ class BuyTicketStepOne extends React.Component {
   };
 
   displaySeatType = () => {
-    const { purchaseType, seatSelection } = this.state;
+    const { seatProps, setSeatState } = this.props;
+    const { purchaseType, seatSelection, seatsType } = seatProps;
 
     if (purchaseType === "ticket" && seatSelection === "preferred") return null;
 
     return (
-      <Form.Item label="Seats Type" style={this.animatedStyle("seatSelection")}>
+      <Form.Item label="Seats Type" style={this.animatedStyle(seatSelection)}>
         <SeatsRadio
           name={"seatsType"}
-          value={this.state["seatsType"]}
+          value={seatsType}
           radioOptions={[
             { value: "seat", name: "Seat" },
             { value: "Table", name: "Table" },
           ]}
-          onChange={({ target }) => this.setState({ seatsType: target.value })}
+          onChange={({ target }) => setSeatState({ seatsType: target.value })}
         />
       </Form.Item>
     );
   };
 
   displayClasses = () => {
+    const { seatProps } = this.props;
     return (
-      <div style={this.animatedStyle("seatsType")}>
+      <div style={this.animatedStyle(seatProps.seatsType)}>
         {this.displayClassesTable()}
       </div>
     );
   };
 
   displayVenue = () => {
-    const { eventDetail } = this.props;
-    const { purchaseType, seatSelection } = this.state;
+    const { eventDetail, seatProps } = this.props;
+    const { purchaseType, seatSelection, seatsType } = seatProps;
 
     if (seatSelection === "auto") return null;
 
-    const renderOn = purchaseType === "ticket" ? "seatSelection" : "seatsType";
+    const renderOnValue = purchaseType === "ticket" ? seatSelection : seatsType;
     return (
-      <div style={this.animatedStyle(renderOn)}>
+      <div style={this.animatedStyle(renderOnValue)}>
         <SeatsioSeatingChart
           workspaceKey={seatsIOPublicKey}
           event={eventDetail.eventSlotId}

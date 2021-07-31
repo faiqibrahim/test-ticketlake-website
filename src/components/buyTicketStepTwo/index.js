@@ -21,6 +21,7 @@ class BuyTicketStepTwo extends Component {
   };
 
   displayFormForTicket = (arr) => {
+    if (!arr) return null;
     const display = [];
     arr.forEach((item, index) => {
       if (item.ticketClassType !== "PASS") {

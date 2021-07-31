@@ -54,6 +54,7 @@ class BuyTicketPage extends Component {
       bills: [],
       purchaseType: "",
       seatsType: "",
+      seatSelection: "",
     };
   }
 
@@ -153,6 +154,16 @@ class BuyTicketPage extends Component {
 
     this.props.setBillSummary(billS);
     this.setState({ bills: billS });
+  };
+
+  resetBillSummary = () => {
+    const { billSummary, setBillSummary } = this.props;
+    const bills = [...billSummary];
+
+    bills.forEach((billItem) => (billItem.ticketClassQty = 0));
+
+    setBillSummary(bills);
+    this.setState({ bills: bills });
   };
 
   getBuyingFreeTickets = (arr) => {
@@ -369,14 +380,13 @@ class BuyTicketPage extends Component {
     return jsx;
   };
 
-  changeStepForward = () => {
-    const { event, bills } = this.props;
-    console.log(event);
+  changeStepForward = (customSeats) => {
+    const { bills, seatsAssignedFlag, passesAssignedFlag } = this.props;
     if (this.state.step === 1) {
       let billsData = bills || [];
       let buyingFreeTicketsCount = this.getBuyingFreeTickets(billsData);
       let totalFreeTickets = buyingFreeTicketsCount + totalFreeTicketCount;
-      if (!(this.props.seatsAssignedFlag || this.props.passesAssignedFlag)) {
+      if (!(seatsAssignedFlag || passesAssignedFlag) && customSeats) {
         NotificationManager.error(
           "Seats are not assigned for this event",
           "",
@@ -404,6 +414,7 @@ class BuyTicketPage extends Component {
             this.props.event,
             this.props.passData,
             this.props.passTicketClasses,
+            customSeats,
             () => {
               this.setState({ step: this.state.step + 1 });
             }
@@ -428,17 +439,22 @@ class BuyTicketPage extends Component {
     const isStandard =
       parentEventInfo && parentEventInfo.eventType === "STANDARD";
 
-    const { step } = this.state;
+    const { step, purchaseType, seatsType, seatSelection } = this.state;
     switch (step) {
       case 1:
         return (
           <BuyTicketStepOne
             eventDetail={data}
             eventTime={eventTime}
-            ticketClasses={this.getFormView(ticketClassData)}
-            passClasses={this.getPassesView(ticketClassData)}
             isStandard={isStandard}
             customSeatingPlan={customSeatingPlan}
+            ticketClasses={this.getFormView(ticketClassData)}
+            passClasses={this.getPassesView(ticketClassData)}
+            resetBill={this.resetBillSummary}
+            seatProps={{ purchaseType, seatSelection, seatsType }}
+            setSeatState={(seatState, cb) =>
+              this.setState(seatState, cb && cb())
+            }
           />
         );
       case 2:
@@ -589,10 +605,10 @@ class BuyTicketPage extends Component {
 
                   <div className="col-lg-4 col-md-12 col-sm-12 float-left billSummaryContainer">
                     <BillSummary
-                      forward={this.changeStepForward}
-                      backward={this.changeStepBackward}
+                      forward={() => this.changeStepForward(customSeats)}
+                      backward={() => this.changeStepBackward(customSeats)}
                       currentStep={step}
-                      paymentPage={this.goToPayment}
+                      paymentPage={() => this.goToPayment(customSeats)}
                     />
                   </div>
                 </div>
