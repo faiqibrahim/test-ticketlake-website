@@ -209,7 +209,7 @@ class BuyTicketPage extends Component {
     const jsx = [];
     const _this = this;
     arr.forEach((singleItem, i) => {
-      if (singleItem.ticketClassType === "REGULAR") {
+      if (singleItem.ticketClassType !== "PASS") {
         if (singleItem.availableTickets > 0) {
           jsx.push(
             <tr key={i}>
@@ -267,14 +267,6 @@ class BuyTicketPage extends Component {
         }
       }
     });
-
-    if (!jsx.length) {
-      jsx.push(
-        <tr key={0}>
-          <td colSpan={4}>No Seats Available</td>
-        </tr>
-      );
-    }
 
     return jsx;
   };
@@ -374,20 +366,14 @@ class BuyTicketPage extends Component {
       }
     });
 
-    if (!jsx.length) {
-      jsx.push(
-        <tr key={0}>
-          <td colSpan={4}>No Passes Available</td>
-        </tr>
-      );
-    }
-
     return jsx;
   };
 
   changeStepForward = () => {
+    const { event, bills } = this.props;
+    console.log(event);
     if (this.state.step === 1) {
-      let billsData = this.props.bills || [];
+      let billsData = bills || [];
       let buyingFreeTicketsCount = this.getBuyingFreeTickets(billsData);
       let totalFreeTickets = buyingFreeTicketsCount + totalFreeTicketCount;
       if (!(this.props.seatsAssignedFlag || this.props.passesAssignedFlag)) {
@@ -401,7 +387,7 @@ class BuyTicketPage extends Component {
         NotificationManager.error(
           `You've reached maximum limit of 10 for your free event tickets.`,
           "",
-          6000
+          3000
         );
       } else {
         if (this.props.totalBill < 0 || !hasTicketsQuantity()) {
@@ -435,21 +421,6 @@ class BuyTicketPage extends Component {
     this.setState({ step: this.state.step + 1 });
   };
 
-  hasPassAndTickets = (classData) => {
-    const isTickets = Boolean(
-      classData.filter(
-        ({ ticketClassType, availableTickets }) =>
-          ticketClassType === "REGULAR" && availableTickets > 0
-      ).length
-    );
-
-    const isPasses = Boolean(
-      classData.filter(({ availablePassCount }) => availablePassCount > 0)
-        .length
-    );
-
-    return { isTickets, isPasses };
-  };
   renderBuyTicketForm = (data, ticketClassData, customSeatingPlan) => {
     const { billSummary } = this.props;
     const { eventDateTimeSlot, parentEventInfo } = data;
@@ -458,7 +429,6 @@ class BuyTicketPage extends Component {
       parentEventInfo && parentEventInfo.eventType === "STANDARD";
 
     const { step } = this.state;
-    console.log(ticketClassData);
     switch (step) {
       case 1:
         return (
@@ -467,7 +437,6 @@ class BuyTicketPage extends Component {
             eventTime={eventTime}
             ticketClasses={this.getFormView(ticketClassData)}
             passClasses={this.getPassesView(ticketClassData)}
-            ticketsAndPassesInfo={this.hasPassAndTickets(ticketClassData)}
             isStandard={isStandard}
             customSeatingPlan={customSeatingPlan}
           />

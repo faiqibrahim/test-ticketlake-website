@@ -124,6 +124,7 @@ class BillSummary extends Component {
   };
 
   /****************** Getting Coupon Section *********************/
+  //#region Coupon
   handleRemoveCouponClick = () => {
     this.setState(
       { enterCouponCode: "", isDisable: true, copounData: {} },
@@ -198,7 +199,6 @@ class BillSummary extends Component {
     });
   };
   showOtp = () => {
-    // this.props.fetchUserProfile()
     axios
       .post("/consumers/send-email-otp")
       .then((response) => {
@@ -253,28 +253,27 @@ class BillSummary extends Component {
               optError:
                 err.response !== undefined ? err.response.data._error : "Error",
             });
-            // NotificationManager.error(err.response!==undefined?err.response.data._error:'Error');
           });
       }
     });
-    // this.handleOk();
   };
 
-  onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  //#endregion
 
   /****************** Getting Bill Summary *********************/
-  getDisplay = () => {
+  renderBillSummary = () => {
     const displayButton = [];
     const displayData = [];
+    const {
+      currentStep,
+      user,
+      profileData,
+      billSummary,
+      couponValue,
+    } = this.props;
 
-    if (this.props.currentStep === 1) {
-      if (
-        this.props.user !== null &&
-        this.props.profileData !== undefined &&
-        this.props.profileData === true
-      ) {
+    if (currentStep === 1) {
+      if (user && profileData) {
         displayButton.push(
           <button
             className="checkoutButton"
@@ -325,10 +324,10 @@ class BillSummary extends Component {
     }
 
     const sum = [0];
-    if (this.props.billSummary) {
+    if (billSummary) {
       let { isDisable, enterCouponCode } = this.state;
-      let { couponValue } = this.props;
-      const billData = this.props.billSummary;
+      const billData = billSummary;
+
       let canApplyCoupon = hasTicketsQuantity();
 
       let isCouponExist = Boolean(typeof couponValue === "object");
@@ -341,7 +340,7 @@ class BillSummary extends Component {
           <div className="col-md-12">
             <h1>Bill Summary</h1>
             {billData.forEach((item, i) => {
-              if (item.ticketClassType === "REGULAR") {
+              if (item.ticketClassType !== "PASS") {
                 if (item.availableTickets > 0) {
                   sum.push(item.ticketClassPrice * item.ticketClassQty);
 
@@ -351,7 +350,10 @@ class BillSummary extends Component {
                         <div className="col-md-6">
                           <strong>{item.ticketClassName}</strong>
                           <small>
-                            Type: <b>Regular</b>
+                            Type:{" "}
+                            <b>
+                              {capitalize(item.ticketClassType.toLowerCase())}
+                            </b>
                           </small>
                           <small>
                             {this.props.currency +
@@ -550,7 +552,6 @@ class BillSummary extends Component {
               initialValues={{ remember: true }}
               onSubmit={this.onFinish}
               style={{ display: "inline-block", width: "100%" }}
-              // onFinishFailed={this.onFinishFailed}
             >
               <Form.Item label="Enter OTP">
                 {getFieldDecorator("otp", {
@@ -606,7 +607,7 @@ class BillSummary extends Component {
     return (
       <React.Fragment>
         {this.renderOtpModal()}
-        {this.getDisplay()}
+        {this.renderBillSummary()}
       </React.Fragment>
     );
   }

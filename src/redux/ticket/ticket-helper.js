@@ -5,7 +5,8 @@ import moment from "moment";
 export const getTicketClassConfigData = (classesConfig, ticketClasses) => {
   let classData = [];
   classesConfig.forEach((singleItem) => {
-    if (singleItem.ticketClassType === "REGULAR") {
+    const { ticketClassType } = singleItem;
+    if (ticketClassType !== "PASS") {
       classData.push(
         formatObject({
           ...singleItem,
@@ -79,7 +80,7 @@ export const getSeatsFromResponse = (seat, ticketData) => {
 export const seatsQtySearch = (billSummary, seats) => {
   const arr = [];
   billSummary.forEach((item) => {
-    if (item.ticketClassType === "REGULAR") {
+    if (item.ticketClassType !== "PASS") {
       for (let i = 0; i < parseInt(item.ticketClassQty); i++) {
         arr.push(
           formatAssignedSeatsObject({

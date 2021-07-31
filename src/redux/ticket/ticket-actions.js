@@ -327,12 +327,13 @@ export const setAssignedSeats = (
   stepCB
 ) => {
   return (dispatch) => {
+    console.log(event);
     dispatch(setProcessing(true));
     dispatch(
       setPassesSeatsData(billSummary, event, passData, passTicketClasses)
     );
-    const assignedSeats = seatsQtySearch(billSummary, seats);
     dispatch(setBillSummary(billSummary, wallet));
+    const assignedSeats = seatsQtySearch(billSummary, seats);
     dispatch({
       type: SET_ASSIGNED_SEATS,
       payload: assignedSeats,

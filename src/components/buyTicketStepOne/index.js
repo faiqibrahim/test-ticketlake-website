@@ -68,11 +68,11 @@ class BuyTicketStepOne extends React.Component {
   };
 
   displayPurchaseType = () => {
-    const { ticketsAndPassesInfo } = this.props;
-    const { isTickets, isPasses } = ticketsAndPassesInfo;
+    const { ticketClasses, passClasses } = this.props;
     const typeOptions = [];
-    isTickets && typeOptions.push({ value: "ticket", name: "Ticket" });
-    isPasses && typeOptions.push({ value: "pass", name: "Pass" });
+    ticketClasses.length > 0 &&
+      typeOptions.push({ value: "ticket", name: "Ticket" });
+    passClasses.length > 0 && typeOptions.push({ value: "pass", name: "Pass" });
 
     return (
       <Form.Item label={"Select Purchase Type"}>

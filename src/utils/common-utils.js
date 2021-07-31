@@ -146,14 +146,7 @@ export const hasTicketsQuantity = () => {
 
   let { billSummary } = getState().ticket;
 
-  let canApply = false;
-  for (let bill of billSummary) {
-    if (bill.ticketClassQty) {
-      canApply = true;
-      break;
-    }
-  }
-  return canApply;
+  return Boolean(billSummary.find((bill) => bill.ticketClassQty > 0));
 };
 
 export const distance = (lat1, lon1, lat2, lon2, unit) => {

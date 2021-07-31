@@ -73,7 +73,7 @@ class BuyTicketMyselfForm extends React.Component {
   openDeleteModal = () => this.setState({ modalOpen: !this.state.modalOpen });
 
   getTicketFormattedText = (item) => {
-    if (item.ticketClassType === "REGULAR") {
+    if (item.ticketClassType !== "PASS") {
       return `${item.ticketClassType}|${item.ticket && item.ticket.name}|${
         item.rowNumber
       }|${item.seatNumber}`;
@@ -311,7 +311,7 @@ class BuyTicketMyselfForm extends React.Component {
     if (!selectedTickets) return ticketButtonText;
 
     const hasTicket = selectedTickets.filter(
-      (ticket) => ticket.split("|")[0] === "REGULAR"
+      (ticket) => ticket.split("|")[0] !== "PASS"
     ).length;
 
     const hasPass = selectedTickets.filter(

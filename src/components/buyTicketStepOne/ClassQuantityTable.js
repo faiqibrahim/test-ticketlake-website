@@ -8,6 +8,8 @@ class ClassQuanityTable extends React.Component {
   render() {
     const { heading, eventTime, bodyContent, isPassView, style } = this.props;
 
+    if (!bodyContent.length) return null;
+
     const headers = ["Class", "Price", "Available", "Qty."];
     if (isPassView) {
       headers.unshift("Title");
