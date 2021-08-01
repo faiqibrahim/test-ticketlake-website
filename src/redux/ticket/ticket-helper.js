@@ -4,13 +4,20 @@ import moment from "moment";
 
 export const getTicketClassConfigData = (classesConfig, ticketClasses) => {
   let classData = [];
-  classesConfig.forEach((singleItem) => {
-    const { ticketClassType } = singleItem;
+  ticketClasses.forEach((singleItem) => {
+    const configItem = searchInArr(
+      classesConfig,
+      singleItem.ticketClassId,
+      "_id"
+    );
+
+    const { ticketClassType } = configItem;
+
     if (ticketClassType !== "PASS") {
       classData.push(
         formatObject({
           ...singleItem,
-          ...searchInArr(ticketClasses, singleItem._id),
+          ...configItem,
         })
       );
     }
@@ -19,8 +26,8 @@ export const getTicketClassConfigData = (classesConfig, ticketClasses) => {
   return classData;
 };
 
-const searchInArr = (classesArray, classId) => {
-  return classesArray.filter((item) => item.ticketClassId === classId)[0];
+const searchInArr = (classesArray, classId, key = "ticketClassId") => {
+  return classesArray.filter((item) => item[key] === classId)[0];
 };
 
 export const formatObject = (obj) => {
@@ -36,24 +43,26 @@ export const formatObject = (obj) => {
   };
 };
 
-const seatFormatedObject = (seat, rowIndex, seatIndex) => {
+const seatFormatedObject = (seat) => {
   return {
     purchased: seat.purchased,
-    rowNumber: rowIndex,
-    seatNumber: seatIndex,
+    rowNumber: seat.rowNumber,
+    seatNumber: seat.seatNumber,
     ticketClassId: seat.ticketClassId,
-    rowName: seat.rowName ? seat.rowName : seatIndex,
-    seatName: seat.seatNumber ? seat.seatNumber : seatIndex,
+    rowName: seat.rowName ? seat.rowName : seat.seatNumber,
+    seatName: seat.seatNumber ? seat.seatNumber : seat.seatNumber,
     lock: seat.lock ? seat.lock : false,
   };
 };
 
 export const searchSeatsFromObject = (arr, index) => {
   let seatsData = [];
-  arr.forEach((rows, rowindex) => {
+  arr.forEach((rows, rowIndex) => {
     rows.forEach((seat, seatIndex) => {
       if (seat.ticketClassId === index && seat.purchased === false) {
-        seatsData.push(seatFormatedObject(seat, rowindex, seatIndex));
+        seat.rowNumber = rowIndex;
+        seat.seatNumber = seatIndex;
+        seatsData.push(seatFormatedObject(seat));
       }
     });
   });
@@ -77,15 +86,18 @@ export const getSeatsFromResponse = (seat, ticketData) => {
   return seats;
 };
 
-export const seatsQtySearch = (billSummary, seats) => {
+export const seatsQtySearch = (billSummary, seats, isCustomEvent) => {
   const arr = [];
   billSummary.forEach((item) => {
     if (item.ticketClassType !== "PASS") {
       for (let i = 0; i < parseInt(item.ticketClassQty); i++) {
+        const seatObject = isCustomEvent
+          ? seats[item.ticketClassName][i]
+          : seats[i];
         arr.push(
           formatAssignedSeatsObject({
             ...item,
-            ...seats[item.ticketClassName][i],
+            ...seatObject,
           })
         );
       }
@@ -97,8 +109,8 @@ export const seatsQtySearch = (billSummary, seats) => {
 
 export const formatAssignedSeatsObject = (obj, self = false) => {
   return {
-    sectionId: "abc",
-    sectionName: obj.sectionName ? obj.sectionName : "X-Wing",
+    sectionId: obj.sectionId || "abc",
+    sectionName: obj.sectionName || "X-Wing",
     rowNumber: obj.rowNumber,
     seatNumber: obj.seatNumber,
     seatName: obj.seatName,
@@ -126,6 +138,7 @@ export const formatAssignedSeatsObject = (obj, self = false) => {
         : obj.ticket.available,
     },
     uniqueId: obj.uniqueId,
+    ...obj,
   };
 };
 
@@ -272,7 +285,7 @@ export const getPassesConfigData = (
   return classData;
 };
 
-export const arrangePassesSeatsWithEventSlots = (arr, passData) => {
+export const arrangePassesSeatsWithEventSlots = (arr) => {
   const seats = [];
   _.forEach(arr, (item) => {
     const allSeats =
@@ -293,7 +306,9 @@ export const arrangePassesSeatsWithEventSlots = (arr, passData) => {
 const formatSeatsForPasses = (seats) => {
   const resSeats = [];
   _.forEach(seats, (item, key) => {
-    resSeats.push(seatFormatedObject(item, 0, key));
+    item.rowNumber = 0;
+    item.seatNumber = key;
+    resSeats.push(seatFormatedObject(item));
   });
   return resSeats;
 };

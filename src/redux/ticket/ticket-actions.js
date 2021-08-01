@@ -236,7 +236,6 @@ export const setBillSummary = (arr, wallet = 0) => {
 const setSeats = (eventSeats, ticketData) => {
   const seatDataFromResponse = eventSeats[0].seats;
   const seats = getSeatsFromResponse(seatDataFromResponse, ticketData);
-
   const assignedSeatFlag = checkSeatsAssigned(seats) > 0;
   return (dispatch) => {
     dispatch(setAssignedSeatsFlag(assignedSeatFlag));
@@ -252,22 +251,21 @@ const setPassesSeatsData = (
 ) => {
   return (dispatch) => {
     dispatch(setProcessing(true));
-    const passesRequest = [];
-    _.forEach(billSummary, (item) => {
-      if (item.ticketClassType === "PASS") {
-        if (item.ticketClassQty > 0) {
-          passesRequest.push({
-            id: item.uniqueId,
-          });
-        }
-      }
-    });
+    const passesRequest = billSummary
+      .filter(
+        ({ ticketClassType, ticketClassQty }) =>
+          ticketClassType === "PASS" && ticketClassQty
+      )
+      .map(({ uniqueId }) => {
+        return { id: uniqueId };
+      });
+
     const passesSeats = [];
     if (passesRequest.length) {
       dispatch(setProcessing(true));
       const eventParentId = event.data.data.parentEventInfo._id;
 
-      let promise = new Promise((resolve, reject) => {
+      let promise = new Promise((resolve) => {
         const length = passesRequest.length;
         let counter = 0;
         _.forEach(passesRequest, (item) => {
@@ -278,9 +276,7 @@ const setPassesSeatsData = (
             })
             .then((res) => {
               counter++;
-              passesSeats.push(
-                arrangePassesSeatsWithEventSlots(res.data.data, passData)
-              );
+              passesSeats.push(arrangePassesSeatsWithEventSlots(res.data.data));
               if (counter === length) {
                 resolve();
               }
@@ -324,22 +320,28 @@ export const setAssignedSeats = (
   event,
   passData,
   passTicketClasses,
-  customSeats,
+  venueSeats,
+  isCustomEvent,
   stepCB
 ) => {
   return (dispatch) => {
     dispatch(setProcessing(true));
-    dispatch(
-      setPassesSeatsData(billSummary, event, passData, passTicketClasses)
-    );
+
     dispatch(setBillSummary(billSummary, wallet));
-    if (customSeats) {
-      const assignedSeats = seatsQtySearch(billSummary, seats);
-      dispatch({
-        type: SET_ASSIGNED_SEATS,
-        payload: assignedSeats,
-      });
-      dispatch(setAssignedSeatsForDisplay(assignedSeats));
+
+    seats = isCustomEvent ? seats : venueSeats;
+    const assignedSeats = seatsQtySearch(billSummary, seats, isCustomEvent);
+
+    dispatch({
+      type: SET_ASSIGNED_SEATS,
+      payload: assignedSeats,
+    });
+
+    dispatch(setAssignedSeatsForDisplay(assignedSeats));
+    if (isCustomEvent) {
+      dispatch(
+        setPassesSeatsData(billSummary, event, passData, passTicketClasses)
+      );
     }
 
     stepCB && stepCB();
@@ -426,18 +428,22 @@ export const removeAssignedSeatsFromDisplay = (
   ticketsArr,
   assignedSeatsFromDisplay,
   passesSeats,
+  isCustomSeats,
   cb
 ) => {
   let assignedSeats = assignedSeatsFromDisplay
     ? [...assignedSeatsFromDisplay]
     : null;
+
   let passes = passesSeats ? [...passesSeats] : null;
+
   assignedSeats &&
     assignedSeats.forEach((seat) => {
       seat.userInfo.name = "";
       seat.userInfo.email = "";
       seat.userInfo.phoneNumber = "";
     });
+
   passes &&
     passes.forEach((seat) => {
       seat.userInfo.name = "";
@@ -477,13 +483,17 @@ export const removeAssignedSeatsFromDisplay = (
         } else {
           const newArray = [];
           assignedSeatsForDisplay.forEach((item) => {
-            if (item.ticket.name === splittedString[1]) {
-              if (
-                !(
-                  parseInt(item.rowNumber) === parseInt(splittedString[2]) &&
-                  parseInt(item.seatNumber) === parseInt(splittedString[3])
-                )
-              ) {
+            const { rowNumber, seatNumber, ticket } = item;
+            if (ticket.name === splittedString[1]) {
+              const parsedRow = isCustomSeats
+                ? parseInt(splittedString[2])
+                : splittedString[2];
+
+              const parsedSeat = isCustomSeats
+                ? parseInt(splittedString[3])
+                : splittedString[3];
+
+              if (!(rowNumber === parsedRow && seatNumber === parsedSeat)) {
                 newArray.push(item);
               }
             } else {

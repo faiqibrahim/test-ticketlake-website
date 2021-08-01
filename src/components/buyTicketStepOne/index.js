@@ -173,20 +173,19 @@ class BuyTicketStepOne extends React.Component {
           event={eventDetail.eventSlotId}
           objectWithoutPricingSelectable={false}
           legend={{ hideNonSelectableCategories: true }}
+          objectIcon={() => "fa fa-user-circle-o"}
+          colorScheme="light"
           pricing={getVenuePrices(purchaseType, ticketClassData)}
           priceFormatter={(price) => {
             return `${currency} ${price}`;
           }}
-          onObjectSelected={({ category, pricing }) =>
-            onSeatChange(category.label, pricing.price)
-          }
-          onObjectDeselected={({ category, pricing }) =>
-            onSeatChange(category.label, pricing.price, false)
-          }
+          onObjectSelected={(seat) => onSeatChange(seat)}
+          onObjectDeselected={(seat) => onSeatChange(seat, false)}
         />
       </div>
     );
   };
+
   renderSeatsView = () => {
     return (
       <div className="col-md-12 text-left mb-5 seatsView">

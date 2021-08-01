@@ -22,6 +22,7 @@ class BuyTicketStepTwo extends Component {
 
   displayFormForTicket = (arr) => {
     if (!arr) return null;
+
     const display = [];
     arr.forEach((item, index) => {
       if (item.ticketClassType !== "PASS") {
@@ -101,11 +102,13 @@ class BuyTicketStepTwo extends Component {
   };
 
   onMyselfChange = (ticketsArr) => {
+    const { customSeatingPlan } = this.props;
     this.setState({ isReset: true }, () => {
       this.props.removeAssignedSeatsFromDisplay(
         ticketsArr ? ticketsArr : null,
         this.props.assignedSeats,
         this.props.passesAssignedSeats,
+        customSeatingPlan,
         () => this.setState({ isReset: false })
       );
     });

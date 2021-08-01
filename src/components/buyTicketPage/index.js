@@ -55,6 +55,7 @@ class BuyTicketPage extends Component {
       purchaseType: "",
       seatsType: "",
       seatSelection: "",
+      venueSeats: [],
     };
   }
 
@@ -152,19 +153,46 @@ class BuyTicketPage extends Component {
     this.setState({ bills });
   };
 
-  onSeatChange = (name, value, selected = true) => {
+  prepareSeat = (labelData) => {
+    const { displayedLabel, parent, own, section } = labelData;
+    return {
+      label: displayedLabel,
+      seatNumber: displayedLabel,
+      seatName: displayedLabel,
+      sectionId: section,
+      sectionName: section,
+      rowName: `${parent}-${own}`,
+      rowNumber: `${parent}-${own}`,
+    };
+  };
+
+  onSeatChange = (seat, selected = true) => {
     const { billSummary } = this.props;
+    const { venueSeats } = this.state;
+    const { category, labels } = seat;
+
+    let seats = [...venueSeats];
     const bills = [...billSummary];
-    const itemIndex = bills.findIndex((item) => item.ticketClassName === name);
+
+    const itemIndex = bills.findIndex(
+      (item) => item.ticketClassName === category.label
+    );
     const { ticketClassQty } = bills[itemIndex];
 
-    bills[itemIndex].ticketClassQty = selected
-      ? ticketClassQty + parseInt(value)
-      : ticketClassQty - parseInt(value);
+    if (selected) {
+      bills[itemIndex].ticketClassQty = ticketClassQty + 1;
+      seats.push(this.prepareSeat(labels));
+    } else {
+      bills[itemIndex].ticketClassQty = ticketClassQty - 1;
+      seats = venueSeats.filter(
+        (seatItem) => seatItem.label !== labels.displayedLabel
+      );
+    }
 
     this.props.setBillSummary(bills);
-    this.setState({ bills });
+    this.setState({ bills, venueSeats: seats });
   };
+
   resetBillSummary = () => {
     const { billSummary, setBillSummary } = this.props;
     const bills = [...billSummary];
@@ -389,13 +417,15 @@ class BuyTicketPage extends Component {
     return jsx;
   };
 
-  changeStepForward = (customSeats) => {
+  changeStepForward = (isCustomSeats) => {
     const { bills, seatsAssignedFlag, passesAssignedFlag } = this.props;
+    const { venueSeats } = this.state;
+
     if (this.state.step === 1) {
       let billsData = bills || [];
       let buyingFreeTicketsCount = this.getBuyingFreeTickets(billsData);
       let totalFreeTickets = buyingFreeTicketsCount + totalFreeTicketCount;
-      if (!(seatsAssignedFlag || passesAssignedFlag) && customSeats) {
+      if (!(seatsAssignedFlag || passesAssignedFlag) && isCustomSeats) {
         NotificationManager.error(
           "Seats are not assigned for this event",
           "",
@@ -423,7 +453,8 @@ class BuyTicketPage extends Component {
             this.props.event,
             this.props.passData,
             this.props.passTicketClasses,
-            customSeats,
+            venueSeats,
+            isCustomSeats,
             () => {
               this.setState({ step: this.state.step + 1 });
             }
@@ -474,6 +505,7 @@ class BuyTicketPage extends Component {
           <BuyTicketStepTwo
             eventDetail={data}
             eventTime={eventTime}
+            customSeatingPlan={customSeatingPlan}
             isPasses={Boolean(
               billSummary.find(
                 (item) =>
