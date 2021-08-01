@@ -37,6 +37,7 @@ import {
   PAYMENT_RESPONSE_CODE,
   GET_ORDER_DETAILS,
   RAVEPAY_PAYMENT_REQUEST,
+  SEAT_TICKET_PURCHASE,
 } from "../../utils/config";
 // Import Redux Action
 import { errorHandling } from "../user/user-actions";
@@ -354,12 +355,12 @@ export const setAssignedBillFromForm = (
   val,
   rowNumber,
   seatNumber,
-  assignedSeats,
-  uniqueId
+  assignedSeats
 ) => {
   return (dispatch) => {
     assignedSeats.forEach((item) => {
       if (item.seatNumber === seatNumber && item.rowNumber === rowNumber) {
+        item.self = false;
         item.userInfo[index] = val;
       }
     });
@@ -383,6 +384,24 @@ export const setAssignedBillFromFormForPasses = (
   };
 };
 
+export const seatsCheckout = (checkoutData, sessionKey, stepCB) => {
+  return (dispatch, getState) => {
+    dispatch(setProcessing(true));
+    axios
+      .post(SEAT_TICKET_PURCHASE, checkoutData, "v2")
+      .then(() => {
+        dispatch(setPaymentSuccess(true));
+        dispatch(setProcessing(false));
+        sessionStorage.removeItem(sessionKey);
+        stepCB && stepCB();
+      })
+      .catch((err) => {
+        dispatch(setProcessing(false));
+        dispatch(setPaymentSuccess(false));
+        stepCB && stepCB();
+      });
+  };
+};
 export const checkout = (
   tickets,
   guestsTickets,

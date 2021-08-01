@@ -10,6 +10,7 @@ import {
   checkout,
   setSplitPayment,
   ravePayPaymentRequest,
+  seatsCheckout,
 } from "../../redux/ticket/ticket-actions";
 import { Button, Modal, ModalBody } from "reactstrap";
 import axios from "../../utils/axios";
@@ -45,6 +46,7 @@ class Checkout extends Component {
     conversionRatesOnCheckout: 0,
     isLoading: true,
     showSplitBlock: false,
+    paymentOption: "WALLET",
   };
 
   componentDidMount() {
@@ -101,6 +103,7 @@ class Checkout extends Component {
   openSplitWalletModal = () => {
     this.setState({
       modalOpen2: !this.state.modalOpen2,
+      paymentOption: "WALLET",
     });
   };
 
@@ -218,6 +221,14 @@ class Checkout extends Component {
   }
 
   buyWithoutPayPal() {
+    const {
+      checkout,
+      seatsCheckout,
+      customSeatingPlan,
+      event,
+      assignedSeats,
+    } = this.props;
+    const { paymentOption } = this.state;
     swal({
       title: "Checkout Summary",
       text: "Please review your invoice",
@@ -242,16 +253,45 @@ class Checkout extends Component {
       buttons: true,
     }).then((res) => {
       if (res) {
-        this.props.checkout(
-          this.props.assignedSeats,
-          this.props.assignedSeatsForDisplay,
-          this.props.event,
-          null,
-          this.props.passesAssignedSeats,
-          this.props.passesAssignedSeatsForDisplay,
-          JSON.parse(localStorage.getItem("conversionRatesOnCheckout")),
-          this.props.setStepCB
-        );
+        if (customSeatingPlan) {
+          checkout(
+            this.props.assignedSeats,
+            this.props.assignedSeatsForDisplay,
+            event,
+            null,
+            this.props.passesAssignedSeats,
+            this.props.passesAssignedSeatsForDisplay,
+            JSON.parse(localStorage.getItem("conversionRatesOnCheckout")),
+            this.props.setStepCB
+          );
+        } else {
+          const sessionKey = "seatsio";
+          const seats = [...assignedSeats];
+          const keys = [
+            "availableTickets",
+            "ticketClassType",
+            "ticketClassQty",
+            "ticketClassColor",
+            "ticketClassPrice",
+            "ticketClassName",
+            "uniqueId",
+          ];
+          seats.forEach((seat) => {
+            keys.forEach((key) => delete seat[key]);
+            seat.self && delete seat.userInfo;
+          });
+
+          const { holdToken } = JSON.parse(sessionStorage.getItem(sessionKey));
+          const { data: eventDetail } = event.data;
+
+          const checkoutData = {
+            eventId: eventDetail.eventSlotId,
+            paymentOption,
+            holdToken,
+            tickets: [...assignedSeats],
+          };
+          seatsCheckout(checkoutData, sessionKey, this.props.setStepCB);
+        }
       } else {
         swal("Checkout has been canceled!");
       }
@@ -264,7 +304,6 @@ class Checkout extends Component {
 
   render() {
     const { wallet } = this.props;
-
     let walletIsEmpty = wallet && wallet.availableBalance === 0;
     const hrefVal = "#";
     return parseFloat(this.props.totalBill) === 0 ? (
@@ -540,6 +579,7 @@ const connectedComponent = connect(
     checkout,
     setSplitPayment,
     ravePayPaymentRequest,
+    seatsCheckout,
   }
 )(Checkout);
 export default withRouter(connectedComponent);

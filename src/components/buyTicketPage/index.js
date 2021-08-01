@@ -517,7 +517,7 @@ class BuyTicketPage extends Component {
       case 3:
         return (
           <Checkout
-            customSeats={customSeatingPlan}
+            customSeatingPlan={customSeatingPlan}
             seatProps={{ purchaseType, seatSelection, seatsType }}
             setStepCB={() => this.setState({ step: step + 1 })}
             setCheckoutStepTwo={() => this.setState({ step: 5 })}

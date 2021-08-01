@@ -107,7 +107,7 @@ export const seatsQtySearch = (billSummary, seats, isCustomEvent) => {
   return arr;
 };
 
-export const formatAssignedSeatsObject = (obj, self = false) => {
+export const formatAssignedSeatsObject = (obj, self = true) => {
   return {
     sectionId: obj.sectionId || "abc",
     sectionName: obj.sectionName || "X-Wing",

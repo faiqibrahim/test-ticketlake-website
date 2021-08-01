@@ -28,17 +28,21 @@ export const PAYMENT_RESPONSE_CODE = {
 
 // Movies URL
 export const GET_TRENDING_EVENTS = "/events/fetch-trending-events";
-export const GET_SHOWING_IN_CINEMAS_EVENTS ="/events/fetch-parent-events-for-consumers";
+export const GET_SHOWING_IN_CINEMAS_EVENTS =
+  "/events/fetch-parent-events-for-consumers";
 export const GET_UPCOMING_EVENTS = "/events/fetch-parent-events-for-consumers";
 export const GET_NEAR_BY_EVENTS = "/events/fetch-nearby-parent-events";
 export const GET_ALL_SUB_CATEGORIES = "/categories/get-all-sub-categories/";
-export const GET_SUB_CATEGORY_EVENTS = "/events/fetch-parent-events-for-consumers";
+export const GET_SUB_CATEGORY_EVENTS =
+  "/events/fetch-parent-events-for-consumers";
 export const GET_MOVIE_SLOT_DETAIL = "/events/get-event-slot-details/";
 
 // Cinema URL
 export const SHOWING_IN_CINEMAS = "/events/fetch-parent-events-for-consumers";
-export const UPCOMING_EVENTS_FOR_CINEMA = "/events/fetch-parent-events-for-consumers";
-export const PROMOTED_EVENTS_FOR_CINEMA = "/events/fetch-parent-events-for-consumers";
+export const UPCOMING_EVENTS_FOR_CINEMA =
+  "/events/fetch-parent-events-for-consumers";
+export const PROMOTED_EVENTS_FOR_CINEMA =
+  "/events/fetch-parent-events-for-consumers";
 export const TRENDING_EVENTS_FOR_CINEMA = "/events/fetch-trending-events";
 
 // Venues URL
@@ -83,6 +87,7 @@ export const CONSUMER_BASIC_INF0 = "/consumers/get-consumer-basic-info";
 
 // Tickets
 export const TICKET_PURCHASE = "/tickets/purchase-ticket-consumer";
+export const SEAT_TICKET_PURCHASE = "/tickets/purchase";
 
 // Passes
 export const PASSES_GET_SEATS = "/events/get-seats-passSlots";
