@@ -94,12 +94,16 @@ export const seatsQtySearch = (billSummary, seats, isCustomEvent) => {
         const seatObject = isCustomEvent
           ? seats[item.ticketClassName][i]
           : seats[i];
-        arr.push(
-          formatAssignedSeatsObject({
-            ...item,
-            ...seatObject,
-          })
-        );
+
+        const formattedSeats = formatAssignedSeatsObject({
+          ...item,
+          ...seatObject,
+        });
+
+        if (!isCustomEvent) {
+          formattedSeats.label = seatObject.label;
+        }
+        arr.push(formattedSeats);
       }
     }
   });
@@ -107,7 +111,7 @@ export const seatsQtySearch = (billSummary, seats, isCustomEvent) => {
   return arr;
 };
 
-export const formatAssignedSeatsObject = (obj, self = true) => {
+export const formatAssignedSeatsObject = (obj) => {
   return {
     sectionId: obj.sectionId || "abc",
     sectionName: obj.sectionName || "X-Wing",
@@ -123,8 +127,7 @@ export const formatAssignedSeatsObject = (obj, self = true) => {
       DOB: typeof obj.userInfo === "undefined" ? "6/6/19" : obj.userInfo.DOB,
     },
     ticketClassId: obj.ticketClassId,
-    ticketClassType: obj.ticketClassType,
-    self: self,
+    self: true,
     ticket: {
       name: obj.ticketClassName ? obj.ticketClassName : obj.ticket.name,
       price: obj.ticketClassPrice
@@ -137,8 +140,8 @@ export const formatAssignedSeatsObject = (obj, self = true) => {
         ? obj.availableTickets
         : obj.ticket.available,
     },
+    ticketClassType: obj.ticketClassType,
     uniqueId: obj.uniqueId,
-    ...obj,
   };
 };
 

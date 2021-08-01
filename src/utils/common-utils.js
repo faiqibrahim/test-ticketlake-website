@@ -2,6 +2,7 @@
 import moment from "moment";
 import _ from "lodash";
 import store from "../redux/store";
+import { seatSessionKey } from "./constant";
 
 export const NOTIFICATION_TIME = 3000;
 export const getObjectValue = (obj, path) => {
@@ -225,4 +226,23 @@ export const getVenuePrices = (type, classData) => {
     );
     return getPrices(passClasses);
   }
+};
+
+export const getSeatCheckoutProps = (assignedSeats, event) => {
+  const seats = [...assignedSeats];
+
+  seats.forEach((seat) => {
+    delete seat.ticketClassType;
+    delete seat.uniqueId;
+    seat.self && delete seat.userInfo;
+  });
+
+  const { holdToken } = JSON.parse(sessionStorage.getItem(seatSessionKey));
+  const { data: eventDetail } = event.data;
+
+  return {
+    eventId: eventDetail._id,
+    holdToken,
+    tickets: [...seats],
+  };
 };

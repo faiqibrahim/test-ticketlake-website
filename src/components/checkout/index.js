@@ -16,6 +16,7 @@ import { Button, Modal, ModalBody } from "reactstrap";
 import axios from "../../utils/axios";
 import CardViewWithImgAndName from "../../commonComponents/cardViewWithImgAndName";
 import RavePayIFrameResponse from "../../commonComponents/ravepayIFrameModal";
+import { getSeatCheckoutProps } from "../../utils/common-utils";
 
 const splitWalletIconStyle = {
   fontSize: "64px",
@@ -183,6 +184,8 @@ class Checkout extends Component {
   }
 
   buyWithoutAnyMethod() {
+    const { customSeatingPlan, assignedSeats, event } = this.props;
+
     swal({
       title: "Checkout Summary",
       text: "Please review your invoice",
@@ -204,16 +207,21 @@ class Checkout extends Component {
       buttons: true,
     }).then((res) => {
       if (res) {
-        this.props.checkout(
-          this.props.assignedSeats,
-          this.props.assignedSeatsForDisplay,
-          this.props.event,
-          null,
-          this.props.passesAssignedSeats,
-          this.props.passesAssignedSeatsForDisplay,
-          JSON.parse(localStorage.getItem("conversionRatesOnCheckout")),
-          this.props.setStepCB
-        );
+        if (customSeatingPlan) {
+          this.props.checkout(
+            this.props.assignedSeats,
+            this.props.assignedSeatsForDisplay,
+            this.props.event,
+            null,
+            this.props.passesAssignedSeats,
+            this.props.passesAssignedSeatsForDisplay,
+            JSON.parse(localStorage.getItem("conversionRatesOnCheckout")),
+            this.props.setStepCB
+          );
+        } else {
+          const checkoutProps = getSeatCheckoutProps(assignedSeats, event);
+          seatsCheckout(checkoutProps, this.props.setStepCB);
+        }
       } else {
         swal("Checkout has been canceled!");
       }
@@ -265,32 +273,10 @@ class Checkout extends Component {
             this.props.setStepCB
           );
         } else {
-          const sessionKey = "seatsio";
-          const seats = [...assignedSeats];
-          const keys = [
-            "availableTickets",
-            "ticketClassType",
-            "ticketClassQty",
-            "ticketClassColor",
-            "ticketClassPrice",
-            "ticketClassName",
-            "uniqueId",
-          ];
-          seats.forEach((seat) => {
-            keys.forEach((key) => delete seat[key]);
-            seat.self && delete seat.userInfo;
-          });
+          const checkoutProps = getSeatCheckoutProps(assignedSeats, event);
+          checkoutProps.paymentOption = paymentOption;
 
-          const { holdToken } = JSON.parse(sessionStorage.getItem(sessionKey));
-          const { data: eventDetail } = event.data;
-
-          const checkoutData = {
-            eventId: eventDetail.eventSlotId,
-            paymentOption,
-            holdToken,
-            tickets: [...assignedSeats],
-          };
-          seatsCheckout(checkoutData, sessionKey, this.props.setStepCB);
+          seatsCheckout(checkoutProps, this.props.setStepCB);
         }
       } else {
         swal("Checkout has been canceled!");

@@ -46,7 +46,7 @@ import { NotificationManager } from "react-notifications";
 import { NOTIFICATION_TIME } from "../../utils/common-utils";
 import { handleError } from "../../utils/store-utils";
 import { showContentOutsideMainWrapper } from "../common/common-actions";
-import { macAddress } from "../../utils/constant";
+import { macAddress, seatSessionKey } from "../../utils/constant";
 
 // Actions
 export const MOVE_STEP = "ACTION_TICKET_MOVE_STEP";
@@ -384,7 +384,7 @@ export const setAssignedBillFromFormForPasses = (
   };
 };
 
-export const seatsCheckout = (checkoutData, sessionKey, stepCB) => {
+export const seatsCheckout = (checkoutData, stepCB) => {
   return (dispatch, getState) => {
     dispatch(setProcessing(true));
     axios
@@ -392,7 +392,7 @@ export const seatsCheckout = (checkoutData, sessionKey, stepCB) => {
       .then(() => {
         dispatch(setPaymentSuccess(true));
         dispatch(setProcessing(false));
-        sessionStorage.removeItem(sessionKey);
+        sessionStorage.removeItem(seatSessionKey);
         stepCB && stepCB();
       })
       .catch((err) => {
