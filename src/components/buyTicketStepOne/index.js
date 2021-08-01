@@ -169,6 +169,7 @@ class BuyTicketStepOne extends React.Component {
         <SeatsioSeatingChart
           region="eu"
           showLegend
+          session="start"
           workspaceKey={seatsIOPublicKey}
           event={eventDetail.eventSlotId}
           objectWithoutPricingSelectable={false}

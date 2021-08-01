@@ -391,8 +391,7 @@ export const checkout = (
   allPasses,
   guestPasses,
   conversionDetails,
-  stepCB,
-  wallet
+  stepCB
 ) => {
   const { data } = event.data;
   return (dispatch, getState) => {
