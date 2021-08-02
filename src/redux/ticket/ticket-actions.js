@@ -43,7 +43,11 @@ import {
 import { errorHandling } from "../user/user-actions";
 
 import { NotificationManager } from "react-notifications";
-import { NOTIFICATION_TIME } from "../../utils/common-utils";
+import {
+  getSeatCheckoutProps,
+  isCustomEvent,
+  NOTIFICATION_TIME,
+} from "../../utils/common-utils";
 import { handleError } from "../../utils/store-utils";
 import { showContentOutsideMainWrapper } from "../common/common-actions";
 import { macAddress, seatSessionKey } from "../../utils/constant";
@@ -385,7 +389,7 @@ export const setAssignedBillFromFormForPasses = (
 };
 
 export const seatsCheckout = (checkoutData, stepCB) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(setProcessing(true));
     axios
       .post(SEAT_TICKET_PURCHASE, checkoutData, "v2")
@@ -779,19 +783,31 @@ export const initiateHubtelDirectPayment = (tryAgain) => {
         ? checkoutData
         : topUpAmountData;
 
-    axios
-      .post(INITIATE_HUBTEL_DIRECT_PAYMENT, hubtelPaymentData)
-      .then((response) => {
-        const { result } = response && response.data;
-        const checkoutId = result && result.Data && result.Data.TransactionId;
-        dispatch(directPaymentStatus(checkoutId));
-      })
-      .catch((err) => {
-        let errorMessage = handleError(err);
-        dispatch(errorHandling(true, errorMessage));
-        NotificationManager.error(errorMessage, "", NOTIFICATION_TIME);
-        dispatch(contentOutsideMainWrapper(false));
+    if (!isCustomEvent(event)) {
+      const checkoutProps = getSeatCheckoutProps(tickets, event, {
+        phoneNumber,
+        network,
       });
+      checkoutProps.paymentDescription = paymentDescription;
+      checkoutProps.paymentOption = splitPayment
+        ? "WALLET_AND_MOBILE_MONEY"
+        : "MOBILE_MONEY";
+      dispatch(seatsCheckout(checkoutProps, () => {}));
+    } else {
+      axios
+        .post(INITIATE_HUBTEL_DIRECT_PAYMENT, hubtelPaymentData)
+        .then((response) => {
+          const { result } = response && response.data;
+          const checkoutId = result && result.Data && result.Data.TransactionId;
+          dispatch(directPaymentStatus(checkoutId));
+        })
+        .catch((err) => {
+          let errorMessage = handleError(err);
+          dispatch(errorHandling(true, errorMessage));
+          NotificationManager.error(errorMessage, "", NOTIFICATION_TIME);
+          dispatch(contentOutsideMainWrapper(false));
+        });
+    }
   };
 };
 

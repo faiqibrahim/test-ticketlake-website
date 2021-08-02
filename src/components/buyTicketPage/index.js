@@ -530,6 +530,7 @@ class BuyTicketPage extends Component {
       case 5:
         return (
           <CheckoutStepTwo
+            customSeatingPlan={customSeatingPlan}
             setCheckoutStepThree={() => this.setState({ step: 6 })}
           />
         );

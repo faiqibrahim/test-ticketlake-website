@@ -228,7 +228,7 @@ export const getVenuePrices = (type, classData) => {
   }
 };
 
-export const getSeatCheckoutProps = (assignedSeats, event) => {
+export const getSeatCheckoutProps = (assignedSeats, event, hubtelNetwork) => {
   const seats = [...assignedSeats];
 
   seats.forEach((seat) => {
@@ -240,9 +240,16 @@ export const getSeatCheckoutProps = (assignedSeats, event) => {
   const { holdToken } = JSON.parse(sessionStorage.getItem(seatSessionKey));
   const { data: eventDetail } = event.data;
 
-  return {
+  const checkoutData = {
     eventId: eventDetail._id,
     holdToken,
     tickets: [...seats],
   };
+
+  if (hubtelNetwork) {
+    const { phoneNumber, network } = hubtelNetwork;
+    checkoutData.CustomerMsisdn = phoneNumber;
+    checkoutData.hubtelChannel = network;
+  }
+  return checkoutData;
 };
