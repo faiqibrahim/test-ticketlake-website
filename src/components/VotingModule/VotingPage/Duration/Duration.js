@@ -9,35 +9,24 @@ const duration = (props) => {
 
   let durationString = "";
 
-  if (duration._data.days > 0) {
-    durationString = `${
-      duration._data.days === 1
-        ? duration._data.days + "day"
-        : duration._data.days + "days"
-    }, ${
-      duration._data.hours === 1
-        ? duration._data.hours + "hour"
-        : duration._data.hours + "hours"
-    } , ${
-      duration._data.minutes === 1
-        ? duration._data.minutes + "minute"
-        : duration._data.minutes + "minutes"
-    }  left`;
-  } else if (duration._data.hours > 0) {
+  let { years, months, days, hours, minutes } = duration._data;
+
+  const daysInYear = 365;
+  const daysInMonths = moment().daysInMonth();
+
+  days += daysInMonths * months + daysInYear * years;
+
+  if (days > 0) {
+    durationString = `${days === 1 ? days + "day" : days + "days"}, ${
+      hours === 1 ? hours + "hour" : hours + "hours"
+    } , ${minutes === 1 ? minutes + "minute" : minutes + "minutes"}  left`;
+  } else if (hours > 0) {
     durationString = `00 days, ${
-      duration._data.hours === 1
-        ? duration._data.hours + "hour"
-        : duration._data.hours + "hours"
-    } , ${
-      duration._data.minutes === 1
-        ? duration._data.minutes + "minute"
-        : duration._data.minutes + "minutes"
-    }  left`;
-  } else if (duration._data.minutes > 0) {
+      hours === 1 ? hours + "hour" : hours + "hours"
+    } , ${minutes === 1 ? minutes + "minute" : minutes + "minutes"}  left`;
+  } else if (minutes > 0) {
     durationString = `00 days, 00 hours, ${
-      duration._data.minutes === 1
-        ? duration._data.minutes + "minute"
-        : duration._data.minutes + "minutes"
+      minutes === 1 ? minutes + "minute" : minutes + "minutes"
     }  left`;
   } else {
     durationString = `00 days, 00 hours, 00 mins left`;

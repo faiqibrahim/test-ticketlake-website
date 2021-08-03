@@ -24,13 +24,13 @@ const convertAllNomineesApiStructureToListingData = (
 
   let noOfAsyncTasks = data.length;
 
-  for (let element of data) {
-    votingTypeApi(element.votingEventId, function(response) {
+  for (let nominee of data) {
+    votingTypeApi(nominee.votingEventId, function(response) {
       convertEventData.push({
-        id: element._id,
-        imgSrc: element.image,
-        nomineeName: element.name,
-        voteCount: element.totalVotes,
+        id: nominee._id,
+        imgSrc: nominee.image,
+        nomineeName: nominee.name,
+        voteCount: nominee.totalVotes,
         balloting: response.secretBalloting,
         votingType: response.votingType,
         nextVoteTime: response.nextVoteTime,
@@ -51,14 +51,19 @@ export const getAllVotingNominees = (categoryID, cb) => {
       .then((response) => {
         const { data } = response;
 
-        convertAllNomineesApiStructureToListingData(
-          categoryID,
-          data.data,
-          function(eventsList) {
-            dispatch(votingNomineeActions.getAllNominees(eventsList));
-            cb && cb(null, response);
-          }
-        );
+        if (data.data.length > 0) {
+          convertAllNomineesApiStructureToListingData(
+            categoryID,
+            data.data,
+            function(eventsList) {
+              dispatch(votingNomineeActions.getAllNominees(eventsList));
+              cb && cb(null, response);
+            }
+          );
+        } else {
+          dispatch(votingNomineeActions.getAllNominees(data.data));
+          cb && cb(null, response);
+        }
       })
       .catch((error) => {
         cb && cb(error);

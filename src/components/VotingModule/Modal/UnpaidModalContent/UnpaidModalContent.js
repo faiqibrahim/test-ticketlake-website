@@ -4,23 +4,42 @@ import { saveFreeVoteCast } from "../../../../redux/voting-events/vote-cast/vote
 import { connect } from "react-redux";
 
 import "../../VotingModule.css";
+import RemainingTime from "./RemainingTime";
 
 class UnpaidModalContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       voteCastSuccess: false,
+      remainingTime: "",
+      error: null,
     };
   }
 
   voteCastSuccessHandler = (voteData) => {
     this.props.saveFreeVoteCast(voteData, (error, data) => {
       if (!error) {
+        this.setState(
+          {
+            voteCastResponse: this.props.voteCastResponse,
+          },
+          () => {
+            const remainingTime = (
+              <RemainingTime remainingTime={this.state.voteCastResponse} />
+            );
+            this.setState({
+              remainingTime,
+            });
+          }
+        );
+      } else {
         this.setState({
-          voteCastSuccess: true,
-          voteCastReponse: this.props.voteCastSuccessResponse,
+          error: this.props.error.error,
         });
       }
+      this.setState({
+        voteCastSuccess: true,
+      });
     });
   };
 
@@ -60,16 +79,26 @@ class UnpaidModalContent extends Component {
     );
   };
 
-  renderVoteSuccessScreen = () => {
+  _renderVoteSuccessScreen = () => {
+    const { error, remainingTime } = this.state;
+    let voteInfo = null;
+    if (error) {
+      voteInfo = <div className="timeLeft">{error}</div>;
+    } else {
+      voteInfo = (
+        <>
+          <div className="text">You can cast another vote after</div>
+          <div className="timeLeft">{remainingTime}</div>
+        </>
+      );
+    }
+
     return (
       <>
         <div className="title" style={{ marginBottom: "20px" }}>
           Thanks for voting. Your vote has been cast successfully.
         </div>
-        <div className="subTitle">
-          <div className="text">You can cast another vote after</div>
-          <div className="timeLeft">09 hours, 20 mins</div>
-        </div>
+        <div className="subTitle">{voteInfo}</div>
         <div className="detailContent">
           <div className="detailImg">
             <img src={this.props.nomineeDetail.imgSrc} alt={"img"} />
@@ -93,6 +122,12 @@ class UnpaidModalContent extends Component {
       </>
     );
   };
+  get renderVoteSuccessScreen() {
+    return this._renderVoteSuccessScreen;
+  }
+  set renderVoteSuccessScreen(value) {
+    this._renderVoteSuccessScreen = value;
+  }
 
   render() {
     const { voteCastSuccess } = this.state;
@@ -112,7 +147,8 @@ class UnpaidModalContent extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    voteCastSuccessResponse: state.voting.voteCast.voteCastResponse,
+    voteCastResponse: state.voting.voteCast.voteCastResponse,
+    error: state.voting.voteCast.error,
   };
 };
 

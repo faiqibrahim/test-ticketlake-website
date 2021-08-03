@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAllVotingCategories } from "../../../../redux/voting-events/category/category-action";
 import VotingHeader from "../../Header/Layout/Layout";
+import Loader from "../../../../commonComponents/loader";
 
 import CategoryBox from "../CategoryBox/CatergoryBox";
 import "./EventCategories.css";
@@ -10,26 +11,24 @@ import "./EventCategories.css";
 class VotingCategories extends Component {
   state = {
     loading: true,
-    categories: null,
+    categories: [],
   };
 
   componentDidMount() {
-    const params = new URLSearchParams(this.props.location.search);
-    const eventId = params.get("eventId");
-    const eventTitle = params.get("eventName");
+    const { id } = this.props.match.params;
 
-    this.props.getAllVotingCategories(eventId, (error, data) => {
+    this.props.getAllVotingCategories(id, (error, data) => {
       if (!error) {
         this.setState({
           loading: false,
           categories: this.props.categoryListing,
-          eventTitle,
+          eventTitle: this.props.categoryListing[0],
           breadCrumbs: [
             { path: "/", crumbTitle: "Home" },
             { path: "/voting", crumbTitle: "Votings" },
             {
-              path: `/voting/${this.props.categoryListing.id}`,
-              crumbTitle: eventTitle,
+              path: `/voting/${id}`,
+              crumbTitle: this.props.categoryListing[0],
             },
           ],
         });
@@ -42,12 +41,14 @@ class VotingCategories extends Component {
   categorySelectedHandler = (categoryId, name) => {
     this.props.history.push({
       pathname: this.props.location.pathname + "/categories/" + categoryId,
-      search: `categoryName=${name}`,
+      search: `eventName=${this.state.eventTitle}&categoryName=${name}`,
     });
   };
 
   render() {
-    if (this.state.loading) return <p>Categories Loading!</p>;
+    if (this.state.loading) return <Loader />;
+
+    const [, ...categories] = this.state.categories;
 
     return (
       <Fragment>
@@ -69,17 +70,21 @@ class VotingCategories extends Component {
               </div>
             </div>
             <div className="categoryBoxRow">
-              {this.state.categories.map((category) => {
-                return (
-                  <CategoryBox
-                    key={category.id}
-                    {...category}
-                    clicked={() =>
-                      this.categorySelectedHandler(category.id, category.name)
-                    }
-                  />
-                );
-              })}
+              {categories && categories.length > 0 ? (
+                categories.map((category) => {
+                  return (
+                    <CategoryBox
+                      key={category.id}
+                      {...category}
+                      clicked={() =>
+                        this.categorySelectedHandler(category.id, category.name)
+                      }
+                    />
+                  );
+                })
+              ) : (
+                <h1>No Category Exists</h1>
+              )}
             </div>
           </div>
         </div>

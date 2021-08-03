@@ -5,6 +5,7 @@ import { Modal } from "antd";
 import { setRedirectTo } from "../../../../redux/user/user-actions";
 import NomineeCard from "../NomineeCard/NomineeCard";
 import NomineeModalBody from "../../Modal/NomineeModalBody/NomineeModalBody";
+import Loader from "../../../../commonComponents/loader";
 import { getAllVotingNominees } from "../../../../redux/voting-events/nominee/nominee-action";
 import VotingHeader from "../../Header/Layout/Layout";
 import "./EventNominees.css";
@@ -24,23 +25,26 @@ class EventNominees extends Component {
   componentDidMount() {
     this.is_Mounted = true;
 
-    // const { id } = this.props.match.params;
-    const { categoryId } = this.props.match.params;
+    const { id, categoryId } = this.props.match.params;
+    const params = new URLSearchParams(this.props.location.search);
+    const categoryName = params.get("categoryName");
+    const eventName = params.get("eventName");
 
     this.props.getAllVotingNominees(categoryId, (error, data) => {
       if (!error) {
         this.setState({
           loading: false,
           nominees: this.props.nomineeListing,
-          // eventTitle,
+          categoryName,
+          eventName,
           breadCrumbs: [
             { path: "/", crumbTitle: "Home" },
             { path: "/voting", crumbTitle: "Votings" },
-            // { path: `/voting/${id}`, crumbTitle: event.eventTitle },
-            // {
-            //   path: `/voting/${id}/categories/${categoryId}`,
-            //   crumbTitle: event.category.name,
-            // },
+            { path: `/voting/${id}`, crumbTitle: eventName },
+            {
+              path: `/voting/${id}/categories/${categoryId}`,
+              crumbTitle: categoryName,
+            },
           ],
         });
       } else {
@@ -107,7 +111,9 @@ class EventNominees extends Component {
   };
 
   render() {
-    if (this.state.loading) return <p>Component Loading!</p>;
+    if (this.state.loading) return <Loader />;
+
+    const { nominees } = this.state;
 
     return (
       <Fragment>
@@ -115,7 +121,7 @@ class EventNominees extends Component {
         <div className="container">
           <div className="headerContainer">
             <VotingHeader
-              //   pageTitle={this.state.event.category.name}
+              pageTitle={`${this.state.eventName} - Nominees`}
               breadCrumbs={this.state.breadCrumbs}
             />
           </div>
@@ -126,8 +132,7 @@ class EventNominees extends Component {
             <div className="Header">
               <div className="nomineeHeaderCol">
                 <div className="heading">
-                  Nominees for "bb"
-                  {/* Nominees for "{this.state.event.category.name}" */}
+                  Nominees for "{this.state.categoryName}"
                 </div>
                 <div className="subHeading">
                   Please select a nominee to vote for
@@ -152,15 +157,19 @@ class EventNominees extends Component {
               </div>
             </div>
             <div className="nomineeBoxRow">
-              {this.state.nominees.map((nominee) => {
-                return (
-                  <NomineeCard
-                    key={nominee.id}
-                    {...nominee}
-                    clicked={() => this.toggleModal(nominee)}
-                  />
-                );
-              })}
+              {nominees && nominees.length > 0 ? (
+                nominees.map((nominee) => {
+                  return (
+                    <NomineeCard
+                      key={nominee.id}
+                      {...nominee}
+                      clicked={() => this.toggleModal(nominee)}
+                    />
+                  );
+                })
+              ) : (
+                <h1>No Nominee Exists</h1>
+              )}
             </div>
           </div>
         </div>

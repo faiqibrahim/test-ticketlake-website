@@ -1,320 +1,308 @@
-div
-{
-    font-family: 'NeuePlak';
- 
+div {
+  font-family: "NeuePlak";
 }
-button{
-    font-family: 'NeuePlak' !important;
+button {
+  font-family: "NeuePlak" !important;
 }
-.ant-modal-mask{
-    background-color: #000 !important;
-    opacity: 0.78;   
+.ant-modal-mask {
+  background-color: #000 !important;
+  opacity: 0.78;
 }
-.NomineeModal .ant-modal-content{
-    box-shadow: 0px 0px 7px #00000019;
-    border-radius: 16px;
-    height: 800px;
+.NomineeModal .ant-modal-content {
+  box-shadow: 0px 0px 7px #00000019;
+  border-radius: 16px;
+  height: 800px;
 }
-.NomineeModal .ant-modal-close-x{
-    font-size:20px;
-    text-align: left;
-    line-height: 75px;
+.NomineeModal .ant-modal-close-x {
+  font-size: 20px;
+  text-align: left;
+  line-height: 75px;
 }
-.NomineeModal .ant-modal-close-x path{
-    stroke:#D2D7E6 ;
-    stroke-width: 10%;
+.NomineeModal .ant-modal-close-x path {
+  stroke: #d2d7e6;
+  stroke-width: 10%;
 }
 
 /*
 *   Header
 */
-.Header{
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-    padding-top: 60px;
-    padding-bottom: 60px;
-    align-items: flex-start;
-    text-align: left;
+.Header {
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  align-items: flex-start;
+  text-align: left;
 }
-.heading{
-    font-size: 36px;
-    font-weight: bold;
-    color:#231F20;
+.heading {
+  font-size: 36px;
+  font-weight: bold;
+  color: #231f20;
 }
-.subHeading{
-    font-size: 22px;
-    color:#747A95;
-    font-weight: normal;
+.subHeading {
+  font-size: 22px;
+  color: #747a95;
+  font-weight: normal;
 }
 
 /*
 * Display Nominee Modal Content
 */
-.row{
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
+.row {
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
 }
-.col4{
-    flex: 0 0 33.3333%;
-    max-width: 33.3333%;
-    padding: 0 15px;
-    cursor: pointer;
+.col4 {
+  flex: 0 0 33.3333%;
+  max-width: 33.3333%;
+  padding: 0 15px;
+  cursor: pointer;
 }
-.DetailBox .title{
-    color:#2C2C2C;
-    font-size: 40px;
-    line-height: 49px;
-    font-weight: bold;
-    margin-bottom: 50px;
+.DetailBox .title {
+  color: #2c2c2c;
+  font-size: 40px;
+  line-height: 49px;
+  font-weight: bold;
+  margin-bottom: 50px;
 }
-.DetailBox{
-    padding: 60px 50px 60px;
+.DetailBox {
+  padding: 60px 50px 60px;
 }
-.paidPadding{
-    padding-top: 80px;
-    padding-bottom: 63px;
+.paidPadding {
+  padding-top: 80px;
+  padding-bottom: 63px;
 }
-.unpaidPadding{
-    padding-top: 90px;
-    padding-bottom: 83px;
+.unpaidPadding {
+  padding-top: 90px;
+  padding-bottom: 83px;
 }
-.detailContent{
-    max-width: 65%;
-    border: 1px solid #D8DAE3;
-    border-radius: 20px;
-    margin: 0 auto;
-    padding: 45px 20px;
+.detailContent {
+  max-width: 65%;
+  border: 1px solid #d8dae3;
+  border-radius: 20px;
+  margin: 0 auto;
+  padding: 45px 20px;
 }
-.detailImg{
-    padding-bottom: 30px;
+.detailImg {
+  padding-bottom: 30px;
 }
-.detailImg img{
-    filter: grayscale(100%);
+.detailImg img {
+  filter: grayscale(100%);
 }
-.detailName{
-    font-size: 28px;
-    font-weight: bold;
-    color:#231F20;
+.detailName {
+  font-size: 28px;
+  font-weight: bold;
+  color: #231f20;
 }
-.detailVoteType{
-    font-size:22px;
-    color:#747A95;
-    font-weight: normal;
+.detailVoteType {
+  font-size: 22px;
+  color: #747a95;
+  font-weight: normal;
 }
-.castVote{
-    padding-top: 50px;
+.castVote {
+  padding-top: 50px;
 }
-.castVote Button{
-    background-color: #D8DAE3 !important;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 100%;
-    color: #fff !important;
-    font-size: 20px;
-    height: 60px;
+.castVote button {
+  background-color: #d8dae3 !important;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 100%;
+  color: #fff !important;
+  font-size: 20px;
+  height: 60px;
 }
-.castVote Button:hover,
-.castVote Button:active,
-.castVote Button:focus{
-    background-color: #D8DAE3;
-    color: #fff;
-    border-color: #D8DAE3;
+.castVote button:hover,
+.castVote button:active,
+.castVote button:focus {
+  background-color: #d8dae3;
+  color: #fff;
+  border-color: #d8dae3;
 }
-.castVote .active_method{
-    background-color: #EC1B23 !important;
+.castVote .active_method {
+  background-color: #ec1b23 !important;
 }
 .castVote .active_method:hover,
 .castVote .active_method:active,
-.castVote .active_method:focus{
-    background-color: #EC1B23;
-    border-color: #EC1B23;
+.castVote .active_method:focus {
+  background-color: #ec1b23;
+  border-color: #ec1b23;
 }
-.castVote span{
-    vertical-align: super;
+.castVote span {
+  vertical-align: super;
 }
-.subTitle{
-    margin-bottom: 20px;
+.subTitle {
+  margin-bottom: 20px;
 }
-.subTitle .text{
-    color:#EC1B23;
-    font-size: 20px;
-    font-weight: bold;
+.subTitle .text {
+  color: #ec1b23;
+  font-size: 20px;
+  font-weight: bold;
 }
-.subTitle .timeLeft{
-    color:#EC1B23;
-    font-size: 28px;
-    font-weight: bold;
-    text-align: center;
+.subTitle .timeLeft {
+  color: #ec1b23;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
 }
-.paymentDetail{
-    text-align: left;
+.paymentDetail {
+  text-align: left;
 }
 .voteCount {
-    display: block;
-    border-bottom: 1px solid #D8DAE3;
-    margin-bottom: 15px;
+  display: block;
+  /* border-bottom: 1px solid #d8dae3; */
+  margin-bottom: 15px;
 }
-.paymentDetail .title{
-    font-size:20px;
-    color:#3D4956;
-    font-weight: 550;
-    margin: 0;
-    font-family: 'Helvetica Neue LT Std';
+.paymentDetail .title {
+  font-size: 20px;
+  color: #3d4956;
+  font-weight: 550;
+  margin: 0;
+  font-family: "Helvetica Neue LT Std";
 }
-.paymentDetail select[name="number_of_votes"]{
-    background-image:url("/images/votingimages/redDropDown.svg");
-    background-repeat: no-repeat;
-    background-position-x:100%;
-    background-position-y:58%;
-    font-size:20px;
-    color:#3D4956;
-    font-weight: normal;
-    border: 0;
-    background-color: transparent;
-    width: 100%;
-    padding-bottom: 10px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    cursor :pointer;
-    font-family: 'NeuePlak' !important;
+.paymentDetail select[name="number_of_votes"] {
+  background-image: url("/images/votingimages/redDropDown.svg");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 58%;
+  font-size: 20px;
+  color: #3d4956;
+  font-weight: normal;
+  border: 0;
+  background-color: transparent;
+  width: 100%;
+  padding-bottom: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  font-family: "NeuePlak" !important;
 }
 select::-ms-expand {
-    display: none !important;
+  display: none !important;
 }
-.paymentContent{
-    border: 1px solid #D8DAE3;
-    border-radius: 20px;
-    text-align: center;
-    position: relative;
-    height: 200px;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
+.paymentContent {
+  border: 1px solid #d8dae3;
+  border-radius: 20px;
+  text-align: center;
+  position: relative;
+  height: 200px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
-.paymentTitle{
-    font-size: 20px;
-    font-weight: bold;
-    color:#3D4956;
-    padding-top:15px;
+.paymentTitle {
+  font-size: 20px;
+  font-weight: bold;
+  color: #3d4956;
+  padding-top: 15px;
 }
-.paymentCurrencey{
-    color:#747A95;
-    font-size: 14px;
+.paymentCurrencey {
+  color: #747a95;
+  font-size: 14px;
 }
-.paymentMethod .title{
-    margin-bottom: 30px;
+.paymentMethod .title {
+  margin-bottom: 30px;
 }
-.tickMark{
-    position: absolute;
-    top: -15px;
-    left: 42%;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #D8DAE3;
-    color: #fff;
-    line-height: 28px;
-    font-size: 26px;
+.tickMark {
+  position: absolute;
+  top: -15px;
+  left: 42%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #d8dae3;
+  color: #fff;
+  line-height: 28px;
+  font-size: 26px;
 }
-.tickMark img{
-    position: relative;
-    top:-5px;
+.tickMark img {
+  position: relative;
+  top: -5px;
 }
-.active_method{
-    background-color:#EC1B23 ;
-}
-.voting_dropdown_arrow {
- 
-    /* position: absolute;
-    right: 10px;
-    top: 6px;
-    width: 15px;
-    height: 15px;
-    border: solid#EC1B23;
-    border-width: 0 3px 3px 0; */
-    /* display: inline-block;
-    padding: 3px;
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg); */
+.active_method {
+  background-color: #ec1b23;
 }
 
-@media screen and (max-width:1400px){
-    .Header{
-        margin-left:0 !important;
-        margin-right:0 !important;
-    }
+.paymentDetail .ant-input-number {
+  width: 100%;
+  height: 40px;
 }
 
-@media screen and (max-width:650px){
-    
-    /*
+@media screen and (max-width: 1400px) {
+  .Header {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  /*
     *   Header Css
     */
-    .pageTitle{
-        font-size: 30px;
-    }
-    .Header{
-        padding-top: 0;
-    }
-    /*
+  .pageTitle {
+    font-size: 30px;
+  }
+  .Header {
+    padding-top: 0;
+  }
+  /*
     *   Modal Css
     */
-    .NomineeModal .ant-modal-content{
-        height: 100%;
-    }
-    .NomineeModal .ant-modal-close-x{
-        text-align: center;
-        line-height: 60px;
-    }
-    .DetailBox{
-        padding-top: 30px;
-        padding-left: 0;
-        padding-right: 0;
-    }
-    .detailContent{
-        max-width: 100%;
-    }
-    .castVote Button{
-        max-width: 100%;
-    }
-    .DetailBox > .title:first-child{
-        font-size: 32px;
-        line-height: 32px;
-    }
-    .DetailBox .title > div:first-child{
-        margin-right: 10px;
-    }
-    .DetailBox .title > div{
-        display: unset;
-    }
-    .paymentMethod .col4{
-        flex: 0 0 50%;
-        max-width: 50%;
-    }
-    .paymentMethod .col4:nth-child(3){
-        padding-top:30px;
-    }
-    .paymentMethod .title{
-        margin-bottom: 30px;
-    }
+  .NomineeModal .ant-modal-content {
+    height: 100%;
+  }
+  .NomineeModal .ant-modal-close-x {
+    text-align: center;
+    line-height: 60px;
+  }
+  .DetailBox {
+    padding-top: 30px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .detailContent {
+    max-width: 100%;
+  }
+  .castVote button {
+    max-width: 100%;
+  }
+  .DetailBox > .title:first-child {
+    font-size: 32px;
+    line-height: 32px;
+  }
+  .DetailBox .title > div:first-child {
+    margin-right: 10px;
+  }
+  .DetailBox .title > div {
+    display: unset;
+  }
+  .paymentMethod .col4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .paymentMethod .col4:nth-child(3) {
+    padding-top: 30px;
+  }
+  .paymentMethod .title {
+    margin-bottom: 30px;
+  }
 }
-@media screen and (max-width:420px){
-    .paymentMethod .col4{
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
-    .paymentMethod .col4:nth-child(2){
-        padding-top:30px;
-    }
-    .DetailBox > .title:first-child{
-        font-size: 26px;
-    }
+@media screen and (max-width: 420px) {
+  .paymentMethod .col4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .paymentMethod .col4:nth-child(2) {
+    padding-top: 30px;
+  }
+  .DetailBox > .title:first-child {
+    font-size: 26px;
+  }
 }

@@ -77,9 +77,7 @@ class VotingEvents extends Component {
         <div className="container">
           <div className="votingContainer">
             <div className="contentBox">
-              <VotingEventsContent
-                events={eventsListing ? eventsListing : null}
-              />
+              <VotingEventsContent events={eventsListing} />
             </div>
           </div>
         </div>

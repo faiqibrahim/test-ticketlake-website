@@ -13,14 +13,38 @@ const convertVoteCastDataToApiStructure = (data) => {
 
 export const saveFreeVoteCast = (voteData, cb) => {
   const voteCastData = convertVoteCastDataToApiStructure(voteData);
-  console.log("voteCastData", voteCastData);
+
   return (dispatch) => {
     axios
       .post("/votes/cast-vote", voteCastData)
       .then((response) => {
         const { data } = response;
+        dispatch(voteCastActions.castFreeVote(data.data));
+        cb && cb(null, response);
+      })
+      .catch((error) => {
+        const { status } = error.response;
+        if (status === 400) {
+          dispatch(
+            voteCastActions.eventNotStarted({
+              error: error.response.data._error,
+            })
+          );
+          cb && cb(error);
+        } else {
+          cb && cb(error);
+        }
+      });
+  };
+};
 
-        dispatch(voteCastActions.castFreeVote(data));
+export const savePaidVoteCast = (voteData, cb) => {
+  return (dispatch) => {
+    axios
+      .post("/votes/cast-vote", voteData)
+      .then((response) => {
+        const { data } = response;
+        dispatch(voteCastActions.castPaidVote(data));
         cb && cb(null, response);
       })
       .catch((error) => {

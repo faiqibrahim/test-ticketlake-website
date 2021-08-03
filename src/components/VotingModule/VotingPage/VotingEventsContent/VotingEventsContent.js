@@ -19,21 +19,30 @@ const eventClosedVotingHandler = (id, props) => {
 };
 
 const VotingEvents = (props) => {
+  const { events } = props;
+
   return (
     <div className="cardItemRow votingEvents">
-      {props.events.map((event) => {
-        return (
-          <CardItem
-            key={event.id}
-            {...event}
-            clicked={() =>
-              event.active === true
-                ? eventSelectedHandler(event.id, event.name, props)
-                : eventClosedVotingHandler(event.id, props)
-            }
-          />
-        );
-      })}
+      {events.length === 0 ? (
+        <h1>No Event Exists</h1>
+      ) : (
+        events &&
+        events.map((event) => {
+          return event.active ? (
+            <CardItem
+              key={event.id}
+              {...event}
+              clicked={() =>
+                event.active === true
+                  ? eventSelectedHandler(event.id, event.name, props)
+                  : eventClosedVotingHandler(event.id, props)
+              }
+            />
+          ) : (
+            <h1 key={event.id}>No Event Exists</h1>
+          );
+        })
+      )}
     </div>
   );
 };
