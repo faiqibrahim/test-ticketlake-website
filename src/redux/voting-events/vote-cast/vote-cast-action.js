@@ -48,7 +48,17 @@ export const savePaidVoteCast = (voteData, cb) => {
         cb && cb(null, response);
       })
       .catch((error) => {
-        cb && cb(error);
+        const { status } = error.response;
+        if (status === 400) {
+          dispatch(
+            voteCastActions.eventNotStarted({
+              error: error.response.data._error,
+            })
+          );
+          cb && cb(error);
+        } else {
+          cb && cb(error);
+        }
       });
   };
 };

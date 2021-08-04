@@ -3,14 +3,13 @@ import { Button, InputNumber } from "antd";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import paymentMethods from "../../paymentMethod.json";
-import CheckoutStepTwo from "../../../../commonComponents/checkoutStepTwo/index";
-import CheckoutStepThreeVerification from "../../../../commonComponents/checkoutStepThreeVerification";
 import {
   setClientToken,
   checkout,
   setSplitPayment,
 } from "../../../../redux/ticket/ticket-actions";
 import { savePaidVoteCast } from "../../../../redux/voting-events/vote-cast/vote-cast-action";
+import MobilePaymentMethod from "./MobilePaymentMethod";
 import "../../VotingModule.css";
 
 class PaidModalContent extends Component {
@@ -20,11 +19,10 @@ class PaidModalContent extends Component {
       paymentMethod: null,
       activeMethodId: null,
       paidVoteCastSuccess: false,
-      showCheckoutStepTwo: false,
-      showCheckoutStepThree: false,
+      showMobilePaymentForm: true,
       clientToken: null,
-      focusAfterClose: true,
       voteCounter: 1,
+      error: null,
     };
   }
 
@@ -77,22 +75,28 @@ class PaidModalContent extends Component {
   };
 
   mobileMoneyPaymentMethod = () => {
-    const { showCheckoutStepTwo, showCheckoutStepThree } = this.state;
+    const { showMobilePaymentForm } = this.state;
 
-    return showCheckoutStepTwo ? (
-      <CheckoutStepTwo
-        setCheckoutStepThree={() =>
-          this.setState({
-            showCheckoutStepThree: true,
-            showCheckoutStepTwo: false,
-          })
-        }
+    const { nomineeDetail } = this.props;
+    const { voteCounter } = this.state;
+
+    const voteData = {
+      votingEventId: nomineeDetail.votingEventId,
+      votingCategoryId: nomineeDetail.votingCategoryId,
+      votingNomineeId: nomineeDetail.id,
+      numberOfVotes: voteCounter,
+      paymentMethod: "mobileMoney",
+      msisdn: "",
+      channel: "",
+    };
+
+    return showMobilePaymentForm ? (
+      <MobilePaymentMethod
+        title="Mobile Payment"
+        show={showMobilePaymentForm}
+        voteData={voteData}
       />
-    ) : showCheckoutStepThree ? (
-      <CheckoutStepThreeVerification />
-    ) : (
-      this.renderVoteCastScreen()
-    );
+    ) : null;
   };
 
   bankCardPaymentMethod = () => {
@@ -120,6 +124,10 @@ class PaidModalContent extends Component {
                 window.open(this.state.ravePayPageRedirection.data, "_blank");
               }
             );
+          } else {
+            this.setState({
+              error: this.props.error.error,
+            });
           }
         })
       );
@@ -146,6 +154,10 @@ class PaidModalContent extends Component {
             this.setState({
               successResponse: this.props.voteCastResponse,
             });
+          } else {
+            this.setState({
+              error: this.props.error.error,
+            });
           }
         })
       );
@@ -153,7 +165,7 @@ class PaidModalContent extends Component {
   };
 
   renderVoteCastScreen = () => {
-    const { paymentMethod, activeMethodId, voteCounter } = this.state;
+    const { paymentMethod, activeMethodId, voteCounter, error } = this.state;
 
     return (
       <>
@@ -162,6 +174,7 @@ class PaidModalContent extends Component {
         </div>
         <div className="subTitle">
           <div className="text">GHS 4.00 per vote</div>
+          <div className="text">{error}</div>
         </div>
         <div className="paymentDetail">
           <div className="voteCount">
@@ -273,8 +286,8 @@ class PaidModalContent extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ravePayResponse: state.ticket.ravePayResponse,
     voteCastResponse: state.voting.voteCast.voteCastResponse,
+    error: state.voting.voteCast.error,
   };
 };
 
