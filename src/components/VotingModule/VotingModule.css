@@ -151,6 +151,11 @@ button {
   font-weight: bold;
   text-align: center;
 }
+.subTitle .text h1 {
+  color: #ec1b23;
+  font-weight: bold;
+  margin-top: 40px;
+}
 .paymentDetail {
   text-align: left;
 }
@@ -229,7 +234,28 @@ select::-ms-expand {
 .active_method {
   background-color: #ec1b23;
 }
+form[name="userMobileInfoForm"]
+  div[name="payment_button"]
+  span.ant-form-item-children {
+  width: 30%;
+  display: block;
+  margin: auto 0 auto auto;
+}
 
+form[name="userMobileInfoForm"] button.mobile_payment {
+  background-color: #ec1b23 !important;
+  color: #fff;
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold !important;
+  height: 40px;
+  border: 0;
+  outline: none;
+}
+form[name="userMobileInfoForm"] button.mobile_payment span {
+  position: relative;
+  top: -2px;
+}
 .paymentDetail .ant-input-number {
   width: 100%;
   height: 40px;

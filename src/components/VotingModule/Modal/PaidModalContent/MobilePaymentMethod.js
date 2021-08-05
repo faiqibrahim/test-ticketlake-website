@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import FormElements from "./FormElements";
 import { Form, Button } from "antd";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { formDataTypes } from "./mobileFormData";
+import { savePaidVoteCast } from "../../../../redux/voting-events/vote-cast/vote-cast-action";
+import Loader from "../../../../commonComponents/loader";
 
 class MobilePaymentMethod extends Component {
   constructor(props) {
@@ -10,6 +14,9 @@ class MobilePaymentMethod extends Component {
     this.state = {
       showMobileInforScreen: props.show ? props.show : false,
       formData: formDataTypes.bind(this)(),
+      error: null,
+      successMessage: "",
+      loading: false,
     };
   }
 
@@ -31,11 +38,50 @@ class MobilePaymentMethod extends Component {
 
     voteData.msisdn = formData.mobile.value;
     voteData.channel = formData.channel.value;
-    console.log("voteData:", voteData);
+
+    this.setState(
+      { loading: true },
+      this.props.savePaidVoteCast(voteData, (error, data) => {
+        if (!error) {
+          this.setState(
+            {
+              successResponse: this.props.voteCastResponse,
+            },
+            () => {
+              this.setState({
+                loading: false,
+                successMessage:
+                  "Thanks for voting. Your vote has been cast successfully.",
+              });
+            }
+          );
+        } else {
+          this.setState({
+            error: this.props.error.error,
+            loading: false,
+            successMessage: "Vote Will Be Cast Once Your Payment Is Verified",
+          });
+        }
+      })
+    );
+  };
+
+  successResponseWait = () => {
+    const { loading, successMessage } = this.state;
+
+    if (loading) return <Loader />;
+
+    return (
+      <div className="subTitle">
+        <div className="text">
+          <h1>{successMessage}</h1>
+        </div>
+      </div>
+    );
   };
 
   userMobileInfoForm = () => {
-    const { formData } = this.state;
+    const { formData, error } = this.state;
     const formElementArray = [];
     for (let key in formData) {
       const formElement = {
@@ -47,15 +93,19 @@ class MobilePaymentMethod extends Component {
         <FormElements
           formElement={formElement}
           onChange={this.onChangeHandler}
+          key={key}
         />
       );
       formElementArray.push(molibleForm);
     }
+
     return (
       <>
         <h1>{this.props.title}</h1>
+        <div className="subTitle">
+          <div className="text">{error}</div>
+        </div>
         <Form
-          keu={formElementArray}
           name="userMobileInfoForm"
           labelCol={{
             span: 5,
@@ -68,15 +118,16 @@ class MobilePaymentMethod extends Component {
           {formElementArray}
           <Form.Item
             wrapperCol={{
-              offset: 8,
-              span: 16,
+              span: 20,
             }}
+            name="payment_button"
           >
-            <Button type="primary" htmlType="submit">
-              Submit
+            <Button className="mobile_payment" htmlType="submit">
+              Pay
             </Button>
           </Form.Item>
         </Form>
+        {this.successResponseWait()}
       </>
     );
   };
@@ -87,4 +138,24 @@ class MobilePaymentMethod extends Component {
     return <>{showMobileInforScreen ? this.userMobileInfoForm() : null}</>;
   }
 }
-export default MobilePaymentMethod;
+
+const mapStateToProps = (state) => {
+  return {
+    voteCastResponse: state.voting.voteCast.voteCastResponse,
+    error: state.voting.voteCast.error,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    savePaidVoteCast: (voteData, cb) =>
+      dispatch(savePaidVoteCast(voteData, cb)),
+  };
+};
+
+const connectedComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MobilePaymentMethod);
+
+export default withRouter(connectedComponent);

@@ -1,6 +1,6 @@
 import moment from "moment";
 
-const duration = (props) => {
+export const duration = (props) => {
   const currentDate = new moment();
 
   const endTime = new moment(props.endTime);
@@ -30,8 +30,9 @@ const duration = (props) => {
     }  left`;
   } else {
     durationString = `00 days, 00 hours, 00 mins left`;
+    const eventEnd = true;
+    return { durationString, eventEnd };
   }
 
   return durationString;
 };
-export default duration;

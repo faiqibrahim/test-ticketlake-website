@@ -36,6 +36,7 @@ const convertAllNomineesApiStructureToListingData = (
         nextVoteTime: response.nextVoteTime,
         votingEventId: response._id,
         votingCategoryId: votingCategoryId,
+        votePrice: response.votePrice,
       });
 
       noOfAsyncTasks--;

@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
+import { duration } from "../Duration/duration";
 import CardItem from "../CardItem/CardItem";
 import "./VotingEventsContent.css";
 
@@ -32,8 +33,9 @@ const VotingEvents = (props) => {
             <CardItem
               key={event.id}
               {...event}
+              status={duration(event).eventEnd}
               clicked={() =>
-                event.active === true
+                event.active === true && !duration(event).eventEnd
                   ? eventSelectedHandler(event.id, event.name, props)
                   : eventClosedVotingHandler(event.id, props)
               }

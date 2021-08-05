@@ -7,7 +7,6 @@ const formElements = (props) => {
 
   return (
     <Form.Item
-      key={id}
       label={data.title}
       name={data.name}
       rules={{
