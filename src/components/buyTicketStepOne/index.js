@@ -159,7 +159,7 @@ class BuyTicketStepOne extends React.Component {
     } = this.props;
     const { purchaseType, seatSelection, seatsType } = seatProps;
 
-    if (seatSelection === "auto" || (!purchaseType && !seatSelection))
+    if (seatSelection === "auto" || !purchaseType || !seatSelection)
       return null;
 
     const renderOnValue = purchaseType === "ticket" ? seatSelection : seatsType;
@@ -169,7 +169,7 @@ class BuyTicketStepOne extends React.Component {
         <SeatsioSeatingChart
           region="eu"
           showLegend
-          session="start"
+          session="continue"
           workspaceKey={seatsIOPublicKey}
           event={eventDetail.eventSlotId}
           objectWithoutPricingSelectable={false}

@@ -104,7 +104,10 @@ export const SEND_SMS_OTP = "/consumers/send-sms-otp";
 export const VERIFY_SMS_OTP = "/consumers/verify-sms-otp";
 export const INITIATE_HUBTEL_DIRECT_PAYMENT =
   "/hubtel/hubtel-direct-payment-iniate";
+
 export const DIRECT_PAYMENT_STATUS = "/hubtel/direct-payment-status/";
+export const DIRECT_PAYMENT_STATUS_SEATS_IO = "/tickets/hubtel-payment-status/";
+
 export const RAVEPAY_PAYMENT_REQUEST = "/ravepay/request-payment";
 
 //Order

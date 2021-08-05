@@ -209,6 +209,7 @@ export const getPrices = (filteredData) => {
     }
   });
 
+  console.log("prices", prices);
   return prices;
 };
 

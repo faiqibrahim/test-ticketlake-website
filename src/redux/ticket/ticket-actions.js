@@ -38,6 +38,7 @@ import {
   GET_ORDER_DETAILS,
   RAVEPAY_PAYMENT_REQUEST,
   SEAT_TICKET_PURCHASE,
+  DIRECT_PAYMENT_STATUS_SEATS_IO,
 } from "../../utils/config";
 // Import Redux Action
 import { errorHandling } from "../user/user-actions";
@@ -50,7 +51,7 @@ import {
 } from "../../utils/common-utils";
 import { handleError } from "../../utils/store-utils";
 import { showContentOutsideMainWrapper } from "../common/common-actions";
-import { macAddress, seatSessionKey } from "../../utils/constant";
+import { macAddress } from "../../utils/constant";
 
 // Actions
 export const MOVE_STEP = "ACTION_TICKET_MOVE_STEP";
@@ -388,16 +389,16 @@ export const setAssignedBillFromFormForPasses = (
   };
 };
 
-export const seatsCheckout = (checkoutData, stepCB) => {
+export const seatsCheckout = (checkoutData, stepCB, isHubtel = false) => {
   return (dispatch) => {
     dispatch(setProcessing(true));
     axios
       .post(SEAT_TICKET_PURCHASE, checkoutData, "v2")
-      .then(() => {
-        dispatch(setPaymentSuccess(true));
+      .then((response) => {
+        !isHubtel && dispatch(setPaymentSuccess(true));
         dispatch(setProcessing(false));
-        sessionStorage.removeItem(seatSessionKey);
-        stepCB && stepCB();
+
+        stepCB && stepCB(response);
       })
       .catch((err) => {
         dispatch(setProcessing(false));
@@ -714,11 +715,20 @@ export const verifySmsOTP = (smsOTP, cb, errorCB) => {
   };
 };
 
+const hubtelPaymentInitiated = (response, isSeatEvent = false) => {
+  return (dispatch) => {
+    const data = response && response.data[isSeatEvent ? "data" : "result"];
+    const checkoutId = data && data.Data && data.Data.TransactionId;
+    dispatch(directPaymentStatus(checkoutId, isSeatEvent));
+  };
+};
+
 export const initiateHubtelDirectPayment = (tryAgain) => {
   return (dispatch, getState) => {
     let hubtelPaymentData;
     const ticket = getState().ticket;
     const tickets = ticket.assignedSeats;
+
     const guestTickets = ticket.assignedSeatsForDisplay;
     const event = ticket.event && ticket.event.data && ticket.event.data.data;
     const allPasses = ticket.passesAssignedSeats;
@@ -740,51 +750,13 @@ export const initiateHubtelDirectPayment = (tryAgain) => {
 
     let paymentDescription = `${ticketsCount} ticket(s) & ${passesCount} pass(es) purchased for ${event &&
       event.eventTitle}`;
+
     let paymentOption = splitPayment
       ? "wallet&paymentGateway"
       : "paymentGateWay";
 
-    let checkoutData = setHubtelCheckoutData(
-      event && event.parentEventId,
-      event && event._id,
-      checkTicketsForMySelf(tickets, guestTickets),
-      checkPassesForMySelf(allPasses, guestPasses),
-      price,
-      paymentOption,
-      phoneNumber,
-      network,
-      paymentDescription,
-      couponData.promoCode
-    );
-
-    if (tryAgain) {
-      checkoutData = ticket.maintainCheckoutData;
-      dispatch(
-        contentOutsideMainWrapper(true, () => {
-          dispatch(showCheckoutDialogue({ statusDialogue: true }));
-        })
-      );
-      count = 1;
-    } else {
-      dispatch(_setCheckoutData(checkoutData));
-    }
-
-    const topUpAmountData = setHubtelTopUpData(
-      phoneNumber,
-      network,
-      `topUp of ${topUpAmount}`,
-      topUpAmount
-    );
-
-    hubtelPaymentData =
-      checkoutData &&
-      ((checkoutData.tickets && checkoutData.tickets.length > 0) ||
-        (checkoutData.passes && checkoutData.passes.length > 0))
-        ? checkoutData
-        : topUpAmountData;
-
     if (!isCustomEvent(event)) {
-      const checkoutProps = getSeatCheckoutProps(tickets, event, {
+      const checkoutProps = getSeatCheckoutProps(tickets, ticket.event, {
         phoneNumber,
         network,
       });
@@ -792,14 +764,57 @@ export const initiateHubtelDirectPayment = (tryAgain) => {
       checkoutProps.paymentOption = splitPayment
         ? "WALLET_AND_MOBILE_MONEY"
         : "MOBILE_MONEY";
-      dispatch(seatsCheckout(checkoutProps, () => {}));
+
+      dispatch(
+        seatsCheckout(checkoutProps, (response) => {
+          response && dispatch(hubtelPaymentInitiated(response, true));
+        }),
+        true
+      );
     } else {
+      let checkoutData = setHubtelCheckoutData(
+        event && event.parentEventId,
+        event && event._id,
+        checkTicketsForMySelf(tickets, guestTickets),
+        checkPassesForMySelf(allPasses, guestPasses),
+        price,
+        paymentOption,
+        phoneNumber,
+        network,
+        paymentDescription,
+        couponData.promoCode
+      );
+
+      if (tryAgain) {
+        checkoutData = ticket.maintainCheckoutData;
+        dispatch(
+          contentOutsideMainWrapper(true, () => {
+            dispatch(showCheckoutDialogue({ statusDialogue: true }));
+          })
+        );
+        count = 1;
+      } else {
+        dispatch(_setCheckoutData(checkoutData));
+      }
+
+      const topUpAmountData = setHubtelTopUpData(
+        phoneNumber,
+        network,
+        `topUp of ${topUpAmount}`,
+        topUpAmount
+      );
+
+      hubtelPaymentData =
+        checkoutData &&
+        ((checkoutData.tickets && checkoutData.tickets.length > 0) ||
+          (checkoutData.passes && checkoutData.passes.length > 0))
+          ? checkoutData
+          : topUpAmountData;
+
       axios
         .post(INITIATE_HUBTEL_DIRECT_PAYMENT, hubtelPaymentData)
         .then((response) => {
-          const { result } = response && response.data;
-          const checkoutId = result && result.Data && result.Data.TransactionId;
-          dispatch(directPaymentStatus(checkoutId));
+          dispatch(hubtelPaymentInitiated(response));
         })
         .catch((err) => {
           let errorMessage = handleError(err);
@@ -811,19 +826,23 @@ export const initiateHubtelDirectPayment = (tryAgain) => {
   };
 };
 
-const directPaymentStatus = (checkoutId) => {
+const directPaymentStatus = (checkoutId, isSeatEvent = false) => {
   let checkInternally = true;
   if (count === 10) {
     checkInternally = false;
   }
 
+  const apiURL = isSeatEvent
+    ? DIRECT_PAYMENT_STATUS_SEATS_IO
+    : DIRECT_PAYMENT_STATUS;
+
+  const apiVersion = isSeatEvent ? "v2" : "v1";
+
   return (dispatch) => {
     axios
       .get(
-        DIRECT_PAYMENT_STATUS +
-          checkoutId +
-          "?checkInternally=" +
-          checkInternally
+        apiURL + checkoutId + "?checkInternally=" + checkInternally,
+        apiVersion
       )
       .then((response) => {
         const { data } = response.data;

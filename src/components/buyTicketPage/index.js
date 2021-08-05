@@ -39,6 +39,7 @@ import { setUserPurchasedTickets } from "../../redux/user/user-actions";
 import Error from "../../commonComponents/error";
 import { fetchUserProfile } from "../../redux/user/user-actions";
 import PassInfoModal from "../../commonComponents/ModalFactory/PassInfoModal/PassInfoModal";
+import { seatSessionKey } from "../../utils/constant";
 
 let totalFreeTicketCount = null;
 
@@ -64,6 +65,7 @@ class BuyTicketPage extends Component {
     let eventId = this.props.match.params.id;
     this.props.getEventDetail(eventId);
     this.props.fetchUserProfile();
+    sessionStorage.removeItem(seatSessionKey);
   }
 
   getSnapshotBeforeUpdate(nextProps, prevState) {
@@ -153,12 +155,12 @@ class BuyTicketPage extends Component {
     this.setState({ bills });
   };
 
-  prepareSeat = (labelData) => {
-    const { displayedLabel, parent, own, section } = labelData;
+  prepareSeat = (labelData, label) => {
+    const { parent, own, section } = labelData;
     return {
-      label: displayedLabel,
-      seatNumber: displayedLabel,
-      seatName: displayedLabel,
+      label,
+      seatNumber: label,
+      seatName: label,
       sectionId: section,
       sectionName: section,
       rowName: `${parent}-${own}`,
@@ -169,7 +171,7 @@ class BuyTicketPage extends Component {
   onSeatChange = (seat, selected = true) => {
     const { billSummary } = this.props;
     const { venueSeats } = this.state;
-    const { category, labels } = seat;
+    const { category, labels, label } = seat;
 
     let seats = [...venueSeats];
     const bills = [...billSummary];
@@ -181,12 +183,10 @@ class BuyTicketPage extends Component {
 
     if (selected) {
       bills[itemIndex].ticketClassQty = ticketClassQty + 1;
-      seats.push(this.prepareSeat(labels));
+      seats.push(this.prepareSeat(labels, label));
     } else {
       bills[itemIndex].ticketClassQty = ticketClassQty - 1;
-      seats = venueSeats.filter(
-        (seatItem) => seatItem.label !== labels.displayedLabel
-      );
+      seats = venueSeats.filter((seatItem) => seatItem.label !== label);
     }
 
     this.props.setBillSummary(bills);

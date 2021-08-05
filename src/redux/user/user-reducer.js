@@ -1,3 +1,4 @@
+import { seatSessionKey } from "../../utils/constant";
 import {
   LOGIN,
   FACEBBOOKLOGIN,
@@ -335,6 +336,7 @@ const setProfileData = (state, data) => {
 
 const logout = (state) => {
   sessionStorage.removeItem("user-auth");
+  sessionStorage.removeItem(seatSessionKey);
   state.user = null;
   state.authenticated = false;
   state.activeUser = null;

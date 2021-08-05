@@ -12,10 +12,8 @@ import {
   ravePayPaymentRequest,
   seatsCheckout,
 } from "../../redux/ticket/ticket-actions";
-import { Button, Modal, ModalBody } from "reactstrap";
 import axios from "../../utils/axios";
 import CardViewWithImgAndName from "../../commonComponents/cardViewWithImgAndName";
-import RavePayIFrameResponse from "../../commonComponents/ravepayIFrameModal";
 import { getSeatCheckoutProps } from "../../utils/common-utils";
 
 const splitWalletIconStyle = {
@@ -291,7 +289,6 @@ class Checkout extends Component {
   render() {
     const { wallet } = this.props;
     let walletIsEmpty = wallet && wallet.availableBalance === 0;
-    const hrefVal = "#";
     return parseFloat(this.props.totalBill) === 0 ? (
       <button
         className="checkoutButton"
@@ -461,78 +458,6 @@ class Checkout extends Component {
                   onClick={this.props.setCheckoutStepTwo}
                 />
               )}
-
-              <CardViewWithImgAndName
-                image={"/images/bank.svg"}
-                heading={"Bank Card"}
-                imgWidth={"bankImgWidth"}
-                description={"Pay via Credit Card"}
-                onClick={() => this.ravePayModal(true)}
-              />
-
-              <div className="Paypal-wrp">
-                <RavePayIFrameResponse
-                  isOpen={this.state.ravePayModalOpen}
-                  focusAfterClose={this.state.focusAfterClose}
-                  toggle={this.ravePayModal}
-                  ravePayResponse={this.props.ravePayResponse}
-                  link={
-                    this.props.ravePayResponse &&
-                    this.props.ravePayResponse.link
-                  }
-                  className={this.props.className}
-                  errorMessage={this.props.error ? this.props.errorMessage : ""}
-                />
-
-                {/* split payment modal */}
-                <Modal
-                  isOpen={this.state.modalOpen2}
-                  focusAfterClose={this.state.focusAfterClose}
-                  toggle={this.openSplitWalletModal}
-                  className={
-                    "modal-danger split-payment " + this.props.className
-                  }
-                  style={{
-                    width: "100%",
-                    maxWidth: "400px",
-                    margin: "200px auto 50px",
-                  }}
-                >
-                  <ModalBody
-                    style={{
-                      width: "100%",
-                      maxWidth: "400px",
-                      height: "300px",
-                    }}
-                  >
-                    <h4>Insufficient Wallet Balance</h4>
-                    <p style={{ color: "#5f5f5f", padding: "17px" }}>
-                      Pay the difference using a different
-                      <br />
-                      payment method by selecting split pay.
-                    </p>
-                    <p>
-                      <Button
-                        onClick={this.openSplitWalletModalVerify}
-                        style={{ padding: "0 60px 0 60px" }}
-                        className="pay-btn"
-                      >
-                        Split Pay
-                      </Button>
-                    </p>
-                    <p>
-                      <a
-                        href={hrefVal}
-                        onClick={this.openSplitWalletModal}
-                        style={{ color: "red" }}
-                      >
-                        Cancel
-                      </a>
-                    </p>
-                  </ModalBody>
-                </Modal>
-                {/* split payment modal */}
-              </div>
             </div>
           </div>
         )}
