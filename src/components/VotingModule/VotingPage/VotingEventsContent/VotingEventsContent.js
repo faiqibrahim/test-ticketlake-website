@@ -5,17 +5,19 @@ import { duration } from "../Duration/duration";
 import CardItem from "../CardItem/CardItem";
 import "./VotingEventsContent.css";
 
-const eventSelectedHandler = (id, name, props) => {
+const eventSelectedHandler = (id, name, props, eventClosed) => {
   props.history.push({
     pathname: "/voting/" + id,
-    search: `eventId=${id}&eventName=${name}`,
-  });
-};
-
-const eventClosedVotingHandler = (id, props) => {
-  props.history.push({
-    pathname: "/voting/event-results/" + id,
-    search: `eventId=${id}`,
+    search: `${
+      eventClosed
+        ? "eventId=" +
+          id +
+          "&eventName=" +
+          name +
+          "&event-closed=" +
+          eventClosed
+        : "eventId=" + id + "&eventName=" + name
+    }`,
   });
 };
 
@@ -25,7 +27,7 @@ const VotingEvents = (props) => {
   return (
     <div className="cardItemRow votingEvents">
       {events.length === 0 ? (
-        <h1>No Event Exists</h1>
+        <h1>No Active Events Found</h1>
       ) : (
         events &&
         events.map((event) => {
@@ -35,14 +37,15 @@ const VotingEvents = (props) => {
               {...event}
               status={duration(event).eventEnd}
               clicked={() =>
-                event.active === true && !duration(event).eventEnd
-                  ? eventSelectedHandler(event.id, event.name, props)
-                  : eventClosedVotingHandler(event.id, props)
+                eventSelectedHandler(
+                  event.id,
+                  event.name,
+                  props,
+                  duration(event).eventEnd
+                )
               }
             />
-          ) : (
-            <h1 key={event.id}>No Event Exists</h1>
-          );
+          ) : null;
         })
       )}
     </div>

@@ -23,6 +23,7 @@ class VotingCategories extends Component {
           loading: false,
           categories: this.props.categoryListing,
           eventTitle: this.props.categoryListing[0],
+          eventClosed: this.props.categoryListing[1].endEvent,
           breadCrumbs: [
             { path: "/", crumbTitle: "Home" },
             { path: "/voting", crumbTitle: "Votings" },
@@ -38,17 +39,25 @@ class VotingCategories extends Component {
     });
   }
 
-  categorySelectedHandler = (categoryId, name) => {
-    this.props.history.push({
-      pathname: this.props.location.pathname + "/categories/" + categoryId,
-      search: `eventName=${this.state.eventTitle}&categoryName=${name}`,
-    });
+  categorySelectedHandler = (categoryId, name, eventClosed) => {
+    if (!eventClosed) {
+      this.props.history.push({
+        pathname: this.props.location.pathname + "/categories/" + categoryId,
+        search: `eventName=${this.state.eventTitle}&categoryName=${name}`,
+      });
+    } else {
+      this.props.history.push({
+        pathname: this.props.location.pathname + "/event-results/" + categoryId,
+        search: `eventName=${this.state.eventTitle}&categoryName=${name}`,
+      });
+    }
   };
 
   render() {
     if (this.state.loading) return <Loader />;
 
-    const [, ...categories] = this.state.categories;
+    const [, , ...categories] = this.state.categories;
+    const { eventClosed } = this.state;
 
     return (
       <Fragment>
@@ -77,7 +86,11 @@ class VotingCategories extends Component {
                       key={category.id}
                       {...category}
                       clicked={() =>
-                        this.categorySelectedHandler(category.id, category.name)
+                        this.categorySelectedHandler(
+                          category.id,
+                          category.name,
+                          eventClosed
+                        )
                       }
                     />
                   );

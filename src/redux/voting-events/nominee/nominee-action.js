@@ -20,13 +20,13 @@ const convertAllNomineesApiStructureToListingData = (
   data,
   cb
 ) => {
-  let convertEventData = [];
+  let convertData = [];
 
   let noOfAsyncTasks = data.length;
 
   for (let nominee of data) {
     votingTypeApi(nominee.votingEventId, function(response) {
-      convertEventData.push({
+      convertData.push({
         id: nominee._id,
         imgSrc: nominee.image,
         nomineeName: nominee.name,
@@ -40,7 +40,7 @@ const convertAllNomineesApiStructureToListingData = (
       });
 
       noOfAsyncTasks--;
-      if (noOfAsyncTasks === 0) cb(convertEventData);
+      if (noOfAsyncTasks === 0) cb(convertData);
     });
   }
 };

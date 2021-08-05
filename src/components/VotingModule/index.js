@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getVotingEvents } from "./data-fetcher";
+
 import VotingEventsContent from "./VotingPage/VotingEventsContent/VotingEventsContent";
 import VotingHeader from "./Header/Layout/Layout";
 import "./RouteWrapper/RouteWrapper.css";
@@ -11,24 +11,10 @@ import { getAllVotingEvents } from "../../redux/voting-events/event/event-action
 class VotingEvents extends Component {
   state = {
     loading: true,
-    events: [],
     eventsListing: [],
   };
 
   componentDidMount() {
-    getVotingEvents()
-      .then((events) => {
-        this.setState({
-          loading: false,
-          events,
-          breadCrumbs: [
-            { path: "/", crumbTitle: "Home" },
-            { path: "/voting", crumbTitle: "Votings" },
-          ],
-        });
-      })
-      .catch((error) => {});
-
     this.props.getAllVotingEvents((error, response) => {
       if (!error) {
         this.setState(

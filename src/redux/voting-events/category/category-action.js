@@ -1,4 +1,5 @@
 import axios from "../../../utils/axios";
+import moment from "moment";
 
 import { votingCategoryActions } from "./category-Slice";
 
@@ -12,6 +13,23 @@ let eventNameFromApi = function getEventNameFromIDinCategories(eventID, cb) {
     .catch((error) => {
       cb && cb(error);
     });
+};
+
+const checkClosedEvents = (endDate) => {
+  const currentDate = new moment();
+  const endTime = new moment(endDate);
+
+  let duration = moment.duration(endTime.diff(currentDate));
+
+  let { years, months, days, hours, minutes } = duration._data;
+
+  const daysInYear = 365;
+  const daysInMonths = moment().daysInMonth();
+
+  days += daysInMonths * months + daysInYear * years;
+
+  const endEvent = days === 0 && hours < 0 && minutes < 0 ? true : false;
+  return endEvent;
 };
 
 const convertAllCategoriesApiStructureToListingData = (eventID, data, cb) => {
@@ -28,7 +46,9 @@ const convertAllCategoriesApiStructureToListingData = (eventID, data, cb) => {
 
   if (noOfAsyncTasks === 0) {
     eventNameFromApi(eventID, function(response) {
+      const endEvent = checkClosedEvents(response.endTime);
       convertEventData.unshift(response.name);
+      convertEventData.splice(1, 0, { endEvent });
       cb(convertEventData);
     });
   }
