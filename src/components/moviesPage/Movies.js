@@ -25,7 +25,7 @@ import {
 import CardWithHoverAnimation from "../../commonComponents/cardWithHoverAnimation";
 import { Modal, ModalBody } from "reactstrap";
 import CardWithInfo from "../../commonComponents/cardWithInfo";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 let categoryKey = "categoryState";
 let updateSubCategory = true;
@@ -99,6 +99,7 @@ class Movies extends Component {
     if (location && location.state) {
       categoryState = location.state;
     }
+    console.log(location);
     sessionStorage.setItem(categoryKey, JSON.stringify(categoryState));
     return categoryState;
   };
@@ -106,7 +107,7 @@ class Movies extends Component {
   getCategoryId = () => {
     let url_string = window.location.href;
     let url = new URL(url_string);
-    const id = url.searchParams.get("id")
+    const id = url.searchParams.get("id");
     return id;
   };
 
@@ -214,11 +215,11 @@ class Movies extends Component {
 
   pageTitle = () => {
     return (
-        <Helmet>
-          <title>Movies</title>
-        </Helmet>
-    )
-  }
+      <Helmet>
+        <title>Movies</title>
+      </Helmet>
+    );
+  };
 
   onClickWrp = (card) => {
     sessionStorage.setItem("parentEventDetail", JSON.stringify(card));
@@ -244,7 +245,6 @@ class Movies extends Component {
         events = [...events, ...childCategory.events];
       });
     }
-
 
     return (
       <div id="wrapper">
@@ -374,7 +374,7 @@ class Movies extends Component {
 
               <ModalBody>
                 <iframe
-                  title = "Movies-Frame"
+                  title="Movies-Frame"
                   width="100%"
                   height="350px"
                   src={`https://www.youtube.com/embed/${this.state.youtubeVideoId}`}
