@@ -31,9 +31,8 @@ export const saveFreeVoteCast = (voteData, cb) => {
             })
           );
           cb && cb(error);
-        } else {
-          cb && cb(error);
         }
+        cb && cb(error);
       });
   };
 };
@@ -56,9 +55,8 @@ export const savePaidVoteCast = (voteData, cb) => {
             })
           );
           cb && cb(error);
-        } else {
-          cb && cb(error);
         }
+        cb && cb(error);
       });
   };
 };
