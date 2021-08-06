@@ -8,16 +8,6 @@ import "./VotingEventsContent.css";
 const eventSelectedHandler = (id, name, props, eventClosed) => {
   props.history.push({
     pathname: "/voting/" + id,
-    search: `${
-      eventClosed
-        ? "eventId=" +
-          id +
-          "&eventName=" +
-          name +
-          "&event-closed=" +
-          eventClosed
-        : "eventId=" + id + "&eventName=" + name
-    }`,
   });
 };
 

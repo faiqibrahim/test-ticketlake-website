@@ -1,33 +1,37 @@
 import axios from "../../../utils/axios";
-import { winnerSliceActions } from "./result-Slice";
+import { resultSliceActions } from "./result-Slice";
 
 const converApiStuctureToNomineeResultData = (data) => {
-  const resultData = {};
-
+  const resultData = [];
   if (Array.isArray(data)) {
-    resultData.push({
-      id: data._id,
-      imgSrc: data.image,
-      nomineeName: data.name,
-      voteCount: data.totalVotes,
+    data.map((nominee) => {
+      return resultData.push({
+        id: nominee._id,
+        imgSrc: nominee.image,
+        nomineeName: nominee.name,
+        nomineeVotes: nominee.totalVotes,
+      });
     });
   }
 
   return resultData;
 };
 
-export const getClosedEventNomineeListingByEventId = (eventId, cb) => {
+export const getClosedEventNomineeListingByCategoryId = (categoryID, cb) => {
   return (dispatch) => {
     axios
-      .get(`/voting-nominees/fetch-by-event-id/${eventId}`)
+      .get(`/voting-nominees/fetch-by-category-id/${categoryID}`)
       .then((response) => {
         const { data } = response;
 
         const nomineeResultData = converApiStuctureToNomineeResultData(
           data.data
         );
-        dispatch(winnerSliceActions).resultListing(nomineeResultData);
+        dispatch(resultSliceActions.getResultListing(nomineeResultData));
+        cb && cb(null, response);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        cb && cb(error);
+      });
   };
 };

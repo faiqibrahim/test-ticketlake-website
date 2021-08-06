@@ -18,7 +18,7 @@ class VotingCategories extends Component {
     const { id } = this.props.match.params;
 
     this.props.getAllVotingCategories(id, (error, data) => {
-      if (!error) {
+      if (!error && data.length > 0) {
         this.setState({
           loading: false,
           categories: this.props.categoryListing,
@@ -34,7 +34,7 @@ class VotingCategories extends Component {
           ],
         });
       } else {
-        this.setState({ loading: false });
+        this.props.history.push("/voting");
       }
     });
   }
@@ -43,12 +43,10 @@ class VotingCategories extends Component {
     if (!eventClosed) {
       this.props.history.push({
         pathname: this.props.location.pathname + "/categories/" + categoryId,
-        search: `eventName=${this.state.eventTitle}&categoryName=${name}`,
       });
     } else {
       this.props.history.push({
         pathname: this.props.location.pathname + "/event-results/" + categoryId,
-        search: `eventName=${this.state.eventTitle}&categoryName=${name}`,
       });
     }
   };

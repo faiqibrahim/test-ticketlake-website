@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from "react";
+import Loader from "../../../../commonComponents/loader";
+import { connect } from "react-redux";
 
-import { getEventDetail } from "../../data-fetcher";
-
+import { getClosedEventNomineeListingByCategoryId } from "../../../../redux/voting-events/result/result-action";
+import { getEventBreadCrumbs } from "../../../../redux/voting-events/bread-crumbs/bread-crumb-actions";
 import VotingHeader from "../../Header/Layout/Layout";
 import WinnerNominee from "../WinnerNominee/WinnerNominee";
 import EventResultCard from "../EventResultCard/EventResultCard";
 import "./EventResults.css";
-
-import nominees from "../../nominees.json";
 
 class EventResults extends Component {
   state = {
@@ -17,30 +17,55 @@ class EventResults extends Component {
   };
 
   componentDidMount() {
-    getEventDetail(this.props.match.params.id)
-      .then((event) => {
+    const { id, categoryId } = this.props.match.params;
+    this.props.getClosedEventNomineeListingByCategoryId(
+      categoryId,
+      (error, data) => {
+        if (!error) {
+          this.getBreadCrumbs(id, categoryId);
+          this.setState(
+            {
+              loading: false,
+              resultListing: this.props.resultListing,
+            },
+            () => {
+              this.getMaxNomineeVote();
+            }
+          );
+        } else {
+          this.setState({ loading: false });
+        }
+      }
+    );
+  }
+
+  getBreadCrumbs = (eventID, categoryID) => {
+    this.props.getEventBreadCrumbs(eventID, categoryID, (error, data) => {
+      if (!error) {
         this.setState({
-          loading: false,
-          event,
+          eventName: this.props.breadCrumbs[0].eventName,
+          categoryName: this.props.breadCrumbs[1].categoryName,
           breadCrumbs: [
             { path: "/", crumbTitle: "Home" },
             { path: "/voting", crumbTitle: "Votings" },
-            { path: `/voting/${event.id}`, crumbTitle: event.eventTitle },
             {
-              path: `/voting/${event.id}/categories/8`,
-              crumbTitle: "Best Baker in the Town",
+              path: `/voting/${eventID}`,
+              crumbTitle: this.props.breadCrumbs[0].eventName,
+            },
+            {
+              path: `/voting/${eventID}/categories/${categoryID}`,
+              crumbTitle: this.props.breadCrumbs[1].categoryName,
             },
           ],
         });
-      })
-      .catch((error) => {});
-    this.getMaxNomineeVote();
-  }
-
+      }
+    });
+  };
   getMaxNomineeVote = () => {
+    const { resultListing } = this.state;
     const nomineeVotess = [];
     nomineeVotess.push(
-      nominees.nomineesList.map((nominee) => {
+      resultListing.map((nominee) => {
         return nominee.nomineeVotes;
       })
     );
@@ -51,17 +76,17 @@ class EventResults extends Component {
   };
 
   getWinnerNominees = () => {
-    const { maxVotes } = this.state;
+    const { maxVotes, resultListing } = this.state;
 
-    return nominees.nomineesList.filter(
+    return resultListing.filter(
       (nomineeItem) => nomineeItem.nomineeVotes === maxVotes
     );
   };
 
   render() {
-    if (this.state.loading) return <p>Component Loading!</p>;
+    if (this.state.loading) return <Loader />;
 
-    const { maxVotes } = this.state;
+    const { maxVotes, resultListing } = this.state;
     const nomineeWinners = this.getWinnerNominees();
 
     return (
@@ -69,7 +94,7 @@ class EventResults extends Component {
         <div className="container">
           <div>
             <VotingHeader
-              pageTitle={this.state.event.eventTitle}
+              pageTitle={this.state.eventName}
               breadCrumbs={this.state.breadCrumbs}
             />
           </div>
@@ -79,7 +104,11 @@ class EventResults extends Component {
           <div className="contentBox">
             <div className="winnerBox">
               {nomineeWinners.map((nominee) => (
-                <WinnerNominee key={nominee.id} nomineeDetail={nominee} />
+                <WinnerNominee
+                  key={nominee.id}
+                  nomineeDetail={nominee}
+                  categoryName={this.state.categoryName}
+                />
               ))}
             </div>
 
@@ -88,7 +117,7 @@ class EventResults extends Component {
             <div className="Header">
               <div className="nomineeHeaderCol">
                 <div className="heading">
-                  Nominees for "Best Baker in the Town"
+                  Nominees for "{this.state.categoryName}"
                 </div>
                 <div className="subHeading">
                   Standings for the participants for this position are as
@@ -122,7 +151,7 @@ class EventResults extends Component {
               </div>
             </div>
             <div className="nomineeBoxRow">
-              {nominees.nomineesList.map((nominee) => {
+              {resultListing.map((nominee) => {
                 return (
                   <EventResultCard
                     key={nominee.id}
@@ -139,4 +168,20 @@ class EventResults extends Component {
   }
 }
 
-export default EventResults;
+const mapStateToProps = (state) => {
+  return {
+    resultListing: state.voting.result.resultListing,
+    breadCrumbs: state.voting.breadCrumbs.breadCrumbs,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getClosedEventNomineeListingByCategoryId: (categoryID, cb) =>
+      dispatch(getClosedEventNomineeListingByCategoryId(categoryID, cb)),
+    getEventBreadCrumbs: (eventID, categoryID, cb) =>
+      dispatch(getEventBreadCrumbs(eventID, categoryID, cb)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventResults);

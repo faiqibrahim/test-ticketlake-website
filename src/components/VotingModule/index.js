@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import Loader from "../../commonComponents/loader";
 
 import VotingEventsContent from "./VotingPage/VotingEventsContent/VotingEventsContent";
 import VotingHeader from "./Header/Layout/Layout";
@@ -10,27 +11,30 @@ import { getAllVotingEvents } from "../../redux/voting-events/event/event-action
 
 class VotingEvents extends Component {
   state = {
-    loading: true,
+    loading: false,
     eventsListing: [],
   };
 
   componentDidMount() {
-    this.props.getAllVotingEvents((error, response) => {
-      if (!error) {
-        this.setState(
-          {
-            eventsListing: this.props.eventsListing,
-          },
-          () => {
-            this.setState({
-              loading: false,
-            });
-          }
-        );
-      } else {
-        this.setState({ loading: false });
-      }
-    });
+    this.setState(
+      { loading: true },
+      this.props.getAllVotingEvents((error, response) => {
+        if (!error) {
+          this.setState(
+            {
+              eventsListing: this.props.eventsListing,
+            },
+            () => {
+              this.setState({
+                loading: false,
+              });
+            }
+          );
+        } else {
+          this.setState({ loading: false });
+        }
+      })
+    );
   }
 
   pageTitle = () => {
@@ -42,7 +46,7 @@ class VotingEvents extends Component {
   };
 
   render() {
-    if (this.state.loading) return <p>Component Loading!</p>;
+    if (this.state.loading) return <Loader />;
 
     const { eventsListing } = this.state;
 

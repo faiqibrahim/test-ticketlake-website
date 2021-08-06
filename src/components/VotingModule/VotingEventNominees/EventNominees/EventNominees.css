@@ -1,161 +1,161 @@
-.col2{
-    flex: 0 0 16.66%;
-    max-width: 16.66%;
-    padding: 0 15px;
+.col2 {
+  flex: 0 0 16.66%;
+  max-width: 16.66%;
+  padding: 0 15px;
 }
-.eventNomineesContainer .col3{
-    flex: 0 0 25%;
-    max-width: 25%;
-    padding: 0 15px;
+.eventNomineesContainer .col3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+  padding: 0 15px;
 }
-.col9{
-    flex: 0 0 75%;
-    max-width: 75%;
-    padding: 0 15px;
+.col9 {
+  flex: 0 0 75%;
+  max-width: 75%;
+  padding: 0 15px;
 }
-.contentBox{
-    padding: 60px 0 70px;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
+.contentBox {
+  padding: 60px 0 70px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
 }
-.eventNomineesContainer .Header{
-    flex-direction: row;
+.eventNomineesContainer .Header {
+  flex-direction: row;
 }
-.eventNomineesContainer .nomineeHeaderCol{
-    flex: 0 0 50%;
-    max-width: 50%;
-    padding: 0;
+.eventNomineesContainer .nomineeHeaderCol {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding: 0;
 }
-.nomineeHeaderCol:first-child{
-    text-align: left;
+.nomineeHeaderCol:first-child {
+  text-align: left;
 }
-.nomineeHeaderCol:last-child{
-    text-align: right;
+.nomineeHeaderCol:last-child {
+  text-align: right;
 }
-.nomineeBoxRow{
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
+.nomineeBoxRow {
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
 }
-.timerClock{
-    position: relative;
-    top:5px;
+.timerClock {
+  position: relative;
+  top: 5px;
 }
-.timeContent{
-    max-width:50%;
-    margin:0 0 0 auto;
-    border: 1px solid #D8DAE3;
-    border-radius: 20px;
-    padding:10px 25px;
+.timeContent {
+  max-width: 64%;
+  margin: 0 0 0 auto;
+  border: 1px solid #d8dae3;
+  border-radius: 20px;
+  padding: 10px 25px;
 }
-.timeLeft{
+.timeLeft {
+  font-size: 28px;
+  color: #231f20;
+  text-align: left;
+  font-weight: bold;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.timeText {
+  font-size: 20px;
+  color: #747a95;
+  text-align: left;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media screen and (min-width: 2700px) and (max-width: 4000px) {
+  .eventNomineesContainer .nomineeBoxRow {
+    margin-right: -30px;
+    margin-left: -30px;
+  }
+}
+
+@media screen and (min-width: 2100px) and (max-width: 2699px) {
+  .eventNomineesContainer .nomineeBoxRow {
+    margin-right: -25px;
+    margin-left: -25px;
+  }
+}
+
+@media screen and (min-width: 993px) and (max-width: 1450px) {
+  .eventNomineesContainer .timeContent {
+    max-width: 70%;
+  }
+}
+@media screen and (min-width: 1036px) and (max-width: 1240px) {
+  .eventNomineesContainer .heading {
+    font-size: 30px;
+  }
+  .eventNomineesContainer .timeLeft {
+    font-size: 24px;
+  }
+}
+@media screen and (min-width: 993px) and (max-width: 1035px) {
+  .eventNomineesContainer .heading {
     font-size: 28px;
-    color:#231F20;
-    text-align: left;
-    font-weight: bold;
-    white-space: nowrap;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  }
+  .eventNomineesContainer .timeLeft {
+    font-size: 22px;
+  }
 }
-.timeText{
+@media screen and (max-width: 992px) {
+  .eventNomineesContainer .nomineeBoxRow {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  .eventNomineesContainer .Header {
+    flex-flow: column;
+  }
+  .eventNomineesContainer .nomineeHeaderCol:first-child {
+    margin-bottom: 20px;
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 0 15px;
+  }
+  .eventNomineesContainer .nomineeHeaderCol:nth-child(2) {
+    margin-bottom: 20px;
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 0 15px;
+  }
+  .eventNomineesContainer .timeContent {
+    max-width: 100%;
+    margin: 0 auto 0 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+@media screen and (max-width: 575px) {
+  .eventNomineesContainer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .eventNomineesContainer .Header .nomineeBoxRow {
+    flex-flow: column;
+    align-items: flex-start;
+  }
+  .eventNomineesContainer .nomineeHeaderCol:nth-child(2) {
+    width: 100%;
+  }
+  .eventNomineesContainer .col3 {
+    margin: 0;
+    padding-bottom: 15px;
+  }
+  .eventNomineesContainer .timerClock {
+    top: 12px;
+    width: 50px;
+  }
+  .eventNomineesContainer .heading {
+    font-size: 24px;
+  }
+  .eventNomineesContainer .timeLeft {
     font-size: 20px;
-    color:#747A95;
-    text-align: left;
-    white-space: nowrap;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-@media screen and (min-width:2700px) and (max-width:4000px){
-    .eventNomineesContainer .nomineeBoxRow{
-        margin-right: -30px;
-        margin-left: -30px;
-    }
-}
-
-@media screen and (min-width:2100px) and (max-width:2699px){
-    .eventNomineesContainer .nomineeBoxRow{
-        margin-right: -25px;
-        margin-left: -25px;
-    }
-}
-
-@media screen and (min-width:993px) and (max-width:1450px){
-    .eventNomineesContainer .timeContent{
-        max-width: 70%;
-    }
-}
-@media screen and (min-width:1036px)  and (max-width:1240px){
-    .eventNomineesContainer .heading{
-        font-size: 30px;
-    }
-    .eventNomineesContainer .timeLeft{
-        font-size: 24px;
-    }
-}
-@media screen and (min-width:993px)  and (max-width:1035px){
-    .eventNomineesContainer .heading{
-        font-size: 28px;
-    }
-    .eventNomineesContainer .timeLeft{
-        font-size: 22px;
-    }
-}
-@media screen and (max-width:992px){
-    .eventNomineesContainer .nomineeBoxRow{
-        margin-right: 0px;
-        margin-left: 0px;
-    }
-    .eventNomineesContainer .Header{
-        flex-flow: column;
-    }
-    .eventNomineesContainer .nomineeHeaderCol:first-child{
-        margin-bottom: 20px;
-        flex: 0 0 100%;
-        max-width: 100%;
-        padding: 0 15px;
-    }
-    .eventNomineesContainer .nomineeHeaderCol:nth-child(2){
-        margin-bottom: 20px;
-        flex: 0 0 100%;
-        max-width: 100%;
-        padding: 0 15px;
-    }
-    .eventNomineesContainer .timeContent{
-        max-width: 100%;
-        margin: 0 auto 0 0;
-        padding-left:0;
-        padding-right:0;
-    }
-}
-@media screen and (max-width:575px){
-    .eventNomineesContainer{
-        padding-left: 0;
-        padding-right: 0;
-    }
-    .eventNomineesContainer .Header .nomineeBoxRow{
-        flex-flow: column;
-        align-items: flex-start;
-    }
-    .eventNomineesContainer .nomineeHeaderCol:nth-child(2){
-        width: 100%;
-    }
-    .eventNomineesContainer .col3{
-        margin: 0;
-        padding-bottom: 15px;
-    }
-    .eventNomineesContainer .timerClock{
-        top:12px;
-        width:50px;
-    }
-    .eventNomineesContainer .heading{
-        font-size: 24px;
-    }
-    .eventNomineesContainer .timeLeft{
-        font-size: 20px;
-    }
+  }
 }

@@ -40,7 +40,12 @@ const convertAllNomineesApiStructureToListingData = (
       });
 
       noOfAsyncTasks--;
-      if (noOfAsyncTasks === 0) cb(convertData);
+      if (noOfAsyncTasks === 0) {
+        convertData.unshift({
+          endTime: response.endTime,
+        });
+        cb(convertData);
+      }
     });
   }
 };
@@ -65,6 +70,21 @@ export const getAllVotingNominees = (categoryID, cb) => {
           dispatch(votingNomineeActions.getAllNominees(data.data));
           cb && cb(null, response);
         }
+      })
+      .catch((error) => {
+        cb && cb(error);
+      });
+  };
+};
+
+export const getSingleNomineeDetail = (nomineeID, cb) => {
+  return (dispatch) => {
+    axios
+      .get(`/voting-nominees/${nomineeID}`)
+      .then((response) => {
+        const { data } = response;
+        dispatch(votingNomineeActions.getUpdatedNomineeVoteCount(data));
+        cb && cb(null, response);
       })
       .catch((error) => {
         cb && cb(error);

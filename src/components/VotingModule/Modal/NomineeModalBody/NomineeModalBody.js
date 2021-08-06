@@ -39,12 +39,15 @@ class NomineeModalBody extends Component {
           <PaidModalContent
             handleOk={this.props.handleOk}
             nomineeDetail={nomineeDetail}
+            onChange={this.props.onChange}
           />
         )}
         {nomineeDetail.votingType === "free" && (
           <UnpaidModalContent
             nomineeDetail={nomineeDetail}
             handleOk={this.props.handleOk}
+            onChange={this.props.onChange}
+            voteCount={this.props.voteCount}
           />
         )}
       </Fragment>

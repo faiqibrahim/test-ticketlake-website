@@ -6,7 +6,7 @@ const resultSlice = createSlice({
     resultListing: [],
   },
   reducers: {
-    resultListing(state, action) {
+    getResultListing(state, action) {
       state.resultListing = action.payload;
     },
   },

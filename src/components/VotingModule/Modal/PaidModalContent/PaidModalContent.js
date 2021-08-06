@@ -156,10 +156,15 @@ class PaidModalContent extends Component {
         { paidVoteCastSuccess: false },
         this.props.savePaidVoteCast(voteData, (error, data) => {
           if (!error) {
-            this.setState({
-              successResponse: this.props.voteCastResponse,
-              thankyouScreen: true,
-            });
+            this.setState(
+              {
+                successResponse: this.props.voteCastResponse,
+                thankyouScreen: true,
+              },
+              () => {
+                this.props.onChange(nomineeDetail.id);
+              }
+            );
           } else {
             this.setState({
               error: this.props.error.error,

@@ -3,6 +3,13 @@ import React from "react";
 import "./NomineeCard.css";
 
 const NomineeCard = (props) => {
+  const { voteCount, id, voteCountDetail } = props;
+
+  let votingCount =
+    voteCountDetail && id === voteCountDetail.data._id
+      ? voteCountDetail.data.totalVotes
+      : voteCount;
+
   return (
     <div className="cardItemCol">
       <div className="cardItemContainer">
@@ -14,9 +21,9 @@ const NomineeCard = (props) => {
           <div className="voteType">
             {props.balloting === true
               ? "secret balloting"
-              : props.voteCount === 1
-              ? props.voteCount + " vote"
-              : props.voteCount + " votes"}
+              : votingCount === 1
+              ? votingCount + " vote"
+              : votingCount + " votes"}
           </div>
           <div className="voteButton">
             <button value={props.nomineeVoteID} onClick={props.clicked}>

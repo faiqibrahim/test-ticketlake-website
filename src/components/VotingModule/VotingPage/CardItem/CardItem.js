@@ -6,7 +6,6 @@ import "./CardItem.css";
 
 const CardItem = (props) => {
   let closedVoting = null;
-  console.log("props.status", props.status);
   if (props.status) {
     closedVoting = (
       <>

@@ -7,7 +7,11 @@ import NomineeCard from "../NomineeCard/NomineeCard";
 import NomineeModalBody from "../../Modal/NomineeModalBody/NomineeModalBody";
 import Loader from "../../../../commonComponents/loader";
 import { getAllVotingNominees } from "../../../../redux/voting-events/nominee/nominee-action";
+import { getEventBreadCrumbs } from "../../../../redux/voting-events/bread-crumbs/bread-crumb-actions";
+import { getSingleNomineeDetail } from "../../../../redux/voting-events/nominee/nominee-action";
+
 import VotingHeader from "../../Header/Layout/Layout";
+import { duration } from "../../VotingPage/Duration/duration";
 import "./EventNominees.css";
 import "../../VotingModule.css";
 
@@ -19,6 +23,10 @@ class EventNominees extends Component {
     nominees: null,
     visible: false,
     nomineeId: null,
+    remainingTime: null,
+    categoryName: "",
+    eventName: "",
+    voteCount: null,
     authentication: this.props.auth,
   };
 
@@ -26,26 +34,14 @@ class EventNominees extends Component {
     this.is_Mounted = true;
 
     const { id, categoryId } = this.props.match.params;
-    const params = new URLSearchParams(this.props.location.search);
-    const categoryName = params.get("categoryName");
-    const eventName = params.get("eventName");
 
     this.props.getAllVotingNominees(categoryId, (error, data) => {
       if (!error) {
+        this.getBreadCrumbs(id, categoryId);
         this.setState({
           loading: false,
           nominees: this.props.nomineeListing,
-          categoryName,
-          eventName,
-          breadCrumbs: [
-            { path: "/", crumbTitle: "Home" },
-            { path: "/voting", crumbTitle: "Votings" },
-            { path: `/voting/${id}`, crumbTitle: eventName },
-            {
-              path: `/voting/${id}/categories/${categoryId}`,
-              crumbTitle: categoryName,
-            },
-          ],
+          remainingTime: duration(this.props.nomineeListing[0]),
         });
       } else {
         this.setState({ loading: false });
@@ -57,9 +53,31 @@ class EventNominees extends Component {
     this.is_Mounted = false;
   }
 
+  getBreadCrumbs = (eventID, categoryID) => {
+    this.props.getEventBreadCrumbs(eventID, categoryID, (error, data) => {
+      if (!error) {
+        this.setState({
+          eventName: this.props.breadCrumbs[0].eventName + " - Nominees",
+          categoryName: this.props.breadCrumbs[1].categoryName,
+          breadCrumbs: [
+            { path: "/", crumbTitle: "Home" },
+            { path: "/voting", crumbTitle: "Votings" },
+            {
+              path: `/voting/${eventID}`,
+              crumbTitle: this.props.breadCrumbs[0].eventName,
+            },
+            {
+              path: `/voting/${eventID}/categories/${categoryID}`,
+              crumbTitle: this.props.breadCrumbs[1].categoryName,
+            },
+          ],
+        });
+      }
+    });
+  };
+
   toggleModal = (nominee) => {
     const authentication = this.state.authentication;
-
     this.setState({
       visible: !this.state.visible,
       nominee,
@@ -74,20 +92,18 @@ class EventNominees extends Component {
     }
   };
 
-  handleOk = (e) => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-  handleCancel = (e) => {
-    this.setState({
-      visible: false,
+  onChange = (nomineeID) => {
+    this.props.getSingleNomineeDetail(nomineeID, (error, data) => {
+      if (!error) {
+        this.setState({
+          voteCount: this.props.voteCount,
+        });
+      }
     });
   };
 
   renderNomineesModal = () => {
-    const { nominee } = this.state;
+    const { nominee, voteCount } = this.state;
 
     if (!nominee) return null;
 
@@ -102,9 +118,11 @@ class EventNominees extends Component {
         footer={null}
       >
         <NomineeModalBody
-          handleOk={this.handleOk}
+          handleOk={this.toggleModal}
           nominee={nominee}
           key={nominee.id}
+          onChange={this.onChange}
+          voteCount={voteCount ? voteCount : null}
         />
       </Modal>
     );
@@ -113,7 +131,8 @@ class EventNominees extends Component {
   render() {
     if (this.state.loading) return <Loader />;
 
-    const { nominees } = this.state;
+    const [, ...nominees] = this.state.nominees;
+    const { remainingTime, voteCount } = this.state;
 
     return (
       <Fragment>
@@ -121,7 +140,7 @@ class EventNominees extends Component {
         <div className="container">
           <div className="headerContainer">
             <VotingHeader
-              pageTitle={`${this.state.eventName} - Nominees`}
+              pageTitle={this.state.eventName}
               breadCrumbs={this.state.breadCrumbs}
             />
           </div>
@@ -132,7 +151,7 @@ class EventNominees extends Component {
             <div className="Header">
               <div className="nomineeHeaderCol">
                 <div className="heading">
-                  Nominees for "{this.state.categoryName}"
+                  Nominees for "{this.state.categoryName}
                 </div>
                 <div className="subHeading">
                   Please select a nominee to vote for
@@ -149,7 +168,7 @@ class EventNominees extends Component {
                       />
                     </div>
                     <div className="col9">
-                      <div className="timeLeft">02 hours, 30 mins</div>
+                      <div className="timeLeft">{remainingTime}</div>
                       <div className="timeText">Remaining in votings..</div>
                     </div>
                   </div>
@@ -163,6 +182,7 @@ class EventNominees extends Component {
                     <NomineeCard
                       key={nominee.id}
                       {...nominee}
+                      voteCountDetail={voteCount ? voteCount : null}
                       clicked={() => this.toggleModal(nominee)}
                     />
                   );
@@ -183,12 +203,18 @@ const mapStateToProps = (state) => {
   return {
     auth: state.user.authenticated,
     nomineeListing: state.voting.nominee.nomineeListing,
+    breadCrumbs: state.voting.breadCrumbs.breadCrumbs,
+    voteCount: state.voting.nominee.updatedVoteCount,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getAllVotingNominees: (id, cb) => dispatch(getAllVotingNominees(id, cb)),
+    getEventBreadCrumbs: (eventID, categoryID, cb) =>
+      dispatch(getEventBreadCrumbs(eventID, categoryID, cb)),
+    getSingleNomineeDetail: (nomineeID, cb) =>
+      dispatch(getSingleNomineeDetail(nomineeID, cb)),
     setRedirectTo,
   };
 };

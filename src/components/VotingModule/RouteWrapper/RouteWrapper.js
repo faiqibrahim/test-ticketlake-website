@@ -17,7 +17,7 @@ const PageWrapper = () => {
         component={Authentication}
       />
       <Route
-        path="/voting/:id/event-results/:id"
+        path="/voting/:id/event-results/:categoryId"
         component={VotingEventResults}
       />
       <Route

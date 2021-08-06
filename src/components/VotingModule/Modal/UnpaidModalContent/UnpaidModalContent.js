@@ -30,6 +30,7 @@ class UnpaidModalContent extends Component {
             this.setState({
               remainingTime,
             });
+            this.props.onChange(this.props.nomineeDetail.id);
           }
         );
       } else {
@@ -81,6 +82,11 @@ class UnpaidModalContent extends Component {
 
   _renderVoteSuccessScreen = () => {
     const { error, remainingTime } = this.state;
+    const { nomineeDetail, voteCount } = this.props;
+
+    let nomineeVoteCount = voteCount
+      ? voteCount.data.totalVotes
+      : nomineeDetail.voteCount;
     let voteInfo = null;
     if (error) {
       voteInfo = <div className="timeLeft">{error}</div>;
@@ -101,17 +107,15 @@ class UnpaidModalContent extends Component {
         <div className="subTitle">{voteInfo}</div>
         <div className="detailContent">
           <div className="detailImg">
-            <img src={this.props.nomineeDetail.imgSrc} alt={"img"} />
+            <img src={nomineeDetail.imgSrc} alt={"img"} />
           </div>
-          <div className="detailName">
-            {this.props.nomineeDetail.nomineeName}
-          </div>
+          <div className="detailName">{nomineeDetail.nomineeName}</div>
           <div className="detailVoteType">
-            {this.props.nomineeDetail.balloting === true
+            {nomineeDetail.balloting === true
               ? "secret balloting"
-              : this.props.nomineeDetail.voteCount === 1
-              ? this.props.nomineeDetail.voteCount + " vote"
-              : this.props.nomineeDetail.voteCount + " votes"}
+              : nomineeVoteCount === 1
+              ? nomineeVoteCount + " vote"
+              : nomineeVoteCount + " votes"}
           </div>
         </div>
         <div className="castVote" style={{ paddingTop: "40px" }}>

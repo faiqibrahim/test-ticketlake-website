@@ -66,11 +66,11 @@ export const getAllVotingCategories = (eventID, cb) => {
             data.data,
             function(categoriesList) {
               dispatch(votingCategoryActions.getAllCategories(categoriesList));
-              cb && cb(null, response);
+              cb && cb(null, data.data);
             }
           );
         } else {
-          cb && cb(null, response);
+          cb && cb(null, data.data);
         }
       })
       .catch((error) => {
