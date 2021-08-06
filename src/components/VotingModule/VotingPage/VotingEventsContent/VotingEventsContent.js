@@ -21,7 +21,7 @@ const VotingEvents = (props) => {
       ) : (
         events &&
         events.map((event) => {
-          return event.active ? (
+          return (
             <CardItem
               key={event.id}
               {...event}
@@ -35,7 +35,7 @@ const VotingEvents = (props) => {
                 )
               }
             />
-          ) : null;
+          );
         })
       )}
     </div>

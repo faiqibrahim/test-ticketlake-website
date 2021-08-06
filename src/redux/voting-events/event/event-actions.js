@@ -1,4 +1,5 @@
 import axios from "../../../utils/axios";
+import moment from "moment";
 
 import { votingEventActions } from "./event-Slice";
 
@@ -7,19 +8,25 @@ const convertAllEventApiStructureToListingData = (data) => {
 
   if (Array.isArray(data)) {
     data.forEach((element) => {
-      convertEventData.push({
-        id: element._id,
-        images: element.images[0],
-        name: element.name,
-        startTime: element.startTime,
-        endTime: element.endTime,
-        votingType: element.votingType,
-        nextVoteTime: element.nextVoteTime,
-        votePrice: element.votePrice ? element.votePrice : 0,
-        secretBalloting: element.secretBalloting,
-        votingCounting: element.totalVotes,
-        active: element.active,
-      });
+      const checkDateStartTime = moment(element.startTime).diff(
+        moment(new Date())
+      );
+
+      if (checkDateStartTime < 0 && element.active) {
+        convertEventData.push({
+          id: element._id,
+          images: element.images[0],
+          name: element.name,
+          startTime: element.startTime,
+          endTime: element.endTime,
+          votingType: element.votingType,
+          nextVoteTime: element.nextVoteTime,
+          votePrice: element.votePrice ? element.votePrice : 0,
+          secretBalloting: element.secretBalloting,
+          votingCounting: element.totalVotes,
+          active: element.active,
+        });
+      }
     });
   }
 
