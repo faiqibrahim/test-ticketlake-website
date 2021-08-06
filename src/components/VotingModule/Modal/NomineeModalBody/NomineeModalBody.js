@@ -1,63 +1,58 @@
-import React, {Component,Fragment} from 'react';
-import {withRouter} from 'react-router-dom';
+import React, { Component, Fragment } from "react";
+import { withRouter } from "react-router-dom";
 
-import PaidModalContent from '../PaidModalContent/PaidModalContent';
-import UnpaidModalContent from '../UnpaidModalContent/UnpaidModalContent';
-import {getEventCategoryNomineeDetail } from '../../data-fetcher';
+import PaidModalContent from "../PaidModalContent/PaidModalContent";
+import UnpaidModalContent from "../UnpaidModalContent/UnpaidModalContent";
 
-class NomineeModalBody extends Component{
+class NomineeModalBody extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      voteCastSuccess: false,
+      nomineeDetail: null,
+    };
+  }
 
-
-    constructor(props){
-        super(props);
-        this.state = {
-            voteCastSuccess : false,
-            nomineeDetail : null
-        }
+  componentDidMount() {
+    const { nominee } = this.props;
+    if (nominee) {
+      this.setState({
+        nomineeDetail: nominee,
+        voteCastSuccess: false,
+      });
     }
+  }
 
-    componentDidMount(){
+  voteCastSuccessHandler = () => {
+    this.setState({
+      voteCastSuccess: true,
+    });
+  };
 
-        getEventCategoryNomineeDetail(this.props.nomineeId).then( nominee => {
-            this.setState({
-                nomineeDetail : nominee,
-                voteCastSuccess : false
-                })
-        }).catch(() =>{
+  render() {
+    const { nomineeDetail } = this.state;
+    if (!nomineeDetail) return null;
 
-        })
-    }
-
-    voteCastSuccessHandler = () =>{
-        this.setState({
-            voteCastSuccess : true
-        })
-    } 
-
-    render(){
-        const { nomineeDetail} = this.state;
-                
-        if(!nomineeDetail) return null;
-    
-        return (<Fragment> 
-                    {
-                        nomineeDetail.status === "paid" &&
-                            <PaidModalContent  
-                                handleOk = {this.props.handleOk}
-                                nomineeDetail = {nomineeDetail}
-                            />
-                    }
-                    {
-                        nomineeDetail.status === "unpaid" &&
-                            <UnpaidModalContent
-                                nomineeDetail = {nomineeDetail}
-                                handleOk = {this.props.handleOk}
-                        />
-                    } 
-                </Fragment>)
-        }
+    return (
+      <Fragment>
+        {nomineeDetail.votingType === "paid" && (
+          <PaidModalContent
+            handleOk={this.props.handleOk}
+            nomineeDetail={nomineeDetail}
+            onChange={this.props.onChange}
+          />
+        )}
+        {nomineeDetail.votingType === "free" && (
+          <UnpaidModalContent
+            nomineeDetail={nomineeDetail}
+            handleOk={this.props.handleOk}
+            onChange={this.props.onChange}
+            voteCount={this.props.voteCount}
+          />
+        )}
+      </Fragment>
+    );
+  }
 }
 
-
 export default withRouter(NomineeModalBody);
-

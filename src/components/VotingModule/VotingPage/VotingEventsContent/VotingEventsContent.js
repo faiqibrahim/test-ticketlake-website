@@ -1,39 +1,45 @@
-import React from 'react';
-import {withRouter} from 'react-router-dom';
+import React from "react";
+import { withRouter } from "react-router-dom";
 
-import CardItem from '../CardItem/CardItem';
-import './VotingEventsContent.css';
+import { duration } from "../Duration/duration";
+import CardItem from "../CardItem/CardItem";
+import "./VotingEventsContent.css";
 
-
-const eventSelectedHandler = (id,props) => {
-    props.history.push({
-            pathname : "/voting/" + id
-        }
-    );
-}
-
-const eventClosedVotingHandler = (id,props) => {
-       props.history.push({
-            pathname : "/voting/event-results/" + id
-        }
-    );
-}
+const eventSelectedHandler = (id, name, props, eventClosed) => {
+  props.history.push({
+    pathname: "/voting/" + id,
+  });
+};
 
 const VotingEvents = (props) => {
-    return(   
-        <div className="cardItemRow votingEvents">
-            {   props.events.map(event => { 
-                    return ( <CardItem 
-                        key={event.id} 
-                        {...event}
-                        clicked={() => event.status === "open" ? eventSelectedHandler(event.id , props) : eventClosedVotingHandler(event.id , props)}
-                    />
-                    )
-                })
-            }
-        </div>
-    )
-}
+  const { events } = props;
+
+  return (
+    <div className="cardItemRow votingEvents">
+      {events.length === 0 ? (
+        <h1>No Active Events Found</h1>
+      ) : (
+        events &&
+        events.map((event) => {
+          return (
+            <CardItem
+              key={event.id}
+              {...event}
+              status={duration(event).eventEnd}
+              clicked={() =>
+                eventSelectedHandler(
+                  event.id,
+                  event.name,
+                  props,
+                  duration(event).eventEnd
+                )
+              }
+            />
+          );
+        })
+      )}
+    </div>
+  );
+};
 
 export default withRouter(VotingEvents);
-

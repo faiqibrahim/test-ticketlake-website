@@ -13,6 +13,7 @@ import common from "./common/common-reducer";
 import movies from "./movies/movie-reducer";
 import venue from "./venues/venue-reducer";
 import organiser from "./organiser/organiser-reducer";
+import voting from "./voting-events/index";
 
 const reducer = combineReducers({
   event,
@@ -26,6 +27,7 @@ const reducer = combineReducers({
   movies,
   venue,
   organiser,
+  voting,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
