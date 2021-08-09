@@ -37,12 +37,18 @@ import {
   PAYMENT_RESPONSE_CODE,
   GET_ORDER_DETAILS,
   RAVEPAY_PAYMENT_REQUEST,
+  SEAT_TICKET_PURCHASE,
+  DIRECT_PAYMENT_STATUS_SEATS_IO,
 } from "../../utils/config";
 // Import Redux Action
 import { errorHandling } from "../user/user-actions";
 
 import { NotificationManager } from "react-notifications";
-import { NOTIFICATION_TIME } from "../../utils/common-utils";
+import {
+  getSeatCheckoutProps,
+  isCustomEvent,
+  NOTIFICATION_TIME,
+} from "../../utils/common-utils";
 import { handleError } from "../../utils/store-utils";
 import { showContentOutsideMainWrapper } from "../common/common-actions";
 import { macAddress } from "../../utils/constant";
@@ -108,7 +114,7 @@ export const setClientToken = () => {
     dispatch(setProcessing(true));
     axios
       .get(CLIENT_ID_GET)
-      .then((responce) => {
+      .then((response) => {
         dispatch(setProcessing(false));
       })
       .catch((err) => {
@@ -125,15 +131,36 @@ export const getEventDetail = (id) => {
       .get(EVENTS_GET_EVENT_DETAIL + id)
       .then((response) => {
         dispatch(setError(false));
-        const checkEventForDate = checkEvent(response.data.data);
-        dispatch(
-          setTicketCurrency(response.data.data.parentEventInfo.currency)
-        );
-        const ticketData = getTicketClassConfigData(response);
+        const { data: eventDetail } = response.data;
+        const {
+          parentEventInfo,
+          ticketClasses,
+          seats: eventSeats,
+        } = eventDetail;
+        const {
+          currency,
+          ticketClassesConfig,
+          customSeatingPlan: customSeats,
+          passConfigs,
+        } = parentEventInfo;
+        const checkEventForDate = checkEvent(eventDetail);
 
-        dispatch(setSeats(response, ticketData));
+        dispatch(setTicketCurrency(currency));
+        const ticketData = getTicketClassConfigData(
+          ticketClassesConfig,
+          ticketClasses
+        );
+
+        customSeats && dispatch(setSeats(eventSeats.seats, ticketData));
+
         dispatch(setEvent(response));
-        const passesData = getPassesConfigData(response);
+
+        const passesData = getPassesConfigData(
+          ticketClasses,
+          passConfigs,
+          ticketClassesConfig
+        );
+
         dispatch(
           setPassesTicketClasses(getPassesTicketClassesData(passesData))
         );
@@ -212,10 +239,9 @@ export const setBillSummary = (arr, wallet = 0) => {
   };
 };
 
-const setSeats = (res, ticketData) => {
-  const seatDataFromResponse = res.data.data.seats.seats[0].seats;
+const setSeats = (eventSeats, ticketData) => {
+  const seatDataFromResponse = eventSeats[0].seats;
   const seats = getSeatsFromResponse(seatDataFromResponse, ticketData);
-
   const assignedSeatFlag = checkSeatsAssigned(seats) > 0;
   return (dispatch) => {
     dispatch(setAssignedSeatsFlag(assignedSeatFlag));
@@ -231,22 +257,21 @@ const setPassesSeatsData = (
 ) => {
   return (dispatch) => {
     dispatch(setProcessing(true));
-    const passesRequest = [];
-    _.forEach(billSummary, (item) => {
-      if (item.ticketClassType === "PASS") {
-        if (item.ticketClassQty > 0) {
-          passesRequest.push({
-            id: item.uniqueId,
-          });
-        }
-      }
-    });
+    const passesRequest = billSummary
+      .filter(
+        ({ ticketClassType, ticketClassQty }) =>
+          ticketClassType === "PASS" && ticketClassQty
+      )
+      .map(({ uniqueId }) => {
+        return { id: uniqueId };
+      });
+
     const passesSeats = [];
     if (passesRequest.length) {
       dispatch(setProcessing(true));
       const eventParentId = event.data.data.parentEventInfo._id;
 
-      let promise = new Promise((resolve, reject) => {
+      let promise = new Promise((resolve) => {
         const length = passesRequest.length;
         let counter = 0;
         _.forEach(passesRequest, (item) => {
@@ -257,9 +282,7 @@ const setPassesSeatsData = (
             })
             .then((res) => {
               counter++;
-              passesSeats.push(
-                arrangePassesSeatsWithEventSlots(res.data.data, passData)
-              );
+              passesSeats.push(arrangePassesSeatsWithEventSlots(res.data.data));
               if (counter === length) {
                 resolve();
               }
@@ -303,20 +326,30 @@ export const setAssignedSeats = (
   event,
   passData,
   passTicketClasses,
+  venueSeats,
+  isCustomEvent,
   stepCB
 ) => {
   return (dispatch) => {
     dispatch(setProcessing(true));
-    dispatch(
-      setPassesSeatsData(billSummary, event, passData, passTicketClasses)
-    );
-    const assignedSeats = seatsQtySearch(billSummary, seats);
+
     dispatch(setBillSummary(billSummary, wallet));
+
+    seats = isCustomEvent ? seats : venueSeats;
+    const assignedSeats = seatsQtySearch(billSummary, seats, isCustomEvent);
+
     dispatch({
       type: SET_ASSIGNED_SEATS,
       payload: assignedSeats,
     });
+
     dispatch(setAssignedSeatsForDisplay(assignedSeats));
+    if (isCustomEvent) {
+      dispatch(
+        setPassesSeatsData(billSummary, event, passData, passTicketClasses)
+      );
+    }
+
     stepCB && stepCB();
     dispatch(setProcessing(false));
   };
@@ -327,12 +360,12 @@ export const setAssignedBillFromForm = (
   val,
   rowNumber,
   seatNumber,
-  assignedSeats,
-  uniqueId
+  assignedSeats
 ) => {
   return (dispatch) => {
     assignedSeats.forEach((item) => {
       if (item.seatNumber === seatNumber && item.rowNumber === rowNumber) {
+        item.self = false;
         item.userInfo[index] = val;
       }
     });
@@ -356,6 +389,24 @@ export const setAssignedBillFromFormForPasses = (
   };
 };
 
+export const seatsCheckout = (checkoutData, stepCB, isHubtel = false) => {
+  return (dispatch) => {
+    dispatch(setProcessing(true));
+    axios
+      .post(SEAT_TICKET_PURCHASE, checkoutData, "v2")
+      .then((response) => {
+        !isHubtel && dispatch(setPaymentSuccess(true));
+        dispatch(setProcessing(false));
+
+        stepCB && stepCB(response);
+      })
+      .catch((err) => {
+        dispatch(setProcessing(false));
+        dispatch(setPaymentSuccess(false));
+        stepCB && stepCB();
+      });
+  };
+};
 export const checkout = (
   tickets,
   guestsTickets,
@@ -364,8 +415,7 @@ export const checkout = (
   allPasses,
   guestPasses,
   conversionDetails,
-  stepCB,
-  wallet
+  stepCB
 ) => {
   const { data } = event.data;
   return (dispatch, getState) => {
@@ -401,18 +451,22 @@ export const removeAssignedSeatsFromDisplay = (
   ticketsArr,
   assignedSeatsFromDisplay,
   passesSeats,
+  isCustomSeats,
   cb
 ) => {
   let assignedSeats = assignedSeatsFromDisplay
     ? [...assignedSeatsFromDisplay]
     : null;
+
   let passes = passesSeats ? [...passesSeats] : null;
+
   assignedSeats &&
     assignedSeats.forEach((seat) => {
       seat.userInfo.name = "";
       seat.userInfo.email = "";
       seat.userInfo.phoneNumber = "";
     });
+
   passes &&
     passes.forEach((seat) => {
       seat.userInfo.name = "";
@@ -452,13 +506,17 @@ export const removeAssignedSeatsFromDisplay = (
         } else {
           const newArray = [];
           assignedSeatsForDisplay.forEach((item) => {
-            if (item.ticket.name === splittedString[1]) {
-              if (
-                !(
-                  parseInt(item.rowNumber) === parseInt(splittedString[2]) &&
-                  parseInt(item.seatNumber) === parseInt(splittedString[3])
-                )
-              ) {
+            const { rowNumber, seatNumber, ticket } = item;
+            if (ticket.name === splittedString[1]) {
+              const parsedRow = isCustomSeats
+                ? parseInt(splittedString[2])
+                : splittedString[2];
+
+              const parsedSeat = isCustomSeats
+                ? parseInt(splittedString[3])
+                : splittedString[3];
+
+              if (!(rowNumber === parsedRow && seatNumber === parsedSeat)) {
                 newArray.push(item);
               }
             } else {
@@ -657,11 +715,20 @@ export const verifySmsOTP = (smsOTP, cb, errorCB) => {
   };
 };
 
+const hubtelPaymentInitiated = (response, isSeatEvent = false) => {
+  return (dispatch) => {
+    const data = response && response.data[isSeatEvent ? "data" : "result"];
+    const checkoutId = data && data.Data && data.Data.TransactionId;
+    dispatch(directPaymentStatus(checkoutId, isSeatEvent));
+  };
+};
+
 export const initiateHubtelDirectPayment = (tryAgain) => {
   return (dispatch, getState) => {
     let hubtelPaymentData;
     const ticket = getState().ticket;
     const tickets = ticket.assignedSeats;
+
     const guestTickets = ticket.assignedSeatsForDisplay;
     const event = ticket.event && ticket.event.data && ticket.event.data.data;
     const allPasses = ticket.passesAssignedSeats;
@@ -683,78 +750,99 @@ export const initiateHubtelDirectPayment = (tryAgain) => {
 
     let paymentDescription = `${ticketsCount} ticket(s) & ${passesCount} pass(es) purchased for ${event &&
       event.eventTitle}`;
+
     let paymentOption = splitPayment
       ? "wallet&paymentGateway"
       : "paymentGateWay";
 
-    let checkoutData = setHubtelCheckoutData(
-      event && event.parentEventId,
-      event && event._id,
-      checkTicketsForMySelf(tickets, guestTickets),
-      checkPassesForMySelf(allPasses, guestPasses),
-      price,
-      paymentOption,
-      phoneNumber,
-      network,
-      paymentDescription,
-      couponData.promoCode
-    );
-
-    if (tryAgain) {
-      checkoutData = ticket.maintainCheckoutData;
-      dispatch(
-        contentOutsideMainWrapper(true, () => {
-          dispatch(showCheckoutDialogue({ statusDialogue: true }));
-        })
-      );
-      count = 1;
-    } else {
-      dispatch(_setCheckoutData(checkoutData));
-    }
-
-    const topUpAmountData = setHubtelTopUpData(
-      phoneNumber,
-      network,
-      `topUp of ${topUpAmount}`,
-      topUpAmount
-    );
-
-    hubtelPaymentData =
-      checkoutData &&
-      ((checkoutData.tickets && checkoutData.tickets.length > 0) ||
-        (checkoutData.passes && checkoutData.passes.length > 0))
-        ? checkoutData
-        : topUpAmountData;
-
-    axios
-      .post(INITIATE_HUBTEL_DIRECT_PAYMENT, hubtelPaymentData)
-      .then((response) => {
-        const { result } = response && response.data;
-        const checkoutId = result && result.Data && result.Data.TransactionId;
-        dispatch(directPaymentStatus(checkoutId));
-      })
-      .catch((err) => {
-        let errorMessage = handleError(err);
-        dispatch(errorHandling(true, errorMessage));
-        NotificationManager.error(errorMessage, "", NOTIFICATION_TIME);
-        dispatch(contentOutsideMainWrapper(false));
+    if (!isCustomEvent(event)) {
+      const checkoutProps = getSeatCheckoutProps(tickets, ticket.event, {
+        phoneNumber,
+        network,
       });
+      checkoutProps.paymentDescription = paymentDescription;
+      checkoutProps.paymentOption = splitPayment
+        ? "WALLET_AND_MOBILE_MONEY"
+        : "MOBILE_MONEY";
+
+      dispatch(
+        seatsCheckout(checkoutProps, (response) => {
+          response && dispatch(hubtelPaymentInitiated(response, true));
+        }),
+        true
+      );
+    } else {
+      let checkoutData = setHubtelCheckoutData(
+        event && event.parentEventId,
+        event && event._id,
+        checkTicketsForMySelf(tickets, guestTickets),
+        checkPassesForMySelf(allPasses, guestPasses),
+        price,
+        paymentOption,
+        phoneNumber,
+        network,
+        paymentDescription,
+        couponData.promoCode
+      );
+
+      if (tryAgain) {
+        checkoutData = ticket.maintainCheckoutData;
+        dispatch(
+          contentOutsideMainWrapper(true, () => {
+            dispatch(showCheckoutDialogue({ statusDialogue: true }));
+          })
+        );
+        count = 1;
+      } else {
+        dispatch(_setCheckoutData(checkoutData));
+      }
+
+      const topUpAmountData = setHubtelTopUpData(
+        phoneNumber,
+        network,
+        `topUp of ${topUpAmount}`,
+        topUpAmount
+      );
+
+      hubtelPaymentData =
+        checkoutData &&
+        ((checkoutData.tickets && checkoutData.tickets.length > 0) ||
+          (checkoutData.passes && checkoutData.passes.length > 0))
+          ? checkoutData
+          : topUpAmountData;
+
+      axios
+        .post(INITIATE_HUBTEL_DIRECT_PAYMENT, hubtelPaymentData)
+        .then((response) => {
+          dispatch(hubtelPaymentInitiated(response));
+        })
+        .catch((err) => {
+          let errorMessage = handleError(err);
+          dispatch(errorHandling(true, errorMessage));
+          NotificationManager.error(errorMessage, "", NOTIFICATION_TIME);
+          dispatch(contentOutsideMainWrapper(false));
+        });
+    }
   };
 };
 
-const directPaymentStatus = (checkoutId) => {
+const directPaymentStatus = (checkoutId, isSeatEvent = false) => {
   let checkInternally = true;
   if (count === 10) {
     checkInternally = false;
   }
 
+  const apiURL = isSeatEvent
+    ? DIRECT_PAYMENT_STATUS_SEATS_IO
+    : DIRECT_PAYMENT_STATUS;
+
+  const apiVersion = isSeatEvent ? "v2" : "v1";
+
   return (dispatch) => {
     axios
       .get(
-        DIRECT_PAYMENT_STATUS +
-          checkoutId +
-          "?checkInternally=" +
-          checkInternally
+        apiURL + checkoutId + "?checkInternally=" + checkInternally,
+        apiVersion
       )
       .then((response) => {
         const { data } = response.data;
