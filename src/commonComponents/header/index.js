@@ -120,7 +120,9 @@ class Header extends Component {
                         <>
                           <div className={"organiser-btn-wrp action-item"}>
                             <a
-                              href={"https://organizers.ticketlake.com/"}
+                              href={
+                                "https://admin.qa.ticketlake.com/event-organiser"
+                              }
                               target="_blank"
                               rel="noopener noreferrer"
                               className={"become-an-organiser"}
@@ -214,7 +216,9 @@ class Header extends Component {
                         <>
                           <div className={"organiser-btn-wrp action-item"}>
                             <a
-                              href={"https://organizers.ticketlake.com/"}
+                              href={
+                                "https://admin.qa.ticketlake.com/event-organiser"
+                              }
                               target="_blank"
                               rel="noopener noreferrer"
                               className={"become-an-organiser"}

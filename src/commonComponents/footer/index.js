@@ -249,7 +249,7 @@ class Footer extends React.Component {
                       <li>
                         <a
                           title="Footer Links"
-                          href="https://organizers.ticketlake.com/"
+                          href="https://admin.qa.ticketlake.com/event-organiser"
                           target="_blank"
                           rel="noopener noreferrer"
                           style={footerLinkStyle}
