@@ -155,8 +155,8 @@ class BuyTicketPage extends Component {
     this.setState({ bills });
   };
 
-  prepareSeat = (labelData, label) => {
-    const { parent, own, section } = labelData;
+  prepareSeat = (seatInfo, label) => {
+    const { parent, own, section } = seatInfo;
     return {
       label,
       seatNumber: label,
