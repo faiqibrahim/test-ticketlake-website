@@ -171,26 +171,32 @@ class BuyTicketPage extends Component {
   onSeatChange = (seat, selected = true) => {
     const { billSummary } = this.props;
     const { venueSeats } = this.state;
-    const { category, labels, label } = seat;
+    const { category, labels: seatInfo, label } = seat;
 
-    let seats = [...venueSeats];
     const bills = [...billSummary];
+    const selectedSeatClass = category.label;
+    let classSeats = venueSeats[selectedSeatClass] || [];
 
     const itemIndex = bills.findIndex(
-      (item) => item.ticketClassName === category.label
+      (item) => item.ticketClassName === selectedSeatClass
     );
+
     const { ticketClassQty } = bills[itemIndex];
 
     if (selected) {
       bills[itemIndex].ticketClassQty = ticketClassQty + 1;
-      seats.push(this.prepareSeat(labels, label));
+      classSeats.push(this.prepareSeat(seatInfo, label));
     } else {
       bills[itemIndex].ticketClassQty = ticketClassQty - 1;
-      seats = venueSeats.filter((seatItem) => seatItem.label !== label);
+      classSeats = classSeats.filter((seatItem) => seatItem.label !== label);
     }
 
+    venueSeats[selectedSeatClass] = [...classSeats];
     this.props.setBillSummary(bills);
-    this.setState({ bills, venueSeats: seats });
+    this.setState({
+      bills,
+      venueSeats,
+    });
   };
 
   resetBillSummary = () => {
@@ -721,18 +727,15 @@ const mapStateToProps = (state) => {
   };
 };
 
-const connectedComponent = connect(
-  mapStateToProps,
-  {
-    getEventDetail,
-    setStep,
-    setBillSummary,
-    setAssignedSeats,
-    resetRedux,
-    resetCopounValue,
-    fetchUserProfile,
-    setUserPurchasedTickets,
-  }
-)(BuyTicketPage);
+const connectedComponent = connect(mapStateToProps, {
+  getEventDetail,
+  setStep,
+  setBillSummary,
+  setAssignedSeats,
+  resetRedux,
+  resetCopounValue,
+  fetchUserProfile,
+  setUserPurchasedTickets,
+})(BuyTicketPage);
 
 export default withRouter(connectedComponent);
