@@ -39,7 +39,7 @@
 
 .breadcrumbContainer .breadcrumbs span:last-child,
 .breadcrumbContainer .breadcrumbs .separator::after {
-  font-family: "Monotype - NeuePlak Text Semi Bold";
+  font-family: "NeuePlakSemiBold";
 }
 
 .customHeight {
@@ -145,7 +145,7 @@
 
 .cardTitle {
   font-size: 24px;
-  font-family: "Monotype - NeuePlak Text Bold";
+  font-family: "NeuePlakBold";
   padding-top: 12px;
   padding-bottom: 12px;
   margin: 0px;

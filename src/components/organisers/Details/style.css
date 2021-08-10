@@ -26,7 +26,8 @@
 .emptyColumn {
   background-color: #ffffff;
   border-radius: 0 10px 10px 0;
-  margin-left: 0;
+  margin-left: -10px;
+  z-index: -1;
 }
 
 .tabscontainer .customTabBtnActive {
@@ -35,7 +36,7 @@
 }
 
 .fontSetting {
-  font-family: "Monotype - NeuePlak Text Bold";
+  font-family: "NeuePlakBold";
   font-size: 36px;
   color: #1a1a1a;
   padding-top: 15px;
@@ -75,7 +76,7 @@
 
 .bannerHeading {
   font-size: 56px;
-  font-family: "Monotype - NeuePlak Text Bold";
+  font-family: "NeuePlakBold";
   color: #ffffff;
   margin-bottom: 0.5em;
 }
@@ -101,7 +102,7 @@
 
 .card .cardTitle {
   font-size: 24px;
-  font-family: "Monotype - NeuePlak Text Bold";
+  font-family: "NeuePlakBold";
   padding-top: 12px;
   padding-bottom: 12px;
   margin: 0px;
@@ -340,7 +341,7 @@
   .card .cardTitle {
     color: #17224e;
     font-size: 16px;
-    font-family: "Monotype - NeuePlak Text Semi Bold";
+    font-family: "NeuePlakSemiBold";
     padding: 0;
   }
 
@@ -435,7 +436,7 @@
   .card .cardTitle {
     color: #17224e;
     font-size: 16px;
-    font-family: "Monotype - NeuePlak Text Semi Bold";
+    font-family: "NeuePlakSemiBold";
     padding: 0;
   }
 

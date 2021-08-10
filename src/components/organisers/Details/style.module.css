@@ -55,7 +55,7 @@
   background-color: #ec1b23;
   color: #ffffff;
   font-size: 16px;
-  font-family: "Monotype - NeuePlak Text Semi Bold";
+  font-family: "NeuePlakSemiBold";
   border-radius: 8px;
   width: 100%;
   border: none;
@@ -70,7 +70,7 @@
 }
 
 .reviewerName {
-  font-family: "Monotype - NeuePlak Text Bold";
+  font-family: "NeuePlakBold";
   font-size: 28px;
   color: #17224e;
 }
@@ -88,18 +88,18 @@
 .ratingheading {
   font-size: 24px;
   color: #747a95;
-  font-family: "Monotype - NeuePlak Text Bold";
+  font-family: "NeuePlakBold";
 }
 
 .detailsTitle {
-  font-family: "Monotype - NeuePlak Text Bold";
+  font-family: "NeuePlakBold";
   font-size: 28px;
   color: #17224e;
   padding-bottom: 0;
 }
 
 .veneueText {
-  font-family: "Monotype - NeuePlak Text Bold";
+  font-family: "NeuePlakBold";
   font-size: 20px;
   color: #555555;
   margin-bottom: 0;
@@ -123,7 +123,7 @@
 
 @media (max-width: 767px) {
   .detailsTitle {
-    font-family: "Monotype - NeuePlak Text Bold";
+    font-family: "NeuePlakBold";
     font-size: 20px;
     color: #17224e;
     padding-bottom: 0;
@@ -165,7 +165,7 @@
   }
 
   .reviewerName {
-    font-family: "Monotype - NeuePlak Text Semi Bold";
+    font-family: "NeuePlakSemiBold";
     font-size: 20px;
     color: #17224e;
   }
@@ -204,7 +204,7 @@
   .ratingheading {
     font-size: 18px;
     color: #747a95;
-    font-family: "Monotype - NeuePlak Text Semi Bold";
+    font-family: "NeuePlakSemiBold";
   }
 
   .displayNone {
