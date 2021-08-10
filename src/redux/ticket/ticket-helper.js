@@ -88,12 +88,14 @@ export const getSeatsFromResponse = (seat, ticketData) => {
 
 export const seatsQtySearch = (billSummary, seats, isCustomEvent) => {
   const arr = [];
-  billSummary.forEach((item) => {
+
+  const filteredSummary = billSummary.filter(
+    ({ ticketClassQty }) => ticketClassQty > 0
+  );
+  filteredSummary.forEach((item) => {
     if (item.ticketClassType !== "PASS") {
       for (let i = 0; i < parseInt(item.ticketClassQty); i++) {
-        const seatObject = isCustomEvent
-          ? seats[item.ticketClassName][i]
-          : seats[i];
+        const seatObject = seats[item.ticketClassName][i];
 
         const formattedSeats = formatAssignedSeatsObject({
           ...item,
