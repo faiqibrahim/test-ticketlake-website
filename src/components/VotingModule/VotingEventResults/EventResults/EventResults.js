@@ -135,12 +135,12 @@ class EventResults extends Component {
                         <label>Sort by: &nbsp;</label>
                         <i className="sortArrow"></i>
                         <div
-                          class="dropdown"
+                          className="dropdown"
                           name="nomineeSort"
                           id="nomineeSort"
                         >
                           <span>Most Votes</span>
-                          <div class="dropdown-content">
+                          <div className="dropdown-content">
                             <p>Most Votes</p>
                           </div>
                         </div>

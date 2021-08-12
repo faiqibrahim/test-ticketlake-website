@@ -31,6 +31,7 @@ export const duration = (props) => {
   } else {
     durationString = `00 days, 00 hours, 00 mins left`;
     const eventEnd = true;
+
     return { durationString, eventEnd };
   }
 

@@ -36,7 +36,7 @@ class EventNominees extends Component {
     const { id, categoryId } = this.props.match.params;
 
     this.props.getAllVotingNominees(categoryId, (error, data) => {
-      if (!error) {
+      if (!error && data.length > 0) {
         this.getBreadCrumbs(id, categoryId);
         if (this.is_Mounted) {
           this.setState({
@@ -138,6 +138,11 @@ class EventNominees extends Component {
     const [, ...nominees] = this.state.nominees;
     const { remainingTime, voteCount } = this.state;
 
+    let time =
+      typeof remainingTime === "object"
+        ? remainingTime.durationString
+        : remainingTime;
+
     return (
       <Fragment>
         {this.renderNomineesModal()}
@@ -172,7 +177,7 @@ class EventNominees extends Component {
                       />
                     </div>
                     <div className="col9">
-                      <div className="timeLeft">{remainingTime}</div>
+                      <div className="timeLeft">{time}</div>
                       <div className="timeText">Remaining in votings..</div>
                     </div>
                   </div>
@@ -180,20 +185,18 @@ class EventNominees extends Component {
               </div>
             </div>
             <div className="nomineeBoxRow">
-              {nominees && nominees.length > 0 ? (
-                nominees.map((nominee) => {
-                  return (
-                    <NomineeCard
-                      key={nominee.id}
-                      {...nominee}
-                      voteCountDetail={voteCount ? voteCount : null}
-                      clicked={() => this.toggleModal(nominee)}
-                    />
-                  );
-                })
-              ) : (
-                <h1>No Nominee Exists</h1>
-              )}
+              {nominees && nominees.length > 0
+                ? nominees.map((nominee) => {
+                    return (
+                      <NomineeCard
+                        key={nominee.id}
+                        {...nominee}
+                        voteCountDetail={voteCount ? voteCount : null}
+                        clicked={() => this.toggleModal(nominee)}
+                      />
+                    );
+                  })
+                : null}
             </div>
           </div>
         </div>

@@ -17,7 +17,7 @@ const VotingEvents = (props) => {
   return (
     <div className="cardItemRow votingEvents">
       {events.length === 0 ? (
-        <h1>No Active Events Found</h1>
+        <h1>No Active Event Found</h1>
       ) : (
         events &&
         events.map((event) => {

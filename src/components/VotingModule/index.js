@@ -46,9 +46,7 @@ class VotingEvents extends Component {
   };
 
   render() {
-    if (this.state.loading) return <Loader />;
-
-    const { eventsListing } = this.state;
+    const { eventsListing, loading } = this.state;
 
     return (
       <Fragment>
@@ -67,7 +65,11 @@ class VotingEvents extends Component {
         <div className="container">
           <div className="votingContainer">
             <div className="contentBox">
-              <VotingEventsContent events={eventsListing} />
+              {loading ? (
+                <Loader />
+              ) : (
+                <VotingEventsContent events={eventsListing} />
+              )}
             </div>
           </div>
         </div>
