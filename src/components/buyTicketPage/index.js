@@ -177,7 +177,6 @@ class BuyTicketPage extends Component {
     const { category, label } = seat;
 
     const bills = [...billSummary];
-    console.log("seat", seat);
     const selectedSeatClass = category.label;
     let classSeats = venueSeats[selectedSeatClass] || [];
 
