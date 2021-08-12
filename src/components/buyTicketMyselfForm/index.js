@@ -155,7 +155,7 @@ class BuyTicketMyselfForm extends React.Component {
                           className={"checkbox-style"}
                         >
                           {item.ticketClassType} | {item.ticket.name} | Row #:{" "}
-                          {item.rowName} | Seat # {item.seatName}
+                          {item.rowNumber} | Seat # {item.seatNumber}
                         </Checkbox>
                       </Col>
                     </Row>
@@ -165,7 +165,7 @@ class BuyTicketMyselfForm extends React.Component {
 
             {availablePasses &&
             availablePasses.length > 0 &&
-            (availableTickets && availableTickets.length !== 0) ? (
+            availableTickets && availableTickets.length !== 0 ? (
               <Divider />
             ) : null}
 
@@ -362,8 +362,8 @@ class BuyTicketMyselfForm extends React.Component {
   }
 }
 
-const connectedComponent = connect(
-  null,
-  { setAssignedSeatsForDisplay, setPassesAssignedSeatsForDisplay }
-)(BuyTicketMyselfForm);
+const connectedComponent = connect(null, {
+  setAssignedSeatsForDisplay,
+  setPassesAssignedSeatsForDisplay,
+})(BuyTicketMyselfForm);
 export default withRouter(connectedComponent);

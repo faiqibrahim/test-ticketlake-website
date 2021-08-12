@@ -156,8 +156,8 @@ class buyTicketUserInfoForm extends React.Component {
               <fieldset className="fl-wrap">
                 <div className="list-single-main-item-title">
                   <h3 style={{ fontSize: "16px" }}>
-                    {props.ticketClassName} - Seat {props.seatName}, Row{" "}
-                    {props.rowName}
+                    {props.ticketClassName} - Seat {props.seatNumber}, Row{" "}
+                    {props.rowNumber}
                     <div
                       style={{
                         height: "20px",
