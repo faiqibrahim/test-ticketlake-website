@@ -155,25 +155,29 @@ class BuyTicketPage extends Component {
     this.setState({ bills });
   };
 
-  prepareSeat = (seatInfo, label) => {
-    const { parent, own, section } = seatInfo;
+  prepareSeat = (seat) => {
+    const { labels: labelInfo, label, seatId } = seat;
+    const { parent, own: seatNumber, section } = labelInfo;
+    const row = parent ? `${parent}-` : "";
+
     return {
       label,
-      seatNumber: label,
-      seatName: label,
+      seatNumber,
+      seatName: seatId,
       sectionId: section,
       sectionName: section,
-      rowName: `${parent}-${own}`,
-      rowNumber: `${parent}-${own}`,
+      rowName: `${row}${seatNumber}`,
+      rowNumber: `${row}${seatNumber}`,
     };
   };
 
   onSeatChange = (seat, selected = true) => {
     const { billSummary } = this.props;
     const { venueSeats } = this.state;
-    const { category, labels: seatInfo, label } = seat;
+    const { category, label } = seat;
 
     const bills = [...billSummary];
+    console.log("seat", seat);
     const selectedSeatClass = category.label;
     let classSeats = venueSeats[selectedSeatClass] || [];
 
@@ -185,7 +189,7 @@ class BuyTicketPage extends Component {
 
     if (selected) {
       bills[itemIndex].ticketClassQty = ticketClassQty + 1;
-      classSeats.push(this.prepareSeat(seatInfo, label));
+      classSeats.push(this.prepareSeat(seat));
     } else {
       bills[itemIndex].ticketClassQty = ticketClassQty - 1;
       classSeats = classSeats.filter((seatItem) => seatItem.label !== label);
