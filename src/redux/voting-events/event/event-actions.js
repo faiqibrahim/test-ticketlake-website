@@ -33,13 +33,16 @@ const convertAllEventApiStructureToListingData = (data) => {
   return convertEventData;
 };
 
-export const getAllVotingEvents = (cb) => {
+export const getAllVotingEvents = (eventsLimit, cb) => {
   return (dispatch) => {
     axios
-      .get("/voting-events/active")
+      .get(
+        `/voting-events/listing/all?limit=${eventsLimit}&sortBy=startTime&sortOrder=-1`
+      )
       .then((response) => {
         const { data } = response;
         const eventsList = convertAllEventApiStructureToListingData(data.data);
+
         dispatch(votingEventActions.getAllEvents(eventsList));
         cb && cb(null, response);
       })

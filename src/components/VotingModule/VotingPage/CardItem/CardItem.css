@@ -1,172 +1,172 @@
-.votingEvents .cardItemCol{
-    flex: 0 0 25%;
-    max-width: 25%;
-    padding: 0 15px;
-    cursor: pointer;
+.votingEvents .cardItemCol {
+  flex: 0 0 25%;
+  max-width: 25%;
+  padding: 0 15px;
+  cursor: pointer;
 }
 
-.votingEvents .cardItemCol:nth-child(4n+0) ~ div{
-    padding:80px 15px 0;
+.votingEvents .cardItemCol:nth-child(4n + 0) ~ div {
+  padding: 80px 15px 0;
 }
-.votingEvents .imageContainer{
-    position: relative;    
-    border-radius: 10px;
+.votingEvents .imageContainer {
+  position: relative;
+  border-radius: 10px;
 }
-.votingEvents .imageContainer img{
-    width: 100%;
-    border-radius: 10px;    
-    filter: grayscale(0);
+.votingEvents .imageContainer img {
+  width: 100%;
+  border-radius: 10px;
+  filter: grayscale(0);
+  height: 220px;
+  object-fit: cover;
 }
-.votingEvents .closedVoting{
-    position: absolute;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
+.votingEvents .closedVoting {
+  position: absolute;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
 }
-.votingEvents .closedVoting img{
-    width: 76px;
-    height: 76px;
+.votingEvents .closedVoting img {
+  width: 76px;
+  height: 76px;
 }
-.votingEvents .closedVoting .cvContent{
-    color:#fff;
-    text-transform: lowercase;
-    font-weight: normal;
-    font-size:22px;
+.votingEvents .closedVoting .cvContent {
+  color: #fff;
+  text-transform: lowercase;
+  font-weight: normal;
+  font-size: 22px;
 }
-.votingEvents .overlay{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    opacity: 0.7;
-    z-index: 2;
-    border-radius: inherit;
+.votingEvents .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.7;
+  z-index: 2;
+  border-radius: inherit;
 }
-.votingEvents .cardContent{
-    text-align: left;
-    display: flex;
-    flex-flow: column;
-    align-items: flex-start;
+.votingEvents .cardContent {
+  text-align: left;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
 }
-.votingEvents .cardContent > div{
-    align-self: flex-start;
+.votingEvents .cardContent > div {
+  align-self: flex-start;
 }
-.votingEvents .cardTitle{
-    font-size:28px;
-    color: #231F20;
-    font-weight: bold;
-    padding: 10px 0 8px;
-    line-height: 41px;
-    font-size-adjust: 0.4;
-    text-align: left;
+.votingEvents .cardTitle {
+  font-size: 28px;
+  color: #231f20;
+  font-weight: bold;
+  padding: 10px 0 8px;
+  line-height: 41px;
+  font-size-adjust: 0.4;
+  text-align: left;
 }
-.votingEvents .cardMetaBox{
-    line-height: 25px;
+.votingEvents .cardMetaBox {
+  line-height: 25px;
 }
 .votingEvents .cardMetaBox .timeLeft,
-.votingEvents .cardMetaBox .voteCount{
-    color:#747a95;
-    font-size:22px;
-    font-weight: normal;
-    font-size-adjust: 0.4;
-    border: 0;
-    text-align: left;
+.votingEvents .cardMetaBox .voteCount {
+  color: #747a95;
+  font-size: 22px;
+  font-weight: normal;
+  font-size-adjust: 0.4;
+  border: 0;
+  text-align: left;
 }
-.votingEvents .cardMetaBox .voteCount{
-    color:#EC1B23;
-    text-transform: lowercase;
-}
-
-@media screen and (min-width:2000px) and (max-width:4000px){
-    .votingEvents .cardMetaBox{
-        line-height: 30px;
-    }
+.votingEvents .cardMetaBox .voteCount {
+  color: #ec1b23;
+  text-transform: lowercase;
 }
 
-
-@media screen and (min-width:2700px) and (max-width:4000px){
-    .votingEvents .cardItemCol{
-        padding: 0 30px;
-    }
-    .votingEvents .cardItemCol:nth-child(4n+0) ~ div{
-        padding-left:30px;
-        padding-right:30px;
-    }
+@media screen and (min-width: 2000px) and (max-width: 4000px) {
+  .votingEvents .cardMetaBox {
+    line-height: 30px;
+  }
 }
 
-@media screen and (min-width:2100px) and (max-width:2699px){
-    .votingEvents .cardItemCol{
-        padding: 0 25px;
-    }
-    .votingEvents .cardItemCol:nth-child(4n+0) ~ div{
-        padding-left:25px;
-        padding-right:25px;
-    }
+@media screen and (min-width: 2700px) and (max-width: 4000px) {
+  .votingEvents .cardItemCol {
+    padding: 0 30px;
+  }
+  .votingEvents .cardItemCol:nth-child(4n + 0) ~ div {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
 
-@media screen and (min-width:1401px) and (max-width:1580px){
-    .votingEvents .cardTitle{
-        font-size:26px;
-    }
-    .votingEvents .timeLeft,
-    .votingEvents .voteCount{
-        font-size:20px;   
-    }
+@media screen and (min-width: 2100px) and (max-width: 2699px) {
+  .votingEvents .cardItemCol {
+    padding: 0 25px;
+  }
+  .votingEvents .cardItemCol:nth-child(4n + 0) ~ div {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
 }
 
-@media screen and (min-width:993px) and (max-width:1400px){
-    .votingEvents .cardItemCol{
-        flex: 0 0 33.33%;
-        max-width: 33.33%;
-    }    
-    .votingEvents .cardItemCol:nth-child(3n+0) ~ div{
-        padding:60px 20px 0;
-    }
+@media screen and (min-width: 1401px) and (max-width: 1580px) {
+  .votingEvents .cardTitle {
+    font-size: 26px;
+  }
+  .votingEvents .timeLeft,
+  .votingEvents .voteCount {
+    font-size: 20px;
+  }
 }
 
-@media screen and (min-width:993px) and (max-width:1100px){
-    .votingEvents .cardTitle{
-        font-size:22px;
-    }
-    .votingEvents .timeLeft,
-    .votingEvents .voteCount{
-        font-size:18px;   
-    }
+@media screen and (min-width: 993px) and (max-width: 1400px) {
+  .votingEvents .cardItemCol {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+  }
+  .votingEvents .cardItemCol:nth-child(3n + 0) ~ div {
+    padding: 60px 20px 0;
+  }
 }
 
-@media screen and (max-width:992px){
-    .votingEvents .cardItemCol{
-        flex: 0 0 50%;
-        max-width: 50%;
-    }    
-    .votingEvents .cardItemCol:nth-child(2n+0) ~ div{
-        padding:60px 20px 0;
-    }
+@media screen and (min-width: 993px) and (max-width: 1100px) {
+  .votingEvents .cardTitle {
+    font-size: 22px;
+  }
+  .votingEvents .timeLeft,
+  .votingEvents .voteCount {
+    font-size: 18px;
+  }
 }
 
-@media screen and (min-width:576px) and (max-width:670px){
-    .votingEvents .cardTitle{
-        font-size:22px;
-    }
-    .votingEvents .timeLeft,
-    .votingEvents .voteCount{
-        font-size:18px;   
-    }
+@media screen and (max-width: 992px) {
+  .votingEvents .cardItemCol {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .votingEvents .cardItemCol:nth-child(2n + 0) ~ div {
+    padding: 60px 20px 0;
+  }
 }
 
+@media screen and (min-width: 576px) and (max-width: 670px) {
+  .votingEvents .cardTitle {
+    font-size: 22px;
+  }
+  .votingEvents .timeLeft,
+  .votingEvents .voteCount {
+    font-size: 18px;
+  }
+}
 
-@media screen and (max-width:575px){
-    .votingEvents .cardItemCol{
-        flex: 0 0 100%;
-        max-width: 100%;
-    }    
-    .votingEvents .cardItemCol:nth-child(1n+0) ~ div{
-        padding:60px 20px 0;
-    }
+@media screen and (max-width: 575px) {
+  .votingEvents .cardItemCol {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .votingEvents .cardItemCol:nth-child(1n + 0) ~ div {
+    padding: 60px 20px 0;
+  }
 }

@@ -8,33 +8,26 @@ import VotingHeader from "./Header/Layout/Layout";
 import "./RouteWrapper/RouteWrapper.css";
 import { Helmet } from "react-helmet";
 import { getAllVotingEvents } from "../../redux/voting-events/event/event-actions";
+import { Button } from "reactstrap";
 
 class VotingEvents extends Component {
-  state = {
-    loading: false,
-    eventsListing: [],
-  };
+  is_Mounted = false;
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: false,
+      eventsListing: [],
+      eventsLimit: 2,
+      defaultLimit: 2,
+    };
+  }
 
   componentDidMount() {
-    this.setState(
-      { loading: true },
-      this.props.getAllVotingEvents((error, response) => {
-        if (!error) {
-          this.setState(
-            {
-              eventsListing: this.props.eventsListing,
-            },
-            () => {
-              this.setState({
-                loading: false,
-              });
-            }
-          );
-        } else {
-          this.setState({ loading: false });
-        }
-      })
-    );
+    this.is_Mounted = true;
+    if (this.is_Mounted) {
+      this.fetchVotingEvents();
+    }
   }
 
   pageTitle = () => {
@@ -45,10 +38,47 @@ class VotingEvents extends Component {
     );
   };
 
-  render() {
-    if (this.state.loading) return <Loader />;
+  fetchVotingEvents = () => {
+    const { eventsLimit } = this.state;
 
-    const { eventsListing } = this.state;
+    this.setState(
+      { loading: true },
+      this.props.getAllVotingEvents(eventsLimit, (error, response) => {
+        if (!error) {
+          this.setState({
+            eventsListing: this.props.eventsListing,
+            loading: false,
+          });
+        } else {
+          this.setState({ loading: false });
+        }
+      })
+    );
+  };
+
+  loadMoreEvents = () => {
+    const { eventsLimit, defaultLimit } = this.state;
+
+    this.setState(
+      {
+        loading: true,
+        eventsLimit: eventsLimit + defaultLimit,
+      },
+      () => {
+        this.fetchVotingEvents();
+      }
+    );
+  };
+
+  render() {
+    const { eventsListing, loading, eventsLimit } = this.state;
+
+    const renderButton =
+      eventsLimit === eventsListing.length ? (
+        <Button className="loadMore" onClick={this.loadMoreEvents}>
+          Load More
+        </Button>
+      ) : null;
 
     return (
       <Fragment>
@@ -67,7 +97,14 @@ class VotingEvents extends Component {
         <div className="container">
           <div className="votingContainer">
             <div className="contentBox">
-              <VotingEventsContent events={eventsListing} />
+              {loading ? (
+                <Loader />
+              ) : (
+                <>
+                  <VotingEventsContent events={eventsListing} />
+                  {renderButton}
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -84,7 +121,8 @@ const mapStateToProps = (state) => {
 
 const mapDisptachToProps = (disptach) => {
   return {
-    getAllVotingEvents: (cb) => disptach(getAllVotingEvents(cb)),
+    getAllVotingEvents: (eventsLimit, cb) =>
+      disptach(getAllVotingEvents(eventsLimit, cb)),
   };
 };
 

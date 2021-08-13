@@ -36,13 +36,17 @@ class EventNominees extends Component {
     const { id, categoryId } = this.props.match.params;
 
     this.props.getAllVotingNominees(categoryId, (error, data) => {
-      if (!error) {
-        this.getBreadCrumbs(id, categoryId);
-        if (this.is_Mounted) {
+      if (!error && data.length) {
+        let durationCheck = duration(this.props.nomineeListing[0]);
+
+        if (durationCheck.eventEnd) {
+          this.props.history.push(`/voting/${id}/event-results/${categoryId}`);
+        } else {
+          this.getBreadCrumbs(id, categoryId);
           this.setState({
             loading: false,
             nominees: this.props.nomineeListing,
-            remainingTime: duration(this.props.nomineeListing[0]),
+            remainingTime: durationCheck,
           });
         }
       } else {
@@ -86,6 +90,7 @@ class EventNominees extends Component {
       visible: !this.state.visible,
       nominee,
     });
+
     if (!authentication) {
       sessionStorage.setItem(
         "redirectTo",
@@ -96,11 +101,20 @@ class EventNominees extends Component {
     }
   };
 
-  onChange = (nomineeID) => {
-    this.props.getSingleNomineeDetail(nomineeID, (error, data) => {
+  onChange = () => {
+    const { id, votingCategoryId } = this.state.nominee;
+
+    this.props.getSingleNomineeDetail(id, (error, data) => {
       if (!error) {
         this.setState({
           voteCount: this.props.voteCount,
+        });
+      }
+    });
+    this.props.getAllVotingNominees(votingCategoryId, (error, data) => {
+      if (!error) {
+        this.setState({
+          nominees: this.props.nomineeListing,
         });
       }
     });
@@ -136,8 +150,10 @@ class EventNominees extends Component {
     if (this.state.loading) return <Loader />;
 
     const [, ...nominees] = this.state.nominees;
-    const { remainingTime, voteCount } = this.state;
 
+    nominees.sort((a, b) => (a.voteCount > b.voteCount ? -1 : 1));
+
+    const { remainingTime, voteCount } = this.state;
     return (
       <Fragment>
         {this.renderNomineesModal()}
@@ -180,20 +196,18 @@ class EventNominees extends Component {
               </div>
             </div>
             <div className="nomineeBoxRow">
-              {nominees && nominees.length > 0 ? (
-                nominees.map((nominee) => {
-                  return (
-                    <NomineeCard
-                      key={nominee.id}
-                      {...nominee}
-                      voteCountDetail={voteCount ? voteCount : null}
-                      clicked={() => this.toggleModal(nominee)}
-                    />
-                  );
-                })
-              ) : (
-                <h1>No Nominee Exists</h1>
-              )}
+              {nominees && nominees.length > 0
+                ? nominees.map((nominee) => {
+                    return (
+                      <NomineeCard
+                        key={nominee.id}
+                        {...nominee}
+                        voteCountDetail={voteCount ? voteCount : null}
+                        clicked={() => this.toggleModal(nominee)}
+                      />
+                    );
+                  })
+                : null}
             </div>
           </div>
         </div>

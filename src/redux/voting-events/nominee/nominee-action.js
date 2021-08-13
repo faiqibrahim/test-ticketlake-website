@@ -21,7 +21,6 @@ const convertAllNomineesApiStructureToListingData = (
   cb
 ) => {
   let convertData = [];
-
   let noOfAsyncTasks = data.length;
 
   for (let nominee of data) {
@@ -31,11 +30,11 @@ const convertAllNomineesApiStructureToListingData = (
         imgSrc: nominee.image,
         nomineeName: nominee.name,
         voteCount: nominee.totalVotes,
+        votingCategoryId: nominee.votingCategoryId,
         balloting: response.secretBalloting,
         votingType: response.votingType,
         nextVoteTime: response.nextVoteTime,
         votingEventId: response._id,
-        votingCategoryId: votingCategoryId,
         votePrice: response.votePrice,
       });
 
@@ -63,12 +62,12 @@ export const getAllVotingNominees = (categoryID, cb) => {
             data.data,
             function(eventsList) {
               dispatch(votingNomineeActions.getAllNominees(eventsList));
-              cb && cb(null, response);
+              cb && cb(null, data.data);
             }
           );
         } else {
           dispatch(votingNomineeActions.getAllNominees(data.data));
-          cb && cb(null, response);
+          cb && cb(null, data.data);
         }
       })
       .catch((error) => {

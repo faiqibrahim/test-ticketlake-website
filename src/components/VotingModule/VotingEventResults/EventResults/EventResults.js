@@ -103,13 +103,15 @@ class EventResults extends Component {
         <div className="container eventResultContainer">
           <div className="contentBox">
             <div className="winnerBox">
-              {nomineeWinners.map((nominee) => (
-                <WinnerNominee
-                  key={nominee.id}
-                  nomineeDetail={nominee}
-                  categoryName={this.state.categoryName}
-                />
-              ))}
+              <div className="row winnerRow">
+                {nomineeWinners.map((nominee) => (
+                  <WinnerNominee
+                    key={nominee.id}
+                    nomineeDetail={nominee}
+                    categoryName={this.state.categoryName}
+                  />
+                ))}
+              </div>
             </div>
 
             <hr style={{ margin: "5px 0" }} />
@@ -135,12 +137,12 @@ class EventResults extends Component {
                         <label>Sort by: &nbsp;</label>
                         <i className="sortArrow"></i>
                         <div
-                          class="dropdown"
+                          className="dropdown"
                           name="nomineeSort"
                           id="nomineeSort"
                         >
                           <span>Most Votes</span>
-                          <div class="dropdown-content">
+                          <div className="dropdown-content">
                             <p>Most Votes</p>
                           </div>
                         </div>

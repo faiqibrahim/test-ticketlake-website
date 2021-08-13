@@ -28,7 +28,12 @@ const checkClosedEvents = (endDate) => {
 
   days += daysInMonths * months + daysInYear * years;
 
-  const endEvent = days === 0 && hours < 0 && minutes < 0 ? true : false;
+  const endEvent =
+    (days === 0 || days < 0) &&
+    (hours === 0 || hours < 0) &&
+    (minutes === 0 || minutes < 0)
+      ? true
+      : false;
   return endEvent;
 };
 
@@ -49,6 +54,7 @@ const convertAllCategoriesApiStructureToListingData = (eventID, data, cb) => {
       const endEvent = checkClosedEvents(response.endTime);
       convertEventData.unshift(response.name);
       convertEventData.splice(1, 0, { endEvent });
+
       cb(convertEventData);
     });
   }
