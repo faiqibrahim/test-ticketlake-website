@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "./style.css";
 import { connect } from "react-redux";
-import Loader from "../../../commonComponents/loader";
+import Loader from "../../../utils/loader";
 import EventOrganiserCard from "./EventOrganiserCard";
 import Sticky from "react-stickynode";
 import Details from "./detailsPage";
@@ -13,12 +13,15 @@ import Banner from "./banner";
 import EventsFilter from "./eventsFilter";
 import DateFiliter from "./dateFilter";
 import CustomButton from "./customTabButton";
+import { getOrganiserData } from "./api-handler";
+import { NotificationManager } from "react-notifications";
 
 class OrganiserDetails extends Component {
   state = {
     gridView: true,
     eventsBtn: true,
     offSet: true,
+    loader: true,
   };
 
   setView = (view) => {
@@ -37,12 +40,42 @@ class OrganiserDetails extends Component {
       this.setState({ offSet: true });
     }
   };
-  componentDidMount() {
+
+  async componentDidMount() {
     if (window.screen.width < 768) this.setState({ gridView: false });
     window.addEventListener("resize", this.updateDimensions);
 
     if (window.screen.width < 1278) this.setState({ offSet: false });
     window.addEventListener("resize", this.updateDimensions);
+    const queryParams = new URLSearchParams(window.location.search);
+    const _id = queryParams.get("_id");
+    try {
+      const response = await getOrganiserData(_id);
+      const {
+        name,
+        description,
+        imageURL,
+        images,
+        address,
+        reviews,
+        totalReviews,
+        rating,
+      } = response.data.data[0];
+      const eventOrganiser = {
+        name,
+        description,
+        imageURL,
+        images,
+        venue: address.address,
+        rating,
+        totalReviews,
+      };
+      this.setState({ eventOrganiser, reviews });
+      console.log("response", response.data.data[0]);
+    } catch (error) {
+      NotificationManager.error("Some Error Occured!", "Error");
+    }
+    this.setState({ loader: false });
   }
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions);
@@ -109,16 +142,25 @@ class OrganiserDetails extends Component {
   };
 
   render() {
-    const { eventOrganiser, processing, eventsList } = this.props;
-    const { gridView, eventsBtn, detailsBtn, reviewsBtn } = this.state;
-    if (processing) return <Loader style={{ marginTop: "170px" }} />;
+    const { eventsList } = this.props;
+    const {
+      gridView,
+      eventsBtn,
+      detailsBtn,
+      reviewsBtn,
+      loader,
+      eventOrganiser,
+      reviews,
+    } = this.state;
+
+    if (loader) return <Loader />;
 
     return (
       <div id="wrapper" className="textAlignLeft organiser-details">
         <Banner eventOrganiser={eventOrganiser} />{" "}
         {this.tabsContainer(eventsList)}
         {detailsBtn && <Details {...eventOrganiser} />}
-        {reviewsBtn && <Reviews {...eventOrganiser} />}
+        {reviewsBtn && <Reviews reviews={reviews} />}
         {eventsBtn && (
           <>
             <div className="container  ">
@@ -141,6 +183,7 @@ class OrganiserDetails extends Component {
                 style={{ marginTop: !gridView ? "40px" : "0px" }}
                 eventOrganiser={eventOrganiser}
                 handleDetails={this.setDetailsState}
+                handleReviews={this.setReviewsState}
               />
 
               <div className="">
@@ -206,9 +249,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const connectedComponent = connect(
-  mapStateToProps,
-  {}
-)(OrganiserDetails);
+const connectedComponent = connect(mapStateToProps, {})(OrganiserDetails);
 
 export default withRouter(connectedComponent);

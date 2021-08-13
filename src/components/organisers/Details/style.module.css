@@ -67,6 +67,7 @@
   height: 150px;
   border-radius: 50%;
   background-color: #d8dae3;
+  object-fit: fill;
 }
 
 .reviewerName {

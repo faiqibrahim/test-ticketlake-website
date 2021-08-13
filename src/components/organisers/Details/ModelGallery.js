@@ -29,7 +29,7 @@ class ModelGallery extends React.Component {
         toggle={this.toggleCarousel}
       >
         <ModalBody className={"modal-body"}>
-          <ImageCarousel activeKey={activeIndex} galleryImages={images} />
+          <ImageCarousel activeKey={activeIndex} images={images} />
         </ModalBody>
       </Modal>
     );
@@ -38,7 +38,7 @@ class ModelGallery extends React.Component {
   renderImages = () => {
     const { images } = this.props;
     return images.map((image, index) => {
-      const imageSrcUrl = image;
+      const imageSrcUrl = image.imageUrl;
       return (
         index < 4 && (
           <Col

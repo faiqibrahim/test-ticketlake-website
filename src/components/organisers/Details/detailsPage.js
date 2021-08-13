@@ -6,23 +6,17 @@ class Details extends Component {
 
   render() {
     const { count } = this.state;
-    const {
-      title,
-      eventsOrganised,
-      venue,
-      description,
-      gallaryImages,
-    } = this.props;
+    const { name, eventsOrganised, venue, description, images } = this.props;
     let loadMore = false;
-    let showImages = gallaryImages.slice(0, count);
-    if (gallaryImages.length > showImages.length) {
+    let showImages = images.slice(0, count);
+    if (images.length > showImages.length) {
       loadMore = true;
-      showImages = gallaryImages.slice(0, count);
+      showImages = images.slice(0, count);
     }
 
     return (
       <div className="container mt-5 mb-5">
-        <p className={classes.detailsTitle}>{title}</p>
+        <p className={classes.detailsTitle}>{name}</p>
         <p className={classes.veneueText}>Events Organised {eventsOrganised}</p>
         <p className={classes.veneueText}>Venue - {venue}</p>
         <div className="col-md-8 col-sm-12 p-0">
@@ -33,7 +27,7 @@ class Details extends Component {
           {showImages.map((image, index) => (
             <div className="col-lg-3 col-md-4 col-sm-6  mb-3" key={index}>
               <img
-                src={image}
+                src={image.imageUrl}
                 className={classes.galleryImages}
                 alt="gallery"
               />

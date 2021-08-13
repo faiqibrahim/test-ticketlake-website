@@ -87,7 +87,7 @@
   "scripts": {
     "start": "REACT_APP_ENV=dev react-scripts start",
     "dev": "SET REACT_APP_ENV=dev && react-scripts start",
-    "qa": "REACT_APP_ENV=qa react-scripts start",
+    "qa": "SET REACT_APP_ENV=qa && react-scripts start",
     "qa-win": "SET REACT_APP_ENV=qa && react-scripts start",
     "build-dev-win": "set REACT_APP_ENV=dev && react-scripts build",
     "build-dev": "REACT_APP_ENV=dev react-scripts build",

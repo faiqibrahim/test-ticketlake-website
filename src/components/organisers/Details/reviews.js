@@ -32,7 +32,7 @@ class Reviews extends Component {
 
   render() {
     const { reviews } = this.props;
-    const { isOpen } = this.state;
+    const { isOpen, isReviewBtnHidden } = this.state;
     return (
       <div className="container mb-5">
         <div className="row">
@@ -44,9 +44,9 @@ class Reviews extends Component {
                     <div className="row no-gutters">
                       <div className="col-auto">
                         <img
-                          src={review.image}
+                          src={review.userImage}
                           className={classes.reviewerImage}
-                          alt=""
+                          alt="Reviewerimage"
                         />
                       </div>
                       <div className="col">
@@ -78,7 +78,7 @@ class Reviews extends Component {
                 </div>
               );
             })}
-            {!this.state.isReviewBtnHidden && (
+            {!isReviewBtnHidden && (
               <div
                 className={classes.stickyReviewContainer}
                 id="writeReviewBtn"
