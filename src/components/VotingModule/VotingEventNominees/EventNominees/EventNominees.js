@@ -38,13 +38,17 @@ class EventNominees extends Component {
     this.props.getAllVotingNominees(categoryId, (error, data) => {
       if (!error) {
         this.getBreadCrumbs(id, categoryId);
-        this.setState({
-          loading: false,
-          nominees: this.props.nomineeListing,
-          remainingTime: duration(this.props.nomineeListing[0]),
-        });
+        if (this.is_Mounted) {
+          this.setState({
+            loading: false,
+            nominees: this.props.nomineeListing,
+            remainingTime: duration(this.props.nomineeListing[0]),
+          });
+        }
       } else {
-        this.setState({ loading: false });
+        if (this.is_Mounted) {
+          this.setState({ loading: false });
+        }
       }
     });
   }
