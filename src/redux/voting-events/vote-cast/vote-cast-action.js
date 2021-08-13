@@ -19,6 +19,7 @@ export const saveFreeVoteCast = (voteData, cb) => {
       .post("/votes/cast-vote", voteCastData)
       .then((response) => {
         const { data } = response;
+        console.log("data", data);
         dispatch(voteCastActions.castFreeVote(data.data));
         cb && cb(null, response);
       })

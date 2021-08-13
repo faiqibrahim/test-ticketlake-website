@@ -11,15 +11,13 @@
 .votingEvents .imageContainer {
   position: relative;
   border-radius: 10px;
-  width: 300px;
-  height: 170px;
 }
 .votingEvents .imageContainer img {
   width: 100%;
   border-radius: 10px;
   filter: grayscale(0);
-  height: 100%;
-  object-fit: fill;
+  height: 220px;
+  object-fit: cover;
 }
 .votingEvents .closedVoting {
   position: absolute;
