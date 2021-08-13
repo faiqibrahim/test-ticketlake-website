@@ -54,7 +54,6 @@ const convertAllCategoriesApiStructureToListingData = (eventID, data, cb) => {
       const endEvent = checkClosedEvents(response.endTime);
       convertEventData.unshift(response.name);
       convertEventData.splice(1, 0, { endEvent });
-      console.log("action", response);
 
       cb(convertEventData);
     });

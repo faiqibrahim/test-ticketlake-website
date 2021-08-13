@@ -36,15 +36,10 @@ class EventNominees extends Component {
     const { id, categoryId } = this.props.match.params;
 
     this.props.getAllVotingNominees(categoryId, (error, data) => {
-      let durationCheck = "";
+      if (!error && data.length) {
+        let durationCheck = duration(this.props.nomineeListing[0]);
 
-      if (!error && data.length > 0) {
-        durationCheck = duration(this.props.nomineeListing[0]);
-
-        if (
-          typeof durationCheck === "object" &&
-          durationCheck.eventEnd === true
-        ) {
+        if (durationCheck.eventEnd) {
           this.props.history.push(`/voting/${id}/event-results/${categoryId}`);
         } else {
           this.getBreadCrumbs(id, categoryId);
