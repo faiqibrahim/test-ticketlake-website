@@ -137,8 +137,7 @@ class Organisers extends Component {
               >
                 <NavLink
                   to={{
-                    pathname: `/organisers/details/?_id=${data._id}`,
-                    state: { detail: data.id },
+                    pathname: `/organisers/details/${data._id}`,
                   }}
                 >
                   <Card className="cardStyling">
@@ -185,7 +184,7 @@ class Organisers extends Component {
             <Option value="all">All</Option>
 
             {categories.map((category) => (
-              <Option key={category.id} value={category.name}>
+              <Option key={category._id} value={category._id}>
                 {category.name}
               </Option>
             ))}

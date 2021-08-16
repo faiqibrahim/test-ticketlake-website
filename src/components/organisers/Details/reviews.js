@@ -3,6 +3,8 @@ import ReactReadMoreReadLess from "react-read-more-read-less";
 import { Modal, ModalBody } from "reactstrap";
 import classes from "./style.module.css";
 import Ratings from "./ratings";
+import AuthRotes from "../../../commonComponents/authRotes";
+
 class Reviews extends Component {
   state = { isOpen: false, isReviewBtnHidden: false };
 
@@ -31,8 +33,9 @@ class Reviews extends Component {
   }
 
   render() {
-    const { reviews } = this.props;
+    const { reviews, _id } = this.props;
     const { isOpen, isReviewBtnHidden } = this.state;
+
     return (
       <div className="container mb-5">
         <div className="row">
@@ -44,7 +47,11 @@ class Reviews extends Component {
                     <div className="row no-gutters">
                       <div className="col-auto">
                         <img
-                          src={review.userImage}
+                          src={
+                            review.userImage
+                              ? review.userImage
+                              : "/images/default-dp.png"
+                          }
                           className={classes.reviewerImage}
                           alt="Reviewerimage"
                         />
@@ -97,12 +104,15 @@ class Reviews extends Component {
           </div>
 
           <div className={`col-lg-4 col-md-4 mt-5 ${classes.displayNone}`}>
-            <Ratings {...this.toggle} />
+            {" "}
+            <Ratings _id={_id} {...this.toggle} />
           </div>
         </div>
         <Modal isOpen={isOpen} toggle={this.toggle}>
           <ModalBody>
-            <Ratings handleToggle={this.toggle} />
+            <AuthRotes>
+              <Ratings _id={_id} handleToggle={this.toggle} />
+            </AuthRotes>
           </ModalBody>
         </Modal>
       </div>

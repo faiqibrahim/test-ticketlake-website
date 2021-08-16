@@ -18,3 +18,9 @@ export const getOrganiserData = (_id) => {
   const url = `/organizations/detail/${_id}`;
   return axios.get(url);
 };
+
+export const saveReviewInDB = (organizationId, review, rating) => {
+  const url = "/organizations/review/save";
+
+  return axios.post(url, { organizationId, review, rating });
+};

@@ -1,8 +1,38 @@
 import React, { Component } from "react";
+import { Rate } from "antd";
 import "./style.css";
 import ModelGallery from "./ModelGallery";
 
 class EventOrganiserCard extends Component {
+  getStars = (rating) => {
+    console.log("tpye od r", typeof rating);
+    if (rating === 5) {
+      return (
+        <>
+          <img src={"/icons/star.svg"} className="alignNone mr-2" alt="star" />
+          <img src={"/icons/star.svg"} className="alignNone mr-2" alt="star" />
+          <img src={"/icons/star.svg"} className="alignNone mr-2" alt="star" />
+          <img src={"/icons/star.svg"} className="alignNone mr-2" alt="star" />
+          <img src={"/icons/star.svg"} className="alignNone mr-2" alt="star" />
+        </>
+      );
+    } else if (rating === 4) {
+      return (
+        <>
+          <img src={"/icons/star.svg"} className="alignNone mr-2" alt="star" />
+          <img src={"/icons/star.svg"} className="alignNone mr-2" alt="star" />
+          <img src={"/icons/star.svg"} className="alignNone mr-2" alt="star" />
+          <img src={"/icons/star.svg"} className="alignNone mr-2" alt="star" />
+          <img
+            src={"/icons/empty star.svg"}
+            className="alignNone mr-2"
+            alt="star"
+          />
+        </>
+      );
+    }
+  };
+
   render() {
     const { eventOrganiser, style, handleDetails, handleReviews } = this.props;
     let description = eventOrganiser.description;
@@ -29,14 +59,8 @@ class EventOrganiserCard extends Component {
         </p>
         <p className="cardSubheading ">Venue - {eventOrganiser.venue}</p>
         <p className="cardSubheading borderBottom">
-          {/* {eventOrganiser.ratingImages.map((image, index) => (
-            <img
-              src={image.src}
-              className="alignNone mr-2"
-              key={index}
-              alt="star"
-            />
-          ))} */}
+          {/* <Rate disabled defaultValue={3.5} /> */}
+          {this.getStars(4)}
           {eventOrganiser.rating} Out of {eventOrganiser.totalReviews}{" "}
           <u style={{ cursor: "pointer" }} onClick={handleReviews}>
             reviews

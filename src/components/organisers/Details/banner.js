@@ -1,4 +1,5 @@
 import React from "react";
+import { Rate } from "antd";
 
 const Banner = ({ eventOrganiser }) => {
   return (
@@ -10,7 +11,8 @@ const Banner = ({ eventOrganiser }) => {
           alt="event planner"
         />
         <p className="bannerHeading">{eventOrganiser.name}</p>
-        <p className="ratingStarText pb-5 mb-0">
+        <div className="ratingStarText pb-5 mb-0">
+          <Rate disabled defaultValue={3.5} />
           {/* {eventOrganiser.ratingImages.map((image, index) => (
             <img
               src={image.src}
@@ -21,7 +23,7 @@ const Banner = ({ eventOrganiser }) => {
           ))} */}
           {eventOrganiser.rating} Out of {eventOrganiser.totalReviews}{" "}
           <u>reviews</u>
-        </p>
+        </div>
       </div>
     </div>
   );

@@ -47,10 +47,13 @@ class OrganiserDetails extends Component {
 
     if (window.screen.width < 1278) this.setState({ offSet: false });
     window.addEventListener("resize", this.updateDimensions);
-    const queryParams = new URLSearchParams(window.location.search);
-    const _id = queryParams.get("_id");
+
+    const { match } = this.props;
+
+    const { id } = match.params;
+
     try {
-      const response = await getOrganiserData(_id);
+      const response = await getOrganiserData(id);
       const {
         name,
         description,
@@ -60,7 +63,11 @@ class OrganiserDetails extends Component {
         reviews,
         totalReviews,
         rating,
-      } = response.data.data[0];
+        _id,
+      } = response.data.data;
+
+      console.log("response", response.data.data);
+
       const eventOrganiser = {
         name,
         description,
@@ -70,12 +77,12 @@ class OrganiserDetails extends Component {
         rating,
         totalReviews,
       };
-      this.setState({ eventOrganiser, reviews });
-      console.log("response", response.data.data[0]);
+
+      this.setState({ eventOrganiser, _id, reviews, loader: false });
     } catch (error) {
+      console.log("error", error);
       NotificationManager.error("Some Error Occured!", "Error");
     }
-    this.setState({ loader: false });
   }
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions);
@@ -142,7 +149,7 @@ class OrganiserDetails extends Component {
   };
 
   render() {
-    const { eventsList } = this.props;
+    const { eventsList, history } = this.props;
     const {
       gridView,
       eventsBtn,
@@ -151,16 +158,17 @@ class OrganiserDetails extends Component {
       loader,
       eventOrganiser,
       reviews,
+      _id,
     } = this.state;
 
     if (loader) return <Loader />;
-
+    console.log(history);
     return (
       <div id="wrapper" className="textAlignLeft organiser-details">
         <Banner eventOrganiser={eventOrganiser} />{" "}
         {this.tabsContainer(eventsList)}
         {detailsBtn && <Details {...eventOrganiser} />}
-        {reviewsBtn && <Reviews reviews={reviews} />}
+        {reviewsBtn && <Reviews _id={_id} reviews={reviews} />}
         {eventsBtn && (
           <>
             <div className="container  ">
@@ -249,6 +257,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const connectedComponent = connect(mapStateToProps, {})(OrganiserDetails);
+const connectedComponent = connect(mapStateToProps)(OrganiserDetails);
 
 export default withRouter(connectedComponent);
