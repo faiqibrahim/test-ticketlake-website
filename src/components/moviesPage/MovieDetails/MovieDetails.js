@@ -18,8 +18,7 @@ import MovieDetailSlider from "../../movieDetailSlider";
 
 import { getSubCategoriesEvents } from "../../../redux/movies/movie-action";
 import _ from "lodash";
-import {Helmet} from "react-helmet";
-
+import { Helmet } from "react-helmet";
 
 class MovieDetails extends Component {
   state = {
@@ -62,14 +61,13 @@ class MovieDetails extends Component {
     });
   };
 
-
   pageTitle = () => {
     return (
-        <Helmet>
-          <title>Movie Detail</title>
-        </Helmet>
-    )
-  }
+      <Helmet>
+        <title>Movie Detail</title>
+      </Helmet>
+    );
+  };
 
   getBreadCrumbs = () => {
     const categoryId = this.getCategoryId();
@@ -78,7 +76,9 @@ class MovieDetails extends Component {
         <BreadcrumbsItem glyph="home" to="/">
           Home Page
         </BreadcrumbsItem>
-        <BreadcrumbsItem to={`/movies/?id=${categoryId}`}>All Movies</BreadcrumbsItem>
+        <BreadcrumbsItem to={`/movies/?id=${categoryId}`}>
+          All Movies
+        </BreadcrumbsItem>
         <BreadcrumbsItem to={"/event/detail/" + this.props.match.params.id}>
           Movie Detail
         </BreadcrumbsItem>
@@ -86,6 +86,8 @@ class MovieDetails extends Component {
         <div className="breadcrumbs-hero-buttom fl-wrap">
           <div className="breadcrumbs">
             <Breadcrumbs
+              compare={(a, b) => a.weight - b.weight}
+              removeProps={{ weight: true }}
               item={NavLink}
               finalItem={"span"}
               finalProps={{
@@ -99,9 +101,8 @@ class MovieDetails extends Component {
   };
 
   getCategoryId = () => {
-    let url_string = window.location.href;
-    let url = new URL(url_string);
-    return url.searchParams.get("id");
+    const { match } = this.props;
+    return match.params.id;
   };
 
   onDateChange = (e) => {
