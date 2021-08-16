@@ -5,16 +5,9 @@ import { CloseCircleOutlined } from "@ant-design/icons";
 
 class TransactionHistoryModal extends React.Component {
   renderLeftPanel = (parentState) => {
-    const { closeModal } = this.props;
     return (
       <div className="col-md-3 red-bg">
-        <CloseCircleOutlined
-          size="large"
-          className="close-button close-btn-styling"
-          onClick={closeModal}
-        />
-
-        <div className="row" style={{ padding: "20px" }}>
+        <div className="row">
           <div className="col-md-12">
             <h2>GHS {parentState.modalData.transactionAmount}</h2>
           </div>
@@ -54,9 +47,15 @@ class TransactionHistoryModal extends React.Component {
   };
 
   renderRightPanel = (parentState) => {
+    const { closeModal } = this.props;
     return (
       <div className="col-md-9 white-bg">
         <h3>Transaction# {parentState.modalData.transactionId}</h3>
+        <CloseCircleOutlined
+          size="large"
+          className="close-button close-btn-styling"
+          onClick={closeModal}
+        />
         <div className="row">
           <div className="col-md-12">
             <Table responsive borderless className="border">
@@ -181,7 +180,7 @@ class TransactionHistoryModal extends React.Component {
     if (!parentState.isLoaded) return null;
     return (
       <Modal isOpen={parentState.modal2} className="transaction-modal">
-        <div className="row">
+        <div className="row transaction-history">
           {this.renderLeftPanel(parentState)}
           {this.renderRightPanel(parentState)}
         </div>

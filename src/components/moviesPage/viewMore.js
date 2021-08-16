@@ -36,13 +36,14 @@ class ViewMore extends Component {
     totalPages: 0,
     sectionId: null,
     categoryId: null,
+    subCategoryId: null,
   };
 
   componentDidMount() {
     let categoryId = this.props.categoryId;
     let sectionId = this.props.sectionId;
     this.setState({ sectionId: sectionId, categoryId: categoryId }, () =>
-      this.setEventsData(sectionId)
+      this.setEventsData()
     );
   }
 
@@ -139,6 +140,7 @@ class ViewMore extends Component {
               let eventData = data && data.data;
               this.setState({
                 events: eventData,
+                categoryId,
                 pageTitle: subCategoryItem.name,
                 processing: false,
                 totalPages: data && data.totalPages,
@@ -208,16 +210,15 @@ class ViewMore extends Component {
     });
   };
 
-  getParentCategoryId = () => {
+  getCategoryId = () => {
     let url_string = window.location.href;
     let url = new URL(url_string);
-    const id = url.searchParams.get("id")
+    const id = url.searchParams.get("id");
     return id;
   };
 
-
   render() {
-    const { categoryId } = this.props;
+    const { categoryId, pageTitle } = this.state;
     return (
       <div id="wrapper" key={2}>
         <div className="content">
@@ -235,7 +236,7 @@ class ViewMore extends Component {
                     <Heading
                       style={{ marginBottom: "0px", textAlign: "left" }}
                       className="section-title"
-                      heading={this.state.pageTitle}
+                      heading={pageTitle}
                     />
                   </div>
                 </div>
@@ -246,20 +247,23 @@ class ViewMore extends Component {
                         <BreadcrumbsItem glyph="home" to="/">
                           Home
                         </BreadcrumbsItem>
+
                         <BreadcrumbsItem
                           glyph="movies"
                           to={`/movies/?id=${categoryId}`}
-                          style={{ color: "#000" }}
                         >
                           Movies
                         </BreadcrumbsItem>
 
                         <BreadcrumbsItem
-                          to={`/movies/viewMore/?id=${this.state.pageTitle}`}
+                          to={`/movies/viewMore/?id=${pageTitle}`}
                         >
-                          {this.state.pageTitle}
+                          {pageTitle}
                         </BreadcrumbsItem>
+
                         <Breadcrumbs
+                          compare={(a, b) => a.weight - b.weight}
+                          removeProps={{ weight: true }}
                           item={NavLink}
                           finalItem={"span"}
                           finalProps={{
@@ -301,6 +305,7 @@ class ViewMore extends Component {
                             }
                             return (
                               <CardWithHoverEffect
+                                key={index}
                                 index={index}
                                 imageUrl={imageUrl}
                                 title={title}
@@ -379,14 +384,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-const connectedComponent = connect(
-  mapStateToProps,
-  {
-    getTrendingEvents,
-    getShowingInCinemasEvents,
-    getNearByEvents,
-    getUpcomingEvents,
-    getSubCategoriesEvents,
-  }
-)(ViewMore);
+const connectedComponent = connect(mapStateToProps, {
+  getTrendingEvents,
+  getShowingInCinemasEvents,
+  getNearByEvents,
+  getUpcomingEvents,
+  getSubCategoriesEvents,
+})(ViewMore);
 export default withRouter(connectedComponent);

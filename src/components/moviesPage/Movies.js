@@ -79,7 +79,7 @@ class Movies extends Component {
   getSubCategories = (parentId, location) => {
     if (
       updateSubCategory &&
-      (this.props.allSubCategories && this.props.allSubCategories.length > 0)
+      this.props.allSubCategories && this.props.allSubCategories.length > 0
     ) {
       updateSubCategory = false;
     }
@@ -99,7 +99,6 @@ class Movies extends Component {
     if (location && location.state) {
       categoryState = location.state;
     }
-    console.log(location);
     sessionStorage.setItem(categoryKey, JSON.stringify(categoryState));
     return categoryState;
   };
@@ -171,11 +170,11 @@ class Movies extends Component {
     return (
       <div className="card-wrp">
         <CardWithHoverAnimation
-            cards={eventsArray}
-            tabCards={tabCards}
-            firstBtnTitle={"Play Trailer"}
-            secondBtnTitle={"Buy Tickets"}
-            key={Math.random(0, eventsArray.length)}
+          cards={eventsArray}
+          tabCards={tabCards}
+          firstBtnTitle={"Play Trailer"}
+          secondBtnTitle={"Buy Tickets"}
+          key={Math.random(0, eventsArray.length)}
         />
       </div>
     );
@@ -547,8 +546,5 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const connectedComponent = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Movies);
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(Movies);
 export default withRouter(connectedComponent);
