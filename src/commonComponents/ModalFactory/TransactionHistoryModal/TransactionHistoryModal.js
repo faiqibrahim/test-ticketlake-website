@@ -100,7 +100,7 @@ class TransactionHistoryModal extends React.Component {
                 <tbody className="border-bottom">
                   {parentState.modalDataFromApi.passes && (
                     <>
-                      {!parentState.ticketsState.length && "No passes data"}
+                      {!parentState.passesState.length && "No passes data"}
 
                       {parentState.passesState.map((classKey) => {
                         const data =
