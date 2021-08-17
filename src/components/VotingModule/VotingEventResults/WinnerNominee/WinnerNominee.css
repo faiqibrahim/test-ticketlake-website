@@ -27,7 +27,7 @@
 .eventWinnerCol .winnerBadge {
   position: absolute;
   left: 47%;
-  top: 90%;
+  top: 92%;
 }
 .winnerBadge img {
   filter: grayscale(0);

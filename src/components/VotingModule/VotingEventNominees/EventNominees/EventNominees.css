@@ -27,6 +27,12 @@
   max-width: 50%;
   padding: 0;
 }
+.eventNomineesContainer .nomineeHeaderCol .heading {
+  text-transform: capitalize;
+}
+.eventNomineesContainer .nomineeHeaderCol .heading span {
+  text-transform: lowercase;
+}
 .nomineeHeaderCol:first-child {
   text-align: left;
 }

@@ -35,7 +35,7 @@
 }
 .votingEvents .closedVoting .cvContent {
   color: #fff;
-  text-transform: lowercase;
+  text-transform: capitalize;
   font-weight: normal;
   font-size: 22px;
 }
@@ -67,6 +67,10 @@
   line-height: 41px;
   font-size-adjust: 0.4;
   text-align: left;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .votingEvents .cardMetaBox {
   line-height: 25px;
@@ -84,7 +88,9 @@
   color: #ec1b23;
   text-transform: lowercase;
 }
-
+.tooltipStyle {
+  width: 250px !important;
+}
 @media screen and (min-width: 2000px) and (max-width: 4000px) {
   .votingEvents .cardMetaBox {
     line-height: 30px;
