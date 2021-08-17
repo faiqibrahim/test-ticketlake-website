@@ -11,9 +11,9 @@ import ListView from "./listView";
 import GridView from "./gridView";
 import Banner from "./banner";
 import EventsFilter from "./eventsFilter";
-import DateFiliter from "./dateFilter";
+import DateFilter from "./dateFilter";
 import CustomButton from "./customTabButton";
-import { getOrganiserData } from "./api-handler";
+import { getOrganiserData, getOrganisationEvents } from "./api-handler";
 import { NotificationManager } from "react-notifications";
 
 class OrganiserDetails extends Component {
@@ -22,6 +22,8 @@ class OrganiserDetails extends Component {
     eventsBtn: true,
     offSet: true,
     loader: true,
+    active: "all",
+    timeFrame: "all",
   };
 
   setView = (view) => {
@@ -41,19 +43,17 @@ class OrganiserDetails extends Component {
     }
   };
 
-  async componentDidMount() {
-    if (window.screen.width < 768) this.setState({ gridView: false });
-    window.addEventListener("resize", this.updateDimensions);
-
-    if (window.screen.width < 1278) this.setState({ offSet: false });
-    window.addEventListener("resize", this.updateDimensions);
-
+  fetchData = async () => {
     const { match } = this.props;
 
     const { id } = match.params;
 
     try {
-      const response = await getOrganiserData(id);
+      const responses = await Promise.all([
+        getOrganiserData(id),
+        getOrganisationEvents(id),
+      ]);
+      console.log("promise results=", responses);
       const {
         name,
         description,
@@ -63,10 +63,11 @@ class OrganiserDetails extends Component {
         reviews,
         totalReviews,
         rating,
+        eventsOrganized,
         _id,
-      } = response.data.data;
+      } = responses[0].data.data;
 
-      console.log("response", response.data.data);
+      console.log("response", responses[1].data.data);
 
       const eventOrganiser = {
         name,
@@ -76,17 +77,44 @@ class OrganiserDetails extends Component {
         venue: address.address,
         rating,
         totalReviews,
+        eventsOrganised: eventsOrganized,
       };
 
-      this.setState({ eventOrganiser, _id, reviews, loader: false });
+      const eventsList = responses[1].data.data;
+
+      this.setState({
+        eventOrganiser,
+        eventsList,
+        _id,
+        reviews,
+        loader: false,
+      });
     } catch (error) {
-      console.log("error", error);
+      console.log("error", error.response);
       NotificationManager.error("Some Error Occured!", "Error");
     }
+  };
+
+  componentDidMount() {
+    if (window.screen.width < 768) this.setState({ gridView: false });
+    window.addEventListener("resize", this.updateDimensions);
+
+    if (window.screen.width < 1278) this.setState({ offSet: false });
+    window.addEventListener("resize", this.updateDimensions);
+    this.fetchData();
   }
+
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions);
   }
+
+  fetchEvents = async () => {
+    const { match } = this.props;
+    const { id } = match.params;
+    const { active, timeFrame } = this.state;
+
+    getOrganisationEvents(id, active, timeFrame);
+  };
 
   setDetailsState = () => {
     this.setState({
@@ -148,8 +176,20 @@ class OrganiserDetails extends Component {
     });
   };
 
+  setEventsFilter = (e) => {
+    let disable = false;
+
+    if (e === "false") {
+      disable = true;
+    }
+    this.setState({ active: e, disable, timeFrame: "all" });
+  };
+
+  setDateFilter = (e) => {
+    this.setState({ timeFrame: e });
+  };
+
   render() {
-    const { eventsList, history } = this.props;
     const {
       gridView,
       eventsBtn,
@@ -159,10 +199,12 @@ class OrganiserDetails extends Component {
       eventOrganiser,
       reviews,
       _id,
+      eventsList,
+      disable,
     } = this.state;
 
     if (loader) return <Loader />;
-    console.log(history);
+
     return (
       <div id="wrapper" className="textAlignLeft organiser-details">
         <Banner eventOrganiser={eventOrganiser} />{" "}
@@ -180,8 +222,11 @@ class OrganiserDetails extends Component {
                   {this.getListBtn()}
                   {this.getGridBtn()}
                 </div>
-                <EventsFilter />
-                <DateFiliter />
+                <EventsFilter setEventFilterValue={this.setEventsFilter} />
+                <DateFilter
+                  disable={disable}
+                  setDateFilterValue={this.setDateFilter}
+                />
               </div>
               <hr />
             </div>

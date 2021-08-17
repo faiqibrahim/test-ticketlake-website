@@ -4,7 +4,7 @@ import { Select } from "antd";
 
 const { Option } = Select;
 
-const EventsFilter = () => {
+const EventsFilter = ({ setEventFilterValue }) => {
   return (
     <div className="category-filter  col-xl-2 col-lg-3 col-md-3 col-sm-6 col-xs-6  ">
       <div>
@@ -12,6 +12,9 @@ const EventsFilter = () => {
           defaultValue="all"
           placeholder="Events"
           className="chosen-select  filterDropDowns organiserCategorySelect events customHeight"
+          onChange={(e) => {
+            setEventFilterValue(e);
+          }}
         >
           {eventsFilterOption.map((data) => (
             <Option key={data.option} value={data.value}>

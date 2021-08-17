@@ -19,45 +19,40 @@ class Organisers extends Component {
     orgData: [],
     loader: true,
     page: 1,
+    pageCount: 0,
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.fetcData();
+  }
+
+  fetcData = async () => {
     const { country, getAllCategories } = this.props;
     const { countryCode } = country;
     const { page } = this.state;
 
-    console.log("country=", country);
-    const response = await getOrganisationdata(countryCode, page);
-    if (response === "error") {
+    try {
+      const response = await getOrganisationdata(countryCode, page);
+
+      getAllCategories();
+      const { itemsList, paginator } = response.data.orgnizationData;
+      const { pageCount } = paginator;
+      this.setState({
+        orgData: itemsList,
+        loader: false,
+        pageCount,
+      });
+    } catch (error) {
       NotificationManager.error("Some Error Occured !", "Error");
       this.setState({ loader: false });
-    } else {
-      getAllCategories();
-      this.setState({
-        orgData: response.data.orgnizationData.itemsList,
-        loader: false,
-      });
     }
-    console.log("reponse of success=", response);
-  }
+  };
 
-  async componentDidUpdate(prevProps) {
-    const { countryCode, label } = this.props.country;
-    const { page } = this.state;
+  componentDidUpdate(prevProps) {
+    const { label } = this.props.country;
 
     if (prevProps.country.label !== label) {
-      this.setState({ loader: true });
-      const response = await getOrganisationdata(countryCode, page);
-      if (response === "error") {
-        NotificationManager.error("Some Error Occured !", "Error");
-        this.setState({ loader: false });
-      } else {
-        getAllCategories();
-        this.setState({
-          orgData: response.data.orgnizationData.itemsList,
-          loader: false,
-        });
-      }
+      this.fetcData();
     }
   }
 
@@ -123,9 +118,8 @@ class Organisers extends Component {
         <h5 className="seperatorColor mb-5">No event organisers available </h5>
       );
     }
-
-    console.log("org data=", orgData);
     const { label } = this.props.country;
+
     return (
       <div className="container mb-100">
         <div className="row organiser-row">
@@ -195,14 +189,15 @@ class Organisers extends Component {
   };
 
   loadMoreEvents = (e) => {
-    this.setState({ currentPage: e.selected + 1 }, () => {
-      this.fetchEvents(true, this.state.currentPage, this.state.pageSize);
+    const { selected } = e;
+    this.setState({ page: selected + 1 }, () => {
+      this.fetcData();
     });
   };
 
   render() {
     const { country } = this.props;
-    const { loader } = this.state;
+    const { loader, pageCount } = this.state;
 
     return (
       <div id="wrapper">
@@ -232,29 +227,31 @@ class Organisers extends Component {
             <>
               {" "}
               {this.getImageCards()}
-              <div className="row">
-                <div className="col-lg-12 float-left">
-                  <div className="d-flex">
-                    <ReactPaginate
-                      previousLabel={<i className="fa fa-angle-left" />}
-                      nextLabel={<i className="fa fa-angle-right" />}
-                      breakLabel={"..."}
-                      breakClassName={"break-me"}
-                      pageCount={this.state.totalPages}
-                      marginPagesDisplayed={2}
-                      pageRangeDisplayed={5}
-                      onPageChange={(data) => this.loadMoreEvents(data)}
-                      containerClassName={
-                        "list-inline mx-auto justify-content-center pagination"
-                      }
-                      subContainerClassName={
-                        "list-inline-item pages pagination"
-                      }
-                      activeClassName={"active"}
-                    />
+              {pageCount > 1 ? (
+                <div className="row">
+                  <div className="col-lg-12 float-left">
+                    <div className="d-flex">
+                      <ReactPaginate
+                        previousLabel={<i className="fa fa-angle-left" />}
+                        nextLabel={<i className="fa fa-angle-right" />}
+                        breakLabel={"..."}
+                        breakClassName={"break-me"}
+                        pageCount={pageCount}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={(data) => this.loadMoreEvents(data)}
+                        containerClassName={
+                          "list-inline mx-auto justify-content-center pagination"
+                        }
+                        subContainerClassName={
+                          "list-inline-item pages pagination"
+                        }
+                        activeClassName={"active"}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>{" "}
+              ) : null}
             </>
           )}
         </div>

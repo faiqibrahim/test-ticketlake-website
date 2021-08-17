@@ -7,7 +7,9 @@ import { NotificationManager } from "react-notifications";
 import { saveReviewInDB } from "./api-handler";
 import { setRedirectTo } from "../../../redux/user/user-actions";
 class Ratings extends Component {
-  state = {};
+  state = {
+    errors: [],
+  };
 
   onInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,22 +32,33 @@ class Ratings extends Component {
   };
 
   validateData = () => {
-    const { rating, review, name } = this.state;
-    if (!name) {
-      NotificationManager.error("Name is Mandatory!");
-    } else if (!review) {
-      NotificationManager.error("Comment is Mandatory!");
-    } else if (!rating) {
-      NotificationManager.error("Rating is Mandatory!");
-    } else {
+    const fields = [
+      { name: "name", label: "Name" },
+      { name: "review", label: "Comment" },
+      { name: "rating", label: "Rating" },
+    ];
+
+    let missingFields = [];
+    fields.forEach((field) => {
+      if (!this.state[field.name]) missingFields.push(field);
+    });
+
+    const errors = {};
+
+    missingFields.forEach((field) => {
+      errors[field.name] = `${field.label} is mandatory`;
+    });
+
+    if (missingFields.length === 0) {
       this.saveReview();
     }
+
+    this.setState({ errors });
   };
 
   checkUser = () => {
     const { authState } = this.props;
     if (!authState) {
-      console.log(this.props.history.location.pathname);
       sessionStorage.setItem(
         "redirectTo",
         this.props.history.location.pathname
@@ -58,8 +71,8 @@ class Ratings extends Component {
   };
 
   render() {
-    const { rating, name, review } = this.state;
-    console.log("state in review=,", this.state);
+    const { rating, name, review, errors } = this.state;
+
     return (
       <div className="container">
         <p className={classes.ratingheading}>Share your review and rating</p>
@@ -71,6 +84,7 @@ class Ratings extends Component {
           name="name"
           className={classes.customInputname}
         />
+        <span className="red-color">{errors["name"]}</span>
         <textarea
           placeholder="Add a comment…"
           rows="10"
@@ -79,6 +93,7 @@ class Ratings extends Component {
           onChange={this.onInputChange}
           className={classes.customTextArea}
         />
+        <span className="mb-2 red-color">{errors["review"]}</span>
         <label
           className={`d-flex justify-content-center ${classes.customlabel}`}
         >
@@ -88,7 +103,8 @@ class Ratings extends Component {
             value={rating}
             defaultValue={rating}
           />
-        </label>{" "}
+        </label>
+        <span className="red-color">{errors["rating"]}</span>
         <button onClick={this.checkUser} className={classes.postBtn}>
           Post
         </button>

@@ -108,7 +108,11 @@ class Reviews extends Component {
             <Ratings _id={_id} {...this.toggle} />
           </div>
         </div>
-        <Modal isOpen={isOpen} toggle={this.toggle}>
+        <Modal
+          isOpen={isOpen}
+          toggle={this.toggle}
+          className={classes.marginRight}
+        >
           <ModalBody>
             <AuthRotes>
               <Ratings _id={_id} handleToggle={this.toggle} />
