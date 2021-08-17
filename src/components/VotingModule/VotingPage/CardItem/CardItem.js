@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import ReactTooltip from "react-tooltip";
 
 import { duration } from "../Duration/duration";
 import "./CardItem.css";
@@ -15,6 +16,19 @@ const CardItem = (props) => {
     );
   }
 
+  let eventName =
+    props.name.length > 20 ? (
+      <>
+        {" "}
+        <div className="cardTitle" data-tip={props.name}>
+          {props.name}
+        </div>
+        <ReactTooltip place="right" className={"tooltipStyle"} />
+      </>
+    ) : (
+      <div className="cardTitle">{props.name}</div>
+    );
+
   return (
     <div className="cardItemCol" onClick={props.clicked}>
       <div className="imageContainer">
@@ -23,7 +37,7 @@ const CardItem = (props) => {
         <img src={props.images} alt={"img"} />
       </div>
       <div className="cardContent">
-        <div className="cardTitle">{props.name}</div>
+        {eventName}
         <div className="cardMetaBox">
           <div className="timeLeft">
             {duration({ ...props }).eventEnd

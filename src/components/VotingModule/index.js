@@ -18,8 +18,8 @@ class VotingEvents extends Component {
     this.state = {
       loading: false,
       eventsListing: [],
-      eventsLimit: 2,
-      defaultLimit: 2,
+      eventsLimit: 8,
+      defaultLimit: 8,
     };
   }
 

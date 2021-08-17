@@ -1,19 +1,18 @@
-.votingHeader{
-    max-width: 100%;
-    margin: 115px auto 0;
-    text-align: left;
+.votingHeader {
+  max-width: 100%;
+  margin: 115px auto 0;
+  text-align: left;
 }
 
-.pageTitle
-{
-    font-family: 'NeuePlak';
-    font-weight: bold;
-    color: #231F20;
-    font-size: 56px;
-    margin-bottom: 0;
-    padding: 80px 0 10px 0;
-
+.pageTitle {
+  font-family: "NeuePlak";
+  font-weight: bold;
+  color: #231f20;
+  font-size: 56px;
+  margin-bottom: 0;
+  padding: 80px 0 10px 0;
+  text-transform: capitalize;
 }
-.votingBreadcrumbs{
-    padding-bottom: 10px;
+.votingBreadcrumbs {
+  padding-bottom: 10px;
 }

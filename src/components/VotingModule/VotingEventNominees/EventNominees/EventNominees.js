@@ -171,7 +171,7 @@ class EventNominees extends Component {
             <div className="Header">
               <div className="nomineeHeaderCol">
                 <div className="heading">
-                  Nominees for "{this.state.categoryName}
+                  Nominees <span>for</span> "{this.state.categoryName}
                 </div>
                 <div className="subHeading">
                   Please select a nominee to vote for
