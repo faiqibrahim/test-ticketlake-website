@@ -35,7 +35,7 @@
 }
 .winnerBadge {
   position: absolute;
-  left: 60%;
+  left: 62%;
   top: 55%;
 }
 .winnerBadge img {
@@ -57,6 +57,72 @@
   color: #747a95;
   font-size: 22px;
   font-weight: 300;
+}
+
+@media screen and (min-width: 1401px) and (max-width: 1580px) {
+  .winnerBadge {
+    left: 64%;
+  }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1140px) {
+  .winnerBadge {
+    left: 64.3%;
+  }
+}
+
+@media screen and (min-width: 993px) and (max-width: 999px) {
+  .winnerBadge {
+    left: 65%;
+  }
+}
+@media screen and (min-width: 900px) and (max-width: 992px) {
+  .winnerBadge {
+    left: 60%;
+  }
+}
+@media screen and (min-width: 731px) and (max-width: 768px) {
+  .winnerBadge {
+    left: 63%;
+  }
+}
+
+@media screen and (min-width: 681px) and (max-width: 730px) {
+  .winnerBadge {
+    left: 66%;
+  }
+}
+
+@media screen and (min-width: 611px) and (max-width: 680px) {
+  .winnerBadge {
+    left: 68%;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 610px) {
+  .winnerBadge {
+    left: 70%;
+  }
+}
+@media screen and (min-width: 475px) and (max-width: 575px) {
+  .winnerBadge {
+    left: 59%;
+  }
+}
+@media screen and (min-width: 410px) and (max-width: 474px) {
+  .winnerBadge {
+    left: 60%;
+  }
+}
+@media screen and (min-width: 355px) and (max-width: 385px) {
+  .winnerBadge {
+    left: 63%;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 554px) {
+  .winnerBadge {
+    left: 65%;
+  }
 }
 
 @media screen and (min-width: 993px) and (max-width: 1400px) {

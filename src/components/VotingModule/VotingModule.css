@@ -108,6 +108,7 @@ button {
   font-size: 22px;
   color: #747a95;
   font-weight: normal;
+  text-transform: capitalize;
 }
 .castVote {
   padding-top: 50px;
