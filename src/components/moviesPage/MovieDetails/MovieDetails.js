@@ -61,6 +61,15 @@ class MovieDetails extends Component {
     });
   };
 
+  getMovieState = () => {
+    let categoryState = JSON.parse(sessionStorage.getItem("categoryState"));
+    const {
+      parentCategory: { _id: movieId },
+    } = categoryState;
+
+    return movieId;
+  };
+
   pageTitle = () => {
     return (
       <Helmet>
@@ -70,13 +79,13 @@ class MovieDetails extends Component {
   };
 
   getBreadCrumbs = () => {
-    const categoryId = this.getCategoryId();
+    const parentId = this.getParentState();
     return (
       <>
         <BreadcrumbsItem glyph="home" to="/">
           Home Page
         </BreadcrumbsItem>
-        <BreadcrumbsItem to={`/movies/?id=${categoryId}`}>
+        <BreadcrumbsItem glyph="movies" to={`/movies/?id=${parentId}`}>
           All Movies
         </BreadcrumbsItem>
         <BreadcrumbsItem to={"/event/detail/" + this.props.match.params.id}>
