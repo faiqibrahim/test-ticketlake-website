@@ -13,7 +13,7 @@ const CatergoryBox = (props) => {
         style={image ? { backgroundImage: `url('${image}')` } : null}
       >
         <div className={image ? "boxTitle" : "boxTitleNoImage"}>{name}</div>
-        <div className={image ? "overlay" : "overlayNoImage"}></div>
+        <div className={image ? "votingOverlay" : "votingOverlayNoImage"}></div>
       </div>
     </div>
   );
