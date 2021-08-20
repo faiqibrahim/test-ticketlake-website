@@ -73,7 +73,7 @@
   text-overflow: ellipsis;
 }
 .votingEvents .cardMetaBox {
-  line-height: 25px;
+  line-height: 40px;
 }
 .votingEvents .cardMetaBox .timeLeft,
 .votingEvents .cardMetaBox .voteCount {
@@ -87,6 +87,7 @@
 .votingEvents .cardMetaBox .voteCount {
   color: #ec1b23;
   text-transform: lowercase;
+  margin-top: -14px;
 }
 .tooltipStyle {
   width: 250px !important;

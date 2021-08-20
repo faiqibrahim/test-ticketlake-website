@@ -1,117 +1,164 @@
-.CategoryBoxCol{
-    flex: 0 0 25%;
-    max-width: 25%;
-    padding: 0 30px 0 0;
+.CategoryBoxCol {
+  flex: 0 0 25%;
+  max-width: 25%;
+  padding: 0 30px 0 0;
 }
-.CategoryBoxCol:nth-child(4n+0){
-    padding-right:0;
+.CategoryBoxCol:nth-child(4n + 0) {
+  padding-right: 0;
 }
-.CategoryBoxCol:nth-child(4n+0) ~ div{
-    padding-top:30px;
+.CategoryBoxCol:nth-child(4n + 0) ~ div {
+  padding-top: 30px;
 }
-.boxContent{
-    display: flex;
-    flex-flow: column;
-    align-items: flex-start;
-    padding: 44px 0;
-    background-color: #FFF7F7;
-    cursor: pointer;
-    border-radius: 10px;
+.boxContent {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  padding: 44px 0;
+  cursor: pointer;
+  border-radius: 10px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  object-fit: cover;
+  background-position: left center;
+  position: relative;
 }
-.boxContent:hover .boxTitle{
-    color: #fff;
-}
-.boxContent:hover{
-    background-color: #EC1B23;
-}
-.boxContent > div{
-    align-self: center;
-}
-.boxTitle{
-    font-size:28px;
-    color: #231F20;
-    font-weight: bold;
-    line-height: 41px;
-    font-size-adjust: 0.4;
+.boxContent:hover .boxTitle,
+.boxContent:hover .boxTitleNoImage {
+  color: #fff;
 }
 
-@media screen and (min-width:2700px) and (max-width:4000px){
-    .CategoryBoxCol{
-        padding: 0 30px;
-    }
-    .CategoryBoxCol:nth-child(4n+0) ~ div{
-        padding-left:30px;
-        padding-right:30px;
-    }
+.boxContent > div {
+  align-self: center;
+}
+.boxTitle {
+  font-size: 28px;
+  color: #fff;
+  font-weight: bold;
+  line-height: 41px;
+  font-size-adjust: 0.4;
+  z-index: 5;
+  text-transform: capitalize;
 }
 
-@media screen and (min-width:2100px) and (max-width:2699px){
-    .CategoryBoxCol{
-        padding: 0 25px;
-    }
-    .CategoryBoxCol:nth-child(4n+0) ~ div{
-        padding-left:25px;
-        padding-right:25px;
-    }
+.boxTitleNoImage {
+  font-size: 28px;
+  color: #000;
+  font-weight: bold;
+  line-height: 41px;
+  font-size-adjust: 0.4;
+  z-index: 5;
+  text-transform: capitalize;
+}
+.votingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.5;
+  z-index: 2;
+  border-radius: inherit;
 }
 
-@media screen and (min-width:1401px) and (max-width:1580px){
-    .boxTitle{
-        font-size:26px;
-    }
+.votingOverlayNoImage {
+  opacity: 1;
+  background-color: #fff7f7;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  border-radius: inherit;
+}
+.votingOverlay:hover,
+.votingOverlayNoImage:hover,
+.boxTitle:hover + .votingOverlay,
+.boxTitleNoImage:hover + .votingOverlayNoImage {
+  background-color: #ec1b23;
+  opacity: 1;
 }
 
-@media screen and (min-width:993px) and (max-width:1400px){
-    .CategoryBoxCol{
-        flex: 0 0 33.33%;
-        max-width: 33.33%;
-    }    
-    .CategoryBoxCol:nth-child(3n+0) ~ div{
-        padding-top:30px;
-    }
-    .CategoryBoxCol:nth-child(3n+0){
-        padding-right:0;
-    }
-    .CategoryBoxCol:nth-child(4n+0){
-        padding-right:30px;
-    }
+@media screen and (min-width: 2700px) and (max-width: 4000px) {
+  .CategoryBoxCol {
+    padding: 0 30px;
+  }
+  .CategoryBoxCol:nth-child(4n + 0) ~ div {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
 
-@media screen and (min-width:993px) and (max-width:1100px){
-    .boxTitle{
-        font-size:22px;
-    }
+@media screen and (min-width: 2100px) and (max-width: 2699px) {
+  .CategoryBoxCol {
+    padding: 0 25px;
+  }
+  .CategoryBoxCol:nth-child(4n + 0) ~ div {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
 }
 
-@media screen and (max-width:992px){
-    .CategoryBoxCol{
-        flex: 0 0 50%;
-        max-width: 50%;
-    }    
-    .CategoryBoxCol:nth-child(2n+0) ~ div{
-        padding-top:30px;;
-    }
-    .CategoryBoxCol:nth-child(2n+0){
-        padding-right:0;
-    }
+@media screen and (min-width: 1401px) and (max-width: 1580px) {
+  .boxTitle,
+  .boxTitleNoImage {
+    font-size: 26px;
+  }
 }
 
-@media screen and (min-width:576px) and (max-width:670px){
-    .boxTitle{
-        font-size:22px;
-    }
+@media screen and (min-width: 993px) and (max-width: 1400px) {
+  .CategoryBoxCol {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+  }
+  .CategoryBoxCol:nth-child(3n + 0) ~ div {
+    padding-top: 30px;
+  }
+  .CategoryBoxCol:nth-child(3n + 0) {
+    padding-right: 0;
+  }
+  .CategoryBoxCol:nth-child(4n + 0) {
+    padding-right: 30px;
+  }
 }
 
+@media screen and (min-width: 993px) and (max-width: 1100px) {
+  .boxTitle,
+  .boxTitleNoImage {
+    font-size: 22px;
+  }
+}
 
-@media screen and (max-width:575px){
-    .CategoryBoxCol{
-        flex: 0 0 100%;
-        max-width: 100%;
-    }    
-    .CategoryBoxCol:nth-child(1n+0) ~ div{
-        padding-top:30px;
-    }
-    .CategoryBoxCol:nth-child(1n+0){
-        padding-right:0;
-    }
+@media screen and (max-width: 992px) {
+  .CategoryBoxCol {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .CategoryBoxCol:nth-child(2n + 0) ~ div {
+    padding-top: 30px;
+  }
+  .CategoryBoxCol:nth-child(2n + 0) {
+    padding-right: 0;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 670px) {
+  .boxTitle,
+  .boxTitleNoImage {
+    font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .CategoryBoxCol {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .CategoryBoxCol:nth-child(1n + 0) ~ div {
+    padding-top: 30px;
+  }
+  .CategoryBoxCol:nth-child(1n + 0) {
+    padding-right: 0;
+  }
 }

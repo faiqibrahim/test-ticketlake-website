@@ -1,20 +1,22 @@
-import React from 'react';
-import {withRouter} from 'react-router-dom';
+import React from "react";
+import { withRouter } from "react-router-dom";
 
-
-import './CatergoryBox.css'
+import "./CatergoryBox.css";
 
 const CatergoryBox = (props) => {
+  const { image, name, clicked } = props;
 
-    return(
-            <div className="CategoryBoxCol" onClick={props.clicked}>
-                <div className="boxContent">
-                    <div className="boxTitle">
-                        {props.name}
-                    </div>
-                </div>
-            </div>
-    )
-}
+  return (
+    <div className="CategoryBoxCol" onClick={clicked}>
+      <div
+        className="boxContent"
+        style={image ? { backgroundImage: `url('${image}')` } : null}
+      >
+        <div className={image ? "boxTitle" : "boxTitleNoImage"}>{name}</div>
+        <div className={image ? "votingOverlay" : "votingOverlayNoImage"}></div>
+      </div>
+    </div>
+  );
+};
 
 export default withRouter(CatergoryBox);

@@ -36,7 +36,7 @@ class EventNominees extends Component {
     const { id, categoryId } = this.props.match.params;
 
     this.props.getAllVotingNominees(categoryId, (error, data) => {
-      if (!error && data.length) {
+      if (!error && data.length > 0) {
         let durationCheck = duration(this.props.nomineeListing[0]);
 
         if (durationCheck.eventEnd) {
@@ -50,9 +50,7 @@ class EventNominees extends Component {
           });
         }
       } else {
-        if (this.is_Mounted) {
-          this.setState({ loading: false });
-        }
+        this.props.history.push("/voting");
       }
     });
   }

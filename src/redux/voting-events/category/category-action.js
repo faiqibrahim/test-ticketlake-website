@@ -45,6 +45,7 @@ const convertAllCategoriesApiStructureToListingData = (eventID, data, cb) => {
     convertEventData.push({
       id: category._id,
       name: category.title,
+      image: category.image,
     });
     noOfAsyncTasks--;
   }
