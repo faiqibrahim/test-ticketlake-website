@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import Moment from "react-moment";
 import classes from "./style.module.css";
 
 class ListView extends Component {
-  state = { count: 8 };
+  state = { count: 4 };
 
   render() {
     const { eventsList } = this.props;
@@ -31,10 +32,21 @@ class ListView extends Component {
                 </div>
                 <div className="col">
                   <div className="card-block px-4">
-                    <h4 className="cardTitle">{event.eventTitle}</h4>
-                    <p className="cardSubheading">{event.type}</p>
+                    <h4 className="cardTitle">{event.title}</h4>
+                    <p className="cardSubheading">
+                      {event.categories.map((category, index) => {
+                        return (
+                          category.title +
+                          (index < event.categories.length - 1 ? " & " : "")
+                        );
+                      })}
+                    </p>
                     <p className="cardSubheading" style={{ color: "#EC1B23" }}>
-                      {event.startTime}-{event.endTime}
+                      <Moment format="ddd, MMMM DD">
+                        {event.startDateTime}
+                      </Moment>{" "}
+                      -
+                      <Moment format="ddd, MMMM DD">{event.endDateTime}</Moment>
                     </p>
                     <p className="cardSubheading">
                       {event.slotsData.length} Shows

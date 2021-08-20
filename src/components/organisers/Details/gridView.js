@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card } from "react-bootstrap";
+import Moment from "react-moment";
 import classes from "./style.module.css";
 
 class GridView extends Component {
@@ -32,12 +33,25 @@ class GridView extends Component {
                     src={event.bannerImageKey.imageUrl}
                   />
                   <div>
-                    <p className="cardTitle">{event.eventTitle}</p>
-                    <p className="cardSubheading">{event.type}</p>
-                    <p className="cardSubheading" style={{ color: "#EC1B23" }}>
-                      {event.startTime}-{event.endTime}
+                    <p className="cardTitle">{event.title}</p>
+                    <p className="cardSubheading">
+                      {event.categories.map((category, index) => {
+                        return (
+                          category.title +
+                          (index < event.categories.length - 1 ? " & " : "")
+                        );
+                      })}
                     </p>
-                    <p className="cardSubheading">{event.shows} Shows</p>
+                    <p className="cardSubheading" style={{ color: "#EC1B23" }}>
+                      <Moment format="ddd, MMMM DD">
+                        {event.startDateTime}
+                      </Moment>{" "}
+                      -
+                      <Moment format="ddd, MMMM DD">{event.endDateTime}</Moment>
+                    </p>
+                    <p className="cardSubheading">
+                      {event.slotsData.length} Shows
+                    </p>
                   </div>
                 </Card>
               </div>

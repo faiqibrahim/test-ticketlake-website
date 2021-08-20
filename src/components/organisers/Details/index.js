@@ -22,6 +22,7 @@ class OrganiserDetails extends Component {
     eventsBtn: true,
     offSet: true,
     loader: true,
+    filterLoader: false,
     active: "all",
     timeFrame: "all",
   };
@@ -43,17 +44,18 @@ class OrganiserDetails extends Component {
     }
   };
 
-  fetchData = async () => {
+  fetchAllData = () => {
+    this.fetchEventOrganiserData();
+    this.fethEventsList();
+  };
+
+  fetchEventOrganiserData = async () => {
     const { match } = this.props;
 
     const { id } = match.params;
 
     try {
-      const responses = await Promise.all([
-        getOrganiserData(id),
-        getOrganisationEvents(id),
-      ]);
-      console.log("promise results=", responses);
+      const response = await getOrganiserData(id);
       const {
         name,
         description,
@@ -65,9 +67,7 @@ class OrganiserDetails extends Component {
         rating,
         eventsOrganized,
         _id,
-      } = responses[0].data.data;
-
-      console.log("response", responses[1].data.data);
+      } = response.data.data;
 
       const eventOrganiser = {
         name,
@@ -80,17 +80,33 @@ class OrganiserDetails extends Component {
         eventsOrganised: eventsOrganized,
       };
 
-      const eventsList = responses[1].data.data;
-
       this.setState({
         eventOrganiser,
-        eventsList,
         _id,
         reviews,
-        loader: false,
       });
-    } catch (error) {
-      console.log("error", error.response);
+    } catch (err) {
+      NotificationManager.error("Some Error Occured!", "Error");
+    }
+  };
+
+  fethEventsList = async () => {
+    const { match } = this.props;
+    const { id } = match.params;
+
+    const { active, timeFrame } = this.state;
+
+    try {
+      const response = await getOrganisationEvents(id, active, timeFrame);
+
+      const eventsList = response.data.data;
+
+      this.setState({
+        eventsList,
+        loader: false,
+        filterLoader: false,
+      });
+    } catch (err) {
       NotificationManager.error("Some Error Occured!", "Error");
     }
   };
@@ -101,20 +117,12 @@ class OrganiserDetails extends Component {
 
     if (window.screen.width < 1278) this.setState({ offSet: false });
     window.addEventListener("resize", this.updateDimensions);
-    this.fetchData();
+    this.fetchAllData();
   }
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions);
   }
-
-  fetchEvents = async () => {
-    const { match } = this.props;
-    const { id } = match.params;
-    const { active, timeFrame } = this.state;
-
-    getOrganisationEvents(id, active, timeFrame);
-  };
 
   setDetailsState = () => {
     this.setState({
@@ -182,11 +190,18 @@ class OrganiserDetails extends Component {
     if (e === "false") {
       disable = true;
     }
-    this.setState({ active: e, disable, timeFrame: "all" });
+    this.setState(
+      { active: e, disable, timeFrame: "all", filterLoader: true },
+      () => {
+        this.fethEventsList();
+      }
+    );
   };
 
   setDateFilter = (e) => {
-    this.setState({ timeFrame: e });
+    this.setState({ timeFrame: e, active: true, filterLoader: true }, () => {
+      this.fethEventsList();
+    });
   };
 
   render() {
@@ -201,16 +216,26 @@ class OrganiserDetails extends Component {
       _id,
       eventsList,
       disable,
+      filterLoader,
     } = this.state;
 
     if (loader) return <Loader />;
 
     return (
       <div id="wrapper" className="textAlignLeft organiser-details">
-        <Banner eventOrganiser={eventOrganiser} />{" "}
+        <Banner
+          handleReviews={this.setReviewsState}
+          eventOrganiser={eventOrganiser}
+        />{" "}
         {this.tabsContainer(eventsList)}
         {detailsBtn && <Details {...eventOrganiser} />}
-        {reviewsBtn && <Reviews _id={_id} reviews={reviews} />}
+        {reviewsBtn && (
+          <Reviews
+            _id={_id}
+            fetchUpdatedData={this.fetchEventOrganiserData}
+            reviews={reviews}
+          />
+        )}
         {eventsBtn && (
           <>
             <div className="container  ">
@@ -240,7 +265,9 @@ class OrganiserDetails extends Component {
               />
 
               <div className="">
-                {gridView ? (
+                {filterLoader ? (
+                  <Loader />
+                ) : gridView ? (
                   <GridView eventsList={eventsList} />
                 ) : (
                   <ListView eventsList={eventsList} />

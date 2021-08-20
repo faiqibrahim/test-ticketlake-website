@@ -85,7 +85,7 @@
   width: 250px;
   border-radius: 10px;
   object-fit: fill;
-  height: 138px;
+  height: 140px;
 }
 
 .eventOrganiserContainer {
@@ -221,7 +221,7 @@
 }
 
 .listViewImage {
-  height: 135px;
+  height: 140px;
   width: 250px;
   border-radius: 10px;
 }
@@ -477,4 +477,20 @@
   background-color: #ffffff;
   font-size: 18px;
   font-family: "NeuePlak";
+}
+
+.cardSubheading .svg-inline--fa {
+  margin-right: 8px;
+}
+
+.ratingStarText .svg-inline--fa {
+  margin-right: 8px;
+}
+
+div.ratingStarText div {
+  display: inline;
+}
+
+div.cardSubheading div {
+  display: inline;
 }
