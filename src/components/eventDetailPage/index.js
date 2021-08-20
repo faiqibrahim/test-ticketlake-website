@@ -746,27 +746,22 @@ class EventDetail extends Component {
                                                         enableImageSelection={false}
                                                     />
                                                 </div>
-                                                <div className={"agenda-section"} id={"agenda"}>
-                                                    {
-                                                        data.agenda ?
-                                                            <div className="list-single-main-item fl-wrap pl-40"
-                                                                 style={{marginTop: '20px'}}>
-                                                                <div className="row">
-                                                                    <div className="col-md-12">
-                                                                        <div className="box-widget-item-header">
-                                                                            <h3> Agenda </h3>
-                                                                        </div>
-                                                                        <p style={{fontSize: '14px'}}>{data.agenda ? data.agenda : "Agenda"}</p>
+                                                { data.agenda ?
+                                                    <div className={"agenda-section"} id={"agenda"}>
+                                                        <div className="list-single-main-item fl-wrap pl-40"
+                                                             style={{marginTop: '20px'}}>
+                                                            <div className="row">
+                                                                <div className="col-md-12">
+                                                                    <div className="box-widget-item-header">
+                                                                        <h3> Agenda </h3>
                                                                     </div>
+                                                                    <p style={{fontSize: '14px'}}>{data.agenda ? data.agenda : "Agenda"}</p>
                                                                 </div>
-                                                            </div> : <EventMessage/>
-                                                    }
-                                                </div>
-
-                                                {
-                                                    this.getGroupBySections(data.sections && data.sections, false)
-
+                                                            </div>
+                                                        </div>
+                                                    </div>:null
                                                 }
+                                                { this.getGroupBySections(data.sections && data.sections, false)}
                                             </div>
                                         </div>
 
