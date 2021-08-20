@@ -220,34 +220,39 @@ class NearByCinemas extends Component {
                                         </div>
                                         <div className="col-md-12 list-view pl-0">
                                             {this.state.isloadedNearby ?
-                                                this.state.nearByData.map((data, i) => {
-                                                    return (
-                                                        <div className='row cursor-pointer mt-30 alignItem-center'
-                                                             onClick={() => this.props.history.push({
-                                                                 pathname: `/events/nearby-cinemas/detail/${data._id}`,
-                                                                 data: data,
-                                                             })}
-                                                             onMouseOver={() => this.listOver(data.venue)}>
-                                                            <div className="col-md-4 nearby-img">
-                                                                <img style={{height: "130px"}} src={data.defaultImage ? data.defaultImage : '/images/card_2.png'} alt='img' />
-                                                            </div>
-                                                            <div className="col-md-8 nearby-text">
-                                                                <h5>{data.name}</h5>
-                                                                <p style={{padding: "0", margin: "0"}}>{data.numberOfOnGoingEvents} Shows
-                                                                    <br />
-                                                                    {data.venue ? data.venue.address : data.address},
-                                                                    {data.venue ? data.venue.country : data.country}
-                                                                </p>
-                                                                <div className="km">
-                                                                    <h5 className="km-count zero">
-                                                                        {distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') > 9 ? distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') : "0" + distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') }
-                                                                    </h5>
-                                                                    <span className="km-text">KM</span>
+                                                this.state.nearByData.length > 0 ?
+                                                    this.state.nearByData.map((data, i) => {
+                                                        return (
+                                                            <div className='row cursor-pointer mt-30 alignItem-center'
+                                                                 onClick={() => this.props.history.push({
+                                                                     pathname: `/events/nearby-cinemas/detail/${data._id}`,
+                                                                     data: data,
+                                                                 })}
+                                                                 onMouseOver={() => this.listOver(data.venue)}>
+                                                                <div className="col-md-4 nearby-img">
+                                                                    <img style={{height: "130px"}} src={data.defaultImage ? data.defaultImage : '/images/card_2.png'} alt='img' />
+                                                                </div>
+                                                                <div className="col-md-8 nearby-text">
+                                                                    <h5>{data.name}</h5>
+                                                                    <p style={{padding: "0", margin: "0"}}>{data.numberOfOnGoingEvents} Shows
+                                                                        <br />
+                                                                        {data.venue ? data.venue.address : data.address},
+                                                                        {data.venue ? data.venue.country : data.country}
+                                                                    </p>
+                                                                    <div className="km">
+                                                                        <h5 className="km-count zero">
+                                                                            {distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') > 9 ? distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') : "0" + distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') }
+                                                                        </h5>
+                                                                        <span className="km-text">KM</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    )
-                                                })
+                                                        )
+                                                    }):
+                                                    <div className={"Error-msg-wrp w100"}>
+                                                        <div className={"Error-heading"}>Sorry, No Data Found.</div>
+                                                        <span className={"Error-sub-heading"}>There is no data found in nearby Cinema.</span>
+                                                    </div>
                                                 :
                                                 <Loader />
                                             }
