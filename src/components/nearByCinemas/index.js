@@ -135,22 +135,29 @@ class NearByCinemas extends Component {
                                 </div>
                                 <div className="row mt-30 nearby-row-wrp">
                                         {this.state.isloadedNearby ?
-                                            this.state.nearByData.map((data, i) => {
-                                                return (
-                                                    <CardWithBottomInfo imageSrc={data.defaultImage}
-                                                                        onClick={() => this.props.history.push({
-                                                                            pathname: `/events/nearby-cinemas/detail/${data._id}`,
-                                                                            data: data,
-                                                                        })}
-                                                                        title={data.name}
-                                                                        address={data.address}
-                                                                        country={data.country}
-                                                                        noOfShows={data.numberOfOnGoingEvents}
-                                                                        distance={distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') > 9 ? distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') : "0" + distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') }
+                                            this.state.nearByData.length > 0 ?
+                                                this.state.nearByData.map((data, i) => {
+                                                    return (
+                                                        <CardWithBottomInfo imageSrc={data.defaultImage}
+                                                                            onClick={() => this.props.history.push({
+                                                                                pathname: `/events/nearby-cinemas/detail/${data._id}`,
+                                                                                data: data,
+                                                                            })}
+                                                                            title={data.name}
+                                                                            address={data.address}
+                                                                            country={data.country}
+                                                                            noOfShows={data.numberOfOnGoingEvents}
+                                                                            distance={distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') > 9 ? distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') : "0" + distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') }
 
-                                                    />
-                                                )
-                                            })
+                                                        />
+                                                    )
+                                                })
+                                                :
+                                                <div className={"Error-msg-wrp w100"}>
+                                                    <div className={"Error-heading"}>Sorry, No Data Found.</div>
+                                                    <span className={"Error-sub-heading"}>There is no data found in nearby Cinema.</span>
+                                                </div>
+
                                             :
                                             <div className="col-lg-12"><Loader /></div>
                                         }
