@@ -74,7 +74,7 @@ class EventOrganiserCard extends Component {
           <p className="cardSubheading descriptionContainer">{description}</p>
         )}
 
-        <ModelGallery images={images} />
+        <ModelGallery setDetailsView={handleDetails} images={images} />
       </div>
     );
   }

@@ -1,7 +1,5 @@
 import React from "react";
 import { Row, Col } from "antd";
-import { Modal, ModalBody } from "reactstrap";
-import ImageCarousel from "./Carousel";
 import "./style.css";
 
 class ModelGallery extends React.Component {
@@ -13,26 +11,9 @@ class ModelGallery extends React.Component {
     };
   }
 
-  toggleCarousel = (activeIndex) => {
-    const { isImages } = this.state;
-    this.setState({ isImages: !isImages, activeIndex: activeIndex || 0 });
-  };
-
-  renderCarousel = () => {
-    const { isImages, activeIndex } = this.state;
-    const { images } = this.props;
-    return (
-      <Modal
-        centered
-        style={{ width: "900px" }}
-        isOpen={isImages}
-        toggle={this.toggleCarousel}
-      >
-        <ModalBody className={"modal-body"}>
-          <ImageCarousel activeKey={activeIndex} images={images} />
-        </ModalBody>
-      </Modal>
-    );
+  setDetailsViewPage = () => {
+    const { setDetailsView } = this.props;
+    setDetailsView();
   };
 
   renderImages = () => {
@@ -51,7 +32,7 @@ class ModelGallery extends React.Component {
             style={{
               backgroundImage: `url("${imageSrcUrl}")`,
             }}
-            onClick={() => this.toggleCarousel(index)}
+            onClick={() => this.setDetailsViewPage()}
           >
             {index === 3 ? (
               <p className="vertical-text">+{images.length - 3}</p>
@@ -63,12 +44,7 @@ class ModelGallery extends React.Component {
   };
 
   render() {
-    return (
-      <Row className="overview-gallery mt-3">
-        {this.renderCarousel()}
-        {this.renderImages()}
-      </Row>
-    );
+    return <Row className="overview-gallery mt-3">{this.renderImages()}</Row>;
   }
 }
 

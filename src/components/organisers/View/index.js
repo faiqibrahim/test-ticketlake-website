@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, NavLink } from "react-router-dom";
 import { Icon, Select } from "antd";
-import BreadCrumb from "../../VotingModule/Header/BreadCrumb/BreadCrumb";
 import ReactPaginate from "react-paginate";
 import "./style.css";
 import { NotificationManager } from "react-notifications";
@@ -11,6 +10,8 @@ import { getAllCategories } from "../../../redux/category/category-actions";
 import { Helmet } from "react-helmet";
 import { getOrganisationdata } from "./api-handler";
 import Loader from "../../../utils/loader";
+import Banner from "./banner";
+import BreadCrumbs from "./breadCrumbs";
 
 const { Option } = Select;
 
@@ -56,58 +57,11 @@ class Organisers extends Component {
     }
   }
 
-  getBanner = () => {
-    return (
-      <section
-        className="list-single-hero organiser-sec"
-        data-scrollax-parent="true"
-        id="sec1"
-      >
-        <div className="bg par-elem bannerStyling" />
-        <div className="list-single-hero-title fl-wrap remove-padding">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12">
-                <div className="title-new-padding">
-                  <h2 className="mb-0">
-                    <span>Event Organisers</span>
-                  </h2>
-                  <p className="bannerText">
-                    Get more out of your favourite event planners with
-                    Ticketlake
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  };
-
   pageTitle = () => {
     return (
       <Helmet>
         <title>Organisers</title>
       </Helmet>
-    );
-  };
-
-  getBreadcrumb = () => {
-    const crumbsJSON = [
-      { path: "/", crumbTitle: "Home" },
-      { path: "/organisers", crumbTitle: "Event Organisers" },
-    ];
-    return (
-      <div className="container-fluid breadcrumbContainer">
-        <div className="container">
-          <div className="row left">
-            <div className="col-md-12">
-              <BreadCrumb breadCrumbs={crumbsJSON} />
-            </div>
-          </div>
-        </div>
-      </div>
     );
   };
 
@@ -203,11 +157,8 @@ class Organisers extends Component {
       <div id="wrapper">
         <div className="content">
           {this.pageTitle()}
-
-          {this.getBanner()}
-
-          {this.getBreadcrumb()}
-
+          <Banner />
+          <BreadCrumbs />
           <div className="container mt-6 mb-6">
             <div className="row left">
               <div className="col-xl-10  col-lg-10 col-md-9 col-sm-12 col-xs-12  mb0 ">

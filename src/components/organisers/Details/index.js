@@ -23,8 +23,21 @@ class OrganiserDetails extends Component {
     offSet: true,
     loader: true,
     filterLoader: false,
+    eventOrganiser: {
+      name: "",
+      description: "",
+      imageURL: "",
+      images: [],
+      venue: "",
+      rating: "",
+      totalReviews: "",
+      eventsOrganised: 0,
+    },
+    eventsList: [],
     active: "all",
     timeFrame: "all",
+    reviews: [],
+    error: null,
   };
 
   setView = (view) => {
@@ -44,9 +57,55 @@ class OrganiserDetails extends Component {
     }
   };
 
-  fetchAllData = () => {
-    this.fetchEventOrganiserData();
-    this.fethEventsList();
+  fetchAllData = async () => {
+    const { match } = this.props;
+    const { id } = match.params;
+    const { active, timeFrame } = this.state;
+    try {
+      const responses = await Promise.all([
+        getOrganiserData(id),
+        getOrganisationEvents(id, active, timeFrame),
+      ]);
+
+      const {
+        name,
+        description,
+        imageURL,
+        images,
+        address,
+        reviews,
+        totalReviews,
+        rating,
+        eventsOrganized,
+        _id,
+      } = responses[0].data.data;
+
+      const eventOrganiser = {
+        name,
+        description,
+        imageURL,
+        images,
+        venue: address.address,
+        rating,
+        totalReviews,
+
+        eventsOrganised: eventsOrganized,
+      };
+
+      const eventsList = responses[1].data.data;
+
+      this.setState({
+        eventOrganiser,
+        eventsList,
+        loader: false,
+        _id,
+        reviews,
+      });
+    } catch (error) {
+      console.log(error.response);
+      NotificationManager.error("Some Error Occured!", "Error");
+      this.setState({ loader: false });
+    }
   };
 
   fetchEventOrganiserData = async () => {
@@ -77,6 +136,7 @@ class OrganiserDetails extends Component {
         venue: address.address,
         rating,
         totalReviews,
+
         eventsOrganised: eventsOrganized,
       };
 
@@ -103,7 +163,6 @@ class OrganiserDetails extends Component {
 
       this.setState({
         eventsList,
-        loader: false,
         filterLoader: false,
       });
     } catch (err) {

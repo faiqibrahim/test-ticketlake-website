@@ -7,6 +7,7 @@ class Details extends Component {
   render() {
     const { count } = this.state;
     const { name, eventsOrganised, venue, description, images } = this.props;
+
     let loadMore = false;
     let showImages = images.slice(0, count);
     if (images.length > showImages.length) {

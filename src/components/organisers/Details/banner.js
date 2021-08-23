@@ -15,7 +15,9 @@ const colors = {
   star: ["FFB500", "FFB500", "FFB500"],
 };
 
-const Banner = ({ handleReviews, eventOrganiser }) => {
+const Banner = (props) => {
+  const { handleReviews, eventOrganiser } = props;
+
   const { imageURL, name, rating, totalReviews } = eventOrganiser;
 
   return (

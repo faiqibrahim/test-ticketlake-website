@@ -37,7 +37,7 @@ class Reviews extends Component {
     const { isOpen, isReviewBtnHidden } = this.state;
 
     return (
-      <div className="container mb-5">
+      <div className="container modalParent mb-5">
         <div className="row">
           <div className="col-lg-8 col-md-8 col-sm-12">
             {reviews.map((review) => {
@@ -112,11 +112,7 @@ class Reviews extends Component {
             />
           </div>
         </div>
-        <Modal
-          isOpen={isOpen}
-          toggle={this.toggle}
-          className={classes.marginRight}
-        >
+        <Modal isOpen={isOpen} centered toggle={this.toggle}>
           <ModalBody>
             <AuthRotes>
               <Ratings
