@@ -18,6 +18,7 @@ class ModelGallery extends React.Component {
 
   renderImages = () => {
     const { images } = this.props;
+    if (!images) return null;
     return images.map((image, index) => {
       const imageSrcUrl = image.imageUrl;
       return (

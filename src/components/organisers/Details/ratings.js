@@ -17,10 +17,10 @@ class Ratings extends Component {
   };
 
   saveReview = async () => {
-    const { _id, handleToggle, fetchUpdatedData } = this.props;
+    const { organisationId, handleToggle, fetchUpdatedData } = this.props;
     const { rating, review } = this.state;
     try {
-      await saveReviewInDB(_id, review, rating);
+      await saveReviewInDB(organisationId, review, rating);
       NotificationManager.success("Rating and Review Posted Successfully");
       this.setState({ name: "", review: "", rating: 0 });
       if (handleToggle) {

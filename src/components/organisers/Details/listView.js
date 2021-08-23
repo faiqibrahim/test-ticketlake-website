@@ -27,19 +27,14 @@ class ListView extends Component {
                   <img
                     src={event.bannerImageKey.imageUrl}
                     className="listViewImage"
-                    alt=""
+                    alt="img"
                   />
                 </div>
                 <div className="col">
                   <div className="card-block px-4">
                     <h4 className="cardTitle">{event.title}</h4>
                     <p className="cardSubheading">
-                      {event.categories.map((category, index) => {
-                        return (
-                          category.title +
-                          (index < event.categories.length - 1 ? " & " : "")
-                        );
-                      })}
+                      {event.categories.map(({ title }) => title).join(" & ")}
                     </p>
                     <p className="cardSubheading" style={{ color: "#EC1B23" }}>
                       <Moment format="ddd, MMMM DD">
@@ -63,7 +58,7 @@ class ListView extends Component {
             onClick={() => {
               this.setState({ count: count + 8 });
             }}
-            className={classes.loadMoreBtn}
+            className={`${classes.loadMoreBtn} mb-2`}
           >
             Load More
           </button>

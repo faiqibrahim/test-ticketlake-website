@@ -57,7 +57,7 @@ class EventOrganiserCard extends Component {
             icons={icons.star}
             colors={colors.star}
           />{" "}
-          {rating ? rating : 0} Out of {totalReviews ? totalReviews : 0}{" "}
+          {rating || 0} Out of {totalReviews || 0}{" "}
           <u style={{ cursor: "pointer" }} onClick={handleReviews}>
             reviews
           </u>

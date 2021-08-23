@@ -290,7 +290,7 @@ class OrganiserDetails extends Component {
         {detailsBtn && <Details {...eventOrganiser} />}
         {reviewsBtn && (
           <Reviews
-            _id={_id}
+            organisationId={_id}
             fetchUpdatedData={this.fetchEventOrganiserData}
             reviews={reviews}
           />

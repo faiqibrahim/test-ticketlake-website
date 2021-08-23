@@ -33,7 +33,7 @@ class Reviews extends Component {
   }
 
   render() {
-    const { reviews, _id, fetchUpdatedData } = this.props;
+    const { reviews, organisationId, fetchUpdatedData } = this.props;
     const { isOpen, isReviewBtnHidden } = this.state;
 
     return (
@@ -106,7 +106,7 @@ class Reviews extends Component {
           <div className={`col-lg-4 col-md-4 mt-5 ${classes.displayNone}`}>
             {" "}
             <Ratings
-              _id={_id}
+              organisationId={organisationId}
               fetchUpdatedData={fetchUpdatedData}
               {...this.toggle}
             />
@@ -116,7 +116,7 @@ class Reviews extends Component {
           <ModalBody>
             <AuthRotes>
               <Ratings
-                _id={_id}
+                organisationId={organisationId}
                 fetchUpdatedData={fetchUpdatedData}
                 handleToggle={this.toggle}
               />

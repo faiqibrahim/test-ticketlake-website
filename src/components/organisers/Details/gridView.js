@@ -35,12 +35,7 @@ class GridView extends Component {
                   <div>
                     <p className="cardTitle">{event.title}</p>
                     <p className="cardSubheading">
-                      {event.categories.map((category, index) => {
-                        return (
-                          category.title +
-                          (index < event.categories.length - 1 ? " & " : "")
-                        );
-                      })}
+                      {event.categories.map(({ title }) => title).join(" & ")}
                     </p>
                     <p className="cardSubheading" style={{ color: "#EC1B23" }}>
                       <Moment format="ddd, MMMM DD">
