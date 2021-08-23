@@ -3,6 +3,8 @@ import ReactReadMoreReadLess from "react-read-more-read-less";
 import { Modal, ModalBody } from "reactstrap";
 import classes from "./style.module.css";
 import Ratings from "./ratings";
+import AuthRotes from "../../../commonComponents/authRotes";
+
 class Reviews extends Component {
   state = { isOpen: false, isReviewBtnHidden: false };
 
@@ -31,10 +33,11 @@ class Reviews extends Component {
   }
 
   render() {
-    const { reviews } = this.props;
-    const { isOpen } = this.state;
+    const { reviews, organisationId, fetchUpdatedData } = this.props;
+    const { isOpen, isReviewBtnHidden } = this.state;
+
     return (
-      <div className="container mb-5">
+      <div className="container modalParent mb-5">
         <div className="row">
           <div className="col-lg-8 col-md-8 col-sm-12">
             {reviews.map((review) => {
@@ -44,9 +47,13 @@ class Reviews extends Component {
                     <div className="row no-gutters">
                       <div className="col-auto">
                         <img
-                          src={review.image}
+                          src={
+                            review.userImage
+                              ? review.userImage
+                              : "/images/default-dp.png"
+                          }
                           className={classes.reviewerImage}
-                          alt=""
+                          alt="Reviewerimage"
                         />
                       </div>
                       <div className="col">
@@ -78,7 +85,7 @@ class Reviews extends Component {
                 </div>
               );
             })}
-            {!this.state.isReviewBtnHidden && (
+            {!isReviewBtnHidden && (
               <div
                 className={classes.stickyReviewContainer}
                 id="writeReviewBtn"
@@ -97,12 +104,23 @@ class Reviews extends Component {
           </div>
 
           <div className={`col-lg-4 col-md-4 mt-5 ${classes.displayNone}`}>
-            <Ratings {...this.toggle} />
+            {" "}
+            <Ratings
+              organisationId={organisationId}
+              fetchUpdatedData={fetchUpdatedData}
+              {...this.toggle}
+            />
           </div>
         </div>
-        <Modal isOpen={isOpen} toggle={this.toggle}>
+        <Modal isOpen={isOpen} centered toggle={this.toggle}>
           <ModalBody>
-            <Ratings handleToggle={this.toggle} />
+            <AuthRotes>
+              <Ratings
+                organisationId={organisationId}
+                fetchUpdatedData={fetchUpdatedData}
+                handleToggle={this.toggle}
+              />
+            </AuthRotes>
           </ModalBody>
         </Modal>
       </div>

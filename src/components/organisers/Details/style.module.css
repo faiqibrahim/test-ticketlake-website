@@ -19,11 +19,12 @@
   padding-left: 10px;
   margin-top: 20px;
   padding-top: 20px;
-  margin-bottom: 20px;
 }
 
 .galleryImages {
   width: 100%;
+  height: 225px;
+  border-radius: 10px;
 }
 
 .loadMoreBtn {
@@ -48,6 +49,11 @@
   width: 100%;
   padding-left: 10px;
   padding-top: 3px;
+  margin-top: 10px;
+}
+
+.marginRight {
+  right: 8px;
 }
 
 .postBtn {
@@ -67,6 +73,7 @@
   height: 150px;
   border-radius: 50%;
   background-color: #d8dae3;
+  object-fit: fill;
 }
 
 .reviewerName {
@@ -114,11 +121,7 @@
 }
 
 .hr {
-  width: 10%;
-  border-radius: 10px;
-  border: 4px solid #e3e4ea;
-  margin: auto;
-  margin-bottom: 15px;
+  display: none;
 }
 
 @media (max-width: 767px) {
@@ -199,6 +202,15 @@
     border-radius: 8px;
     color: #ffffff;
     display: list-item;
+  }
+
+  .hr {
+    width: 10%;
+    border-radius: 10px;
+    border: 4px solid #e3e4ea;
+    margin: auto;
+    margin-bottom: 15px;
+    display: block;
   }
 
   .ratingheading {

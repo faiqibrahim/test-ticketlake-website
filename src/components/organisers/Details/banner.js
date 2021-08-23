@@ -1,28 +1,45 @@
 import React from "react";
+import PrettyRating from "pretty-rating-react";
+import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
+import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 
-const Banner = ({ eventOrganiser }) => {
+const icons = {
+  star: {
+    complete: faStar,
+    half: faStarHalfAlt,
+    empty: farStar,
+  },
+};
+
+const colors = {
+  star: ["FFB500", "FFB500", "FFB500"],
+};
+
+const Banner = (props) => {
+  const { handleReviews, eventOrganiser } = props;
+
+  const { imageURL, name, rating, totalReviews } = eventOrganiser;
+
   return (
     <div className="bannerBackground">
       <div className="container ">
         <img
-          src={eventOrganiser.imgSrc}
+          src={imageURL}
           className="mt-5 mb-3 eventOrganiserTopImage "
           alt="event planner"
         />
-        <p className="bannerHeading">{eventOrganiser.title}</p>
-        <p className="eventTypesText">{eventOrganiser.eventTypes}</p>
-        <p className="ratingStarText pb-5 mb-0">
-          {eventOrganiser.ratingImages.map((image, index) => (
-            <img
-              src={image.src}
-              className="alignNone mr-2"
-              key={index}
-              alt="star"
-            />
-          ))}
-          {eventOrganiser.ratings} Out of {eventOrganiser.totalReviews}{" "}
-          <u>reviews</u>
-        </p>
+        <p className="bannerHeading">{name}</p>
+        <div className="ratingStarText pb-5 mb-0">
+          <PrettyRating
+            value={rating}
+            icons={icons.star}
+            colors={colors.star}
+          />
+          {rating || 0} Out of {totalReviews || 0}{" "}
+          <u style={{ cursor: "pointer" }} onClick={handleReviews}>
+            reviews
+          </u>
+        </div>
       </div>
     </div>
   );

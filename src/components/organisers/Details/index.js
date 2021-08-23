@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "./style.css";
 import { connect } from "react-redux";
-import Loader from "../../../commonComponents/loader";
+import Loader from "../../../utils/loader";
 import EventOrganiserCard from "./EventOrganiserCard";
 import Sticky from "react-stickynode";
 import Details from "./detailsPage";
@@ -11,14 +11,33 @@ import ListView from "./listView";
 import GridView from "./gridView";
 import Banner from "./banner";
 import EventsFilter from "./eventsFilter";
-import DateFiliter from "./dateFilter";
+import DateFilter from "./dateFilter";
 import CustomButton from "./customTabButton";
+import { getOrganiserData, getOrganisationEvents } from "./api-handler";
+import { NotificationManager } from "react-notifications";
 
 class OrganiserDetails extends Component {
   state = {
     gridView: true,
     eventsBtn: true,
     offSet: true,
+    loader: true,
+    filterLoader: false,
+    eventOrganiser: {
+      name: "",
+      description: "",
+      imageURL: "",
+      images: [],
+      venue: "",
+      rating: "",
+      totalReviews: "",
+      eventsOrganised: 0,
+    },
+    eventsList: [],
+    active: "all",
+    timeFrame: "all",
+    reviews: [],
+    error: null,
   };
 
   setView = (view) => {
@@ -37,13 +56,129 @@ class OrganiserDetails extends Component {
       this.setState({ offSet: true });
     }
   };
+
+  fetchAllData = async () => {
+    const { match } = this.props;
+    const { id } = match.params;
+    const { active, timeFrame } = this.state;
+    try {
+      const responses = await Promise.all([
+        getOrganiserData(id),
+        getOrganisationEvents(id, active, timeFrame),
+      ]);
+
+      const {
+        name,
+        description,
+        imageURL,
+        images,
+        address,
+        reviews,
+        totalReviews,
+        rating,
+        eventsOrganized,
+        _id,
+      } = responses[0].data.data;
+
+      const eventOrganiser = {
+        name,
+        description,
+        imageURL,
+        images,
+        venue: address.address,
+        rating,
+        totalReviews,
+
+        eventsOrganised: eventsOrganized,
+      };
+
+      const eventsList = responses[1].data.data;
+
+      this.setState({
+        eventOrganiser,
+        eventsList,
+        loader: false,
+        _id,
+        reviews,
+      });
+    } catch (error) {
+      console.log(error.response);
+      NotificationManager.error("Some Error Occured!", "Error");
+      this.setState({ loader: false });
+    }
+  };
+
+  fetchEventOrganiserData = async () => {
+    const { match } = this.props;
+
+    const { id } = match.params;
+
+    try {
+      const response = await getOrganiserData(id);
+      const {
+        name,
+        description,
+        imageURL,
+        images,
+        address,
+        reviews,
+        totalReviews,
+        rating,
+        eventsOrganized,
+        _id,
+      } = response.data.data;
+
+      const eventOrganiser = {
+        name,
+        description,
+        imageURL,
+        images,
+        venue: address.address,
+        rating,
+        totalReviews,
+
+        eventsOrganised: eventsOrganized,
+      };
+
+      this.setState({
+        eventOrganiser,
+        _id,
+        reviews,
+      });
+    } catch (err) {
+      NotificationManager.error("Some Error Occured!", "Error");
+    }
+  };
+
+  fethEventsList = async () => {
+    const { match } = this.props;
+    const { id } = match.params;
+
+    const { active, timeFrame } = this.state;
+
+    try {
+      const response = await getOrganisationEvents(id, active, timeFrame);
+
+      const eventsList = response.data.data;
+
+      this.setState({
+        eventsList,
+        filterLoader: false,
+      });
+    } catch (err) {
+      NotificationManager.error("Some Error Occured!", "Error");
+    }
+  };
+
   componentDidMount() {
     if (window.screen.width < 768) this.setState({ gridView: false });
     window.addEventListener("resize", this.updateDimensions);
 
     if (window.screen.width < 1278) this.setState({ offSet: false });
     window.addEventListener("resize", this.updateDimensions);
+    this.fetchAllData();
   }
+
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions);
   }
@@ -108,17 +243,58 @@ class OrganiserDetails extends Component {
     });
   };
 
+  setEventsFilter = (e) => {
+    let disable = false;
+
+    if (e === "false") {
+      disable = true;
+    }
+    this.setState(
+      { active: e, disable, timeFrame: "all", filterLoader: true },
+      () => {
+        this.fethEventsList();
+      }
+    );
+  };
+
+  setDateFilter = (e) => {
+    this.setState({ timeFrame: e, active: true, filterLoader: true }, () => {
+      this.fethEventsList();
+    });
+  };
+
   render() {
-    const { eventOrganiser, processing, eventsList } = this.props;
-    const { gridView, eventsBtn, detailsBtn, reviewsBtn } = this.state;
-    if (processing) return <Loader style={{ marginTop: "170px" }} />;
+    const {
+      gridView,
+      eventsBtn,
+      detailsBtn,
+      reviewsBtn,
+      loader,
+      eventOrganiser,
+      reviews,
+      _id,
+      eventsList,
+      disable,
+      filterLoader,
+    } = this.state;
+
+    if (loader) return <Loader />;
 
     return (
       <div id="wrapper" className="textAlignLeft organiser-details">
-        <Banner eventOrganiser={eventOrganiser} />{" "}
+        <Banner
+          handleReviews={this.setReviewsState}
+          eventOrganiser={eventOrganiser}
+        />{" "}
         {this.tabsContainer(eventsList)}
         {detailsBtn && <Details {...eventOrganiser} />}
-        {reviewsBtn && <Reviews {...eventOrganiser} />}
+        {reviewsBtn && (
+          <Reviews
+            organisationId={_id}
+            fetchUpdatedData={this.fetchEventOrganiserData}
+            reviews={reviews}
+          />
+        )}
         {eventsBtn && (
           <>
             <div className="container  ">
@@ -130,8 +306,11 @@ class OrganiserDetails extends Component {
                   {this.getListBtn()}
                   {this.getGridBtn()}
                 </div>
-                <EventsFilter />
-                <DateFiliter />
+                <EventsFilter setEventFilterValue={this.setEventsFilter} />
+                <DateFilter
+                  disable={disable}
+                  setDateFilterValue={this.setDateFilter}
+                />
               </div>
               <hr />
             </div>
@@ -141,10 +320,13 @@ class OrganiserDetails extends Component {
                 style={{ marginTop: !gridView ? "40px" : "0px" }}
                 eventOrganiser={eventOrganiser}
                 handleDetails={this.setDetailsState}
+                handleReviews={this.setReviewsState}
               />
 
               <div className="">
-                {gridView ? (
+                {filterLoader ? (
+                  <Loader />
+                ) : gridView ? (
                   <GridView eventsList={eventsList} />
                 ) : (
                   <ListView eventsList={eventsList} />
@@ -206,9 +388,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const connectedComponent = connect(
-  mapStateToProps,
-  {}
-)(OrganiserDetails);
+const connectedComponent = connect(mapStateToProps)(OrganiserDetails);
 
 export default withRouter(connectedComponent);

@@ -84,8 +84,8 @@
 .eventCardImage {
   width: 100%;
   border-radius: 10px;
-  float: auto;
-  object-fit: contain;
+  object-fit: fill;
+  height: 140px;
 }
 
 .eventOrganiserContainer {
@@ -115,6 +115,9 @@
 
 .eventOrganiserImage {
   width: 99%;
+  height: 195px;
+  border-radius: 10px;
+  object-fit: fill;
 }
 
 .listViewCard .card {
@@ -218,7 +221,9 @@
 }
 
 .listViewImage {
-  height: 135px;
+  height: 140px;
+  width: 250px;
+  border-radius: 10px;
 }
 
 .borderRadiusAndColor {
@@ -248,7 +253,7 @@
   border-radius: 50%;
   width: 200px;
   height: 200px;
-  object-fit: cover;
+  object-fit: fill;
   object-position: 0% 100%;
 }
 
@@ -282,6 +287,7 @@
   width: 100%;
   font-size: 18px;
   font-family: "NeuePlak";
+  border: 1px solid white;
 }
 
 .tabscontainer .customTabBtn:hover {
@@ -359,6 +365,7 @@
   .listViewImage {
     width: 180px;
     height: 96px;
+    border-radius: 10px;
   }
 
   .listViewCard .card {
@@ -450,6 +457,7 @@
   .listViewImage {
     width: 180px;
     height: 96px;
+    border-radius: 10px;
   }
 
   .listViewCard .card {
@@ -470,4 +478,26 @@
   background-color: #ffffff;
   font-size: 18px;
   font-family: "NeuePlak";
+}
+
+.cardSubheading .svg-inline--fa {
+  margin-right: 8px;
+}
+
+.ratingStarText .svg-inline--fa {
+  margin-right: 8px;
+}
+
+div.ratingStarText div {
+  display: inline;
+}
+
+div.cardSubheading div {
+  display: inline;
+}
+
+@media (max-width: 575px) {
+  .modal.fade.show {
+    justify-content: center !important;
+  }
 }

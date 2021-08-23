@@ -1,10 +1,25 @@
 import React, { Component } from "react";
+import PrettyRating from "pretty-rating-react";
+import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
+import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import "./style.css";
 import ModelGallery from "./ModelGallery";
 
+const icons = {
+  star: {
+    complete: faStar,
+    half: faStarHalfAlt,
+    empty: farStar,
+  },
+};
+
+const colors = {
+  star: ["FFB500", "FFB500", "FFB500"],
+};
+
 class EventOrganiserCard extends Component {
   render() {
-    const { eventOrganiser, style, handleDetails } = this.props;
+    const { eventOrganiser, style, handleDetails, handleReviews } = this.props;
     let description = eventOrganiser.description;
     const characterArray = eventOrganiser.description.split("");
     let readMore = false;
@@ -15,31 +30,38 @@ class EventOrganiserCard extends Component {
       readMore = true;
     }
 
+    const {
+      imageURL,
+      name,
+      eventsOrganised,
+      venue,
+      rating,
+      totalReviews,
+      images,
+    } = eventOrganiser;
+
     return (
       <div className="eventOrganiserContainer" style={style}>
         <img
-          src={eventOrganiser.imgSrc}
+          src={imageURL}
           className="eventOrganiserImage"
           alt="event organiser"
         />
 
-        <h4 className="cardTitle">{eventOrganiser.title}</h4>
-        <p className="cardSubheading">
-          Events Oraganised {eventOrganiser.eventsOrganised}
-        </p>
-        <p className="cardSubheading ">Venue - {eventOrganiser.venue}</p>
-        <p className="cardSubheading borderBottom">
-          {eventOrganiser.ratingImages.map((image, index) => (
-            <img
-              src={image.src}
-              className="alignNone mr-2"
-              key={index}
-              alt="star"
-            />
-          ))}
-          {eventOrganiser.ratings} Out of {eventOrganiser.totalReviews}{" "}
-          <u>reviews</u>
-        </p>
+        <h4 className="cardTitle">{name}</h4>
+        <p className="cardSubheading">Events Oraganised {eventsOrganised}</p>
+        <p className="cardSubheading ">Venue - {venue}</p>
+        <div className="cardSubheading borderBottom">
+          <PrettyRating
+            value={rating}
+            icons={icons.star}
+            colors={colors.star}
+          />{" "}
+          {rating || 0} Out of {totalReviews || 0}{" "}
+          <u style={{ cursor: "pointer" }} onClick={handleReviews}>
+            reviews
+          </u>
+        </div>
         {readMore ? (
           <>
             {" "}
@@ -52,7 +74,7 @@ class EventOrganiserCard extends Component {
           <p className="cardSubheading descriptionContainer">{description}</p>
         )}
 
-        <ModelGallery images={eventOrganiser.gallaryImages} />
+        <ModelGallery setDetailsView={handleDetails} images={images} />
       </div>
     );
   }

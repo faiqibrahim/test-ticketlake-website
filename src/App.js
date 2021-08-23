@@ -43,7 +43,8 @@ import Footer from "./commonComponents/footer";
 import SuccessPage from "./components/successPage";
 import FailurePage from "./components/failurePage";
 import VerifyEmail from "./components/verifyEmail";
-import Organisers from "./components/organisers";
+import Organisers from "./components/organisers/View";
+import OrganiserDetails from "./components/organisers/Details/";
 import NearByEvents from "./components/nearByEvents";
 import NearByCinemas from "./components/nearByCinemas";
 import MovieDetail from "./components/moviesPage/MovieDetails/MovieDetails";
@@ -71,11 +72,6 @@ class App extends Component {
               <Header />
               <VerifyEmail />
               <Switch>
-                <Route
-                  path="/organisers"
-                  name={"Organisers"}
-                  component={Organisers}
-                />
                 <Route
                   path="/events/listing"
                   name={"Events"}
@@ -210,6 +206,13 @@ class App extends Component {
                   name={"SignIn"}
                   component={Authentication}
                 />
+                <Route
+                  path="/organisers/details/:id"
+                  component={OrganiserDetails}
+                />
+
+                <Route path="/organisers" component={Organisers} />
+
                 <Route path="/" exact name={"Home"} component={Layout} />
                 <Redirect to="/" />
               </Switch>
