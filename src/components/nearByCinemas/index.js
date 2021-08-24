@@ -155,8 +155,8 @@ class NearByCinemas extends Component {
                                                 })
                                                 :
                                                 <div className={"Error-msg-wrp w100"}>
-                                                    <div className={"Error-heading"}>Sorry, No Data Found.</div>
-                                                    <span className={"Error-sub-heading"}>There is no data found in nearby Cinema.</span>
+                                                    <div className={"Error-heading"}>Sorry, No Event Found.</div>
+                                                    <span className={"Error-sub-heading"}>There is no event in nearby Cinema.</span>
                                                 </div>
 
                                             :
@@ -251,8 +251,8 @@ class NearByCinemas extends Component {
                                                         )
                                                     }):
                                                     <div className={"Error-msg-wrp w100"}>
-                                                        <div className={"Error-heading"}>Sorry, No Data Found.</div>
-                                                        <span className={"Error-sub-heading"}>There is no data found in nearby Cinema.</span>
+                                                        <div className={"Error-heading"}>Sorry, No Event Found.</div>
+                                                        <span className={"Error-sub-heading"}>There is no event in nearby Cinema.</span>
                                                     </div>
                                                 :
                                                 <Loader />
