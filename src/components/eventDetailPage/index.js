@@ -755,7 +755,7 @@ class EventDetail extends Component {
                                                                     <div className="box-widget-item-header">
                                                                         <h3> Agenda </h3>
                                                                     </div>
-                                                                    <p style={{fontSize: '14px'}}>{data.agenda ? data.agenda : "Agenda"}</p>
+                                                                    <p style={{fontSize: '14px'}}>{data.agenda}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
