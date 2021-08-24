@@ -89,6 +89,7 @@ class NearByCinemas extends Component {
     };
 
     render() {
+        const {nearByData} = this.state;
         return (
             <div id="wrapper" key={2}>
                 <div className="content">
@@ -123,7 +124,7 @@ class NearByCinemas extends Component {
                                         </div>
                                     </div>
                                     {/* right section */}
-                                    {this.state.nearByData.length > 0 ?
+                                    {nearByData.length > 0 ?
                                         <div className="col-md-6 hide-on-mobileView">
                                             <span className="float-right cursor-pointer font-weight-bold" onClick={this.switchView}>
                                                 <img alt='img' src="/images/nearby-map-view.png" className="switch-view-icon" />
@@ -135,27 +136,34 @@ class NearByCinemas extends Component {
                                 </div>
                                 <div className="row mt-30 nearby-row-wrp">
                                         {this.state.isloadedNearby ?
-                                            this.state.nearByData.map((data, i) => {
-                                                return (
-                                                    <CardWithBottomInfo imageSrc={data.defaultImage}
-                                                                        onClick={() => this.props.history.push({
-                                                                            pathname: `/events/nearby-cinemas/detail/${data._id}`,
-                                                                            data: data,
-                                                                        })}
-                                                                        title={data.name}
-                                                                        address={data.address}
-                                                                        country={data.country}
-                                                                        noOfShows={data.numberOfOnGoingEvents}
-                                                                        distance={distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') > 9 ? distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') : "0" + distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') }
+                                            nearByData.length > 0 ?
+                                                nearByData.map((data, i) => {
+                                                    return (
+                                                        <CardWithBottomInfo imageSrc={data.defaultImage}
+                                                                            onClick={() => this.props.history.push({
+                                                                                pathname: `/events/nearby-cinemas/detail/${data._id}`,
+                                                                                data: data,
+                                                                            })}
+                                                                            title={data.name}
+                                                                            address={data.address}
+                                                                            country={data.country}
+                                                                            noOfShows={data.numberOfOnGoingEvents}
+                                                                            distance={distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') > 9 ? distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') : "0" + distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') }
 
-                                                    />
-                                                )
-                                            })
+                                                        />
+                                                    )
+                                                })
+                                                :
+                                                <div className={"Error-msg-wrp w100"}>
+                                                    <div className={"Error-heading"}>Sorry, No Event Found.</div>
+                                                    <span className={"Error-sub-heading"}>There is no event in nearby Cinema.</span>
+                                                </div>
+
                                             :
                                             <div className="col-lg-12"><Loader /></div>
                                         }
                                     </div>
-                                {this.state.nearByData > 1 ? (
+                                {nearByData > 1 ? (
                                     <div className="row">
                                             <div className="col-lg-12 float-left">
                                                 <div className="d-flex">
@@ -213,38 +221,43 @@ class NearByCinemas extends Component {
                                         </div>
                                         <div className="col-md-12 list-view pl-0">
                                             {this.state.isloadedNearby ?
-                                                this.state.nearByData.map((data, i) => {
-                                                    return (
-                                                        <div className='row cursor-pointer mt-30 alignItem-center'
-                                                             onClick={() => this.props.history.push({
-                                                                 pathname: `/events/nearby-cinemas/detail/${data._id}`,
-                                                                 data: data,
-                                                             })}
-                                                             onMouseOver={() => this.listOver(data.venue)}>
-                                                            <div className="col-md-4 nearby-img">
-                                                                <img style={{height: "130px"}} src={data.defaultImage ? data.defaultImage : '/images/card_2.png'} alt='img' />
-                                                            </div>
-                                                            <div className="col-md-8 nearby-text">
-                                                                <h5>{data.name}</h5>
-                                                                <p style={{padding: "0", margin: "0"}}>{data.numberOfOnGoingEvents} Shows
-                                                                    <br />
-                                                                    {data.venue ? data.venue.address : data.address},
-                                                                    {data.venue ? data.venue.country : data.country}
-                                                                </p>
-                                                                <div className="km">
-                                                                    <h5 className="km-count zero">
-                                                                        {distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') > 9 ? distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') : "0" + distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') }
-                                                                    </h5>
-                                                                    <span className="km-text">KM</span>
+                                                nearByData.length > 0 ?
+                                                    nearByData.map((data, i) => {
+                                                        return (
+                                                            <div className='row cursor-pointer mt-30 alignItem-center'
+                                                                 onClick={() => this.props.history.push({
+                                                                     pathname: `/events/nearby-cinemas/detail/${data._id}`,
+                                                                     data: data,
+                                                                 })}
+                                                                 onMouseOver={() => this.listOver(data.venue)}>
+                                                                <div className="col-md-4 nearby-img">
+                                                                    <img style={{height: "130px"}} src={data.defaultImage ? data.defaultImage : '/images/card_2.png'} alt='img' />
+                                                                </div>
+                                                                <div className="col-md-8 nearby-text">
+                                                                    <h5>{data.name}</h5>
+                                                                    <p style={{padding: "0", margin: "0"}}>{data.numberOfOnGoingEvents} Shows
+                                                                        <br />
+                                                                        {data.venue ? data.venue.address : data.address},
+                                                                        {data.venue ? data.venue.country : data.country}
+                                                                    </p>
+                                                                    <div className="km">
+                                                                        <h5 className="km-count zero">
+                                                                            {distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') > 9 ? distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') : "0" + distance(this.state.latitude, this.state.longitude, data.latitude, data.longitude, 'K') }
+                                                                        </h5>
+                                                                        <span className="km-text">KM</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    )
-                                                })
+                                                        )
+                                                    }):
+                                                    <div className={"Error-msg-wrp w100"}>
+                                                        <div className={"Error-heading"}>Sorry, No Event Found.</div>
+                                                        <span className={"Error-sub-heading"}>There is no event in nearby Cinema.</span>
+                                                    </div>
                                                 :
                                                 <Loader />
                                             }
-                                            {this.state.nearByData > 1 ? (
+                                            {nearByData > 1 ? (
                                                 <div className="row">
                                                     <div
                                                         className="col-lg-12 float-left">
@@ -271,7 +284,7 @@ class NearByCinemas extends Component {
                                     </div>
                                     <div className="col-md-6 map-placeholder">
                                         <div className={"map-head"}>
-                                            {this.state.nearByData.length > 0 ?
+                                            {nearByData.length > 0 ?
                                                 <div style={{ width: '205px' }}
                                                      className="float-left switch-grid-view cursor-pointer"
                                                      onClick={this.switchView}>
@@ -284,7 +297,7 @@ class NearByCinemas extends Component {
                                                 : null
                                             }
                                             <GoogleMap
-                                                nearByData={this.state.nearByData}
+                                                nearByData={nearByData}
                                                 longitude={this.state.longitude}
                                                 latitude={this.state.latitude}
                                             />

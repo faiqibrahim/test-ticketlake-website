@@ -140,7 +140,7 @@ class SignUp extends Component {
     };
 
     getPasswordValid = (password) => {
-        let pswRegx=  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+        let pswRegx=  /^(?=.*[0-9])(?=.*[!_@#$%^&*])[a-zA-Z0-9!@_#$%^&*]{7,15}$/;
         if(password.match(pswRegx)) {
             return true;
         }else{
