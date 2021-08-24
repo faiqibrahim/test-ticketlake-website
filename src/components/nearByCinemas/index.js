@@ -89,6 +89,7 @@ class NearByCinemas extends Component {
     };
 
     render() {
+        const {nearByData} = this.state;
         return (
             <div id="wrapper" key={2}>
                 <div className="content">
@@ -123,7 +124,7 @@ class NearByCinemas extends Component {
                                         </div>
                                     </div>
                                     {/* right section */}
-                                    {this.state.nearByData.length > 0 ?
+                                    {nearByData.length > 0 ?
                                         <div className="col-md-6 hide-on-mobileView">
                                             <span className="float-right cursor-pointer font-weight-bold" onClick={this.switchView}>
                                                 <img alt='img' src="/images/nearby-map-view.png" className="switch-view-icon" />
@@ -135,8 +136,8 @@ class NearByCinemas extends Component {
                                 </div>
                                 <div className="row mt-30 nearby-row-wrp">
                                         {this.state.isloadedNearby ?
-                                            this.state.nearByData.length > 0 ?
-                                                this.state.nearByData.map((data, i) => {
+                                            nearByData.length > 0 ?
+                                                nearByData.map((data, i) => {
                                                     return (
                                                         <CardWithBottomInfo imageSrc={data.defaultImage}
                                                                             onClick={() => this.props.history.push({
@@ -162,7 +163,7 @@ class NearByCinemas extends Component {
                                             <div className="col-lg-12"><Loader /></div>
                                         }
                                     </div>
-                                {this.state.nearByData > 1 ? (
+                                {nearByData > 1 ? (
                                     <div className="row">
                                             <div className="col-lg-12 float-left">
                                                 <div className="d-flex">
@@ -220,8 +221,8 @@ class NearByCinemas extends Component {
                                         </div>
                                         <div className="col-md-12 list-view pl-0">
                                             {this.state.isloadedNearby ?
-                                                this.state.nearByData.length > 0 ?
-                                                    this.state.nearByData.map((data, i) => {
+                                                nearByData.length > 0 ?
+                                                    nearByData.map((data, i) => {
                                                         return (
                                                             <div className='row cursor-pointer mt-30 alignItem-center'
                                                                  onClick={() => this.props.history.push({
@@ -256,7 +257,7 @@ class NearByCinemas extends Component {
                                                 :
                                                 <Loader />
                                             }
-                                            {this.state.nearByData > 1 ? (
+                                            {nearByData > 1 ? (
                                                 <div className="row">
                                                     <div
                                                         className="col-lg-12 float-left">
@@ -283,7 +284,7 @@ class NearByCinemas extends Component {
                                     </div>
                                     <div className="col-md-6 map-placeholder">
                                         <div className={"map-head"}>
-                                            {this.state.nearByData.length > 0 ?
+                                            {nearByData.length > 0 ?
                                                 <div style={{ width: '205px' }}
                                                      className="float-left switch-grid-view cursor-pointer"
                                                      onClick={this.switchView}>
@@ -296,7 +297,7 @@ class NearByCinemas extends Component {
                                                 : null
                                             }
                                             <GoogleMap
-                                                nearByData={this.state.nearByData}
+                                                nearByData={nearByData}
                                                 longitude={this.state.longitude}
                                                 latitude={this.state.latitude}
                                             />
