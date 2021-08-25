@@ -22,6 +22,7 @@ body {
   height: 120px;
   border-radius: 50% 50%;
   filter: grayscale(100%);
+  object-fit: cover;
 }
 .cardContent {
   text-align: center;
