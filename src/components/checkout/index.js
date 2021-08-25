@@ -483,14 +483,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-const connectedComponent = connect(
-  mapStateToProps,
-  {
-    setClientToken,
-    checkout,
-    setSplitPayment,
-    ravePayPaymentRequest,
-    seatsCheckout,
-  }
-)(Checkout);
+const connectedComponent = connect(mapStateToProps, {
+  setClientToken,
+  checkout,
+  setSplitPayment,
+  ravePayPaymentRequest,
+  seatsCheckout,
+})(Checkout);
 export default withRouter(connectedComponent);

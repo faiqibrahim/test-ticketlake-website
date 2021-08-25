@@ -481,6 +481,15 @@ class BuyTicketPage extends Component {
     this.setState({ step: this.state.step + 1 });
   };
 
+  findClassType = (type) => {
+    const { billSummary } = this.props;
+    return Boolean(
+      billSummary.find(
+        ({ ticketClassType }) => ticketClassType.toLowerCase() === type
+      )
+    );
+  };
+
   renderBuyTicketForm = (data, ticketClassData, customSeatingPlan) => {
     const { billSummary, currency } = this.props;
     const { eventDateTimeSlot, parentEventInfo } = data;
@@ -507,6 +516,8 @@ class BuyTicketPage extends Component {
             }
             onSeatChange={this.onSeatChange}
             resetBill={this.resetBillSummary}
+            hasTable={this.findClassType("table")}
+            hasSeat={this.findClassType("regular")}
           />
         );
       case 2:
