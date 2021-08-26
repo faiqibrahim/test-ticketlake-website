@@ -3104,13 +3104,13 @@ input[type="number"] {
 
 .tab-heading {
   color: black;
-  cursor: none;
   margin: 20px 15px 6px 7px;
   background: transparent;
   border: none;
   outline: none !important;
   font-weight: 700 !important;
   font-size: 25px;
+  display: inline-block;
 }
 
 .tab-main-div {
