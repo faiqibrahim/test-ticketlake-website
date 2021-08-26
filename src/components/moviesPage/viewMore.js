@@ -20,6 +20,7 @@ import Loader from "../../commonComponents/loader/";
 // Redux
 import { connect } from "react-redux";
 
+let categoryKey = "categoryState";
 class ViewMore extends Component {
   state = {
     events: [],
@@ -42,15 +43,30 @@ class ViewMore extends Component {
   componentDidMount() {
     let categoryId = this.props.categoryId;
     let sectionId = this.props.sectionId;
-    this.setState({ sectionId: sectionId, categoryId: categoryId }, () =>
-      this.setEventsData()
-    );
+
+    this.setState({ sectionId: sectionId, categoryId: categoryId }, () => {
+      this.setCategoryState();
+
+      this.setEventsData();
+    });
   }
+
+  setCategoryState = () => {
+    let categoryState = JSON.parse(sessionStorage.getItem(categoryKey));
+
+    const { location } = this.props;
+
+    if (location && location.state) {
+      categoryState = location.state;
+    }
+    sessionStorage.setItem(categoryKey, JSON.stringify(categoryState));
+  };
 
   setEventsData = () => {
     let categoryId = sessionStorage.getItem("categoryId");
     let sectionId = JSON.parse(sessionStorage.getItem("sectionId"));
     let subCategoryItem = JSON.parse(sessionStorage.getItem("subCategoryItem"));
+
     switch (sectionId) {
       case 1:
         this.props.getTrendingEvents(

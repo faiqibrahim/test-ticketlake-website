@@ -102,10 +102,8 @@ class Movies extends Component {
     if (location && location.state) {
       categoryState = location.state;
     }
-    const { parentCategory } = categoryState;
     sessionStorage.setItem(categoryKey, JSON.stringify(categoryState));
 
-    sessionStorage.setItem("parentCategory", parentCategory._id);
     return categoryState;
   };
 

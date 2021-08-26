@@ -493,6 +493,7 @@ const mapStateToProps = (state) => {
     processing: state.event.processing,
     subCategoryEvents: state.movies.subCategoryEvents,
     castAndCrewMembers: state.event.castAndCrewMembers,
+    categoryId: state.movies.categoryId,
     error: state.event.error,
   };
 };
