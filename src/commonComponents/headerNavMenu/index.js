@@ -299,6 +299,7 @@ class HeaderNavMenu extends Component {
                 state: {
                   parentCategory: item,
                   breadCrumbs: breadCrumb,
+                  parentBreadCrumbs: breadCrumbState,
                   navLink: true,
                 },
               }}
