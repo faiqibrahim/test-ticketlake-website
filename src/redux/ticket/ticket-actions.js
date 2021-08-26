@@ -852,7 +852,7 @@ const directPaymentStatus = (checkoutId, isSeatEvent = false) => {
           // Pending State
           if (count <= 10) {
             setTimeout(() => {
-              dispatch(directPaymentStatus(checkoutId));
+              dispatch(directPaymentStatus(checkoutId, isSeatEvent));
               count++;
             }, 10000);
           } else {
