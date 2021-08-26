@@ -62,12 +62,8 @@ class MovieDetails extends Component {
   };
 
   getMovieState = () => {
-    let categoryState = JSON.parse(sessionStorage.getItem("categoryState"));
-    const {
-      parentCategory: { _id: movieId },
-    } = categoryState;
-
-    return movieId;
+    let parentCategoryId = sessionStorage.getItem("parentCategory");
+    return parentCategoryId;
   };
 
   pageTitle = () => {

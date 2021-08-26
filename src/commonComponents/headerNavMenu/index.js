@@ -277,6 +277,7 @@ class HeaderNavMenu extends Component {
     const { setCategorySection, history } = this.props;
     setCategorySection(item.parentId);
     history.push(`/movies/sub-category/${item._id}`);
+    sessionStorage.setItem("parentCategory", item.parentId);
     sessionStorage.setItem("subCategoryItem", JSON.stringify(item));
     window.location.reload();
   };
