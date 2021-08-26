@@ -62,8 +62,7 @@ class MovieDetails extends Component {
   };
 
   getMovieState = () => {
-    let parentCategoryId = sessionStorage.getItem("parentCategory");
-    return parentCategoryId;
+    return sessionStorage.getItem("parentCategory");
   };
 
   pageTitle = () => {
@@ -135,6 +134,7 @@ class MovieDetails extends Component {
                     return (
                       <div
                         className="trailer-box col-md-3"
+                        key={index}
                         onMouseLeave={(e) => {
                           this.onMouseLeave(e, index);
                         }}
@@ -172,8 +172,8 @@ class MovieDetails extends Component {
                 className="filterDropDowns chosen-select"
               >
                 {uniqueDates &&
-                  uniqueDates.map((data) => {
-                    return <option>{data}</option>;
+                  uniqueDates.map((data, index) => {
+                    return <option key={index}>{data}</option>;
                   })}
               </select>
             </div>
@@ -190,9 +190,10 @@ class MovieDetails extends Component {
                     </div>
                     <div className="right-content">
                       {data &&
-                        data.data.map((timeSlot) => {
+                        data.data.map((timeSlot, index) => {
                           return (
                             <span
+                              key={index}
                               className="slots-box pointer"
                               onClick={() =>
                                 this.props.history.push(

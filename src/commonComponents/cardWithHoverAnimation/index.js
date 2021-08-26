@@ -115,7 +115,7 @@ class CardWithHoverAnimation extends React.Component {
       }
 
       return (
-        <div className="hover-card-wrp col-md-3">
+        <div className="hover-card-wrp col-md-3" key={index}>
           <div
             className={"card-thumbnail"}
             onMouseEnter={(e) => this.onMouseOver(e, youtubeVideoId)}
@@ -236,10 +236,12 @@ class CardWithHoverAnimation extends React.Component {
                   })}
               </>
             ) : (
-                <div className={"Error-msg-wrp w100"}>
-                  <div className={"Error-heading"}>Sorry, No Data Found.</div>
-                  <span className={"Error-sub-heading"}>There is no data found against this Category.</span>
-                </div>
+              <div className={"Error-msg-wrp w100"}>
+                <div className={"Error-heading"}>Sorry, No Data Found.</div>
+                <span className={"Error-sub-heading"}>
+                  There is no data found against this Category.
+                </span>
+              </div>
             )}
           </>
         )}

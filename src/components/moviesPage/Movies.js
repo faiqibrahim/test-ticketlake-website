@@ -333,7 +333,7 @@ class Movies extends Component {
                         }
                       }
                       return (
-                        <SplideSlide>
+                        <SplideSlide key={index}>
                           <CardWithInfo
                             imageSrc={
                               data.bannerImageKey &&
@@ -428,7 +428,7 @@ class Movies extends Component {
                             : null
                         }
                       >
-                        <TabLink className={"tab-heading"}>Categories</TabLink>
+                        <div className={"tab-heading"}>Categories</div>
                         <TabLink
                           to={"all"}
                           onClick={() => this.onFetchAllCategories()}
@@ -441,6 +441,7 @@ class Movies extends Component {
                             let tab = "tab" + index;
                             return (
                               <TabLink
+                                key={index}
                                 to={tab}
                                 onClick={() =>
                                   this.onCategoryTabClick(
