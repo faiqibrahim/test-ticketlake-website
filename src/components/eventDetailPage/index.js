@@ -23,8 +23,6 @@ import {getWishListIdsFromApi, wishListToggle} from "../../redux/wishlist/wishli
 import MapContainer from '../../commonComponents/googleMapComponent';
 // Error
 import Error from '../../commonComponents/error';
-import EventMessage from '../../commonComponents/eventMessage';
-
 //redux
 import {getEventDetail, getAllEventsDefault} from '../../redux/event/event-actions';
 //config

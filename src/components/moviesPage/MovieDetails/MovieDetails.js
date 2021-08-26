@@ -79,7 +79,7 @@ class MovieDetails extends Component {
   };
 
   getBreadCrumbs = () => {
-    const parentId = this.getParentState();
+    const parentId = this.getMovieState();
     return (
       <>
         <BreadcrumbsItem glyph="home" to="/">
