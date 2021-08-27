@@ -2,7 +2,8 @@
 import moment from "moment";
 import _ from "lodash";
 import store from "../redux/store";
-import { seatSessionKey } from "./constant";
+import { GoogleMapAPIKey, seatSessionKey } from "./constant";
+import Geocode from "react-geocode";
 
 export const NOTIFICATION_TIME = 3000;
 export const getObjectValue = (obj, path) => {
@@ -252,4 +253,32 @@ export const getSeatCheckoutProps = (assignedSeats, event, hubtelNetwork) => {
     checkoutData.hubtelChannel = network;
   }
   return checkoutData;
+};
+
+export const getCurrentLocation = (callback) => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { longitude, latitude } = position.coords;
+
+        Geocode.setApiKey(GoogleMapAPIKey);
+        Geocode.fromLatLng(latitude, longitude).then((geoResponse) => {
+          const { results } = geoResponse;
+          if (results.length) {
+            const { address_components: addresses } = results[0];
+            const countryProps = addresses[addresses.length - 1];
+
+            const { long_name: label, short_name: countryCode } = countryProps;
+            callback({ label, countryCode });
+          }
+        });
+      },
+      () => {
+        // this.handleLocationError();
+      },
+      {
+        enableHighAccuracy: true,
+      }
+    );
+  }
 };
