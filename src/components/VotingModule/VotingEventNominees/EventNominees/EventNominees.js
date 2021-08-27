@@ -28,6 +28,7 @@ class EventNominees extends Component {
     eventName: "",
     voteCount: null,
     authentication: this.props.auth,
+    wallet: this.props.wallet,
   };
 
   componentDidMount() {
@@ -83,7 +84,8 @@ class EventNominees extends Component {
   };
 
   toggleModal = (nominee) => {
-    const authentication = this.state.authentication;
+    const { authentication } = this.state;
+
     this.setState({
       visible: !this.state.visible,
       nominee,
@@ -119,7 +121,7 @@ class EventNominees extends Component {
   };
 
   renderNomineesModal = () => {
-    const { nominee, voteCount } = this.state;
+    const { nominee, voteCount, wallet } = this.state;
 
     if (!nominee) return null;
 
@@ -138,6 +140,7 @@ class EventNominees extends Component {
           nominee={nominee}
           key={nominee.id}
           onChange={this.onChange}
+          wallet={wallet}
           voteCount={voteCount ? voteCount : null}
         />
       </Modal>
@@ -218,6 +221,7 @@ class EventNominees extends Component {
 const mapStateToProps = (state) => {
   return {
     auth: state.user.authenticated,
+    wallet: state.user.userWallet,
     nomineeListing: state.voting.nominee.nomineeListing,
     breadCrumbs: state.voting.breadCrumbs.breadCrumbs,
     voteCount: state.voting.nominee.updatedVoteCount,
