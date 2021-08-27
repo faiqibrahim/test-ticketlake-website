@@ -2,8 +2,7 @@
 import moment from "moment";
 import _ from "lodash";
 import store from "../redux/store";
-import { GoogleMapAPIKey, seatSessionKey } from "./constant";
-import Geocode from "react-geocode";
+import { seatSessionKey } from "./constant";
 
 export const NOTIFICATION_TIME = 3000;
 export const getObjectValue = (obj, path) => {
