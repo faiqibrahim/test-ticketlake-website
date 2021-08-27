@@ -22,6 +22,7 @@ class PaidModalContent extends Component {
       error: null,
       thankyouScreen: false,
       wallet: props.wallet,
+      errorFloat: null,
     };
   }
 
@@ -42,8 +43,9 @@ class PaidModalContent extends Component {
       const { votePrice } = this.state;
       let totalVotePrice = e * votePrice;
       this.setState({
-        voteCounter: e,
+        voteCounter: parseInt(e),
         totalVotePrice,
+        errorFloat: e % 1 !== 0 ? "You cannot Enter Decimal Value " : null,
       });
     }
   };
@@ -185,6 +187,7 @@ class PaidModalContent extends Component {
       votePrice,
       totalVotePrice,
       wallet,
+      errorFloat,
     } = this.state;
 
     return (
@@ -209,6 +212,7 @@ class PaidModalContent extends Component {
                 onChange={this.voteCounterHandler}
               />
             </div>
+            <div className="errorFloat">{errorFloat}</div>
           </div>
 
           <div className="paymentMethod">
