@@ -7,6 +7,7 @@ import UnpaidModalContent from "../UnpaidModalContent/UnpaidModalContent";
 class NomineeModalBody extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       voteCastSuccess: false,
       nomineeDetail: null,
@@ -14,10 +15,11 @@ class NomineeModalBody extends Component {
   }
 
   componentDidMount() {
-    const { nominee } = this.props;
+    const { nominee, wallet } = this.props;
     if (nominee) {
       this.setState({
         nomineeDetail: nominee,
+        wallet,
         voteCastSuccess: false,
       });
     }
@@ -30,7 +32,7 @@ class NomineeModalBody extends Component {
   };
 
   render() {
-    const { nomineeDetail } = this.state;
+    const { nomineeDetail, wallet } = this.state;
     if (!nomineeDetail) return null;
 
     return (
@@ -39,6 +41,7 @@ class NomineeModalBody extends Component {
           <PaidModalContent
             handleOk={this.props.handleOk}
             nomineeDetail={nomineeDetail}
+            wallet={wallet}
             onChange={this.props.onChange}
           />
         )}

@@ -110,6 +110,11 @@ button {
   font-weight: normal;
   text-transform: capitalize;
 }
+.errorFloat {
+  font-size: 14px;
+  color: #ff0000;
+  font-weight: bold;
+}
 .castVote {
   padding-top: 50px;
 }

@@ -86,7 +86,11 @@ class EventResults extends Component {
   render() {
     if (this.state.loading) return <Loader />;
 
-    const { maxVotes, resultListing } = this.state;
+    const { maxVotes } = this.state;
+    const [...resultListing] = this.state.resultListing;
+
+    resultListing.sort((a, b) => (a.nomineeVotes > b.nomineeVotes ? -1 : 1));
+
     const nomineeWinners = this.getWinnerNominees();
 
     return (

@@ -21,6 +21,8 @@ class PaidModalContent extends Component {
       totalVotePrice: null,
       error: null,
       thankyouScreen: false,
+      wallet: props.wallet,
+      errorFloat: null,
     };
   }
 
@@ -41,8 +43,9 @@ class PaidModalContent extends Component {
       const { votePrice } = this.state;
       let totalVotePrice = e * votePrice;
       this.setState({
-        voteCounter: e,
+        voteCounter: parseInt(e),
         totalVotePrice,
+        errorFloat: e % 1 !== 0 ? "You cannot Enter Decimal Value " : null,
       });
     }
   };
@@ -183,6 +186,8 @@ class PaidModalContent extends Component {
       error,
       votePrice,
       totalVotePrice,
+      wallet,
+      errorFloat,
     } = this.state;
 
     return (
@@ -207,6 +212,7 @@ class PaidModalContent extends Component {
                 onChange={this.voteCounterHandler}
               />
             </div>
+            <div className="errorFloat">{errorFloat}</div>
           </div>
 
           <div className="paymentMethod">
@@ -215,6 +221,11 @@ class PaidModalContent extends Component {
               {paymentMethods.paymentMethodsList.map((method) => {
                 const isActive =
                   paymentMethod && paymentMethod.id === method.id;
+
+                let curreny =
+                  method.cardTitle === "Wallet"
+                    ? `${wallet.currency} ${wallet.availableBalance} available`
+                    : method.currency;
 
                 return (
                   <div
@@ -237,7 +248,7 @@ class PaidModalContent extends Component {
                         <img src={method.imgSrc} alt={"img"} />
                       </div>
                       <div className="paymentTitle">{method.cardTitle}</div>
-                      <div className="paymentCurrencey">{method.currency}</div>
+                      <div className="paymentCurrencey">{curreny}</div>
                     </div>
                   </div>
                 );
