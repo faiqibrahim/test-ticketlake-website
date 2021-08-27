@@ -66,7 +66,7 @@ const _initState = {
   topUpAmount: null,
   paginateProcessing: "",
   ticketPagination: "",
-  eventsCountry: { label: "Ghana", countryCode: "GH" },
+  eventsCountry: {},
   isCurrencyConverted: false,
   currencyConversion: {
     from: "",
@@ -200,6 +200,7 @@ const reducer = (state = initState(), action) => {
       return newState;
     }
   }
+
   return newState;
 };
 
@@ -365,7 +366,10 @@ const setPaginateProcessing = (state, data) => {
 
 const saveEventsCountry = (state, selectedCountry) => {
   state.eventsCountry = { ...selectedCountry };
-  sessionStorage.setItem("user-auth", JSON.stringify(state));
+  if (selectedCountry.storeInSession) {
+    delete state.eventsCountry["storeInSession"];
+    sessionStorage.setItem("user-auth", JSON.stringify(state));
+  }
 };
 
 const setUserPurchasedTickets = (state, data) => {

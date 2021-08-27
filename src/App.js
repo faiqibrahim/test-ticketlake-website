@@ -2,8 +2,12 @@
 import React, { Component } from "react";
 import { Redirect, BrowserRouter, Route, Switch } from "react-router-dom";
 import { NotificationContainer } from "react-notifications";
+import { connect } from "react-redux";
+import Geocode from "react-geocode";
+
 // Components
 import Layout from "./components/layout";
+import { setEventsCountry } from "./redux/user/user-actions";
 // Auth Routes
 
 import Header from "./commonComponents/header";
@@ -50,8 +54,57 @@ import MovieDetail from "./components/moviesPage/MovieDetails/MovieDetails";
 import ViewMore from "./components/moviesPage/viewMore";
 import NearByCinemaDetail from "./components/nearByCinemaDetail";
 import CalendarEvents from "./components/calendarEvents";
+import { GoogleMapAPIKey } from "./utils/constant";
+
+const _ = require("lodash");
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      defaultCountry: { label: "United Kingdon", countryCode: "UK" },
+    };
+  }
+
+  componentDidMount() {
+    this.getCurrentPosition();
+  }
+
+  getCurrentPosition = () => {
+    const { setEventsCountry, eventsCountry } = this.props;
+
+    if (navigator.geolocation && _.isNil(eventsCountry.countryCode)) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { longitude, latitude } = position.coords;
+
+          Geocode.setApiKey(GoogleMapAPIKey);
+          Geocode.fromLatLng(latitude, longitude).then((geoResponse) => {
+            const { results } = geoResponse;
+            if (results.length) {
+              const { address_components: addresses } = results[0];
+              const countryProps = addresses[addresses.length - 1];
+
+              const {
+                long_name: label,
+                short_name: countryCode,
+              } = countryProps;
+
+              setEventsCountry({ label, countryCode });
+            }
+          });
+        },
+        () => {
+          // this.handleLocationError();
+          setEventsCountry({ label: "", countryCode: "" });
+        },
+        {
+          enableHighAccuracy: true,
+        }
+      );
+    }
+  };
+
   render() {
     return (
       <div>
@@ -223,4 +276,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    eventsCountry: state.user.eventsCountry,
+  };
+};
+
+export default connect(mapStateToProps, { setEventsCountry })(App);
