@@ -19,7 +19,7 @@ class NomineeModalBody extends Component {
     if (nominee) {
       this.setState({
         nomineeDetail: nominee,
-        wallet: wallet,
+        wallet,
         voteCastSuccess: false,
       });
     }
