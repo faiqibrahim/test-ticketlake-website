@@ -319,6 +319,8 @@ class ViewMore extends Component {
                                 youtubeVideoId = video_id;
                               }
                             }
+
+                            const { currency } = event;
                             return (
                               <CardWithHoverEffect
                                 key={index}
@@ -326,7 +328,7 @@ class ViewMore extends Component {
                                 imageUrl={imageUrl}
                                 title={title}
                                 firstBtnTitle={"Play Trailer"}
-                                secondBtnTitle={`Buy Tickets from GHS${event.eventMinimumTicketClassPrice} - GHS${event.eventMaximumTicketClassPrice}`}
+                                secondBtnTitle={`Buy Tickets from ${currency}${event.eventMinimumTicketClassPrice} - ${currency}${event.eventMaximumTicketClassPrice}`}
                                 onMouseEnter={this.onMouseOver}
                                 onMouseLeave={this.onMouseOut}
                                 playVideoTrailer={this.playVideoTrailer}

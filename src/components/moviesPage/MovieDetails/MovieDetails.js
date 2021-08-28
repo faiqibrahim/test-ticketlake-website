@@ -311,12 +311,13 @@ class MovieDetails extends Component {
     }
 
     let uniqueVenues = getUniqueVenues(eventSlots && eventSlots);
+    const { currency } = parentData;
     let ticketPriceRange = `${
       parentData.eventMaximumTicketClassPrice
         ? parentData.eventMaximumTicketClassPrice ===
           parentData.eventMinimumTicketClassPrice
-          ? `Buy Tickets from GHS${parentData.eventMaximumTicketClassPrice}`
-          : `Buy Tickets from GHS${parentData.eventMinimumTicketClassPrice} - GHS${parentData.eventMaximumTicketClassPrice}`
+          ? `Buy Tickets from ${currency}${parentData.eventMaximumTicketClassPrice}`
+          : `Buy Tickets from ${currency}${parentData.eventMinimumTicketClassPrice} - ${currency}${parentData.eventMaximumTicketClassPrice}`
         : "Buy Tickets"
     }`;
 

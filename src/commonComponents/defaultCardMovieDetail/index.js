@@ -109,12 +109,12 @@ class DefaultCardMovieDetail extends React.Component {
 
   //Footer Payment Buttons
   renderFooterButtons = (props) => {
-    console.log("Movie details Card", props);
+    const { currency } = props.data;
     let ticketPriceRange = `${
       props.buttonMaximumTicketPrice
         ? props.buttonMaximumTicketPrice === props.buttonMinimumTicketPrice
-          ? `Buy Tickets from GHS${props.buttonMaximumTicketPrice}`
-          : `Buy Tickets from GHS${props.buttonMinimumTicketPrice} - GHS${props.buttonMaximumTicketPrice}`
+          ? `Buy Tickets from ${currency}${props.buttonMaximumTicketPrice}`
+          : `Buy Tickets from ${currency}${props.buttonMinimumTicketPrice} - ${currency}${props.buttonMaximumTicketPrice}`
         : "Buy Tickets"
     }`;
 

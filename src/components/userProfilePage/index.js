@@ -91,7 +91,6 @@ class UserProfile extends Component {
     }
 
     const userData = await this.props.fetchUserProfile();
-    console.log("Hello called Mother Affer", userData);
 
     this.fetchProfileStats(userData);
   }
@@ -409,6 +408,8 @@ class UserProfile extends Component {
 
   render() {
     const breadCrumbs = [];
+    const { userWallet } = this.props;
+    const { availableBalance, currency } = userWallet;
     breadCrumbs.push(
       <BreadcrumbsItem key={0} glyph="home" to="/">
         Home
@@ -420,13 +421,12 @@ class UserProfile extends Component {
       </BreadcrumbsItem>
     );
 
-    let filteredNumber = this.convertNumberValue(
-      this.props.userWallet.availableBalance
-    );
-    let walletBalance = `GHS ${
-      this.props.userWallet ? filteredNumber : ` "GHS 0.00" `
+    let filteredNumber = this.convertNumberValue(availableBalance);
+    let walletBalance = `${currency || ""} ${
+      availableBalance ? filteredNumber : ` ${currency || ""}0.00 `
     }`;
 
+    console.log("profilePage");
     const { ticketPagination = {} } = this.props;
     const { myTicketsCount = 0 } = ticketPagination;
 

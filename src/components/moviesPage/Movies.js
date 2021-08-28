@@ -330,6 +330,8 @@ class Movies extends Component {
                           youtubeVideoId = video_id;
                         }
                       }
+
+                      const { currency } = data;
                       return (
                         <SplideSlide key={index}>
                           <CardWithInfo
@@ -344,8 +346,8 @@ class Movies extends Component {
                               data.eventMaximumTicketClassPrice
                                 ? data.eventMaximumTicketClassPrice ===
                                   data.eventMinimumTicketClassPrice
-                                  ? `Buy Tickets from GHS${data.eventMaximumTicketClassPrice}`
-                                  : `Buy Tickets from GHS${data.eventMinimumTicketClassPrice} - GHS${data.eventMaximumTicketClassPrice}`
+                                  ? `Buy Tickets from ${currency}${data.eventMaximumTicketClassPrice}`
+                                  : `Buy Tickets from ${currency}${data.eventMinimumTicketClassPrice} - ${currency}${data.eventMaximumTicketClassPrice}`
                                 : "Buy Tickets"
                             }
                             youtubeVideoId={youtubeVideoId}
