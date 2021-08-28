@@ -426,7 +426,6 @@ class UserProfile extends Component {
       availableBalance ? filteredNumber : ` ${currency || ""}0.00 `
     }`;
 
-    console.log("profilePage");
     const { ticketPagination = {} } = this.props;
     const { myTicketsCount = 0 } = ticketPagination;
 

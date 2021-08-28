@@ -428,7 +428,7 @@ class Wallet extends Component {
     );
 
     let filteredNumber = this.convertNumberValue(availableBalance);
-    let walletBalance = `${currency} ${filteredNumber || 0.0}`;
+    let walletBalance = `${currency || ""} ${filteredNumber || 0.0}`;
 
     return (
       <AuthRoutes>
