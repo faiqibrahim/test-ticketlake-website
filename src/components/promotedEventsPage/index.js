@@ -22,7 +22,7 @@ import {getWishListIdsFromApi, wishListToggle} from '../../redux/wishlist/wishli
 // Helpers
 import {getCardDates, getMaxAndMinPrice} from '../../utils/common-utils';
 import EventListingFilters from "../eventListingFilters";
-import ResultForHeading from "../../commonComponents/resultForHeading";
+//import ResultForHeading from "../../commonComponents/resultForHeading";
 import { filteredCities } from "../../utils/config";
 
 

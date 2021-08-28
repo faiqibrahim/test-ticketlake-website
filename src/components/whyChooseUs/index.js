@@ -5,7 +5,7 @@ import {Row, Col, Container} from 'reactstrap';
 import SectionHeading from "../../commonComponents/sectionHeading";
 import CardWithIcon from '../../commonComponents/cardWithIcon';
 import axios from '../../utils/axios'
-import Loader from "../../commonComponents/loader";
+//import Loader from "../../commonComponents/loader";
 // Data Array
 const cards = [
     {
