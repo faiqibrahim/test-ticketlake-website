@@ -194,11 +194,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const connectedComponent = connect(
-  mapStateToProps,
-  {
-    getWishListIdsFromApi,
-    wishListToggle,
-  }
-)(MovieDetailSlider);
+const connectedComponent = connect(mapStateToProps, {
+  getWishListIdsFromApi,
+  wishListToggle,
+})(MovieDetailSlider);
 export default withRouter(connectedComponent);

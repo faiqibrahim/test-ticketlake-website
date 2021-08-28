@@ -114,6 +114,7 @@ class CardWithHoverAnimation extends React.Component {
         }
       }
 
+      const { currency } = card;
       return (
         <div className="hover-card-wrp col-md-3">
           <div
@@ -156,7 +157,7 @@ class CardWithHoverAnimation extends React.Component {
                   }
                 >
                   {eventMaximumTicketClassPrice
-                    ? `${secondBtnTitle} from GHS${eventMinimumTicketClassPrice} - GHS${eventMaximumTicketClassPrice}`
+                    ? `${secondBtnTitle} from ${currency}${eventMinimumTicketClassPrice} - ${currency}${eventMaximumTicketClassPrice}`
                     : secondBtnTitle}
                 </button>
               </span>
@@ -236,10 +237,12 @@ class CardWithHoverAnimation extends React.Component {
                   })}
               </>
             ) : (
-                <div className={"Error-msg-wrp w100"}>
-                  <div className={"Error-heading"}>Sorry, No Data Found.</div>
-                  <span className={"Error-sub-heading"}>There is no data found against this Category.</span>
-                </div>
+              <div className={"Error-msg-wrp w100"}>
+                <div className={"Error-heading"}>Sorry, No Data Found.</div>
+                <span className={"Error-sub-heading"}>
+                  There is no data found against this Category.
+                </span>
+              </div>
             )}
           </>
         )}
