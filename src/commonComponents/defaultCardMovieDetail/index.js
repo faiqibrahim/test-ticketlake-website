@@ -81,13 +81,20 @@ class DefaultCardMovieDetail extends React.Component {
 
           <div className="geodir-category-location date fl-wrap">
             <div className="map-item">
-                <img src={window.location.origin + '/images/icons/time-red.svg'} alt='img'
-                     style={{verticalAlign: 'sub', width: '14px', marginRight: '8px'}}/>
+              <img
+                src={window.location.origin + "/images/icons/time-red.svg"}
+                alt="img"
+                style={{
+                  verticalAlign: "sub",
+                  width: "14px",
+                  marginRight: "8px",
+                }}
+              />
               <span className={"date"}>
                 {props.startDate || props.endDate
-                  ? moment(props.startDate).format('ll') +
+                  ? moment(props.startDate).format("ll") +
                     " - " +
-                    moment(props.endDate).format('ll')
+                    moment(props.endDate).format("ll")
                   : "N/A"}
               </span>
             </div>
@@ -102,6 +109,7 @@ class DefaultCardMovieDetail extends React.Component {
 
   //Footer Payment Buttons
   renderFooterButtons = (props) => {
+    console.log("Movie details Card", props);
     let ticketPriceRange = `${
       props.buttonMaximumTicketPrice
         ? props.buttonMaximumTicketPrice === props.buttonMinimumTicketPrice

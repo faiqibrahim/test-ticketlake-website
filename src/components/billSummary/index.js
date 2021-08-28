@@ -145,12 +145,15 @@ class BillSummary extends Component {
 
   getCouponSection = () => {
     let couponValue = this.props.couponValue;
-    let { currentStep } = this.props;
+    let { currentStep, currency } = this.props;
+
     if (typeof couponValue === "object") {
       let { discountType, discountValue } = couponValue;
       let couponDeduction = couponValue.couponDeduction || 0;
       discountValue =
-        discountType === "fixed" ? `GHS${discountValue}` : `${discountValue}%`;
+        discountType === "fixed"
+          ? `${currency} ${discountValue}`
+          : `${discountValue}%`;
 
       return (
         <div className="ticketPriceDetail">
@@ -636,14 +639,11 @@ const mapStateToProps = (state) => {
 };
 
 const OrgAddForm = Form.create()(BillSummary);
-const connectedComponent = connect(
-  mapStateToProps,
-  {
-    fetchUserProfile,
-    setCopounValue,
-    setBillSummary,
-    resetCopounValue,
-    setCouponProcessing,
-  }
-)(OrgAddForm);
+const connectedComponent = connect(mapStateToProps, {
+  fetchUserProfile,
+  setCopounValue,
+  setBillSummary,
+  resetCopounValue,
+  setCouponProcessing,
+})(OrgAddForm);
 export default withRouter(connectedComponent);

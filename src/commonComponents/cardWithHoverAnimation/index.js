@@ -114,6 +114,7 @@ class CardWithHoverAnimation extends React.Component {
         }
       }
 
+      const { currency } = card;
       return (
         <div className="hover-card-wrp col-md-3" key={index}>
           <div
@@ -156,7 +157,7 @@ class CardWithHoverAnimation extends React.Component {
                   }
                 >
                   {eventMaximumTicketClassPrice
-                    ? `${secondBtnTitle} from GHS${eventMinimumTicketClassPrice} - GHS${eventMaximumTicketClassPrice}`
+                    ? `${secondBtnTitle} from ${currency}${eventMinimumTicketClassPrice} - ${currency}${eventMaximumTicketClassPrice}`
                     : secondBtnTitle}
                 </button>
               </span>

@@ -287,7 +287,7 @@ class Checkout extends Component {
   }
 
   render() {
-    const { wallet } = this.props;
+    const { wallet, currency } = this.props;
     let walletIsEmpty = wallet && wallet.availableBalance === 0;
     return parseFloat(this.props.totalBill) === 0 ? (
       <button
@@ -353,7 +353,7 @@ class Checkout extends Component {
                         <br />
                         <small style={{ fontFamily: "Helvetica" }}>
                           <span style={{ color: "#EC1C24" }}>
-                            GHS
+                            {`${currency} `}
                             {parseFloat(
                               this.props.wallet.availableBalance
                             ).toFixed(2)}
@@ -399,7 +399,7 @@ class Checkout extends Component {
                       <br />
                       <small style={{ fontFamily: "Helvetica" }}>
                         <span style={{ color: "#EC1C24" }}>
-                          GHS
+                          {`${currency} `}
                           {parseFloat(
                             this.props.wallet.availableBalance
                           ).toFixed(2)}
@@ -433,8 +433,7 @@ class Checkout extends Component {
                   >
                     Choose method for remaining
                     <span className="red-currency">
-                      {" "}
-                      GHS
+                      {`${currency} `}
                       {parseFloat(
                         this.props.totalBill -
                           this.props.wallet.availableBalance
