@@ -1,5 +1,6 @@
 // Library
 import React, { Component } from "react";
+
 import { withRouter } from "react-router-dom";
 import {
   Button,
@@ -13,6 +14,7 @@ import {
 } from "reactstrap";
 import swal from "@sweetalert/with-react";
 import { InfoCircleOutlined } from "@ant-design/icons";
+
 // Component
 
 import HeadingWithButton from "../../commonComponents/headingWithButton";
@@ -20,6 +22,8 @@ import UserPagesContainer from "../../commonComponents/userPagesContainer";
 import AuthRoutes from "../../commonComponents/authRotes";
 import TableHead from "../../commonComponents/tableHead";
 import Loader from "../../commonComponents/loader";
+import CustomSelectIconDropDown from "../../commonComponents/selectDropdownWithIcon";
+import { NETWORK_IMG, currencies } from "../../utils/config";
 
 // Redux
 import { connect } from "react-redux";
@@ -45,13 +49,20 @@ const header = [
   "Details",
 ];
 
+const options = currencies.map((currency) => ({
+  value: currency,
+  label: currency,
+  icon: `/Flags/${currency}.png`,
+}));
+
 class Wallet extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modal: false,
       modal2: false,
-      changePrice: 0,
+      topUpAmount: 0,
+      walletCurrency: "",
       conversionRates: {},
       conversionRatesGivenAmount: 0,
       modalData: [],
@@ -134,6 +145,8 @@ class Wallet extends Component {
   toggle() {
     this.setState((prevState) => ({
       modal: !prevState.modal,
+      walletCurrency: "",
+      topUpAmount: 0,
     }));
   }
 
@@ -145,24 +158,24 @@ class Wallet extends Component {
     );
   };
 
-  changePrice = (e) => {
-    var val = parseFloat(e.target.value);
-    this.setState({
-      changePrice: val,
-    });
+  handleInputChange = (target) => {
+    const { name, value } = target;
+
+    console.log(name, value);
+    this.setState({ [name]: value });
   };
 
-  getRate = (e) => {
-    const amount = this.state.changePrice;
+  submitTopUpAmount = () => {
+    const { topUpAmount } = this.state;
 
-    if (isNaN(amount)) {
+    if (isNaN(parseFloat(topUpAmount))) {
       swal({
         title: "Error",
         icon: "warning",
         text: "Please enter a valid amount",
       });
     } else {
-      this.props.setTopUpAmount(parseFloat(amount));
+      this.props.setTopUpAmount(parseFloat(topUpAmount));
       this.props.history.push("/user/wallet/top-up");
       // this.props.getConversion({ amount });
     }
@@ -332,8 +345,78 @@ class Wallet extends Component {
     );
   };
 
+  getWalletTopUpModal = (currency) => {
+    const { topUpAmount, walletCurrency } = this.state;
+    currency = null;
+    return (
+      <Modal
+        isOpen={this.state.modal}
+        className={this.props.className}
+        style={{ width: "40%" }}
+      >
+        <ModalHeader toggle={this.toggle}>Top up your balance</ModalHeader>
+        <ModalBody className="topUpBody">
+          <FormGroup>
+            <Label for="topUpAmount">Wallet Currency</Label>
+            <CustomSelectIconDropDown
+              id={"walletCurrency"}
+              name={"walletCurrency"}
+              placeholder={"Select Currency"}
+              options={options}
+              onChange={(value) =>
+                this.handleInputChange({ name: "walletCurrency", value })
+              }
+              isDisabled={Boolean(currency)}
+              defaultValue={
+                currency
+                  ? options.filter(({ value }) => value === currency)
+                  : null
+              }
+              networkImg={NETWORK_IMG}
+            />
+            {!currency && (
+              <span className="critical-info">
+                * Currency will remain consistent afterwards
+              </span>
+            )}
+          </FormGroup>
+
+          <FormGroup>
+            <Label for="topUpAmount">Top Up Amount</Label>
+            <Input
+              type="number"
+              name="topUpAmount"
+              value={topUpAmount}
+              onChange={(e) => this.handleInputChange(e.target)}
+              placeholder="Top up amount"
+            />
+          </FormGroup>
+          {this.props.isUserLoading ? <Loader /> : null}
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            color="secondary"
+            className={"buttonDefault defaultBackground"}
+            onClick={this.toggle}
+          >
+            Cancel
+          </Button>{" "}
+          <Button
+            color="success"
+            className={"buttonDefault"}
+            disabled={!walletCurrency || !topUpAmount}
+            onClick={() => this.submitTopUpAmount()}
+          >
+            Proceed
+          </Button>
+        </ModalFooter>
+      </Modal>
+    );
+  };
   render() {
     const breadCrumbs = [];
+    const { userWallet } = this.props;
+    const { availableBalance, currency } = userWallet;
     breadCrumbs.push(
       <BreadcrumbsItem glyph="home" to="/" key={1}>
         Home Page
@@ -345,17 +428,14 @@ class Wallet extends Component {
       </BreadcrumbsItem>
     );
 
-    let filteredNumber = this.convertNumberValue(
-      this.props.userWallet.availableBalance
-    );
-    let walletBalance = `GHS ${
-      this.props.userWallet ? filteredNumber : ` "GHS 0.00" `
-    }`;
+    let filteredNumber = this.convertNumberValue(availableBalance);
+    let walletBalance = `${currency} ${filteredNumber || 0.0}`;
 
     return (
       <AuthRoutes>
         <div id="wrapper">
           {this.pageTitle()}
+          {this.getWalletTopUpModal(currency)}
           <UserPagesContainer
             page={"wallet"}
             breadcrumbs={breadCrumbs}
@@ -364,42 +444,6 @@ class Wallet extends Component {
             {this.getWallet(walletBalance)}
           </UserPagesContainer>
         </div>
-        <Modal
-          isOpen={this.state.modal}
-          toggle={this.toggle}
-          className={this.props.className}
-        >
-          <ModalHeader toggle={this.toggle}>Top up your balance</ModalHeader>
-          <ModalBody>
-            <FormGroup>
-              <Label for="amount">Top Up Amount</Label>
-              <Input
-                type="number"
-                name="amount"
-                id="topUpAmount"
-                onChange={(e) => this.changePrice(e)}
-                placeholder="Top up amount"
-              />
-            </FormGroup>
-            {this.props.isUserLoading ? <Loader /> : null}
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              color="secondary"
-              className={"buttonDefault defaultBackground"}
-              onClick={this.toggle}
-            >
-              Cancel
-            </Button>{" "}
-            <Button
-              color="success"
-              className={"buttonDefault"}
-              onClick={() => this.getRate()}
-            >
-              Proceed
-            </Button>
-          </ModalFooter>
-        </Modal>
       </AuthRoutes>
     );
   }

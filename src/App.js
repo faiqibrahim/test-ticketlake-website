@@ -73,7 +73,6 @@ class App extends Component {
 
   getCurrentPosition = () => {
     const { setEventsCountry, eventsCountry } = this.props;
-
     if (navigator.geolocation && _.isNil(eventsCountry.countryCode)) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -91,7 +90,7 @@ class App extends Component {
                 short_name: countryCode,
               } = countryProps;
 
-              setEventsCountry({ label, countryCode });
+              setEventsCountry({ label, countryCode, storeInSession: true });
             }
           });
         },

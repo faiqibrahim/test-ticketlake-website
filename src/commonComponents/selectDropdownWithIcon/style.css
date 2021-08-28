@@ -1,0 +1,15 @@
+.topUpBody .react-select-container .css-b8ldur-Input .react-select__input {
+  width: 100% !important;
+}
+
+.topUpBody
+  .react-select-container
+  .css-b8ldur-Input
+  .react-select__input
+  input {
+  width: 100% !important;
+}
+
+.topUpBody .react-select-container {
+  margin-bottom: unset;
+}
