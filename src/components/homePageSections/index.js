@@ -23,7 +23,7 @@ const cards = [
     },
     {
         id: 4,
-        title: 'Promoted Events',
+        title: 'Top Events',
         img: '/images/homePageSection/28f964533d44b1635eb6bbc7dd4559ca@2x.png'
     },
     {

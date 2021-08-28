@@ -11,7 +11,7 @@ import {setPromotedEventsForHome} from '../../redux/event/event-actions';
 // Helper
 import {isNullOrEmpty, getMaxAndMinPrice} from '../../utils/common-utils';
 
-const pageHeading = "Promoted Events";
+const pageHeading = "Top Events";
 const pageDescription = "Navigate through number of outrageous events happening around";
 
 class PromotedEvents extends Component {
@@ -54,7 +54,7 @@ class PromotedEvents extends Component {
                         />
                         <div className={"Error-msg-wrp"}>
                             <div className={"Error-heading"}>Sorry, No Event Found.</div>
-                            <span className={"Error-sub-heading"}>There are no promoted events .</span>
+                            <span className={"Error-sub-heading"}>There are no Top events .</span>
                         </div>
                     </section>
 
