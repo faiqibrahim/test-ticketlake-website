@@ -58,11 +58,12 @@ const options = currencies.map((currency) => ({
 class Wallet extends Component {
   constructor(props) {
     super(props);
+    const { currency } = props.userWallet;
     this.state = {
       modal: false,
       modal2: false,
       topUpAmount: 0,
-      walletCurrency: "",
+      walletCurrency: currency,
       conversionRates: {},
       conversionRatesGivenAmount: 0,
       modalData: [],
@@ -145,7 +146,6 @@ class Wallet extends Component {
   toggle() {
     this.setState((prevState) => ({
       modal: !prevState.modal,
-      walletCurrency: "",
       topUpAmount: 0,
     }));
   }
@@ -161,7 +161,6 @@ class Wallet extends Component {
   handleInputChange = (target) => {
     const { name, value } = target;
 
-    console.log(name, value);
     this.setState({ [name]: value });
   };
 
@@ -345,9 +344,8 @@ class Wallet extends Component {
     );
   };
 
-  getWalletTopUpModal = (currency) => {
+  getWalletTopUpModal = () => {
     const { topUpAmount, walletCurrency } = this.state;
-    currency = null;
     return (
       <Modal
         isOpen={this.state.modal}
@@ -366,15 +364,16 @@ class Wallet extends Component {
               onChange={(value) =>
                 this.handleInputChange({ name: "walletCurrency", value })
               }
-              isDisabled={Boolean(currency)}
+              isDisabled={Boolean(walletCurrency)}
               defaultValue={
-                currency
-                  ? options.filter(({ value }) => value === currency)
+                walletCurrency
+                  ? options.filter(({ value }) => value === walletCurrency)
                   : null
               }
               networkImg={NETWORK_IMG}
             />
-            {!currency && (
+
+            {!walletCurrency && (
               <span className="critical-info">
                 * Currency will remain consistent afterwards
               </span>
@@ -435,7 +434,7 @@ class Wallet extends Component {
       <AuthRoutes>
         <div id="wrapper">
           {this.pageTitle()}
-          {this.getWalletTopUpModal(currency)}
+          {this.getWalletTopUpModal()}
           <UserPagesContainer
             page={"wallet"}
             breadcrumbs={breadCrumbs}
