@@ -19,6 +19,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
     "braintree-web-drop-in-react": "^1.0.7",
+    "currency-formatter": "^1.5.8",
     "formik": "^1.5.2",
     "google-maps-react": "^2.0.6",
     "gsap": "^3.5.0",

@@ -14,7 +14,7 @@ import {
 } from "../../redux/ticket/ticket-actions";
 import axios from "../../utils/axios";
 import CardViewWithImgAndName from "../../commonComponents/cardViewWithImgAndName";
-import { getSeatCheckoutProps } from "../../utils/common-utils";
+import { formatCurrency, getSeatCheckoutProps } from "../../utils/common-utils";
 
 const splitWalletIconStyle = {
   fontSize: "64px",
@@ -287,7 +287,7 @@ class Checkout extends Component {
   }
 
   render() {
-    const { wallet, currency } = this.props;
+    const { wallet, currency, totalBill } = this.props;
     let walletIsEmpty = wallet && wallet.availableBalance === 0;
     return parseFloat(this.props.totalBill) === 0 ? (
       <button
@@ -353,10 +353,10 @@ class Checkout extends Component {
                         <br />
                         <small style={{ fontFamily: "Helvetica" }}>
                           <span style={{ color: "#EC1C24" }}>
-                            {`${currency} `}
-                            {parseFloat(
-                              this.props.wallet.availableBalance
-                            ).toFixed(2)}
+                            {formatCurrency(
+                              parseFloat(wallet.availableBalance).toFixed(2),
+                              currency
+                            )}
                           </span>{" "}
                           Used
                         </small>
@@ -399,10 +399,10 @@ class Checkout extends Component {
                       <br />
                       <small style={{ fontFamily: "Helvetica" }}>
                         <span style={{ color: "#EC1C24" }}>
-                          {`${currency} `}
-                          {parseFloat(
-                            this.props.wallet.availableBalance
-                          ).toFixed(2)}
+                          {`${formatCurrency(
+                            parseFloat(wallet.availableBalance).toFixed(2),
+                            currency
+                          )} `}
                         </span>{" "}
                         Available
                       </small>
@@ -433,11 +433,12 @@ class Checkout extends Component {
                   >
                     Choose method for remaining
                     <span className="red-currency">
-                      {`${currency} `}
-                      {parseFloat(
-                        this.props.totalBill -
-                          this.props.wallet.availableBalance
-                      ).toFixed(2)}
+                      {`${formatCurrency(
+                        parseFloat(totalBill - wallet.availableBalance).toFixed(
+                          2
+                        ),
+                        currency
+                      )} `}
                     </span>
                   </h1>
                   <CardViewWithImgAndName

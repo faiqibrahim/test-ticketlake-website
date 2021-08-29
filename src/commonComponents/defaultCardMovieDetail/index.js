@@ -8,6 +8,7 @@ import EllipsisText from "react-ellipsis-text";
 // Constant
 import { TITLE_SIZE } from "../../utils/config";
 import moment from "moment";
+import { formatCurrency } from "../../utils/common-utils";
 
 class DefaultCardMovieDetail extends React.Component {
   /****************************** EVENT UTILS ****************************/
@@ -113,8 +114,14 @@ class DefaultCardMovieDetail extends React.Component {
     let ticketPriceRange = `${
       props.buttonMaximumTicketPrice
         ? props.buttonMaximumTicketPrice === props.buttonMinimumTicketPrice
-          ? `Buy Tickets from ${currency}${props.buttonMaximumTicketPrice}`
-          : `Buy Tickets from ${currency}${props.buttonMinimumTicketPrice} - ${currency}${props.buttonMaximumTicketPrice}`
+          ? `Buy Tickets from ${formatCurrency(
+              props.buttonMaximumTicketPrice,
+              currency
+            )}`
+          : `Buy Tickets from ${formatCurrency(
+              props.buttonMinimumTicketPrice,
+              currency
+            )} - ${formatCurrency(props.buttonMaximumTicketPrice, currency)} `
         : "Buy Tickets"
     }`;
 

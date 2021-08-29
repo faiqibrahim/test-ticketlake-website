@@ -21,7 +21,11 @@ import AuthRoutes from "../../commonComponents/authRotes";
 import UserPagesContainer from "../../commonComponents/userPagesContainer";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 // Helpers
-import { getCountries, getCities } from "../../utils/common-utils";
+import {
+  getCountries,
+  getCities,
+  formatCurrency,
+} from "../../utils/common-utils";
 // Css
 import "./style.css";
 import ReactPhoneInput from "react-phone-input-2";
@@ -422,9 +426,7 @@ class UserProfile extends Component {
     );
 
     let filteredNumber = this.convertNumberValue(availableBalance);
-    let walletBalance = `${currency || ""} ${
-      availableBalance ? filteredNumber : ` ${currency || ""}0.00 `
-    }`;
+    let walletBalance = `${formatCurrency(filteredNumber || 0.0, currency)}`;
 
     const { ticketPagination = {} } = this.props;
     const { myTicketsCount = 0 } = ticketPagination;

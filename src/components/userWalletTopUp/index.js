@@ -103,6 +103,8 @@ class UserWalletTopUp extends Component {
   }
 
   getTopUpView = () => {
+    const { walletTopUp } = this.props;
+    console.log("walletTopUp", walletTopUp);
     if (this.props.processing) {
       return <Loader height={"300px"} />;
     } else if (this.props.message && this.props.topUpAmount === 0) {
@@ -218,6 +220,7 @@ class UserWalletTopUp extends Component {
 const mapStateToProps = (state) => {
   return {
     topUpAmount: state.user.topUpAmount,
+    walletTopUp: state.user.walletTopUp,
     message: state.user.message,
     processing: state.user.processing,
     userWallet: state.user.userWallet,

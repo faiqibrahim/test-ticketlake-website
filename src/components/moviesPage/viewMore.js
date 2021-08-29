@@ -19,6 +19,7 @@ import Loader from "../../commonComponents/loader/";
 
 // Redux
 import { connect } from "react-redux";
+import { formatCurrency } from "../../utils/common-utils";
 
 let categoryKey = "categoryState";
 class ViewMore extends Component {
@@ -320,7 +321,11 @@ class ViewMore extends Component {
                               }
                             }
 
-                            const { currency } = event;
+                            const {
+                              currency,
+                              eventMinimumTicketClassPrice,
+                              eventMaximumTicketClassPrice,
+                            } = event;
                             return (
                               <CardWithHoverEffect
                                 key={index}
@@ -328,7 +333,13 @@ class ViewMore extends Component {
                                 imageUrl={imageUrl}
                                 title={title}
                                 firstBtnTitle={"Play Trailer"}
-                                secondBtnTitle={`Buy Tickets from ${currency}${event.eventMinimumTicketClassPrice} - ${currency}${event.eventMaximumTicketClassPrice}`}
+                                secondBtnTitle={`Buy Tickets from ${formatCurrency(
+                                  eventMinimumTicketClassPrice,
+                                  currency
+                                )} - ${formatCurrency(
+                                  eventMaximumTicketClassPrice,
+                                  currency
+                                )}`}
                                 onMouseEnter={this.onMouseOver}
                                 onMouseLeave={this.onMouseOut}
                                 playVideoTrailer={this.playVideoTrailer}

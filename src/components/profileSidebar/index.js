@@ -8,7 +8,7 @@ import {
 import { withRouter } from "react-router-dom";
 import Loader from "../../commonComponents/loader";
 import { NotificationManager } from "react-notifications";
-import { NOTIFICATION_TIME } from "../../utils/common-utils";
+import { formatCurrency, NOTIFICATION_TIME } from "../../utils/common-utils";
 
 class ProfileSidebar extends Component {
   componentDidMount() {
@@ -75,8 +75,8 @@ class ProfileSidebar extends Component {
     let totalDocs;
     let filteredNumber = this.convertNumberValue(availableBalance);
     let walletBalance = availableBalance
-      ? `${wallet.currency + filteredNumber}`
-      : `${currency || ""} 0.00`;
+      ? `${formatCurrency(filteredNumber, currency)}`
+      : `${formatCurrency(0.0, currency)}`;
 
     if (this.props.wishListInfo !== null) {
       totalDocs = this.props.wishListInfo.totalDocs;

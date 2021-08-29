@@ -5,6 +5,8 @@ import store from "../redux/store";
 import { seatSessionKey } from "./constant";
 
 export const NOTIFICATION_TIME = 3000;
+const currencyFormatter = require("currency-formatter");
+
 export const getObjectValue = (obj, path) => {
   let val = null;
 
@@ -67,12 +69,16 @@ export const getMaxAndMinPrice = (arr) => {
     const min = _.min(prices);
     if (max && currency) {
       if (max === min) {
-        return currency + max;
+        return formatCurrency(max, currency);
       } else {
         if (min === 0) {
           return min;
         } else {
-          return currency + min + " - " + currency + max;
+          return (
+            formatCurrency(min, currency) +
+            " - " +
+            formatCurrency(max, currency)
+          );
         }
       }
     } else if (min === 0) {
@@ -252,4 +258,8 @@ export const getSeatCheckoutProps = (assignedSeats, event, hubtelNetwork) => {
     checkoutData.hubtelChannel = network;
   }
   return checkoutData;
+};
+
+export const formatCurrency = (amount, currency) => {
+  return currencyFormatter.format(amount, { code: currency });
 };

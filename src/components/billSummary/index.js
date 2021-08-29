@@ -14,7 +14,11 @@ import { fetchUserProfile } from "../../redux/user/user-actions";
 
 import store from "../../redux/store";
 import { handleError } from "../../utils/store-utils";
-import { capitalize, hasTicketsQuantity } from "../../utils/common-utils";
+import {
+  capitalize,
+  formatCurrency,
+  hasTicketsQuantity,
+} from "../../utils/common-utils";
 import { Modal, Button, Form, Input } from "antd";
 import { NavLink } from "react-router-dom";
 import { NotificationManager } from "react-notifications";
@@ -152,7 +156,7 @@ class BillSummary extends Component {
       let couponDeduction = couponValue.couponDeduction || 0;
       discountValue =
         discountType === "fixed"
-          ? `${currency} ${discountValue}`
+          ? `${formatCurrency(discountValue, currency)}`
           : `${discountValue}%`;
 
       return (
@@ -173,8 +177,7 @@ class BillSummary extends Component {
             >
               <div>
                 <span>
-                  -{this.props.currency}
-                  {couponDeduction.toFixed(2)}
+                  -{formatCurrency(couponDeduction.toFixed(2), currency)}
                 </span>
                 {currentStep <= 2 ? (
                   <i
@@ -273,6 +276,8 @@ class BillSummary extends Component {
       profileData,
       billSummary,
       couponValue,
+      currency,
+      totalBill,
     } = this.props;
 
     if (currentStep === 1) {
@@ -359,8 +364,7 @@ class BillSummary extends Component {
                             </b>
                           </small>
                           <small>
-                            {this.props.currency +
-                              item.ticketClassPrice +
+                            {formatCurrency(item.ticketClassPrice, currency) +
                               " X " +
                               item.ticketClassQty}
                           </small>
@@ -370,10 +374,12 @@ class BillSummary extends Component {
                           style={{ textAlign: "right" }}
                         >
                           <span>
-                            {this.props.currency}
-                            {(
-                              item.ticketClassPrice * item.ticketClassQty
-                            ).toFixed(2)}
+                            {formatCurrency(
+                              (
+                                item.ticketClassPrice * item.ticketClassQty
+                              ).toFixed(2),
+                              currency
+                            )}
                           </span>
                         </div>
                       </div>
@@ -395,16 +401,17 @@ class BillSummary extends Component {
                           Class: <b>{item.ticketClassName}</b>
                         </small>
                         <small>
-                          {this.props.currency +
-                            item.passPrice +
+                          {formatCurrency(item.passPrice, currency) +
                             " X " +
                             item.ticketClassQty}
                         </small>
                       </div>
                       <div className="col-md-6" style={{ textAlign: "right" }}>
                         <span>
-                          {this.props.currency}
-                          {(item.passPrice * item.ticketClassQty).toFixed(2)}
+                          {formatCurrency(
+                            (item.passPrice * item.ticketClassQty).toFixed(2),
+                            currency
+                          )}
                         </span>
                       </div>
                     </div>
@@ -473,10 +480,7 @@ class BillSummary extends Component {
                   <strong>Total Cost </strong>
                 </div>
                 <div className="col-md-6">
-                  <span>
-                    {this.props.currency}
-                    {this.props.totalBill}
-                  </span>
+                  <span>{formatCurrency(totalBill, currency)}</span>
                 </div>
               </div>
             </div>

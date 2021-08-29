@@ -64,6 +64,7 @@ const _initState = {
   allTickets: null,
   codeError: null,
   topUpAmount: null,
+  walletTopUp: null,
   paginateProcessing: "",
   ticketPagination: "",
   eventsCountry: {},
@@ -208,7 +209,8 @@ const setCurrentStateToSession = (state) => {
   sessionStorage.setItem("user-auth", JSON.stringify(state));
 };
 const setTopUpAmount = (state, wallet) => {
-  state.topUpAmount = wallet;
+  state.topUpAmount = wallet.topUpAmount;
+  state.walletTopUp = wallet;
 };
 
 export const setConvertedCurrency = (state, currencyConversion) => {

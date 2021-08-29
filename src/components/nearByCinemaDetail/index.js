@@ -7,6 +7,7 @@ import { Breadcrumbs, BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import CardWithSideDetail from "../../commonComponents/cardWithSideDetails";
 import { connect } from "react-redux";
 import {
+  formatCurrency,
   getDateFromISO,
   getDayFromISO,
   getMovieCategoryID,
@@ -247,8 +248,17 @@ class NearByCinemaDetail extends Component {
                     {data.eventMaximumTicketClassPrice
                       ? data.eventMaximumTicketClassPrice ===
                         data.eventMinimumTicketClassPrice
-                        ? `Buy Tickets from ${currency}${data.eventMaximumTicketClassPrice}`
-                        : `Buy Tickets from ${currency}${data.eventMinimumTicketClassPrice} - ${currency}${data.eventMaximumTicketClassPrice}`
+                        ? `Buy Tickets from ${formatCurrency(
+                            data.eventMaximumTicketClassPrice,
+                            currency
+                          )}`
+                        : `Buy Tickets from ${formatCurrency(
+                            data.eventMinimumTicketClassPrice,
+                            currency
+                          )} - ${formatCurrency(
+                            data.eventMaximumTicketClassPrice,
+                            currency
+                          )}`
                       : "Buy Tickets"}
                   </button>
                 </div>

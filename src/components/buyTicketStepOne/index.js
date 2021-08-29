@@ -5,7 +5,7 @@ import { Radio, Form } from "antd";
 import { SeatsioSeatingChart } from "@seatsio/seatsio-react";
 import "./style.css";
 import { seatsIOPublicKey } from "../../utils/constant";
-import { getVenuePrices } from "../../utils/common-utils";
+import { formatCurrency, getVenuePrices } from "../../utils/common-utils";
 
 const SeatsRadio = (props) => {
   const { value, onChange, radioOptions, name } = props;
@@ -178,7 +178,7 @@ class BuyTicketStepOne extends React.Component {
           colorScheme="light"
           pricing={getVenuePrices(purchaseType, ticketClassData)}
           priceFormatter={(price) => {
-            return `${currency} ${price}`;
+            return `${formatCurrency(price, currency)} `;
           }}
           onObjectSelected={(seat) => onSeatChange(seat)}
           onObjectDeselected={(seat) => onSeatChange(seat, false)}

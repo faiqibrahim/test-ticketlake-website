@@ -39,6 +39,7 @@ import axios from "../../utils/axios";
 import { Helmet } from "react-helmet";
 import TransactionHistoryModal from "../../commonComponents/ModalFactory/TransactionHistoryModal/TransactionHistoryModal";
 import "./style.css";
+import { formatCurrency } from "../../utils/common-utils";
 
 const header = [
   "Date",
@@ -158,14 +159,16 @@ class Wallet extends Component {
     );
   };
 
-  handleInputChange = (target) => {
+  handleInputChange = (target, saveInput = true) => {
     const { name, value } = target;
 
-    this.setState({ [name]: value });
+    if (saveInput) {
+      this.setState({ [name]: value });
+    }
   };
 
   submitTopUpAmount = () => {
-    const { topUpAmount } = this.state;
+    const { topUpAmount, walletCurrency } = this.state;
 
     if (isNaN(parseFloat(topUpAmount))) {
       swal({
@@ -174,7 +177,10 @@ class Wallet extends Component {
         text: "Please enter a valid amount",
       });
     } else {
-      this.props.setTopUpAmount(parseFloat(topUpAmount));
+      this.props.setTopUpAmount({
+        topUpAmount: parseFloat(topUpAmount),
+        walletCurrency,
+      });
       this.props.history.push("/user/wallet/top-up");
       // this.props.getConversion({ amount });
     }
@@ -346,6 +352,7 @@ class Wallet extends Component {
 
   getWalletTopUpModal = () => {
     const { topUpAmount, walletCurrency } = this.state;
+    const { currency } = this.props.userWallet;
     return (
       <Modal
         isOpen={this.state.modal}
@@ -362,7 +369,10 @@ class Wallet extends Component {
               placeholder={"Select Currency"}
               options={options}
               onChange={(value) =>
-                this.handleInputChange({ name: "walletCurrency", value })
+                this.handleInputChange(
+                  { name: "walletCurrency", value },
+                  !currency
+                )
               }
               isDisabled={Boolean(walletCurrency)}
               defaultValue={
@@ -428,7 +438,7 @@ class Wallet extends Component {
     );
 
     let filteredNumber = this.convertNumberValue(availableBalance);
-    let walletBalance = `${currency || ""} ${filteredNumber || 0.0}`;
+    let walletBalance = `${formatCurrency(filteredNumber, currency)}`;
 
     return (
       <AuthRoutes>
