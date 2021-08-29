@@ -21,6 +21,10 @@ import {getAllPromotedEvents} from '../../redux/event/event-actions';
 import {getWishListIdsFromApi, wishListToggle} from '../../redux/wishlist/wishlist-actions';
 // Helpers
 import {getCardDates, getMaxAndMinPrice} from '../../utils/common-utils';
+import EventListingFilters from "../eventListingFilters";
+//import ResultForHeading from "../../commonComponents/resultForHeading";
+import { filteredCities } from "../../utils/config";
+
 
 let isWishlist = false;
 
@@ -83,6 +87,7 @@ class PromotedEventsPage extends Component {
     };
 
     render() {
+        let cities = filteredCities();
 
         if (this.props.promotedEvents) {
             if (this.state.totalPages === 0) {
@@ -155,9 +160,80 @@ class PromotedEventsPage extends Component {
                         <div className={"container custom-container"}>
                             <Heading
                                 style={{marginBottom: '0px', textAlign: 'left'}}
-                                heading={"Promoted Events"}
+                                heading={"Top Events"}
                                 text={"Navigate through number of outrageous events happening around"}/>
+
+                            <div className = "row">
+                                <div className="col-md-12">
+                                    <EventListingFilters
+                                        changeCategory={this.onCategoryChange}
+                                        changeCity={this.onLocationChange}
+                                        changeDate={this.onDateChange}
+                                        handleChange={this.handleChange}
+                                        categories={this.props.categories}
+                                        handleSearch={this.handleSearch}
+                                        city={cities}
+                                        category={this.state.storeCategories}
+                                        location={this.state.city}
+                                        from={this.state.from}
+                                        to={this.state.to}
+                                        search={this.state.keyword}
+                                        date={this.state.date}
+                                    />
+                                    {/*{*/}
+                                    {/*    this.props.processing ? <Loader />*/}
+                                    {/*        :*/}
+                                    {/*        <div className="col-list-wrap fw-col-list-wrap">*/}
+                                    {/*            <div*/}
+                                    {/*                className="list-main-wrap fl-wrap card-listing">*/}
+                                    {/*                <ResultForHeading*/}
+                                    {/*                    firstText={'Result for : '}*/}
+                                    {/*                    secondText={this.getSearchTitle()}*/}
+                                    {/*                    thirdText={`(${this.props.allEvents && this.props.allEvents.data &&*/}
+                                    {/*                    this.props.allEvents.data.totalDocs} Results)`}*/}
+                                    {/*                />*/}
+
+                                    {/*                {!allEvents.length ?*/}
+                                    {/*                    <div className={"Error-msg-wrp w100"}>*/}
+                                    {/*                        <div className={"Error-heading"}>Sorry, No Event Found.</div>*/}
+                                    {/*                        <span className={"Error-sub-heading"}>There are no events found under current search, Please search again with different keywords. </span>*/}
+                                    {/*                    </div>*/}
+                                    {/*                    :*/}
+
+                                    {/*                    <> {*/}
+                                    {/*                        allEvents ?*/}
+                                    {/*                            <Row className={"w100"}>*/}
+                                    {/*                                {cardDisplayJSX}*/}
+                                    {/*                            </Row>*/}
+                                    {/*                            :*/}
+                                    {/*                            'no data'*/}
+                                    {/*                    }*/}
+
+                                    {/*                        {*/}
+                                    {/*                            allEvents.length > 0 ?*/}
+                                    {/*                                this.props.paginateEvents.hasNextPage === true ?*/}
+                                    {/*                                    <a className="load-more-button"*/}
+                                    {/*                                       href={hrefLink}*/}
+                                    {/*                                       onClick={(e) => this.loadMoreEvents(e)}>Load*/}
+                                    {/*                                        more*/}
+                                    {/*                                        {this.props.paginationProcessing ? (*/}
+                                    {/*                                            <i className="fas fa-spinner" />) : null}*/}
+                                    {/*                                    </a> : null :*/}
+                                    {/*                                <div>*/}
+                                    {/*                                    /!* No Events *!/*/}
+                                    {/*                                </div>*/}
+                                    {/*                        }*/}
+                                    {/*                    </>*/}
+                                    {/*                }*/}
+                                    {/*            </div>*/}
+                                    {/*        </div>*/}
+                                    {/*}*/}
+
+                                </div>
+                            </div>
                         </div>
+
+
                     </section>
 
                     <section className="light-red-bg small-padding" id="sec1">

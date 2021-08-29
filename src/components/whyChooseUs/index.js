@@ -5,7 +5,7 @@ import {Row, Col, Container} from 'reactstrap';
 import SectionHeading from "../../commonComponents/sectionHeading";
 import CardWithIcon from '../../commonComponents/cardWithIcon';
 import axios from '../../utils/axios'
-import Loader from "../../commonComponents/loader";
+//import Loader from "../../commonComponents/loader";
 // Data Array
 const cards = [
     {
@@ -73,63 +73,63 @@ class WhyChooseUs extends Component {
                     <Row>
                         {cardDisplay}
                     </Row>
-                    <Row>
-                    {this.state.isLoadedKey?
-                        <div className=" single-facts fl-wrap">
-                            <div className="inline-facts-wrap col-md-3">
-                                <div className="inline-facts">
-                                    <img src="icons/new-visitors.svg" alt='img'/>
-                                    <div className="milestone-counter">
-                                        <div className="stats animaper">
-                                            <div className="num" data-content="0" data-num="254">{this.state.statistics.newVisitorCount}</div>
-                                        </div>
-                                    </div>
-                                    <h6>New Visitors Every Week</h6>
-                                </div>
-                            </div>
+                    {/*<Row>*/}
+                    {/*{this.state.isLoadedKey?*/}
+                    {/*    <div className=" single-facts fl-wrap">*/}
+                    {/*        <div className="inline-facts-wrap col-md-3">*/}
+                    {/*            <div className="inline-facts">*/}
+                    {/*                <img src="icons/new-visitors.svg" alt='img'/>*/}
+                    {/*                <div className="milestone-counter">*/}
+                    {/*                    <div className="stats animaper">*/}
+                    {/*                        <div className="num" data-content="0" data-num="254">{this.state.statistics.newVisitorCount}</div>*/}
+                    {/*                    </div>*/}
+                    {/*                </div>*/}
+                    {/*                <h6>New Visitors Every Week</h6>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
 
-                            <div className="inline-facts-wrap col-md-3">
-                                <div className="inline-facts">
-                                    <img src="icons/happy-customers.svg" alt='img'/>
-                                    <div className="milestone-counter">
-                                        <div className="stats animaper">
-                                            <div className="num" data-content="0" data-num="12168">{this.state.statistics.happyCustomers}</div>
-                                        </div>
-                                    </div>
-                                    <h6>Happy Customers</h6>
-                                </div>
-                            </div>
+                    {/*        <div className="inline-facts-wrap col-md-3">*/}
+                    {/*            <div className="inline-facts">*/}
+                    {/*                <img src="icons/happy-customers.svg" alt='img'/>*/}
+                    {/*                <div className="milestone-counter">*/}
+                    {/*                    <div className="stats animaper">*/}
+                    {/*                        <div className="num" data-content="0" data-num="12168">{this.state.statistics.happyCustomers}</div>*/}
+                    {/*                    </div>*/}
+                    {/*                </div>*/}
+                    {/*                <h6>Happy Customers</h6>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
 
-                            <div className="inline-facts-wrap col-md-3">
-                                <div className="inline-facts">
-                                    <img src="icons/new-events.svg" alt='img'/>
-                                    <div className="milestone-counter">
-                                        <div className="stats animaper">
-                                            <div className="num" data-content="0" data-num="172">{this.state.statistics.newEventsEveryWeek}</div>
-                                        </div>
-                                    </div>
-                                    <h6>New Events Every Week</h6>
-                                </div>
-                            </div>
+                    {/*        <div className="inline-facts-wrap col-md-3">*/}
+                    {/*            <div className="inline-facts">*/}
+                    {/*                <img src="icons/new-events.svg" alt='img'/>*/}
+                    {/*                <div className="milestone-counter">*/}
+                    {/*                    <div className="stats animaper">*/}
+                    {/*                        <div className="num" data-content="0" data-num="172">{this.state.statistics.newEventsEveryWeek}</div>*/}
+                    {/*                    </div>*/}
+                    {/*                </div>*/}
+                    {/*                <h6>New Events Every Week</h6>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
 
-                            <div className="inline-facts-wrap col-md-3">
-                                <div className="inline-facts">
-                                    <img src="icons/shared-ticket.svg" alt='img'/>
-                                    <div className="milestone-counter">
-                                        <div className="stats animaper">
-                                            <div className="num" data-content="0" data-num="732">{this.state.statistics.sharedTickets}</div>
-                                        </div>
-                                    </div>
-                                    <h6>Shared Tickets</h6>
-                                </div>
-                            </div>
-                        </div>
-                        :
-                        <div className={"loader-wrp"}>
-                            <Loader/>
-                        </div>
-                    }
-                    </Row>
+                    {/*        <div className="inline-facts-wrap col-md-3">*/}
+                    {/*            <div className="inline-facts">*/}
+                    {/*                <img src="icons/shared-ticket.svg" alt='img'/>*/}
+                    {/*                <div className="milestone-counter">*/}
+                    {/*                    <div className="stats animaper">*/}
+                    {/*                        <div className="num" data-content="0" data-num="732">{this.state.statistics.sharedTickets}</div>*/}
+                    {/*                    </div>*/}
+                    {/*                </div>*/}
+                    {/*                <h6>Shared Tickets</h6>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*    :*/}
+                    {/*    <div className={"loader-wrp"}>*/}
+                    {/*        <Loader/>*/}
+                    {/*    </div>*/}
+                    {/*}*/}
+                    {/*</Row>*/}
                 </Container>
             </section>
         );
