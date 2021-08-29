@@ -169,7 +169,7 @@ class TransactionHistoryModal extends React.Component {
                       {parentState.modalDataFromApi.couponInfo.discountValue}
                       {parentState.modalDataFromApi.couponInfo.discountType ===
                       "fixed"
-                        ? formatCurrency(null, eventCurrency)
+                        ? formatCurrency(0, eventCurrency)
                         : "%"}{" "}
                       OFF
                     </td>
