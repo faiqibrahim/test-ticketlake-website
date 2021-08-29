@@ -6,6 +6,7 @@ import { withRouter } from "react-router-dom";
 import { showContentOutsideMainWrapper } from "../../redux/common/common-actions";
 
 class TransactionModal extends Component {
+
   getLeftSideData = (heading, val) => {
     return (
       <div className="col-md-12">

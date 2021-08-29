@@ -1,0 +1,13 @@
+.methodContainer {
+    background: var(--unnamed-color-ffffff) 0 0% no-repeat padding-box;
+    border: 1px solid #D8DAE3;
+    border-radius: 4px;
+    opacity: 1;
+    margin-right: 20px;
+    width: 17vw;
+    height: 13.5vw;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

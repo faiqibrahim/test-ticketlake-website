@@ -398,7 +398,7 @@ export const seatsCheckout = (checkoutData, stepCB, isHubtel = false) => {
         !isHubtel && dispatch(setPaymentSuccess(true));
         dispatch(setProcessing(false));
 
-        stepCB && stepCB(response);
+        stepCB && stepCB();
       })
       .catch((err) => {
         dispatch(setProcessing(false));
