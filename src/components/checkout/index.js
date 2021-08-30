@@ -1,186 +1,86 @@
-// library
 import React, {Component} from "react";
-import Loader from "../../commonComponents/loader";
-import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {NotificationManager} from "react-notifications";
-import swal from "@sweetalert/with-react";
-
 import {getPaymentInfo} from "./payment-info-provider";
+import {prepareHoldData} from "./checkout-util";
+import Loader from "../../commonComponents/loader";
 import PaymentProcessor from "../../commonComponents/PaymentProcessor";
-
-import {
-    setClientToken,
-    checkout,
-    setSplitPayment,
-    ravePayPaymentRequest,
-    seatsCheckout,
-} from "../../redux/ticket/ticket-actions";
 import axios from "../../utils/axios";
-import CardViewWithImgAndName from "../../commonComponents/cardViewWithImgAndName";
-import {formatCurrency, getSeatCheckoutProps} from "../../utils/common-utils";
-
+import Timer from '../../commonComponents/Timer';
+import {Col, Container, Row} from "reactstrap";
+import CheckoutSuccess from './CheckoutSuccess';
+import CheckoutFailed from "./CheckoutFailed";
 
 class Checkout extends Component {
-    instance;
 
     state = {
-        clientToken: null,
-        ravePayModalOpen: false,
-        modalOpen2: false,
-        focusAfterClose: true,
-        setFocusAfterClose: true,
-        orderId: "80c6e5b5638e443caaa988144c2a599b",
-        checkoutUrl: "",
-        postData: {},
-        price: 0.01,
-        conversionRatesOnCheckout: 0,
-        isLoading: true,
-        showSplitBlock: false,
-        paymentOption: "WALLET",
+        loading: true,
+        reservationId: null,
+        orderSuccessful: false,
+        orderFailed: false
     };
 
-
-    buyWithoutAnyMethod() {
-        const {customSeatingPlan, assignedSeats, event} = this.props;
-
-        swal({
-            title: "Checkout Summary",
-            text: "Please review your invoice",
-            content: (
-                <div>
-                    <div className="billSummary">
-                        <div className="col-md-12">
-                            <div className="ticketTotalPrice">
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <strong>Do you want to proceed?</strong>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ),
-            buttons: true,
-        }).then((res) => {
-            if (res) {
-                if (customSeatingPlan) {
-                    this.props.checkout(
-                        this.props.assignedSeats,
-                        this.props.assignedSeatsForDisplay,
-                        this.props.event,
-                        null,
-                        this.props.passesAssignedSeats,
-                        this.props.passesAssignedSeatsForDisplay,
-                        JSON.parse(localStorage.getItem("conversionRatesOnCheckout")),
-                        this.props.setStepCB
-                    );
-                } else {
-                    const checkoutProps = getSeatCheckoutProps(assignedSeats, event);
-                    seatsCheckout(checkoutProps, this.props.setStepCB);
-                }
-            } else {
-                swal("Checkout has been canceled!");
-            }
-        });
+    componentDidMount() {
+        this.holdTickets()
+            .then((reservationId) => {
+                this.setState({loading: false, reservationId});
+            })
+            .catch(error => {
+                console.error("Could not reserve seats", error);
+                this.setState({loading: false});
+            })
     }
 
-    buyWithoutPayPal() {
-        const {
-            checkout,
-            seatsCheckout,
-            customSeatingPlan,
-            event,
-            assignedSeats,
-        } = this.props;
-        const {paymentOption} = this.state;
-        swal({
-            title: "Checkout Summary",
-            text: "Please review your invoice",
-            content: (
-                <div>
-                    <div className="billSummary">
-                        <div className="col-md-12">
-                            <div className="ticketTotalPrice">
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <p className="Checkout-final-msg">
-                                            The total amount will be deducted from your wallet. Do you
-                                            want to proceed?
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ),
-            buttons: true,
-        }).then((res) => {
-            if (res) {
-                if (customSeatingPlan) {
-                    checkout(
-                        this.props.assignedSeats,
-                        this.props.assignedSeatsForDisplay,
-                        event,
-                        null,
-                        this.props.passesAssignedSeats,
-                        this.props.passesAssignedSeatsForDisplay,
-                        JSON.parse(localStorage.getItem("conversionRatesOnCheckout")),
-                        this.props.setStepCB
-                    );
-                } else {
-                    const checkoutProps = getSeatCheckoutProps(assignedSeats, event);
-                    checkoutProps.paymentOption = paymentOption;
-
-                    seatsCheckout(checkoutProps, this.props.setStepCB);
-                }
-            } else {
-                swal("Checkout has been canceled!");
-            }
-        });
+    holdTickets = async () => {
+        const holdData = prepareHoldData();
+        const {data} = await axios.post('/reserve/tickets', holdData, 'v2');
+        return data.data.reservationId;
     }
 
-    onSuccess = (transIds) => {
-        this.props.setStepCB();
+    onSuccess = (transactionIds) => {
+        const {reservationId} = this.state;
+
+        axios.post("/purchase/tickets", {transactionIds, reservationId}, 'v2')
+            .then(({data}) => {
+                console.log("Purchase successful", data);
+                this.setState(({orderSuccessful: true}))
+            })
+            .catch(this.onFailure);
     }
 
     onFailure = (error) => {
-
+        console.error("Could not checkout", error);
+        this.setState(({orderFailed: true}));
     }
 
     render() {
-        const info = getPaymentInfo();
+        const {loading, reservationId, orderSuccessful, orderFailed} = this.state;
 
+        if (loading)
+            return <Loader/>;
+        else if (!reservationId)
+            return <div>Could not hold tickets</div>;
+        else if (orderFailed)
+            return <CheckoutFailed/>;
+        else if (orderSuccessful)
+            return <CheckoutSuccess/>;
+
+        const info = getPaymentInfo();
         return (
-            <PaymentProcessor {...info} onSuccess={this.onSuccess} onFailure={this.onFailure}/>
+            <>
+                <Container style={{textAlign: 'left', fontSize: '1rem'}}>
+                    <Row>
+                        <Col style={{padding: '12px 0px'}}>
+                            Your reservation will expire in
+                            <Timer style={{fontWeight: 'bold', color: '#EC1B23'}}
+                                   minutes={15} onComplete={this.onFailure}/>
+                        </Col>
+                    </Row>
+                </Container>
+
+                <PaymentProcessor {...info} onSuccess={this.onSuccess} onFailure={this.onFailure}/>
+            </>
         )
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        clientToken: state.ticket.clientToken,
-        totalBill: state.ticket.totalBill,
-        event: state.ticket.event,
-        wallet: state.user.userWallet,
-        assignedSeats: state.ticket.assignedSeats,
-        assignedSeatsForDisplay: state.ticket.assignedSeatsForDisplay,
-        currency: state.ticket.ticketCurrency,
-        passesAssignedSeats: state.ticket.passesAssignedSeats,
-        passesAssignedSeatsForDisplay: state.ticket.passesAssignedSeatsForDisplay,
-        ravePayResponse: state.ticket.ravePayResponse,
-        error: state.ticket.error,
-        errorMessage: state.ticket.errorMessage,
-    };
-};
-
-const connectedComponent = connect(mapStateToProps, {
-    setClientToken,
-    checkout,
-    setSplitPayment,
-    ravePayPaymentRequest,
-    seatsCheckout,
-})(Checkout);
-export default withRouter(connectedComponent);
+export default withRouter(Checkout);

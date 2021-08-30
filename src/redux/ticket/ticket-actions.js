@@ -561,7 +561,7 @@ const setTotalBill = (bill) => {
   };
 };
 
-const setPaymentSuccess = (success) => {
+export const setPaymentSuccess = (success) => {
   return {
     type: SET_PAYMENT_SUCCESS,
     payload: success,

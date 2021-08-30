@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 
-import {AIRTEL_IMG, GLO_IMG, MTN_IMG, NETWORK_IMG, VODA_IMG} from "../../../utils/config";
+import {AIRTEL_IMG, GLO_IMG, MTN_IMG, NETWORK_IMG, VODA_IMG} from "../../../../utils/config";
 import {NotificationManager} from "react-notifications";
-import TopBar from "../../topBar";
-import CustomSelectIconDropDown from "../../selectDropdownWithIcon";
+import TopBar from "../../../topBar";
+import CustomSelectIconDropDown from "../../../selectDropdownWithIcon";
 import ReactPhoneInput from "react-phone-input-2";
+import PhoneNumber from 'awesome-phonenumber';
+import MobileMoneyBillPrompt from "./MobileMoneyBillPrompt";
 
 const options = [
     {value: "MTN", label: "MTN", icon: MTN_IMG},
@@ -22,13 +24,14 @@ class MobileMoneyPhoneInput extends Component {
             defaultCountry: "gh",
             phone: "",
             network: "",
+            country: "gh"
         };
 
         this.setNetwork = this.setNetwork.bind(this);
     }
 
-    handlePhoneChange = (phone) => {
-        this.setState({phone});
+    handlePhoneChange = (phone, country) => {
+        this.setState({phone, country: country.countryCode});
     };
 
     setNetwork = (network) => {
@@ -36,7 +39,11 @@ class MobileMoneyPhoneInput extends Component {
     };
 
     onContinueClick = () => {
-        const {phone, network} = this.state;
+        const {phone, network, country} = this.state;
+
+        console.log(phone, country);
+
+        const pn = new PhoneNumber(phone, country);
 
         if (!network || !phone) {
             NotificationManager.error(
@@ -44,8 +51,11 @@ class MobileMoneyPhoneInput extends Component {
                 "",
                 3000
             );
+        } else if (!pn.isValid()) {
+            NotificationManager.error("Please Provide Valid Phone Number!", "", 3000);
         } else {
-            this.props.onSubmit(phone, network);
+            this.props.setActiveComponent(<MobileMoneyBillPrompt {...this.props} phone={phone} network={network}
+                                                                 parent={<MobileMoneyPhoneInput {...this.props} />}/>);
         }
     };
 
@@ -85,10 +95,14 @@ class MobileMoneyPhoneInput extends Component {
                                     <ReactPhoneInput
                                         inputStyle={{width: "55%", height: "51px"}}
                                         buttonStyle={{backgroundColor: "#F2F3F8"}}
-                                        countryCodeEditable={false}
+                                        countryCodeEditable={true}
                                         country={this.state.defaultCountry}
                                         value={this.state.phone}
                                         onChange={this.handlePhoneChange}
+                                        isValid={(value, country) => {
+                                            const pn = new PhoneNumber(value, country.iso2);
+                                            return pn.isValid();
+                                        }}
                                     />
                                 </div>
 

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import axios from '../../../utils/axios';
+import axios from '../../../../utils/axios';
+import {NotificationManager} from "react-notifications";
 
 let intervalRef = null;
 let checkCount = 0;
@@ -8,47 +9,74 @@ const _clearInterval = () => {
     checkCount = 0;
 }
 
-
 class MobileMoneyBillPrompt extends Component {
 
     componentDidMount() {
         console.log(this.props);
         this.requestPayment()
-            .catch(console.error);
+            .catch(error => {
+                console.error("Could not request payment.", error);
+                NotificationManager.error("Could not request for payment from this phone number", "", 3000);
+                this.props.setActiveComponent(this.props.parent);
+            });
+    }
+
+    componentWillUnmount() {
+        _clearInterval();
     }
 
     requestPayment = async () => {
-        const {phone, network, type, amount, currency, onPaymentFailure} = this.props;
+        const {
+            phone: CustomerMsisdn,
+            network: hubtelChannel,
+            type,
+            amount,
+            currency,
+            purpose: transactionType,
+            onPaymentFailure,
+            description: paymentDescription
+        } = this.props;
 
-         axios.post('/transaction/mobile-money', {amount, currency, phone, network}, 'v2');
-        const transactionId = "1234";
+        const {data} = await axios.post('/transaction/mobile-money',
+            {
+                paymentDescription,
+                amount,
+                currency,
+                CustomerMsisdn,
+                hubtelChannel,
+                transactionType
+            },
+            'v2');
+
+        const transactionId = data.data.Data.TransactionId;
 
         _clearInterval();
         intervalRef = setInterval(() => {
             ++checkCount;
-            const checkInternally = checkCount % 6 !== 0;
+            const checkInternally = checkCount % 24 !== 0;
 
             this.trackPayment(checkInternally, transactionId)
                 .catch((error) => {
                     onPaymentFailure(type, error);
-                    _clearInterval();
                 });
         }, 5000);
     }
 
     trackPayment = async (checkInternally, transactionId) => {
-        console.log(checkInternally);
-        const {type, onPaymentSuccessful} = this.props;
-        if (!checkInternally) {
-            _clearInterval();
-            onPaymentSuccessful(type, transactionId);
+        console.log(checkInternally, checkCount);
+        const {type, onPaymentSuccessful, purpose: purchaseType} = this.props;
+
+        const {data} = await axios.post(`/tickets/hubtel-payment-status/${transactionId}`, {
+            checkInternally,
+            purchaseType
+        }, 'v2');
+
+        const {code} = data.data;
+
+        if (code === '00') {
+            onPaymentSuccessful(type, data.data.transaction._id);
         }
     }
-
-    componentWillUnmount() {
-        if (intervalRef) clearInterval(intervalRef);
-    }
-
 
     render() {
         return (
@@ -66,7 +94,7 @@ class MobileMoneyBillPrompt extends Component {
                 <div className={'col-md-12'} style={{padding: '0% 10%'}}>
                     <p className={'paraStyle borderBottom'} style={{padding: '7% 13%'}}>
                         Please authorise the payment via bill prompt sent on
-                        <span className={'innerText'}>{this.props.phone}</span>
+                        <span className={'innerText'}>{` ${this.props.phone}`}</span>
                     </p>
                 </div>
 

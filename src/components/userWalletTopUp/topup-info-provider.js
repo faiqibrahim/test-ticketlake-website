@@ -1,14 +1,15 @@
 import {getStore} from '../../index';
+import {formatCurrency} from "../../utils/common-utils";
 
-export const getPaymentInfo = () => {
+export const getTopUpInfo = () => {
     const state = getStore().getState();
+    const {walletTopUp} = state.user;
 
-
-    const info = {
-        amount: state.ticket.totalBill,
-        currency: state.ticket.ticketCurrency,
-        purpose: 'TICKET_PURCHASE',
-        description: "Ticket purchase for " + state.ticket.event.data.data.eventTitle,
+    return {
+        amount: walletTopUp.topUpAmount,
+        currency: walletTopUp.walletCurrency,
+        purpose: 'WALLET_TOP_UP',
+        description: `${formatCurrency(walletTopUp.topUpAmount, walletTopUp.walletCurrency)} Wallet Topup`,
         paymentMethods: [
             {
                 "type": "WALLET",
@@ -24,6 +25,4 @@ export const getPaymentInfo = () => {
             }
         ]
     }
-
-    return info;
 }

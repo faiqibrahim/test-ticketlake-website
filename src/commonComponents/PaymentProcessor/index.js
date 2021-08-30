@@ -16,7 +16,7 @@ class PaymentProcessor extends Component {
     };
 
     componentDidMount() {
-        const {amount, currency, purpose, paymentMethods} = this.props;
+        const {amount, currency, purpose, paymentMethods, description} = this.props;
 
         const methods = paymentMethods.map(method => {
             return {
@@ -27,7 +27,8 @@ class PaymentProcessor extends Component {
                 onPaymentFailure: this.onPaymentFailure,
                 onPaymentSuccessful: this.onPaymentSuccessful,
                 purpose,
-                setActiveComponent: this.setChildComponent
+                setActiveComponent: this.setChildComponent,
+                description
             };
         });
 
@@ -48,7 +49,7 @@ class PaymentProcessor extends Component {
             } else {
                 paymentMethods.push({
                     ...method,
-                    amount: +method.amount - +maxAmount
+                    amount: _.round(+method.amount - +maxAmount)
                 });
             }
         });
@@ -70,7 +71,6 @@ class PaymentProcessor extends Component {
     }
 
     setChildComponent = (childComponent) => {
-        console.log("here", childComponent);
         this.setState({childComponent});
     }
 
@@ -82,7 +82,6 @@ class PaymentProcessor extends Component {
 
         return (
             <Container>
-
                 {!_.isNil(autoPayment) ? (
                     <Container>
                         <Row>
@@ -92,7 +91,7 @@ class PaymentProcessor extends Component {
                         </Row>
                         <Row>
 
-                            <Col xs={4} className={styles.methodContainer}>
+                            <Col xs={12} mg={4} className={styles.methodContainer}>
                                 {PaymentProcessorFactory.getProcessor(autoPayment.type, {...autoPayment})}
                             </Col>
                         </Row>
@@ -109,10 +108,9 @@ class PaymentProcessor extends Component {
                 ) : null}
 
                 <Row style={{display: 'flex', alignItems: 'center'}}>
-
                     {
                         paymentMethods.map(method => (
-                            <Col xs={4} key={method.type} className={styles.methodContainer}>
+                            <Col xs={12} lg={4}  key={method.type} className={styles.methodContainer}>
                                 {PaymentProcessorFactory.getProcessor(method.type, {...method})}
                             </Col>
                         ))

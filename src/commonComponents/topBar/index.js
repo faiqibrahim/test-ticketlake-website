@@ -8,22 +8,23 @@ const topBar = (props) => {
                 <div className={'col-lg-2'}>
                     <img src="/images/mtn-logos.png" alt='img' style={{width: '73px'}}/>
                 </div>
-                <div className={'col-lg-8'} style={{padding: '22px 0px'}}>
+                <div className={'col-lg-7'} style={{padding: '22px 0px'}}>
                     <h4 className={"mtn-numeber-heading"} style={{textAlign: 'left', fontSize: '20px', float: 'left'}}>
                         Mobile Money
                     </h4>
                 </div>
-                <div className={'col-lg-2'} style={{padding: '22px 0px'}}>
-                    <h4 className={"mtn-numeber-heading"} style={{
-                        textAlign: 'right',
-                        fontSize: '20px',
+                <div className={'col-lg-3'} style={{padding: '0px'}}>
+                    <span style={{
+                        textAlign: 'left',
+                        fontSize: '16px',
                         float: 'left',
                         textDecoration: 'underline',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        color: '#EC1B23',
                     }}
                     onClick={props.onBack}>
                         Change Payment Method
-                    </h4>
+                    </span>
                 </div>
             </div>
         </div>

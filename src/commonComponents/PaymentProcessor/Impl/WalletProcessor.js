@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import {Col, Row} from "reactstrap";
 import walletImg from '../assets/Wallet.svg';
 import {convertAmount, formatCurrency} from "../../../utils/common-utils";
-import WalletPaymentPrompt from "../components/WalletPaymentPrompt";
+import WalletPaymentPrompt from "../components/Wallet/WalletPaymentPrompt";
+import styles from "../styles.module.css";
 
 class WalletProcessor extends Component {
 
@@ -39,7 +40,8 @@ class WalletProcessor extends Component {
         const isSplitPayment = balanceInRequestedCurrency < amount
 
         setActiveComponent((
-            <WalletPaymentPrompt {...this.props} isSplitPayment={isSplitPayment} balanceInRequestedCurrency={balanceInRequestedCurrency}/>
+            <WalletPaymentPrompt {...this.props} isSplitPayment={isSplitPayment}
+                                 balanceInRequestedCurrency={balanceInRequestedCurrency}/>
         ));
     }
 
@@ -50,17 +52,26 @@ class WalletProcessor extends Component {
         if (fixedPayment) {
             return (
                 <Col>
-                    <b>Wallet</b> <br/>
-                    <b>{formatCurrency(balanceInRequestedCurrency, currency)}</b> used
+                    <span className={styles.methodName}>Wallet</span> <br/>
+                    <span className={styles.methodText}>
+                        <span className={styles.currency}>{`${formatCurrency(balanceInRequestedCurrency, currency)} `}</span>
+                        used
+                    </span>
                 </Col>
             );
         } else {
             return (
                 <Col>
-                    <b>Wallet</b> <br/>
-                    <b>{formatCurrency(balance, walletCurrency)}</b> available
+                    <span className={styles.methodName}>Wallet</span> <br/>
+                    <span className={styles.methodText}>
+                        <span className={styles.currency}>{`${formatCurrency(balance, walletCurrency)} `}</span>
+                        available
+                    </span>
                     <br/>
-                    <b>{formatCurrency(balanceInRequestedCurrency, currency)}</b> available
+                    <span className={styles.methodText}>
+                        <span className={styles.currency}>{`${formatCurrency(balanceInRequestedCurrency, currency)} `}</span>
+                        available
+                    </span>
                 </Col>
             );
         }
@@ -68,7 +79,7 @@ class WalletProcessor extends Component {
 
     render() {
         return (
-            <Row onClick={this.processPayment}>
+            <Row onClick={this.processPayment} className={styles.method}>
                 <Col xs={12}>
                     <Row>
                         <Col>

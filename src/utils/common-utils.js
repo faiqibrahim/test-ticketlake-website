@@ -4,6 +4,7 @@ import _ from "lodash";
 import store from "../redux/store";
 import {seatSessionKey} from "./constant";
 import axios from './axios';
+import createHistory from "history/createBrowserHistory";
 
 export const NOTIFICATION_TIME = 3000;
 
@@ -234,6 +235,10 @@ export const getVenuePrices = (type, classData) => {
     }
 };
 
+export const getHoldToken = () => {
+    return JSON.parse(sessionStorage.getItem(seatSessionKey)).holdToken;
+}
+
 export const getSeatCheckoutProps = (assignedSeats, event, hubtelNetwork) => {
     const seats = [...assignedSeats];
 
@@ -243,7 +248,7 @@ export const getSeatCheckoutProps = (assignedSeats, event, hubtelNetwork) => {
         seat.self && delete seat.userInfo;
     });
 
-    const {holdToken} = JSON.parse(sessionStorage.getItem(seatSessionKey));
+    const holdToken = getHoldToken();
     const {data: eventDetail} = event.data;
 
     const checkoutData = {
@@ -286,4 +291,18 @@ export const convertAmount = async (from, to, amount) => {
 
     const convertedAmount = +amount * (1 / (+data));
     return Math.floor(convertedAmount * 100) / 100;
+}
+
+
+export const refreshPaypalConfig = () => {
+    const key = "PAYPAL_LOAD";
+    const paypalLoad = sessionStorage.getItem(key);
+
+    if (paypalLoad) {
+        sessionStorage.removeItem(key);
+    } else {
+        sessionStorage.setItem(key, true);
+        const history = createHistory();
+        history.go(0);
+    }
 }

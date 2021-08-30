@@ -1,23 +1,25 @@
 import React, {Component} from "react";
 import {Col, Row} from "reactstrap";
 import mobileMoneyImg from "../assets/mobilemoney.svg";
-
-import MobileMoneyPhoneInput from "../components/MobileMoneyPhoneInput";
-import MobileMoneyBillPrompt from "../components/MobileMoneyBillPrompt";
+import styles from '../styles.module.css';
+import MobileMoneyPhoneInput from "../components/MobileMoney/MobileMoneyPhoneInput";
+import MobileMoneyBillPrompt from "../components/MobileMoney/MobileMoneyBillPrompt";
 
 class MobileMoneyProcessor extends Component {
 
     processPayment = () => {
         const {setActiveComponent} = this.props;
 
-        setActiveComponent(<MobileMoneyPhoneInput {...this.props} onSubmit={(phone, network) => {
-            setActiveComponent(<MobileMoneyBillPrompt {...this.props} phone={phone} network={network}/>);
-        }}/>);
+        const component = <MobileMoneyPhoneInput {...this.props} onSubmit={(phone, network) => {
+            setActiveComponent(<MobileMoneyBillPrompt {...this.props} phone={phone} network={network} parent={component}/>);
+        }}/>;
+
+        setActiveComponent(component);
     };
 
     render() {
         return (
-            <Row onClick={this.processPayment}>
+            <Row onClick={this.processPayment} className={styles.method}>
                 <Col xs={12}>
                     <Row>
                         <Col>
@@ -27,8 +29,8 @@ class MobileMoneyProcessor extends Component {
                     <br/>
                     <Row>
                         <Col>
-                            <b>MTN Mobile Money</b> <br/>
-                            Pay via Phone#
+                            <span className={styles.methodName}>Mobile Money</span> <br/>
+                            <span className={styles.methodText}>Pay via Phone#</span>
                         </Col>
                     </Row>
                 </Col>

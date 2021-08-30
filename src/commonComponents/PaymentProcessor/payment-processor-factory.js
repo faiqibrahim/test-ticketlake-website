@@ -3,13 +3,18 @@ import PaypalProcessor from "./Impl/PaypalProcessor";
 import MobileMoneyProcessor from "./Impl/MobileMoneyProcessor";
 import WalletProcessor from "./Impl/WalletProcessor";
 
+const paypalSupportedCurrencies = ['AUD', 'USD', 'EUR', 'CAD', 'MXN', 'GBP'];
+
 export default class PaymentProcessorFactory {
 
     static getProcessor(type = 'unknown', props) {
 
         switch (type) {
             case 'PAYPAL':
-                return <PaypalProcessor key={type} {...props} />;
+                if (paypalSupportedCurrencies.includes(props.currency))
+                    return <PaypalProcessor key={type} {...props}/>;
+                else
+                    return null;
             case 'MOBILE_MONEY':
                 return <MobileMoneyProcessor key={type} {...props} />;
             case 'WALLET':
