@@ -14,6 +14,8 @@ import {Provider} from 'react-redux';
 import store from './redux/store';
 import {ThroughProvider} from 'react-through'
 
+export const getStore = () => store;
+
 ReactDOM.render(
         <ThroughProvider>
             <Provider store={store}>

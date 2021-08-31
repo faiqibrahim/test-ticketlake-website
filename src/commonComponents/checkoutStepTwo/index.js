@@ -23,6 +23,7 @@ const options = [
 ];
 
 class CheckoutStepTwo extends Component {
+
   constructor(props) {
     super(props);
 

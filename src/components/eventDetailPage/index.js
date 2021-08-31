@@ -28,7 +28,7 @@ import {getEventDetail, getAllEventsDefault} from '../../redux/event/event-actio
 //config
 import {STANDARD_EVENT, SERIES, RECUR} from "../../utils/config";
 // Helper
-import {getDateFromISO, getTimeFromISO, dateSplitter} from '../../utils/common-utils';
+import {getDateFromISO, getTimeFromISO, dateSplitter, refreshPaypalConfig} from '../../utils/common-utils';
 import {valueAlreadyExists, dateAlreadyExists, getTags} from './detailPageHelper';
 import {Helmet} from "react-helmet";
 import Moment from "react-moment";
@@ -69,6 +69,8 @@ class EventDetail extends Component {
     }
 
     componentDidMount() {
+        refreshPaypalConfig();
+
         const eventId = this.props.match.params.id;
         this.props.getEventDetail(eventId);
         if (this.props.auth) {
@@ -265,7 +267,7 @@ class EventDetail extends Component {
         }
     };
 
-    getUniqueDates = (dataArray) => { 
+    getUniqueDates = (dataArray) => {
         let uniqueDates = [];
         if (typeof dataArray !== 'undefined') {
             for (let i = 0; i < dataArray.length; i++) {
@@ -419,9 +421,9 @@ class EventDetail extends Component {
             if (this.props.auth) {
                 isWishlist = this.props.wishLists && this.props.wishLists !== '' && this.props.wishLists.includes(data.eventSlotId);
             }
-            
-            const hrefLink = "#"; 
-            
+
+            const hrefLink = "#";
+
             return (
                 <>
                     <Modal isOpen={this.state.activeModal === data._id} toggle={this.sharingSocial}
@@ -792,10 +794,10 @@ class EventDetail extends Component {
                                                                                     //     )
                                                                                     // })
                                                                                     /**
-                                                                                     * The other dates for the Recurring Event has been 
-                                                                                     * disabled at the moment since each event is being displayed 
-                                                                                     * itself. For future development replace the single 
-                                                                                     * <option></option> tag below with the array above.  
+                                                                                     * The other dates for the Recurring Event has been
+                                                                                     * disabled at the moment since each event is being displayed
+                                                                                     * itself. For future development replace the single
+                                                                                     * <option></option> tag below with the array above.
                                                                                      */
                                                                                 <option>{getDateFromISO(eventStartTime)}</option>
                                                                                 }

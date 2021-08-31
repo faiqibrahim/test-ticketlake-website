@@ -60,6 +60,7 @@
     "react-nested-menu": "^1.0.9",
     "react-notifications": "^1.4.3",
     "react-paginate": "^6.3.0",
+    "react-paypal-button-v2": "^2.6.3",
     "react-phone-input-2": "^2.11.0",
     "react-phone-number-input": "^3.1.19",
     "react-read-more-read-less": "^1.0.7",
