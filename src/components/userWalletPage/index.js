@@ -59,12 +59,12 @@ const options = currencies.map((currency) => ({
 class Wallet extends Component {
   constructor(props) {
     super(props);
-    const { currency } = props.userWallet;
+
     this.state = {
       modal: false,
       modal2: false,
       topUpAmount: 0,
-      walletCurrency: currency || "",
+      walletCurrency: "",
       conversionRates: {},
       conversionRatesGivenAmount: 0,
       modalData: [],
@@ -148,9 +148,12 @@ class Wallet extends Component {
   }
 
   toggle() {
+    const { userWallet } = this.props;
+    const { currency } = userWallet;
     this.setState((prevState) => ({
       modal: !prevState.modal,
       topUpAmount: 0,
+      walletCurrency: currency || "",
     }));
   }
 
