@@ -489,9 +489,13 @@ export const verifyUser = (callback, cb, errorCallback) => {
         );
         let errorMessage = handleError(err);
         if (Array.isArray(errorMessage)) {
-          NotificationManager.error(errorMessage.join(', '), " " , NOTIFICATION_TIME);
-        }else {
-          NotificationManager.error(errorMessage, " " , NOTIFICATION_TIME);
+          NotificationManager.error(
+            errorMessage.join(", "),
+            " ",
+            NOTIFICATION_TIME
+          );
+        } else {
+          NotificationManager.error(errorMessage, " ", NOTIFICATION_TIME);
         }
         errorCallback &&
           errorCallback(err.response && err.response.data._error);
