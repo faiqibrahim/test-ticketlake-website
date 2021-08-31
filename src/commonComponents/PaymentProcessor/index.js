@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import PaymentProcessorFactory from "./payment-processor-factory";
-import {Col, Container, Row} from "reactstrap";
-import styles from './styles.module.css';
 import _ from 'lodash';
 import {formatCurrency} from "../../utils/common-utils";
 
@@ -81,42 +79,35 @@ class PaymentProcessor extends Component {
         if (childComponent) return childComponent;
 
         return (
-            <Container>
-                {!_.isNil(autoPayment) ? (
-                    <Container>
-                        <Row>
-                            <Col xs={12}>
-                                <p>Wallet balance used</p>
-                            </Col>
-                        </Row>
-                        <Row>
+            <div className={"payment-wrp"}>
+                {!_.isNil(autoPayment) && (
+                    <div className={"wallet-stats-wrp"}>
+                        <div className={"payment-type-wrp col-md-4"}>
+                            <p>Wallet balance used</p>
+                            {PaymentProcessorFactory.getProcessor(autoPayment.type, {...autoPayment})}
+                        </div>
 
-                            <Col xs={12} mg={4} className={styles.methodContainer}>
-                                {PaymentProcessorFactory.getProcessor(autoPayment.type, {...autoPayment})}
-                            </Col>
-                        </Row>
+                        <div className={"payment-type-wrp col-md-4"}>
+                            <p>Choose method for remaining:
+                                {` ${formatCurrency(paymentMethods[0].amount, paymentMethods[0].currency)}`}</p>
+                        </div>
+                    </div>
+                    )
+                }
 
-                        <br/> <br/>
+                <div className={"payment-gateway-wrp"}>
+                    <div className={"row"}>
+                        {
+                            paymentMethods.map(method => (
+                                <div className={"col-md-4"}  key={method.type}>
+                                    {PaymentProcessorFactory.getProcessor(method.type, {...method})}
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
 
-                        <Row>
-                            <Col xs={12}>
-                                <p>Choose method for remaining:
-                                    {` ${formatCurrency(paymentMethods[0].amount, paymentMethods[0].currency)}`}</p>
-                            </Col>
-                        </Row>
-                    </Container>
-                ) : null}
-
-                <Row style={{display: 'flex', alignItems: 'center'}}>
-                    {
-                        paymentMethods.map(method => (
-                            <Col xs={12} lg={4}  key={method.type} className={styles.methodContainer}>
-                                {PaymentProcessorFactory.getProcessor(method.type, {...method})}
-                            </Col>
-                        ))
-                    }
-                </Row>
-            </Container>
+            </div>
         );
     }
 }
