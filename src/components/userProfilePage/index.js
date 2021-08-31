@@ -207,19 +207,6 @@ class UserProfile extends Component {
     marginBottom: "0px",
   };
 
-  convertNumberValue = (value) => {
-    // Nine Zeroes for Billions
-    return Math.abs(Number(value)) >= 1.0e9
-      ? (Math.abs(Number(value)) / 1.0e9).toFixed(2) + "B"
-      : // Six Zeroes for Millions
-      Math.abs(Number(value)) >= 1.0e6
-      ? (Math.abs(Number(value)) / 1.0e6).toFixed(2) + "M"
-      : // Three Zeroes for Thousands
-      Math.abs(Number(value)) >= 1.0e3
-      ? (Math.abs(Number(value)) / 1.0e3).toFixed(2) + "K"
-      : Math.abs(Number(value));
-  };
-
   getProfile = () => {
     const ValueContainer = ({ children, ...props }) => {
       return (
@@ -425,8 +412,7 @@ class UserProfile extends Component {
       </BreadcrumbsItem>
     );
 
-    let filteredNumber = this.convertNumberValue(availableBalance);
-    let walletBalance = `${formatCurrency(filteredNumber || 0.0, currency)}`;
+    let walletBalance = `${formatCurrency(availableBalance || 0.0, currency)}`;
 
     const { ticketPagination = {} } = this.props;
     const { myTicketsCount = 0 } = ticketPagination;

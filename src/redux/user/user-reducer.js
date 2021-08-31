@@ -211,6 +211,7 @@ const setCurrentStateToSession = (state) => {
 const setTopUpAmount = (state, wallet) => {
   state.topUpAmount = wallet.topUpAmount;
   state.walletTopUp = wallet;
+  setCurrentStateToSession(state);
 };
 
 export const setConvertedCurrency = (state, currencyConversion) => {
