@@ -14,7 +14,9 @@ class UserWalletTopUp extends Component {
     }
 
     onTopupSuccess = (transactionIds) => {
-        axios.post('/purchase/wallet-balance', {transactionIds}, 'v2')
+        const {currency} = getTopUpInfo();
+
+        axios.post('/purchase/wallet-balance', {transactionIds, currency}, 'v2')
             .then(() => {
                 this.props.history.goBack();
             })
