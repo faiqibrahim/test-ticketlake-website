@@ -2,6 +2,7 @@ import React from "react";
 import "../../css/cardWithHoverEffect.css";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { formatCurrency } from "../../utils/common-utils";
 
 let tabCards = [];
 
@@ -114,6 +115,7 @@ class CardWithHoverAnimation extends React.Component {
         }
       }
 
+      const { currency } = card;
       return (
         <div className="hover-card-wrp col-md-3" key={index}>
           <div
@@ -156,7 +158,13 @@ class CardWithHoverAnimation extends React.Component {
                   }
                 >
                   {eventMaximumTicketClassPrice
-                    ? `${secondBtnTitle} from GHS${eventMinimumTicketClassPrice} - GHS${eventMaximumTicketClassPrice}`
+                    ? `${secondBtnTitle} from ${formatCurrency(
+                        eventMinimumTicketClassPrice,
+                        currency
+                      )} - ${formatCurrency(
+                        eventMaximumTicketClassPrice,
+                        currency
+                      )}`
                     : secondBtnTitle}
                 </button>
               </span>

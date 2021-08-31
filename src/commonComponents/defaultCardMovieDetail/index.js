@@ -8,6 +8,7 @@ import EllipsisText from "react-ellipsis-text";
 // Constant
 import { TITLE_SIZE } from "../../utils/config";
 import moment from "moment";
+import { formatCurrency } from "../../utils/common-utils";
 
 class DefaultCardMovieDetail extends React.Component {
   /****************************** EVENT UTILS ****************************/
@@ -81,13 +82,20 @@ class DefaultCardMovieDetail extends React.Component {
 
           <div className="geodir-category-location date fl-wrap">
             <div className="map-item">
-                <img src={window.location.origin + '/images/icons/time-red.svg'} alt='img'
-                     style={{verticalAlign: 'sub', width: '14px', marginRight: '8px'}}/>
+              <img
+                src={window.location.origin + "/images/icons/time-red.svg"}
+                alt="img"
+                style={{
+                  verticalAlign: "sub",
+                  width: "14px",
+                  marginRight: "8px",
+                }}
+              />
               <span className={"date"}>
                 {props.startDate || props.endDate
-                  ? moment(props.startDate).format('ll') +
+                  ? moment(props.startDate).format("ll") +
                     " - " +
-                    moment(props.endDate).format('ll')
+                    moment(props.endDate).format("ll")
                   : "N/A"}
               </span>
             </div>
@@ -102,11 +110,18 @@ class DefaultCardMovieDetail extends React.Component {
 
   //Footer Payment Buttons
   renderFooterButtons = (props) => {
+    const { currency } = props.data;
     let ticketPriceRange = `${
       props.buttonMaximumTicketPrice
         ? props.buttonMaximumTicketPrice === props.buttonMinimumTicketPrice
-          ? `Buy Tickets from GHS${props.buttonMaximumTicketPrice}`
-          : `Buy Tickets from GHS${props.buttonMinimumTicketPrice} - GHS${props.buttonMaximumTicketPrice}`
+          ? `Buy Tickets from ${formatCurrency(
+              props.buttonMaximumTicketPrice,
+              currency
+            )}`
+          : `Buy Tickets from ${formatCurrency(
+              props.buttonMinimumTicketPrice,
+              currency
+            )} - ${formatCurrency(props.buttonMaximumTicketPrice, currency)} `
         : "Buy Tickets"
     }`;
 

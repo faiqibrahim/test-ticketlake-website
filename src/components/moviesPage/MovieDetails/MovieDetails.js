@@ -10,6 +10,7 @@ import {
   getDateFromISO,
   getTimeFromISO,
   getDayFromISO,
+  formatCurrency,
 } from "../../../utils/common-utils";
 import { getAllSlotsDataOfEvent } from "../../../redux/event/event-actions";
 import { Modal, ModalBody } from "reactstrap";
@@ -311,12 +312,22 @@ class MovieDetails extends Component {
     }
 
     let uniqueVenues = getUniqueVenues(eventSlots && eventSlots);
+    const { currency } = parentData;
     let ticketPriceRange = `${
       parentData.eventMaximumTicketClassPrice
         ? parentData.eventMaximumTicketClassPrice ===
           parentData.eventMinimumTicketClassPrice
-          ? `Buy Tickets from GHS${parentData.eventMaximumTicketClassPrice}`
-          : `Buy Tickets from GHS${parentData.eventMinimumTicketClassPrice} - GHS${parentData.eventMaximumTicketClassPrice}`
+          ? `Buy Tickets from ${formatCurrency(
+              parentData.eventMaximumTicketClassPrice,
+              currency
+            )}`
+          : `Buy Tickets from ${formatCurrency(
+              parentData.eventMinimumTicketClassPrice,
+              currency
+            )} - ${formatCurrency(
+              parentData.eventMaximumTicketClassPrice,
+              currency
+            )}`
         : "Buy Tickets"
     }`;
 

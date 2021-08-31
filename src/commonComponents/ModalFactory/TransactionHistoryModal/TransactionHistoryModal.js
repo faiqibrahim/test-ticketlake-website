@@ -2,14 +2,18 @@ import React from "react";
 import { Modal, Table } from "reactstrap";
 import moment from "moment";
 import { CloseCircleOutlined } from "@ant-design/icons";
+import { formatCurrency } from "../../../utils/common-utils";
 
 class TransactionHistoryModal extends React.Component {
   renderLeftPanel = (parentState) => {
+    const {
+      modalData: { eventCurrency, transactionAmount },
+    } = parentState;
     return (
       <div className="col-md-3 red-bg">
         <div className="row">
           <div className="col-md-12">
-            <h2>GHS {parentState.modalData.transactionAmount}</h2>
+            <h2>{formatCurrency(transactionAmount, eventCurrency)}</h2>
           </div>
           <div className="col-md-12">
             <p className="str">
@@ -48,9 +52,17 @@ class TransactionHistoryModal extends React.Component {
 
   renderRightPanel = (parentState) => {
     const { closeModal } = this.props;
+    const {
+      modalData: {
+        eventCurrency,
+        transactionId,
+        lastBalance,
+        transactionAmount,
+      },
+    } = parentState;
     return (
       <div className="col-md-9 white-bg">
-        <h3>Transaction# {parentState.modalData.transactionId}</h3>
+        <h3>Transaction# {transactionId}</h3>
         <CloseCircleOutlined
           size="large"
           className="close-button close-btn-styling"
@@ -82,11 +94,14 @@ class TransactionHistoryModal extends React.Component {
                           <tr className={"middle-section-tr"} key={classKey}>
                             <td className={"first-column"}>{classKey}</td>
                             <td className={"second-column"}>
-                              GHS {data[0].price}
+                              {formatCurrency(data[0].price, eventCurrency)}
                             </td>
                             <td className={"third-column"}>x {data.length}</td>
                             <td className={"fourth-column"}>
-                              GHS {parseInt(data[0].price) * data.length}
+                              {formatCurrency(
+                                parseInt(data[0].price) * data.length,
+                                eventCurrency
+                              )}
                             </td>
                           </tr>
                         );
@@ -108,9 +123,16 @@ class TransactionHistoryModal extends React.Component {
                         return (
                           <tr key={classKey}>
                             <td>Passes {classKey}</td>
-                            <td>GHS {data[0].price}</td>
+                            <td>
+                              {formatCurrency(data[0].price, eventCurrency)}
+                            </td>
                             <td>x {data.length}</td>
-                            <td>GHS {parseInt(data[0].price) * data.length}</td>
+                            <td>
+                              {formatCurrency(
+                                parseInt(data[0].price) * data.length,
+                                eventCurrency
+                              )}
+                            </td>
                           </tr>
                         );
                       })}
@@ -126,13 +148,12 @@ class TransactionHistoryModal extends React.Component {
                   <tr>
                     <td>Wallet Balance</td>
                     <td className="grey-text">
-                      GHS {parentState.modalData.lastBalance}{" "}
+                      {formatCurrency(lastBalance, eventCurrency)}
                       <span className={"remaining-balance"}>Remaining</span>
                     </td>
                     <td className="grey-text" />
                     <td className="grey-text">
-                      {parentState.modalData.eventCurrency}{" "}
-                      {parentState.modalData.transactionAmount}
+                      {formatCurrency(transactionAmount, eventCurrency)}
                     </td>
                   </tr>
                 ) : null}
@@ -148,7 +169,7 @@ class TransactionHistoryModal extends React.Component {
                       {parentState.modalDataFromApi.couponInfo.discountValue}
                       {parentState.modalDataFromApi.couponInfo.discountType ===
                       "fixed"
-                        ? "GHS"
+                        ? formatCurrency(0, eventCurrency)
                         : "%"}{" "}
                       OFF
                     </td>
@@ -161,10 +182,7 @@ class TransactionHistoryModal extends React.Component {
                   <td className="p25" />
                   <td className="sub-total p25">Sub Total</td>
                   <td className="red-text p25">
-                    GHS{" "}
-                    {parentState.modalData.transactionAmount !== null
-                      ? parentState.modalData.transactionAmount
-                      : 0}
+                    {formatCurrency(transactionAmount, eventCurrency)}
                   </td>
                 </tr>
               </tbody>

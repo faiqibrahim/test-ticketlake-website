@@ -5,7 +5,7 @@ import { Radio, Form } from "antd";
 import { SeatsioSeatingChart } from "@seatsio/seatsio-react";
 import "./style.css";
 import { seatsIOPublicKey } from "../../utils/constant";
-import { getVenuePrices } from "../../utils/common-utils";
+import { formatCurrency, getVenuePrices } from "../../utils/common-utils";
 
 const SeatsRadio = (props) => {
   const { value, onChange, radioOptions, name } = props;
@@ -82,7 +82,7 @@ class BuyTicketStepOne extends React.Component {
             setSeatState(
               {
                 purchaseType: target.value,
-                seatSelection: "",
+                seatSelection: "preferred",
                 seatsType: "",
               },
               resetBill()
@@ -120,20 +120,21 @@ class BuyTicketStepOne extends React.Component {
   };
 
   displaySeatType = () => {
-    const { seatProps, setSeatState } = this.props;
+    const { seatProps, setSeatState, hasSeat, hasTable } = this.props;
     const { purchaseType, seatSelection, seatsType } = seatProps;
 
     if (purchaseType === "ticket" && seatSelection === "preferred") return null;
+
+    const typeOptions = [];
+    hasSeat && typeOptions.push({ value: "seat", name: "Seat" });
+    hasTable && typeOptions.push({ value: "Table", name: "Table" });
 
     return (
       <Form.Item label="Seats Type" style={this.animatedStyle(seatSelection)}>
         <SeatsRadio
           name={"seatsType"}
           value={seatsType}
-          radioOptions={[
-            { value: "seat", name: "Seat" },
-            { value: "Table", name: "Table" },
-          ]}
+          radioOptions={typeOptions}
           onChange={({ target }) => setSeatState({ seatsType: target.value })}
         />
       </Form.Item>
@@ -159,11 +160,10 @@ class BuyTicketStepOne extends React.Component {
     } = this.props;
     const { purchaseType, seatSelection, seatsType } = seatProps;
 
-    if (seatSelection === "auto" || !purchaseType || !seatSelection)
-      return null;
+    if (!purchaseType || !seatSelection) return null;
 
-    const renderOnValue = purchaseType === "ticket" ? seatSelection : seatsType;
-
+    let renderOnValue = purchaseType === "ticket" ? seatSelection : seatsType;
+    renderOnValue = seatSelection === "auto" ? "" : renderOnValue;
     return (
       <div style={this.animatedStyle(renderOnValue)}>
         <SeatsioSeatingChart
@@ -178,7 +178,7 @@ class BuyTicketStepOne extends React.Component {
           colorScheme="light"
           pricing={getVenuePrices(purchaseType, ticketClassData)}
           priceFormatter={(price) => {
-            return `${currency} ${price}`;
+            return `${formatCurrency(price, currency)} `;
           }}
           onObjectSelected={(seat) => onSeatChange(seat)}
           onObjectDeselected={(seat) => onSeatChange(seat, false)}
@@ -192,7 +192,7 @@ class BuyTicketStepOne extends React.Component {
       <div className="col-md-12 text-left mb-5 seatsView">
         <React.Fragment>
           {this.displayPurchaseType()}
-          {this.displaySeatSelection()}
+          {/* {this.displaySeatSelection()} */}
           {this.displaySeatType()}
           {this.displayClasses()}
           {this.displayVenue()}

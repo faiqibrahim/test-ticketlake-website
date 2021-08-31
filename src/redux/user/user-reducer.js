@@ -64,9 +64,10 @@ const _initState = {
   allTickets: null,
   codeError: null,
   topUpAmount: null,
+  walletTopUp: null,
   paginateProcessing: "",
   ticketPagination: "",
-  eventsCountry: { label: "Ghana", countryCode: "GH" },
+  eventsCountry: {},
   isCurrencyConverted: false,
   currencyConversion: {
     from: "",
@@ -200,6 +201,7 @@ const reducer = (state = initState(), action) => {
       return newState;
     }
   }
+
   return newState;
 };
 
@@ -207,7 +209,8 @@ const setCurrentStateToSession = (state) => {
   sessionStorage.setItem("user-auth", JSON.stringify(state));
 };
 const setTopUpAmount = (state, wallet) => {
-  state.topUpAmount = wallet;
+  state.topUpAmount = wallet.topUpAmount;
+  state.walletTopUp = wallet;
 };
 
 export const setConvertedCurrency = (state, currencyConversion) => {
@@ -365,7 +368,10 @@ const setPaginateProcessing = (state, data) => {
 
 const saveEventsCountry = (state, selectedCountry) => {
   state.eventsCountry = { ...selectedCountry };
-  sessionStorage.setItem("user-auth", JSON.stringify(state));
+  if (selectedCountry.storeInSession) {
+    delete state.eventsCountry["storeInSession"];
+    sessionStorage.setItem("user-auth", JSON.stringify(state));
+  }
 };
 
 const setUserPurchasedTickets = (state, data) => {

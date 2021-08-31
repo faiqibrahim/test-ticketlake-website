@@ -1,0 +1,27 @@
+.methodContainer {
+    opacity: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.methodName {
+    font-weight: bold;
+    letter-spacing: 0;
+    color: #363636;
+}
+
+.methodText {
+    color: #7C7C7C;
+}
+
+.currency {
+    font-weight: bold;
+    letter-spacing: 0;
+    color: #EC1B23;
+}
+
+.method {
+
+}

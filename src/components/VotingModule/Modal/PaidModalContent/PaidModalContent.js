@@ -224,7 +224,9 @@ class PaidModalContent extends Component {
 
                 let curreny =
                   method.cardTitle === "Wallet"
-                    ? `${wallet.currency} ${wallet.availableBalance} available`
+                    ? `${wallet.currency || ""} ${
+                        wallet.availableBalance
+                      } available`
                     : method.currency;
 
                 return (

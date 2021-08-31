@@ -56,6 +56,32 @@ export const AIRTEL_IMG = "/images/network/airtel.svg";
 export const GLO_IMG = "/images/network/glo.svg";
 export const NETWORK_IMG = "/images/network/sim.svg";
 
+export const currencies = [
+  "GHS",
+  "USD",
+  "CAD",
+  "GBP",
+  "EUR",
+  "AUD",
+  "NZD",
+  "GIP",
+  "GMD",
+  "LRD",
+  "SLL",
+  "ZMW",
+  "SDG",
+  "NAD",
+  "UGX",
+  "ZAR",
+  "TZS",
+  "KES",
+  "LSL",
+  "MWK",
+  "SCR",
+  "ERN",
+  "RWF",
+  "SOS",
+];
 // API URLs
 
 // WishLists

@@ -26,6 +26,7 @@ import CardWithHoverAnimation from "../../commonComponents/cardWithHoverAnimatio
 import { Modal, ModalBody } from "reactstrap";
 import CardWithInfo from "../../commonComponents/cardWithInfo";
 import { Helmet } from "react-helmet";
+import { formatCurrency } from "../../utils/common-utils";
 
 let categoryKey = "categoryState";
 let updateSubCategory = true;
@@ -330,6 +331,8 @@ class Movies extends Component {
                           youtubeVideoId = video_id;
                         }
                       }
+
+                      const { currency } = data;
                       return (
                         <SplideSlide key={index}>
                           <CardWithInfo
@@ -344,8 +347,17 @@ class Movies extends Component {
                               data.eventMaximumTicketClassPrice
                                 ? data.eventMaximumTicketClassPrice ===
                                   data.eventMinimumTicketClassPrice
-                                  ? `Buy Tickets from GHS${data.eventMaximumTicketClassPrice}`
-                                  : `Buy Tickets from GHS${data.eventMinimumTicketClassPrice} - GHS${data.eventMaximumTicketClassPrice}`
+                                  ? `Buy Tickets from ${formatCurrency(
+                                      data.eventMaximumTicketClassPrice,
+                                      currency
+                                    )}`
+                                  : `Buy Tickets from ${formatCurrency(
+                                      data.eventMinimumTicketClassPrice,
+                                      currency
+                                    )} - ${formatCurrency(
+                                      data.eventMaximumTicketClassPrice,
+                                      currency
+                                    )}`
                                 : "Buy Tickets"
                             }
                             youtubeVideoId={youtubeVideoId}

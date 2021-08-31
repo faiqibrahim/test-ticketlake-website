@@ -26,6 +26,8 @@ import ReactFlagsSelect from "react-flags-select";
 import "react-flags-select/css/react-flags-select.css";
 import ScrollAbleHeader from "./ScrollAbleHeader";
 
+const _ = require("lodash");
+
 class Header extends Component {
   state = {
     width: window.innerWidth,
@@ -65,6 +67,7 @@ class Header extends Component {
     let eventsCountry = {
       label: reactFlags[countryCode],
       countryCode,
+      storeInSession: true,
     };
     this.props.setEventsCountry(eventsCountry);
   };
@@ -74,6 +77,11 @@ class Header extends Component {
     let { width } = this.state;
     let showSelectedLabel = Boolean(width >= 768);
     countryClass = width > 350 ? countryClass : "";
+
+    if (_.isNil(eventsCountry.countryCode)) {
+      return null;
+    }
+
     return (
       <ReactFlagsSelect
         className={`box-wrp country-select ${countryClass}`}
@@ -81,6 +89,7 @@ class Header extends Component {
         selectedSize={14}
         optionsSize={14}
         showSelectedLabel={showSelectedLabel}
+        selected={eventsCountry.countryCode}
         defaultCountry={eventsCountry.countryCode}
         onSelect={this.handleCountrySelect}
       />
@@ -265,8 +274,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-const connected = connect(
-  mapStateToProps,
-  { logout, setLanguage, setEventsCountry }
-)(Header);
+const connected = connect(mapStateToProps, {
+  logout,
+  setLanguage,
+  setEventsCountry,
+})(Header);
 export default connected;

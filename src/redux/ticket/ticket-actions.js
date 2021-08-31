@@ -398,7 +398,7 @@ export const seatsCheckout = (checkoutData, stepCB, isHubtel = false) => {
         !isHubtel && dispatch(setPaymentSuccess(true));
         dispatch(setProcessing(false));
 
-        stepCB && stepCB(response);
+        stepCB && stepCB();
       })
       .catch((err) => {
         dispatch(setProcessing(false));
@@ -561,7 +561,7 @@ const setTotalBill = (bill) => {
   };
 };
 
-const setPaymentSuccess = (success) => {
+export const setPaymentSuccess = (success) => {
   return {
     type: SET_PAYMENT_SUCCESS,
     payload: success,
@@ -852,7 +852,7 @@ const directPaymentStatus = (checkoutId, isSeatEvent = false) => {
           // Pending State
           if (count <= 10) {
             setTimeout(() => {
-              dispatch(directPaymentStatus(checkoutId));
+              dispatch(directPaymentStatus(checkoutId, isSeatEvent));
               count++;
             }, 10000);
           } else {
