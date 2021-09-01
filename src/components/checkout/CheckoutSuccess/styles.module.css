@@ -10,3 +10,7 @@
 .successBtn {
     margin: 1%;
 }
+.successMsgWrp {
+    float: left;
+    width: 100%;
+}

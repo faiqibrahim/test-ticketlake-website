@@ -6,7 +6,8 @@ import {withRouter} from 'react-router-dom';
 const CheckoutFailed = (props) => {
 
     return (
-        <div className={"row"}>
+        <div className={classes.successMsgWrp}>
+            <div className={"row"}>
             <Confetti
                 width={300}
                 height={650}
@@ -29,7 +30,7 @@ const CheckoutFailed = (props) => {
             <div className={"col-md-12"}>
                 <img
                     src={"/images/checkout/success.svg"}
-                    style={{width: "60%"}}
+                    style={{width: "300px"}}
                     alt={"img"}
                 />
             </div>
@@ -48,11 +49,12 @@ const CheckoutFailed = (props) => {
             </div>
 
             <div className={"col-md-12"}>
-                <button className="fullWihdthRedButton"
+                <button className="fullWidthRedButton w-30"
                         onClick={() => props.history.push('/')}>
                     Shop other events
                 </button>
             </div>
+        </div>
         </div>
     );
 };
