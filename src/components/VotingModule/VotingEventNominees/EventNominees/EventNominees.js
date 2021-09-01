@@ -9,7 +9,7 @@ import Loader from "../../../../commonComponents/loader";
 import { getAllVotingNominees } from "../../../../redux/voting-events/nominee/nominee-action";
 import { getEventBreadCrumbs } from "../../../../redux/voting-events/bread-crumbs/bread-crumb-actions";
 import { getSingleNomineeDetail } from "../../../../redux/voting-events/nominee/nominee-action";
-import ReactTooltip from "react-tooltip";
+import ToolTips from "../../ToolTips/ToolTips";
 
 import VotingHeader from "../../Header/Layout/Layout";
 import { duration } from "../../VotingPage/Duration/duration";
@@ -148,24 +148,6 @@ class EventNominees extends Component {
     );
   };
 
-  toolTipText = () => {
-    const { remainingTime } = this.state;
-
-    const timeLeft =
-      remainingTime.length > 21 ? (
-        <>
-          <div className="timeLeft" data-tip={remainingTime}>
-            {remainingTime}
-          </div>
-          <ReactTooltip place="right" className={"tooltipStyle"} />
-        </>
-      ) : (
-        <div className="timeLeft">{remainingTime}</div>
-      );
-
-    return timeLeft;
-  };
-
   render() {
     if (this.state.loading) return <Loader />;
 
@@ -173,7 +155,7 @@ class EventNominees extends Component {
 
     nominees.sort((a, b) => (a.voteCount > b.voteCount ? -1 : 1));
 
-    const { voteCount } = this.state;
+    const { voteCount, remainingTime } = this.state;
 
     return (
       <Fragment>
@@ -209,7 +191,13 @@ class EventNominees extends Component {
                       />
                     </div>
                     <div className="col9">
-                      {this.toolTipText()}
+                      <ToolTips
+                        text={remainingTime}
+                        classes={{
+                          toolStyle: "tooltipStyle",
+                          textClasses: { title: "timeLeft" },
+                        }}
+                      />
                       <div className="timeText">Remaining in votings..</div>
                     </div>
                   </div>
