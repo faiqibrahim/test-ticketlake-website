@@ -1,5 +1,5 @@
 import React from "react";
-import ReactTooltip from "react-tooltip";
+import ToolTips from "../../ToolTips/ToolTips";
 
 import "./NomineeCard.css";
 
@@ -20,18 +20,15 @@ const NomineeCard = (props) => {
       ? voteCountDetail.data.totalVotes
       : voteCount;
 
-  const name =
-    nomineeName.length > 21 ? (
-      <>
-        <div className="cardTitle" data-tip={nomineeName}>
-          {nomineeName}
-        </div>
-        <ReactTooltip place="right" className={"tooltipStyle"} />
-      </>
-    ) : (
-      <div className="cardTitle">{nomineeName}</div>
-    );
-
+  const name = (
+    <ToolTips
+      text={nomineeName}
+      classes={{
+        toolStyle: "tooltipStyle",
+        textClasses: { title: "cardTitle" },
+      }}
+    />
+  );
   return (
     <div className="cardItemCol">
       <div className="cardItemContainer">

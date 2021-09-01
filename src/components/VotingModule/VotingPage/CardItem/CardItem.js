@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import ReactTooltip from "react-tooltip";
+import ToolTips from "../../ToolTips/ToolTips";
 
 import { duration } from "../Duration/duration";
 import "./CardItem.css";
@@ -18,18 +18,15 @@ const CardItem = (props) => {
     );
   }
 
-  const eventName =
-    name.length > 21 ? (
-      <>
-        {" "}
-        <div className="cardTitle" data-tip={name}>
-          {name}
-        </div>
-        <ReactTooltip place="right" className={"tooltipStyle"} />
-      </>
-    ) : (
-      <div className="cardTitle">{name}</div>
-    );
+  const eventName = (
+    <ToolTips
+      text={name}
+      classes={{
+        toolStyle: "tooltipStyle",
+        textClasses: { title: "cardTitle" },
+      }}
+    />
+  );
 
   return (
     <div className="cardItemCol" onClick={clicked}>

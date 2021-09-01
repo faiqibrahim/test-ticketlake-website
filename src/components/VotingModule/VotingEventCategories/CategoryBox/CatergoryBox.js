@@ -1,27 +1,24 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import ReactTooltip from "react-tooltip";
+import ToolTips from "../../ToolTips/ToolTips";
 
 import "./CatergoryBox.css";
 
 const CatergoryBox = (props) => {
   const { image, name, clicked } = props;
 
-  const categoryName =
-    name.length > 21 ? (
-      <>
-        <div className={image ? "boxTitle" : "boxTitleNoImage"} data-tip={name}>
-          {name}
-        </div>
-        <div className={image ? "votingOverlay" : "votingOverlayNoImage"}></div>
-        <ReactTooltip place="right" className={"tooltipStyle"} />
-      </>
-    ) : (
-      <>
-        <div className={image ? "boxTitle" : "boxTitleNoImage"}>{name}</div>
-        <div className={image ? "votingOverlay" : "votingOverlayNoImage"}></div>
-      </>
-    );
+  const categoryName = (
+    <ToolTips
+      text={name}
+      classes={{
+        toolStyle: "tooltipStyle",
+        textClasses: {
+          title: image ? "boxTitle" : "boxTitleNoImage",
+          overlayTool: image ? "votingOverlay" : "votingOverlayNoImage",
+        },
+      }}
+    />
+  );
 
   return (
     <div className="CategoryBoxCol" onClick={clicked}>
