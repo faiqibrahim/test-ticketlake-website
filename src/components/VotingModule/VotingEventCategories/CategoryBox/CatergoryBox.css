@@ -38,6 +38,11 @@
   font-size-adjust: 0.4;
   z-index: 5;
   text-transform: capitalize;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 15px;
 }
 
 .boxTitleNoImage {
@@ -48,6 +53,11 @@
   font-size-adjust: 0.4;
   z-index: 5;
   text-transform: capitalize;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 15px;
 }
 .votingOverlay {
   position: absolute;
@@ -78,6 +88,9 @@
 .boxTitleNoImage:hover + .votingOverlayNoImage {
   background-color: #ec1b23;
   opacity: 1;
+}
+.tooltipStyle {
+  width: 250px !important;
 }
 
 @media screen and (min-width: 2700px) and (max-width: 4000px) {

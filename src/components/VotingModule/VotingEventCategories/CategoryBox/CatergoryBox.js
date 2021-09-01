@@ -1,10 +1,24 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import ToolTips from "../../ToolTips/ToolTips";
 
 import "./CatergoryBox.css";
 
 const CatergoryBox = (props) => {
   const { image, name, clicked } = props;
+
+  const categoryName = (
+    <ToolTips
+      text={name}
+      classes={{
+        toolStyle: "tooltipStyle",
+        textClasses: {
+          title: image ? "boxTitle" : "boxTitleNoImage",
+          overlayTool: image ? "votingOverlay" : "votingOverlayNoImage",
+        },
+      }}
+    />
+  );
 
   return (
     <div className="CategoryBoxCol" onClick={clicked}>
@@ -12,8 +26,7 @@ const CatergoryBox = (props) => {
         className="boxContent"
         style={image ? { backgroundImage: `url('${image}')` } : null}
       >
-        <div className={image ? "boxTitle" : "boxTitleNoImage"}>{name}</div>
-        <div className={image ? "votingOverlay" : "votingOverlayNoImage"}></div>
+        {categoryName}
       </div>
     </div>
   );

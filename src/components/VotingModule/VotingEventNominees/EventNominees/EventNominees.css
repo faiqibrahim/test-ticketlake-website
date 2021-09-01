@@ -76,6 +76,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.tooltipStyle {
+  width: 250px !important;
+}
 @media screen and (min-width: 2700px) and (max-width: 4000px) {
   .eventNomineesContainer .nomineeBoxRow {
     margin-right: -30px;

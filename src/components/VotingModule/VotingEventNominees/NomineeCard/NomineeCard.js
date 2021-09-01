@@ -1,4 +1,5 @@
 import React from "react";
+import ToolTips from "../../ToolTips/ToolTips";
 
 import "./NomineeCard.css";
 
@@ -19,6 +20,15 @@ const NomineeCard = (props) => {
       ? voteCountDetail.data.totalVotes
       : voteCount;
 
+  const name = (
+    <ToolTips
+      text={nomineeName}
+      classes={{
+        toolStyle: "tooltipStyle",
+        textClasses: { title: "cardTitle" },
+      }}
+    />
+  );
   return (
     <div className="cardItemCol">
       <div className="cardItemContainer">
@@ -26,7 +36,7 @@ const NomineeCard = (props) => {
           <img src={imgSrc} alt="img" />
         </div>
         <div className="cardContent">
-          <div className="cardTitle">{nomineeName}</div>
+          {name}
           <div className="voteType">
             {balloting
               ? "secret balloting"
