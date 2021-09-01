@@ -63,7 +63,7 @@ class Wallet extends Component {
     this.state = {
       modal: false,
       modal2: false,
-      topUpAmount: 0,
+      topUpAmount: null,
       walletCurrency: "",
       conversionRates: {},
       conversionRatesGivenAmount: 0,
@@ -152,7 +152,7 @@ class Wallet extends Component {
     const { currency } = userWallet;
     this.setState((prevState) => ({
       modal: !prevState.modal,
-      topUpAmount: 0,
+      topUpAmount: null,
       walletCurrency: currency || "",
     }));
   }
@@ -165,9 +165,13 @@ class Wallet extends Component {
     );
   };
 
-  handleInputChange = (target, saveInput = true) => {
+  handleInputChange = (target) => {
     const { name, value } = target;
+    this.setState({ [name]: value });
+  };
 
+  handleCurrencyChange = (target, saveInput = true) => {
+    const { name, value } = target;
     if (saveInput) {
       this.setState({ [name]: value });
     }
@@ -346,6 +350,9 @@ class Wallet extends Component {
   getWalletTopUpModal = () => {
     const { topUpAmount, walletCurrency } = this.state;
     const { currency } = this.props.userWallet;
+
+    const validTopup = !isNaN(+topUpAmount) && +topUpAmount >= 1;
+
     return (
       <Modal
         isOpen={this.state.modal}
@@ -362,7 +369,7 @@ class Wallet extends Component {
               placeholder={"Select Currency"}
               options={options}
               onChange={(value) =>
-                this.handleInputChange(
+                this.handleCurrencyChange(
                   { name: "walletCurrency", value },
                   !currency
                 )
@@ -406,7 +413,7 @@ class Wallet extends Component {
           <Button
             color="success"
             className={"buttonDefault"}
-            disabled={!walletCurrency || !topUpAmount}
+            disabled={!walletCurrency || !validTopup}
             onClick={() => this.submitTopUpAmount()}
           >
             Proceed
