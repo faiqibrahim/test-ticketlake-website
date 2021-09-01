@@ -6,7 +6,6 @@ import Loader from "../../commonComponents/loader";
 import PaymentProcessor from "../../commonComponents/PaymentProcessor";
 import axios from "../../utils/axios";
 import Timer from '../../commonComponents/Timer';
-import {Col, Container, Row} from "reactstrap";
 import CheckoutSuccess from './CheckoutSuccess';
 import CheckoutFailed from "./CheckoutFailed";
 
@@ -67,16 +66,11 @@ class Checkout extends Component {
         const info = getPaymentInfo();
         return (
             <>
-                <Container style={{textAlign: 'left', fontSize: '1rem'}}>
-                    <Row>
-                        <Col style={{padding: '12px 0px'}}>
-                            Your reservation will expire in
+                <div className={"expiry-msg"}>
+                    Your reservation will expire in
                             <Timer style={{fontWeight: 'bold', color: '#EC1B23'}}
                                    minutes={15} onComplete={this.onFailure}/>
-                        </Col>
-                    </Row>
-                </Container>
-
+                </div>
                 <PaymentProcessor {...info} onSuccess={this.onSuccess} onFailure={this.onFailure}/>
             </>
         )
