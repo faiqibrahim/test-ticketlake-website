@@ -71,6 +71,7 @@
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-transform: capitalize;
 }
 .votingEvents .cardMetaBox {
   line-height: 40px;

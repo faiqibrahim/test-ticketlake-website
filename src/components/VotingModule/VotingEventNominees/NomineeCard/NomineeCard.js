@@ -1,4 +1,5 @@
 import React from "react";
+import ReactTooltip from "react-tooltip";
 
 import "./NomineeCard.css";
 
@@ -19,6 +20,18 @@ const NomineeCard = (props) => {
       ? voteCountDetail.data.totalVotes
       : voteCount;
 
+  const name =
+    nomineeName.length > 21 ? (
+      <>
+        <div className="cardTitle" data-tip={nomineeName}>
+          {nomineeName}
+        </div>
+        <ReactTooltip place="right" className={"tooltipStyle"} />
+      </>
+    ) : (
+      <div className="cardTitle">{nomineeName}</div>
+    );
+
   return (
     <div className="cardItemCol">
       <div className="cardItemContainer">
@@ -26,7 +39,7 @@ const NomineeCard = (props) => {
           <img src={imgSrc} alt="img" />
         </div>
         <div className="cardContent">
-          <div className="cardTitle">{nomineeName}</div>
+          {name}
           <div className="voteType">
             {balloting
               ? "secret balloting"

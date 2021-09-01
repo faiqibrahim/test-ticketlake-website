@@ -9,6 +9,7 @@ import Loader from "../../../../commonComponents/loader";
 import { getAllVotingNominees } from "../../../../redux/voting-events/nominee/nominee-action";
 import { getEventBreadCrumbs } from "../../../../redux/voting-events/bread-crumbs/bread-crumb-actions";
 import { getSingleNomineeDetail } from "../../../../redux/voting-events/nominee/nominee-action";
+import ReactTooltip from "react-tooltip";
 
 import VotingHeader from "../../Header/Layout/Layout";
 import { duration } from "../../VotingPage/Duration/duration";
@@ -147,6 +148,24 @@ class EventNominees extends Component {
     );
   };
 
+  toolTipText = () => {
+    const { remainingTime } = this.state;
+
+    const timeLeft =
+      remainingTime.length > 21 ? (
+        <>
+          <div className="timeLeft" data-tip={remainingTime}>
+            {remainingTime}
+          </div>
+          <ReactTooltip place="right" className={"tooltipStyle"} />
+        </>
+      ) : (
+        <div className="timeLeft">{remainingTime}</div>
+      );
+
+    return timeLeft;
+  };
+
   render() {
     if (this.state.loading) return <Loader />;
 
@@ -154,7 +173,8 @@ class EventNominees extends Component {
 
     nominees.sort((a, b) => (a.voteCount > b.voteCount ? -1 : 1));
 
-    const { remainingTime, voteCount } = this.state;
+    const { voteCount } = this.state;
+
     return (
       <Fragment>
         {this.renderNomineesModal()}
@@ -189,7 +209,7 @@ class EventNominees extends Component {
                       />
                     </div>
                     <div className="col9">
-                      <div className="timeLeft">{remainingTime}</div>
+                      {this.toolTipText()}
                       <div className="timeText">Remaining in votings..</div>
                     </div>
                   </div>
