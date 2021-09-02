@@ -1,3 +1,7 @@
+.splitContainer{
+    float: left;
+    width: 100%;
+}
 .splitContainer .header {
     margin: unset;
     padding: 2rem;
@@ -13,7 +17,6 @@
 
 .splitContainer .bodyContainer {
     width: 100%;
-    margin-bottom: 2rem;
 }
 
 .splitContainer .bodyContainer p {
@@ -21,24 +24,24 @@
     width: 70% !important;
     text-align: center;
     margin: 0px auto;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .layoutBtn {
-    height: 49px;
-    width: 40%;
     background: #ec1c24;
     color: #fff;
+    padding: 10px 40px;
     border: none;
     outline: none;
     border-radius: 5px;
-    margin-bottom: 1rem;
-    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    min-width: 200px;
 }
 
 .redText {
     color: #ec1c24;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .linkText {

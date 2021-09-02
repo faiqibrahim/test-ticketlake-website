@@ -2895,6 +2895,9 @@ input[type="number"] {
   outline: none;
   border-radius: 5px;
 }
+.fullWidthRedButton.w-30{
+  width: 30% !important;
+}
 
 .pointer {
   cursor: pointer;
