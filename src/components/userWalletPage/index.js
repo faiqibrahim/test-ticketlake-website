@@ -192,7 +192,6 @@ class Wallet extends Component {
         walletCurrency,
       });
       this.props.history.push("/user/wallet/top-up");
-      // this.props.getConversion({ amount });
     }
   };
   /******************** END ***********************/
@@ -351,7 +350,7 @@ class Wallet extends Component {
     const { topUpAmount, walletCurrency } = this.state;
     const { currency } = this.props.userWallet;
 
-    const validTopup = !isNaN(+topUpAmount) && +topUpAmount >= 1;
+    const validTopup = !isNaN(+topUpAmount) && +topUpAmount > 0;
 
     return (
       <Modal
