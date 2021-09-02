@@ -254,7 +254,7 @@ class Footer extends React.Component {
                           rel="noopener noreferrer"
                           style={footerLinkStyle}
                         >
-                          Become an Organiser
+                          Publish an Event
                         </a>
                       </li>
                       <li>
