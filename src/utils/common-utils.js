@@ -4,7 +4,7 @@ import _ from "lodash";
 import store from "../redux/store";
 import { seatSessionKey } from "./constant";
 import axios from "./axios";
-import createHistory from "history/createBrowserHistory";
+const clm = require("country-locale-map");
 
 export const NOTIFICATION_TIME = 3000;
 
@@ -265,8 +265,11 @@ export const getSeatCheckoutProps = (assignedSeats, event, hubtelNetwork) => {
 };
 
 export const formatCurrency = (amount, currency) => {
+  const country = store.getState().user.eventsCountry.countryCode || "US";
+  const locale = clm.getLocaleByAlpha2(country).replace("_", "-");
+
   if (currency) {
-    const formatter = new Intl.NumberFormat("en-US", {
+    const formatter = new Intl.NumberFormat(locale, {
       style: "currency",
       currency,
 
@@ -274,6 +277,7 @@ export const formatCurrency = (amount, currency) => {
       //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
       //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
     });
+
     return formatter.format(amount);
   }
 
@@ -301,7 +305,6 @@ export const refreshPaypalConfig = () => {
     sessionStorage.removeItem(key);
   } else {
     sessionStorage.setItem(key, true);
-    const history = createHistory();
-    history.go(0);
+    window.location.reload();
   }
 };

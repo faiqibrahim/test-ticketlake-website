@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="640.003" height="480" viewBox="0 0 640.003 480">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_21075" data-name="Path 21075" d="M-80,0H560V480H-80Z" fill="rgba(0,0,0,0.67)"/>
+    </clipPath>
+  </defs>
+  <g id="somalia" transform="translate(80.001)" clip-path="url(#clip-path)">
+    <path id="Path_21073" data-name="Path 21073" d="M-120,0H600V480H-120Z" fill="#40a6ff" fill-rule="evenodd"/>
+    <path id="Path_21074" data-name="Path 21074" d="M315.45,357.366,238.1,307.232l-76.97,50.626,28.627-82.269-76.828-50.8,95.053-.709,29.482-82.02,30.113,81.831,95.053.109L286.2,275.278l29.258,82.087Z" fill="#fff" fill-rule="evenodd"/>
+  </g>
+</svg>

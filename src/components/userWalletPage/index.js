@@ -53,7 +53,7 @@ const header = [
 const options = currencies.map((currency) => ({
   value: currency,
   label: currency,
-  icon: `/Flags/${currency}.png`,
+  icon: `/Flags/${currency}.svg`,
 }));
 
 class Wallet extends Component {

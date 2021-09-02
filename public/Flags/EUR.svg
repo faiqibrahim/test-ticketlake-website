@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="500" viewBox="0 0 660 500">
+  <g id="Group_7416" data-name="Group 7416" transform="translate(-14325.5 13111.5)">
+    <g id="euro-symbol" transform="translate(14469 -13048)">
+      <path id="Path_22071" data-name="Path 22071" d="M0,0H372.412V372.412H0Z" fill="none"/>
+      <path id="Path_22072" data-name="Path 22072" d="M189.206,243.516a100.549,100.549,0,0,1-89.379-54.31h89.379V158.172H89.586a97.6,97.6,0,0,1,0-31.034h99.62V96.1H99.827A100.664,100.664,0,0,1,254.844,66.155l27.465-27.465A138.956,138.956,0,0,0,189.206,3C128.379,3,76.862,41.948,57.62,96.1H3v31.034H50.483a129.776,129.776,0,0,0,0,31.034H3v31.034H57.62c19.241,54.155,70.758,93.1,131.586,93.1a138.66,138.66,0,0,0,93.1-35.689l-27.621-27.465A99.4,99.4,0,0,1,189.206,243.516Z" transform="translate(43.552 43.552)" fill="#ec1b23"/>
+    </g>
+    <rect id="Rectangle_4069" data-name="Rectangle 4069" width="640" height="480" transform="translate(14335.5 -13101.5)" fill="none" stroke="#17224e" stroke-width="20"/>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="640.003" height="480" viewBox="0 0 640.003 480">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_21069" data-name="Path 21069" d="M0,0H640V480H0Z" fill="rgba(0,0,0,0.67)"/>
+    </clipPath>
+  </defs>
+  <g id="seychelles" clip-path="url(#clip-path)">
+    <path id="Path_21064" data-name="Path 21064" d="M0,0H930.122V480H0Z" fill="red" fill-rule="evenodd"/>
+    <path id="Path_21065" data-name="Path 21065" d="M0,480,930.112,320V480Z" fill="#090" fill-rule="evenodd"/>
+    <path id="Path_21066" data-name="Path 21066" d="M0,480,930.112,160v160Z" fill="#fff" fill-rule="evenodd"/>
+    <path id="Path_21067" data-name="Path 21067" d="M0,480V0H310.041Z" fill="#009" fill-rule="evenodd"/>
+    <path id="Path_21068" data-name="Path 21068" d="M0,480,310.041,0H620.081Z" fill="#ff0" fill-rule="evenodd"/>
+  </g>
+</svg>
