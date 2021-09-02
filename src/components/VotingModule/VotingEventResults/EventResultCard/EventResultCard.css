@@ -47,18 +47,34 @@
   font-size: 28px;
   font-weight: bold;
   padding-top: 20px;
+  white-space: nowrap;
+  width: 100%;
+  max-width: 65%;
+  margin: 0 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
 }
 .nomineeCategory {
   color: #231f20;
   font-size: 28px;
   font-weight: normal;
+  white-space: nowrap;
+  width: 100%;
+  max-width: 65%;
+  margin: 0 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
 }
 .votesRecieved {
   color: #747a95;
   font-size: 22px;
   font-weight: 300;
 }
-
+.tooltipStyle {
+  width: 250px !important;
+}
 @media screen and (min-width: 1401px) and (max-width: 1580px) {
   .winnerBadge {
     left: 64%;

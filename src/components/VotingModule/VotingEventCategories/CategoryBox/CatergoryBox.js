@@ -10,6 +10,7 @@ const CatergoryBox = (props) => {
   const categoryName = (
     <ToolTips
       text={name}
+      textLength={22}
       classes={{
         toolStyle: "tooltipStyle",
         textClasses: {

@@ -110,7 +110,7 @@ button {
   font-weight: normal;
   text-transform: capitalize;
 }
-.errorFloat {
+.errorMessage {
   font-size: 14px;
   color: #ff0000;
   font-weight: bold;

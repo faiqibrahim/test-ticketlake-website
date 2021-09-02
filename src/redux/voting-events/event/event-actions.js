@@ -42,7 +42,7 @@ export const getAllVotingEvents = (eventsLimit, cb) => {
   return (dispatch) => {
     axios
       .get(
-        `/voting-events/listing/all?active=${active}&excludeUpComing=${excludeUpComing}&limit=${eventsLimit}&sortBy=${sortBy}&sortOrder=${sortOrder}`
+        `/voting-events/listing/all?active=${active}&excludeUpComing=${excludeUpComing}&limit=${eventsLimit}&sortBy=${sortBy}&sortOrder=${sortOrder}&hasNominees=true`
       )
       .then((response) => {
         const { data } = response;

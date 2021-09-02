@@ -43,6 +43,8 @@ body {
   font-size-adjust: 0.4;
   white-space: nowrap;
   width: 100%;
+  max-width: 65%;
+  margin: 0 auto !important;
   overflow: hidden;
   text-overflow: ellipsis;
   text-transform: capitalize;

@@ -22,7 +22,8 @@ class PaidModalContent extends Component {
       error: null,
       thankyouScreen: false,
       wallet: props.wallet,
-      errorFloat: null,
+      errorMessage: null,
+      disabledButton: true,
     };
   }
 
@@ -40,12 +41,30 @@ class PaidModalContent extends Component {
 
   voteCounterHandler = (e) => {
     if (e) {
+      let { errorMessage, disabledButton } = this.state;
+      let voteCount = e;
+
+      if (voteCount < 0) {
+        errorMessage = "Voting count cannot be negative";
+        disabledButton = false;
+      } else if (voteCount % 1 !== 0) {
+        errorMessage = "Voting count cannot be in decimal";
+        disabledButton = false;
+      } else {
+        errorMessage = "";
+        disabledButton = true;
+      }
+
       const { votePrice } = this.state;
-      let totalVotePrice = e * votePrice;
+      voteCount = parseInt(voteCount);
+
+      let totalVotePrice = voteCount * votePrice;
+
       this.setState({
-        voteCounter: parseInt(e),
+        voteCounter: voteCount,
         totalVotePrice,
-        errorFloat: e % 1 !== 0 ? "You cannot Enter Decimal Value " : null,
+        errorMessage: errorMessage,
+        disabledButton,
       });
     }
   };
@@ -187,7 +206,8 @@ class PaidModalContent extends Component {
       votePrice,
       totalVotePrice,
       wallet,
-      errorFloat,
+      errorMessage,
+      disabledButton,
     } = this.state;
 
     return (
@@ -212,7 +232,7 @@ class PaidModalContent extends Component {
                 onChange={this.voteCounterHandler}
               />
             </div>
-            <div className="errorFloat">{errorFloat}</div>
+            <div className="errorMessage">{errorMessage}</div>
           </div>
 
           <div className="paymentMethod">
@@ -261,11 +281,13 @@ class PaidModalContent extends Component {
         <div className="castVote">
           <Button
             className={`${
-              activeMethodId ? "active_method enabled" : "disabled"
+              activeMethodId && disabledButton
+                ? "active_method enabled"
+                : "disabled"
             }`}
             onClick={this.voteCastSuccessHandler}
           >
-            Pay GHS{" "}
+            Pay GHS
             {totalVotePrice ? totalVotePrice.toFixed(2) : votePrice.toFixed(2)}
           </Button>
         </div>

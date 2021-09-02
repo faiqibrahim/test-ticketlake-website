@@ -193,6 +193,7 @@ class EventNominees extends Component {
                     <div className="col9">
                       <ToolTips
                         text={remainingTime}
+                        textLength={21}
                         classes={{
                           toolStyle: "tooltipStyle",
                           textClasses: { title: "timeLeft" },
