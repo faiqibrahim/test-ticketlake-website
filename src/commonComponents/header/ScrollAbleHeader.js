@@ -56,6 +56,7 @@ class ScrollAbleHeader extends Component {
     let eventsCountry = {
       label: reactFlags[countryCode],
       countryCode,
+      storeInSession: true,
     };
     this.props.setEventsCountry(eventsCountry);
   };
