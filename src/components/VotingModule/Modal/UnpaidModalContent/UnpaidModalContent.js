@@ -12,6 +12,8 @@ class UnpaidModalContent extends Component {
     this.state = {
       voteCastSuccess: false,
       remainingTime: "",
+      castingMessage:
+        "Thanks for voting. Your vote has been cast successfully.",
       error: null,
     };
   }
@@ -27,8 +29,15 @@ class UnpaidModalContent extends Component {
             const remainingTime = (
               <RemainingTime remainingTime={this.state.voteCastResponse} />
             );
+
+            const { message } = remainingTime.props.remainingTime;
+            const { castingMessage } = this.state;
+
             this.setState({
               remainingTime,
+              castingMessage: message
+                ? "You have already cast your vote."
+                : castingMessage,
             });
             this.props.onChange(this.props.nomineeDetail.id);
           }
@@ -81,7 +90,7 @@ class UnpaidModalContent extends Component {
   };
 
   _renderVoteSuccessScreen = () => {
-    const { error, remainingTime } = this.state;
+    const { error, remainingTime, castingMessage } = this.state;
     const { nomineeDetail, voteCount } = this.props;
 
     let nomineeVoteCount = voteCount
@@ -102,7 +111,7 @@ class UnpaidModalContent extends Component {
     return (
       <>
         <div className="title" style={{ marginBottom: "20px" }}>
-          Thanks for voting. Your vote has been cast successfully.
+          {castingMessage}
         </div>
         <div className="subTitle">{voteInfo}</div>
         <div className="detailContent">
