@@ -23,12 +23,14 @@ const NomineeCard = (props) => {
   const name = (
     <ToolTips
       text={nomineeName}
+      textLength={14}
       classes={{
         toolStyle: "tooltipStyle",
         textClasses: { title: "cardTitle" },
       }}
     />
   );
+
   return (
     <div className="cardItemCol">
       <div className="cardItemContainer">

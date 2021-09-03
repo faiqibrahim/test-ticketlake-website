@@ -64,7 +64,7 @@ const convertAllCategoriesApiStructureToListingData = (eventID, data, cb) => {
 export const getAllVotingCategories = (eventID, cb) => {
   return (dispatch) => {
     axios
-      .get(`/voting-categories/fetch-by-event-id/${eventID}`)
+      .get(`/voting-categories/fetch-by-event-id/${eventID}?&hasNominees=true`)
       .then((response) => {
         const { data } = response;
         if (data.data.length > 0) {

@@ -21,6 +21,7 @@ const CardItem = (props) => {
   const eventName = (
     <ToolTips
       text={name}
+      textLength={24}
       classes={{
         toolStyle: "tooltipStyle",
         textClasses: { title: "cardTitle" },

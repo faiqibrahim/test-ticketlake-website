@@ -1,33 +1,39 @@
-import React from 'react'
+import React from "react";
+import ToolTips from "../../ToolTips/ToolTips";
 
-
-import './EventResultCard.css'
+import "./EventResultCard.css";
 
 const EventResultCard = (props) => {
-    let winnerBadge = null;
-    if(props.maxVotes === props.nomineeDetail.nomineeVotes){
-        winnerBadge = (
-            <img src={"/images/votingimages/winner.svg"} alt="img"/>
-        )
-    }
-    return (
-        <div className="col3">
-            <div className="eventResultItemContainer">
-                <div className="nomineeImg">
-                    <img src={props.nomineeDetail.imgSrc} alt="img"/>
-                    <div className="winnerBadge">
-                        {winnerBadge}
-                    </div>
-                </div>
-                <div className="nomineeName">
-                    {props.nomineeDetail.nomineeName}
-                </div>
-                <div className="votesRecieved">
-                    {props.nomineeDetail.nomineeVotes} votes
-                </div>
-            </div>
+  let winnerBadge = null;
+  if (props.maxVotes === props.nomineeDetail.nomineeVotes) {
+    winnerBadge = <img src={"/images/votingimages/winner.svg"} alt="img" />;
+  }
+
+  const nomineeName = (
+    <ToolTips
+      text={props.nomineeDetail.nomineeName}
+      textLength={14}
+      classes={{
+        toolStyle: "tooltipStyle",
+        textClasses: { title: "nomineeName" },
+      }}
+    />
+  );
+
+  return (
+    <div className="col3">
+      <div className="eventResultItemContainer">
+        <div className="nomineeImg">
+          <img src={props.nomineeDetail.imgSrc} alt="img" />
+          <div className="winnerBadge">{winnerBadge}</div>
         </div>
-    )
-}
+        {nomineeName}
+        <div className="votesRecieved">
+          {props.nomineeDetail.nomineeVotes} votes
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default EventResultCard;
