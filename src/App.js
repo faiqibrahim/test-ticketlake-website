@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Redirect, BrowserRouter, Route, Switch } from "react-router-dom";
 import { NotificationContainer } from "react-notifications";
 import { connect } from "react-redux";
-import Geocode from "react-geocode";
+import axios from "axios";
 
 // Components
 import Layout from "./components/layout";
@@ -55,53 +55,33 @@ import MovieDetail from "./components/moviesPage/MovieDetails/MovieDetails";
 import ViewMore from "./components/moviesPage/viewMore";
 import NearByCinemaDetail from "./components/nearByCinemaDetail";
 import CalendarEvents from "./components/calendarEvents";
-import { GoogleMapAPIKey } from "./utils/constant";
+import { getCountryLabel } from "./utils/common-utils";
 
 const _ = require("lodash");
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      defaultCountry: { label: "United Kingdon", countryCode: "UK" },
-    };
-  }
-
   componentDidMount() {
     this.getCurrentPosition();
   }
 
   getCurrentPosition = () => {
     const { setEventsCountry, eventsCountry } = this.props;
-    if (navigator.geolocation && _.isNil(eventsCountry.countryCode)) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { longitude, latitude } = position.coords;
 
-          Geocode.setApiKey(GoogleMapAPIKey);
-          Geocode.fromLatLng(latitude, longitude).then((geoResponse) => {
-            const { results } = geoResponse;
-            if (results.length) {
-              const { address_components: addresses } = results[0];
-              const countryProps = addresses[addresses.length - 1];
+    if (_.isNil(eventsCountry.countryCode)) {
+      axios
+        .get("https://location.hexagram.global/geo-data")
+        .then((response) => {
+          const { country: countryCode } = response.data;
 
-              const {
-                long_name: label,
-                short_name: countryCode,
-              } = countryProps;
-
-              setEventsCountry({ label, countryCode, storeInSession: true });
-            }
+          setEventsCountry({
+            label: getCountryLabel(countryCode),
+            countryCode,
+            storeInSession: true,
           });
-        },
-        () => {
-          // this.handleLocationError();
-          setEventsCountry({ label: "", countryCode: "" });
-        },
-        {
-          enableHighAccuracy: true,
-        }
-      );
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   };
 

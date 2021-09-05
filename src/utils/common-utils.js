@@ -308,3 +308,8 @@ export const refreshPaypalConfig = () => {
     window.location.reload();
   }
 };
+
+export const getCountryLabel = (countryCode) => {
+  const countryLabels = require("./flag-countries");
+  return countryLabels[countryCode];
+};
