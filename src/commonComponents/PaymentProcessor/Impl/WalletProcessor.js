@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import React, { Component } from "react";
 import walletImg from "../assets/Wallet.svg";
 import { convertAmount, formatCurrency } from "../../../utils/common-utils";
+=======
+import React, {Component} from "react";
+import walletImg from '../assets/Wallet.svg';
+import {convertAmount, formatCurrency} from "../../../utils/common-utils";
+>>>>>>> ebbb384 (Payment Gateway boxes UI Perfection)
 import WalletPaymentPrompt from "../components/Wallet/WalletPaymentPrompt";
 import styles from "../styles.module.css";
 
