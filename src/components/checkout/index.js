@@ -67,7 +67,7 @@ class Checkout extends Component {
           Your reservation will expire in
           <Timer
             style={{ fontWeight: "bold", color: "#EC1B23" }}
-            minutes={1}
+            minutes={15}
             onComplete={this.onFailure}
           />
         </div>
