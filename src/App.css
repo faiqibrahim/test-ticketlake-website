@@ -1316,8 +1316,7 @@ label {
 .main-search-input-item_small:before {
   content: "";
 }
-.main-search-input-item input
-{
+.main-search-input-item input {
   font-size: 12px !important;
 }
 
@@ -2320,8 +2319,12 @@ input[type="number"] {
   color: #ffffff;
   font-weight: 300;
 }
+.red-bg p {
+  font-size: 1rem;
+}
 .red-bg strong {
-  font-weight: 400;
+  font-weight: 600;
+  font-size: 1.2rem;
 }
 .white-bg {
   background: #ffffff;
@@ -3417,8 +3420,7 @@ input[type="number"] {
   padding: 50px 30px;
 }
 
-.daterangepicker
-{
+.daterangepicker {
   width: auto !important;
   margin-right: calc((100% - 1140px) * 0.5);
   right: 0 !important;
@@ -3426,14 +3428,12 @@ input[type="number"] {
   padding: 10px !important;
 }
 .main-search-input-item input,
-.col-list-search-input-item input
-{
+.col-list-search-input-item input {
   cursor: pointer;
   background-color: #fff !important;
   font-size: 12px;
 }
-.col-list-search-input-item input
-{
+.col-list-search-input-item input {
   height: 50px !important;
   background-color: #f2f3f8 !important;
 }

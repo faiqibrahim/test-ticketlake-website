@@ -171,12 +171,17 @@ class Wallet extends Component {
     return (
       <>
         {orderHistory.map((orderItem) => {
-          const { _id, currency, amount, createdAt, purchaseType } = orderItem;
-          console.log(orderItem);
+          const {
+            orderId,
+            currency,
+            amount,
+            createdAt,
+            purchaseType,
+          } = orderItem;
           return (
-            <tr key={_id}>
+            <tr key={orderId}>
               <td>{moment(createdAt).format("MM-DD-YYYY")}</td>
-              <td>{_id}</td>
+              <td>{orderId}</td>
               <td>{purchaseType}</td>
               <td>{formatCurrency(amount, currency)}</td>
 

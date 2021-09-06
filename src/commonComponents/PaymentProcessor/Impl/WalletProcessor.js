@@ -93,8 +93,15 @@ class WalletProcessor extends Component {
   };
 
   render() {
+    const { fixedPayment } = this.props;
+    const { balanceInRequestedCurrency } = this.state;
+
+    const isDisabledWallet = fixedPayment || !balanceInRequestedCurrency;
     return (
-      <div className={"payment-gateway-box"}>
+      <div
+        className={`payment-gateway-box ${isDisabledWallet &&
+          "disabled-gateway-box"}`}
+      >
         <div onClick={this.processPayment} className={styles.method}>
           <div className={"information-img"}>
             <img

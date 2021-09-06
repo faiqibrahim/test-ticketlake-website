@@ -113,7 +113,7 @@ blockquote {
 }
 
 blockquote:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f10e";
   position: absolute;
   color: #ccc;
@@ -747,7 +747,7 @@ input[type="number"] {
 
 .show-search-button i.vis-head-search-close:before,
 .wishlist-link.scwllink i:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f00d";
 }
 
@@ -964,7 +964,7 @@ input[type="number"] {
 .header-search-input-item.in-loc-dec:before,
 .col-list-search-input-item.in-loc-dec:before,
 .header-search-input-item.date-parent:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f107";
   position: absolute;
   color: #fff;
@@ -1324,7 +1324,7 @@ nav li ul a:after {
 .header-user-name:before,
 .qty-dropdown-header:before,
 .main-search-input-item_small:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f0d7";
   position: absolute;
   color: #fff;
@@ -1722,7 +1722,7 @@ p.interact,
 }
 
 #footer-twiit p.tweet:after {
-  font-family: Font Awesome\5 Brands;
+  font-family: Font awesome\5 Brands;
   content: "\f099";
   position: absolute;
   bottom: 10px;
@@ -1742,7 +1742,7 @@ p.interact,
 }
 
 #footer-twiit .timePosted a:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f017";
   position: absolute;
   top: 0;
@@ -1813,7 +1813,7 @@ p.interact,
 }
 
 .customer-support-widget:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f4fe";
   position: absolute;
   z-index: -1;
@@ -2497,7 +2497,7 @@ section.parallax-section .section-title.big-title h2 {
 }
 
 .breadcrumbs-fs .breadcrumbs:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f14c";
   position: absolute;
   right: 0;
@@ -3452,7 +3452,7 @@ input[type="number"].react-daterange-picker__inputGroup__input {
 
 .filter-tags input:checked:after,
 .custom-form .filter-tags input:checked:after {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f00c";
   font-size: 12px;
   position: absolute;
@@ -3616,7 +3616,7 @@ input[type="number"].react-daterange-picker__inputGroup__input {
 }
 
 .radio input[type="radio"]:checked + span:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f00c";
   font-size: 13px;
   position: absolute;
@@ -4026,7 +4026,7 @@ input[type="number"].react-daterange-picker__inputGroup__input {
 
 .mapzoom-in:before,
 .mapzoom-out:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f068";
   font-size: 10px;
   font-weight: 600;
@@ -5063,7 +5063,7 @@ input[type="number"].react-daterange-picker__inputGroup__input {
 }
 
 .listing-content:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f35d";
   position: absolute;
   color: #ccc;
@@ -5592,7 +5592,7 @@ input[type="number"].react-daterange-picker__inputGroup__input {
 
 .flat-hero-container .list-single-hero-price:before,
 .list-single-hero-header .list-single-hero-price:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f4c0";
   position: absolute;
   color: #ccc;
@@ -5830,7 +5830,7 @@ article.post-article .list-single-main-item {
 }
 
 .list-single-main-item-title:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f0d7";
   position: absolute;
   right: 0;
@@ -5913,7 +5913,7 @@ article.post-article .list-single-main-item {
 }
 
 .box-widget-item-header:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f0d7";
   position: absolute;
   right: 0;
@@ -6102,7 +6102,7 @@ article.post-article .list-single-main-item {
 }
 
 .box-widget-author:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f4fc";
   position: absolute;
   color: #ccc;
@@ -7829,7 +7829,7 @@ article.post-article .list-single-main-item {
 }
 
 .share-icon:before {
-  font-family: Font Awesome\5 Brands;
+  font-family: Font awesome\5 Brands;
 }
 
 .share-icon-digg:before {
@@ -7909,7 +7909,7 @@ article.post-article .list-single-main-item {
 
 .text-carousel .text-carousel-item:before,
 .text-carousel .text-carousel-item:after {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   font-style: normal;
   font-weight: normal;
   text-decoration: inherit;
@@ -8349,7 +8349,7 @@ article.post-article .list-single-main-item {
 }
 
 .tfp-btn:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f0d7";
   position: absolute;
   color: #fff;
@@ -8789,7 +8789,7 @@ article.post-article .list-single-main-item {
 }
 
 .chat-message p:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f0d9";
   position: absolute;
   top: 12px;
@@ -9079,7 +9079,7 @@ article.post-article .list-single-main-item {
 }
 
 .faq-nav li a:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f105";
   position: absolute;
   top: 12px;
@@ -9403,7 +9403,7 @@ article.post-article .list-single-main-item {
 
 .price-head-decor:before,
 .price-head-decor:after {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f0c2";
   position: absolute;
   color: #fff;
@@ -9743,7 +9743,7 @@ article.post-article .list-single-main-item {
 }
 
 .card-post-content h3:before {
-  font-family: Font Awesome\5 Pro;
+  font-family: Font awesome\5 Pro;
   content: "\f0d7";
   position: absolute;
   right: 20px;
@@ -10176,7 +10176,7 @@ article.post-article .list-single-main-item {
   }
 
   .menusb a.back:before {
-    font-family: Font Awesome\5 Pro;
+    font-family: Font awesome\5 Pro;
     content: "\f177";
     font-size: 14px;
   }
@@ -10351,7 +10351,7 @@ article.post-article .list-single-main-item {
 
   .dasboard-sidebar-content:before {
     position: absolute;
-    font-family: Font Awesome\5 Pro;
+    font-family: Font awesome\5 Pro;
     content: "\f085";
     color: #fff;
     right: 70px;
@@ -12859,6 +12859,16 @@ input[type="number"] {
   box-shadow: 0px 0px 10px #ddd;
   transition: 0.5s;
   background: #fafafa;
+}
+
+.disabled-gateway-box {
+  cursor: not-allowed;
+  background: #fafafa !important;
+}
+
+.disabled-gateway-box:hover {
+  box-shadow: unset;
+  transition: unset;
 }
 
 @media only screen and (max-width: 678px) {
