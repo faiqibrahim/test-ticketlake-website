@@ -12730,3 +12730,18 @@ input[type=number] {
     transition: 0.5s;
     background: #fafafa;
 }
+
+
+@media only screen and (max-width: 678px) {
+
+    .payment-gateway-wrp {
+        flex-direction: column;
+    }
+    .payment-gateway-box {
+        width: calc(100% / 1);
+        margin-bottom: 20px;
+    }
+
+}
+
+
