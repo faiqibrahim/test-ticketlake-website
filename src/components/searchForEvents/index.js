@@ -3,7 +3,8 @@ import React from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {withRouter} from 'react-router-dom';
 import {connect} from "react-redux";
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import DateRangePicker from 'react-bootstrap-daterangepicker';
+
 import moment from 'moment';
 // Importing Config
 import {filteredCities} from '../../utils/config';
@@ -27,27 +28,22 @@ class SearchFormEvents extends React.Component {
         datesInput: null,
         categories: null,
         keyword: null,
+        start: moment().subtract(29, 'days'),
+        end: moment()
     };
 
     componentDidMount() {
-        let date = [new Date(moment().format()), new Date(moment().format())];
-        let fromDateTime = dateSplitter(date[0]);
-        let toDateTime = dateSplitter(date[1]);
-        this.setState({datesInput: date,dates: encodeURI(fromDateTime + ' ' + toDateTime)});
         this.props.getAllCategories();
     }
 
-    onDateChange = (date) => {
-        const fromDate = date && date[0] !== null ? date[0] : null;
-        const fromDateTime = dateSplitter(fromDate);
 
-        const toDate = date && date[1] !== null ? date[1] : null;
-        const toDateTime = dateSplitter(toDate);
-
-        this.setState({dates: encodeURI(fromDateTime + ' ' + toDateTime)});
-        this.setState({datesInput: date});
-
-    };
+    handleDateChange = (start, end) => {
+        const startDate = start._d;
+        const endDate = end._d;
+        const fromDateTime = dateSplitter(startDate);
+        const toDateTime = dateSplitter(endDate);
+        this.setState({start, end , dates: encodeURI(fromDateTime + ' ' + toDateTime)});
+    }
 
     handleChange = (event) => {
         this.setState({
@@ -81,16 +77,6 @@ class SearchFormEvents extends React.Component {
         }
         if (keyword) {
             url.push("keyword=" + encodeURIComponent(keyword));
-        }
-        if (dates) {
-            let date1 = new Date(this.state.datesInput[0]);
-            let date2 = new Date(this.state.datesInput[1]);
-
-            isError = date1 > date2;
-            if (!isError) {
-                url.push("when=" + dates);
-            }
-
         }
 
         if (!isError) {
@@ -191,12 +177,26 @@ class SearchFormEvents extends React.Component {
                                         <img src={window.location.origin + '/icons/clock-icon.svg'} alt={"clock"}/>
                                     </span>
                                     <DateRangePicker
-                                        calendarIcon={null}
-                                        clearIcon={null}
-                                        onChange={this.onDateChange}
-                                        value={this.state.datesInput}
-                                        className={'dateRange'}
-                                    />
+                                        onCallback={this.handleDateChange}
+                                        initialSettings={{
+                                            startDate: this.state.start.toDate(),
+                                            endDate: this.state.end.toDate(),
+                                            ranges: {
+                                                Today: [moment().toDate(), moment().toDate()],
+                                                'This Week': [
+                                                    moment().subtract(6, 'days').toDate(),
+                                                    moment().toDate(),
+                                                ],
+                                                'This Month': [
+                                                    moment().startOf('month').toDate(),
+                                                    moment().endOf('month').toDate(),
+                                                ],
+                                            },
+                                        }}
+                                    >
+                                        <input type="text" className="form-control" readOnly/>
+                                    </DateRangePicker>
+
                                 </div>
                                 <button className="main-search-button color2-bg"
                                         onClick={this.handleSubmit}>
