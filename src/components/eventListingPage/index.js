@@ -50,7 +50,9 @@ class EventListing extends Component {
         city: '',
         keyword: null,
         allSearchedEvents: [],
-        date: [new Date(), new Date()],
+        start: moment().subtract(29, 'days'),
+        end: moment(),
+        //date: [new Date(), new Date()],
         from: null,
         to: null,
         doSearch: false,
@@ -98,23 +100,10 @@ class EventListing extends Component {
         }
         if (query.when) {
             const dates = query.when.split(" ");
+            let momentFrom = moment(dates[0]);
+            let momentTo = moment(dates[1]);
 
-            // Hours Subtracted because if you search from main having same date then new Date(moment(from))
-            // was giving +5 hours time so it was giving wrong date,
-            // Tested on: 1:00 AM 1/24/2020 -> give same to and from date from main search and search then
-            // it gives wrong date in date filter
-
-            let from = `${dates[0]}T00:00:00.000`;
-            let momentFrom = new Date(moment(from).format());
-            let fromDateTime = dateSplitter(dates[0]);
-
-            let to = `${dates[1]}T23:59:59.000`;
-            let momentTo = new Date(moment(to).format());
-            let toDateTime = dateSplitter(dates[1]);
-
-            // Setting Dates in state to set dates sent from main search in main page
-            let date = [momentFrom, momentTo];
-            this.setState({ date: date, from: from, to: to, dates: encodeURI(fromDateTime + ' ' + toDateTime) });
+            this.setState({ start: momentFrom, end: momentTo});
 
         }
         if (query.location) {
@@ -176,8 +165,9 @@ class EventListing extends Component {
             }
             if (query.when) {
                 const dates = query.when.split(" ");
-                from = `${dates[0]}T00:00:00.000Z`;
-                to = `${dates[1]}T23:59:59.000Z`;
+                from = moment(dates[0]);
+                to = moment(dates[1]);
+
 
                 date = [new Date(moment(dates[0]).format()), new Date(moment(dates[1]).format())]
             }
@@ -253,7 +243,6 @@ class EventListing extends Component {
     /************************************ EVENTS ************************************/
 
     getUrl = () => {
-        let isError = false;
         const url = [];
 
         if (this.state.keyword) {
@@ -269,16 +258,10 @@ class EventListing extends Component {
         }
 
         if (this.state.dates) {
-            let date1 = new Date(this.state.date[0]);
-            let date2 = new Date(this.state.date[1]);
-            isError = date1 > date2;
-            if (!isError) {
-                url.push("when=" + this.state.dates);
-            }
+            url.push("when=" + this.state.dates);
         }
 
         return {
-            isError,
             url
         };
 
@@ -326,22 +309,16 @@ class EventListing extends Component {
     };
 
 
-    // On Date Change
-    onDateChange = (dateer) => {
+    handleDateChange = (start, end) => {
+        const startDate = start._d;
+        const endDate = end._d;
+        const fromDateTime = dateSplitter(startDate);
+        const toDateTime = dateSplitter(endDate);
 
-        if (dateer && !dateer.includes(null)) {
-            const fromDate = dateer && dateer[0] !== null ? dateer[0] : null;
-            const fromDateTime = dateSplitter(fromDate);
-            const toDate = dateer && dateer[1] !== null ? dateer[1] : null;
-            const toDateTime = dateSplitter(toDate);
-            this.getEventListingState(false);
-            this.setState({ dates: encodeURI(fromDateTime + ' ' + toDateTime), date: dateer, searchParam: true });
-        } else {
-            this.setState({ dates: null, date: null });
-        }
-
-    };
-
+        this.setState({start, end , dates: encodeURI(fromDateTime + ' ' + toDateTime)},()=>{
+            console.log(this.state.dates)
+        });
+    }
 
     // On Category Change
     onCategoryChange = (e) => {
@@ -400,17 +377,11 @@ class EventListing extends Component {
             totalPages: 0,
             currentPage: 1,
         });
-
         const urlObj = this.getUrl();
 
-        if (!urlObj.isError) {
             this.setState({ doSearch: true, date: this.state.date, searchParam: false });
             this.props.history.push('/events/listing/?' + urlObj.url.join("&"));
-        } else {
-            NotificationManager.error('From date can not greater than to date', '', NOTIFICATION_TIME);
-        }
     };
-
 
     // Rendering Social Media Links
     renderSocialModal = (data, shareUrl) => {
@@ -548,17 +519,16 @@ class EventListing extends Component {
                                         <EventListingFilters
                                             changeCategory={this.onCategoryChange}
                                             changeCity={this.onLocationChange}
-                                            changeDate={this.onDateChange}
+                                            changeDate={this.handleDateChange}
                                             handleChange={this.handleChange}
                                             categories={this.props.categories}
                                             handleSearch={this.handleSearch}
                                             city={cities}
                                             category={this.state.storeCategories}
                                             location={this.state.city}
-                                            from={this.state.from}
-                                            to={this.state.to}
                                             search={this.state.keyword}
-                                            date={this.state.date}
+                                            start={this.state.start}
+                                            end={this.state.end}
                                         />
                                         {
                                             this.props.processing ? <Loader />

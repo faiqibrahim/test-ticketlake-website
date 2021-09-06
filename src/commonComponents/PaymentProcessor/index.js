@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PaymentProcessorFactory from "./payment-processor-factory";
 import _ from "lodash";
 import { formatCurrency } from "../../utils/common-utils";
@@ -59,15 +59,10 @@ class PaymentProcessor extends Component {
         const transIds = [...this.state.transIds];
         transIds.push(transId);
 
-        this.setState({
-          paymentMethods,
-          autoPayment,
-          transIds,
-          childComponent: null,
-        });
+        this.setState({paymentMethods, autoPayment, transIds, childComponent: null});
       }
     });
-  };
+  }
 
   onPaymentSuccessful = (type, transId) => {
     const { transIds } = this.state;
@@ -122,20 +117,19 @@ class PaymentProcessor extends Component {
           </div>
         )}
 
-        <div className={"payment-gateway-wrp"}>
-          <div className={"row"}>
-            {paymentMethods.map((method) => (
-              <div className={"col-md-4"} key={method.type}>
-                {PaymentProcessorFactory.getProcessor(method.type, {
-                  ...method,
-                })}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
+                <div className={"payment-gateway-wrp"}>
+                        {
+                            paymentMethods.map(method => (
+                                <div className={"payment-gateway-box"}  key={method.type}>
+                                    {PaymentProcessorFactory.getProcessor(method.type, {...method})}
+                                </div>
+                            ))
+                        }
+                </div>
+
+            </div>
+        );
+    }
 }
 
 export default PaymentProcessor;

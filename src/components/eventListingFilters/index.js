@@ -1,6 +1,7 @@
 // library
 import React from 'react';
-import DateRangePicker from '@wojtekmaj/react-daterange-picker'
+import DateRangePicker from 'react-bootstrap-daterangepicker';
+import moment from "moment";
 
 class eventListingFilters extends React.Component {
 
@@ -14,7 +15,6 @@ class eventListingFilters extends React.Component {
     };
 
     render(){
-
         const {categories} = this.props;
         const {city} = this.props;
         const defaultCity = city.length && city[0].label;
@@ -95,13 +95,26 @@ class eventListingFilters extends React.Component {
                             <img src={window.location.origin + '/icons/clock-icon.svg'} alt={"clock"}/>
                         </span>
                         <DateRangePicker
-                            onChange={(e) => this.props.changeDate(e)}
-                            value={this.props.date}
-                            className={'filterDateRange'}
-                            calendarIcon={null}
-                            clearIcon={null}
-                            showLeadingZeros={false}
-                        />
+                            className={"filterDateRange"}
+                            onCallback={this.props.changeDate}
+                            initialSettings={{
+                                startDate: this.props.start.toDate(),
+                                endDate: this.props.end.toDate(),
+                                ranges: {
+                                    Today: [moment().toDate(), moment().toDate()],
+                                    'This Week': [
+                                        moment().subtract(6, 'days').toDate(),
+                                        moment().toDate(),
+                                    ],
+                                    'This Month': [
+                                        moment().startOf('month').toDate(),
+                                        moment().endOf('month').toDate(),
+                                    ],
+                                },
+                            }}
+                        >
+                            <input type="text" className="form-control" readOnly/>
+                        </DateRangePicker>
                     </div>
                 </div>
 

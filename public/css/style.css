@@ -929,7 +929,7 @@ input[type="number"]
     float: left;
     width: 100%;
     border: 1px solid #eee;
-    padding: 12px 32px 12px 33px;
+    padding: 12px 32px 12px 45px;
     border-radius: 6px;
     background: #F2F3F8;
     height: 42px;
@@ -11296,7 +11296,11 @@ span.error {
 }
 
 .inpt_dec.top-postion {
-    top: 40px !important;
+    top: 44px !important;
+}
+
+.col-list-search-input-item .filtersIcons img {
+    float: left;
 }
 
 .custom-btn {
@@ -12702,15 +12706,42 @@ input[type=number] {
 .payment-wrp {
     float: left;
     width: 100%;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 .payment-gateway-wrp {
     width: 100%;
     padding: 30px 0px;
+    display: flex;
+    justify-content: space-around;
 }
-.payment-gateway-wrp .row {
+.payment-gateway-box {
+    float: left;
+    width: calc(100% / 3 - 20px);
+    padding: 30px;
+    border: 1px solid #eeee;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
-.payment-gateway-wrp .col-md-4:last-child {
-    padding: 0px 70px 0px 70px;
+.payment-gateway-box:hover {
+    box-shadow: 0px 0px 10px #ddd;
+    transition: 0.5s;
+    background: #fafafa;
 }
+
+
+@media only screen and (max-width: 678px) {
+
+    .payment-gateway-wrp {
+        flex-direction: column;
+    }
+    .payment-gateway-box {
+        width: calc(100% / 1);
+        margin-bottom: 20px;
+    }
+
+}
+
+

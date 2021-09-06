@@ -135,7 +135,7 @@ class Header extends Component {
                               rel="noopener noreferrer"
                               className={"become-an-organiser"}
                             >
-                              Become an organiser
+                              Publish an Event
                             </a>
                           </div>
                           <div className="show-reg-form modal-open action-item hide-on-mobileView">
@@ -231,7 +231,7 @@ class Header extends Component {
                               rel="noopener noreferrer"
                               className={"become-an-organiser"}
                             >
-                              Become an organiser
+                              Publish an Event
                             </a>
                           </div>
                           <div className="show-reg-form modal-open action-item">

@@ -1316,6 +1316,10 @@ label {
 .main-search-input-item_small:before {
   content: "";
 }
+.main-search-input-item input
+{
+  font-size: 12px !important;
+}
 
 .dateRange {
   height: 50px;
@@ -1349,7 +1353,7 @@ label {
 .inpt_dec {
   position: absolute;
   left: 15px;
-  top: 12px;
+  top: 10px;
   z-index: 20;
 }
 
@@ -3413,4 +3417,25 @@ input[type="number"] {
 
 .transaction-history .red-bg {
   padding: 50px 30px;
+}
+
+.daterangepicker
+{
+  width: auto !important;
+  margin-right: calc((100% - 1140px) * 0.5);
+  right: 0 !important;
+  left: auto !important;
+  padding: 10px !important;
+}
+.main-search-input-item input,
+.col-list-search-input-item input
+{
+  cursor: pointer;
+  background-color: #fff !important;
+  font-size: 12px;
+}
+.col-list-search-input-item input
+{
+  height: 50px !important;
+  background-color: #f2f3f8 !important;
 }
