@@ -929,7 +929,7 @@ input[type="number"]
     float: left;
     width: 100%;
     border: 1px solid #eee;
-    padding: 12px 32px 12px 33px;
+    padding: 12px 32px 12px 45px;
     border-radius: 6px;
     background: #F2F3F8;
     height: 42px;
@@ -11296,7 +11296,11 @@ span.error {
 }
 
 .inpt_dec.top-postion {
-    top: 40px !important;
+    top: 44px !important;
+}
+
+.col-list-search-input-item .filtersIcons img {
+    float: left;
 }
 
 .custom-btn {

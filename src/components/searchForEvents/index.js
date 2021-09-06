@@ -78,6 +78,9 @@ class SearchFormEvents extends React.Component {
         if (keyword) {
             url.push("keyword=" + encodeURIComponent(keyword));
         }
+        if (dates) {
+            url.push("when=" + dates);
+        }
 
         if (!isError) {
             this.props.history.push('events/listing/?' + url.join("&"));

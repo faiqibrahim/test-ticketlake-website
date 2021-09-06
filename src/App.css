@@ -3427,8 +3427,15 @@ input[type="number"] {
   left: auto !important;
   padding: 10px !important;
 }
-.main-search-input-item input
+.main-search-input-item input,
+.col-list-search-input-item input
 {
   cursor: pointer;
   background-color: #fff !important;
+  font-size: 12px;
+}
+.col-list-search-input-item input
+{
+  height: 50px !important;
+  background-color: #f2f3f8 !important;
 }
