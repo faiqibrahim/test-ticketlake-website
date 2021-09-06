@@ -1,5 +1,4 @@
 import React from "react";
-import Confetti from "react-confetti";
 import classes from "./styles.module.css";
 import { withRouter } from "react-router-dom";
 

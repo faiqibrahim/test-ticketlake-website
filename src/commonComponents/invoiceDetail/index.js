@@ -1,5 +1,4 @@
 import React from "react";
-import moment from "moment";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { Row, Col } from "reactstrap";
 import {
