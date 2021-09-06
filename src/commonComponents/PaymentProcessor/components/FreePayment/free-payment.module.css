@@ -1,0 +1,37 @@
+.paymentContainer .header {
+  margin: unset;
+  padding: 2rem;
+  letter-spacing: 0px;
+  color: #363636;
+}
+
+.paymentContainer .borderLine {
+  margin: unset;
+  border-top-style: dashed;
+  margin-bottom: 2rem;
+}
+
+.paymentContainer .bodyContainer {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.paymentContainer .bodyContainer p {
+  color: #363636;
+  width: 70% !important;
+  text-align: center;
+  margin: 0px auto;
+  font-size: 1rem;
+}
+
+.layoutBtn {
+  height: 49px;
+  width: 40%;
+  background: #ec1c24;
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}

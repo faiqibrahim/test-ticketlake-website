@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="640.003" height="480" viewBox="0 0 640.003 480">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_21027" data-name="Path 21027" d="M0,0H640V480H0Z" fill="rgba(0,0,0,0.67)"/>
+    </clipPath>
+  </defs>
+  <g id="liberia" clip-path="url(#clip-path)">
+    <path id="Path_21022" data-name="Path 21022" d="M0,.079H719.878V480H0Z" fill="#fff" fill-rule="evenodd"/>
+    <path id="Path_21023" data-name="Path 21023" d="M0,0H218.194V218.2H0Z" fill="#006" fill-rule="evenodd"/>
+    <path id="Path_21024" data-name="Path 21024" d="M0,435.816H719.9V480H0Z" fill="#c00" fill-rule="evenodd"/>
+    <path id="Path_21025" data-name="Path 21025" d="M0,436.341H719.9V480H0Zm0-87.1H719.9v43.322H0Zm0-87.431H718.088v43.781H0ZM218.128.052H719.85V43.64H218.128Zm0,174.38H719.85V218.3H218.128Zm0-86.905H719.85v43.588H218.128Z" fill="#c00" fill-rule="evenodd"/>
+    <path id="Path_21026" data-name="Path 21026" d="M155.953,166.378l-47.541-29.044L61.1,166.669,78.7,119,31.473,89.565,89.9,89.154l18.12-47.523,18.51,47.413,58.426.063L137.972,118.82l17.985,47.561Z" fill="#fff" fill-rule="evenodd"/>
+  </g>
+</svg>

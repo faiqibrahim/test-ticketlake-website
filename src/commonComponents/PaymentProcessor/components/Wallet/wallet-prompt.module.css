@@ -1,49 +1,49 @@
-.splitContainer{
-    float: left;
-    width: 100%;
+.splitContainer {
+  float: left;
+  width: 100%;
 }
 .splitContainer .header {
-    margin: unset;
-    padding: 2rem;
-    letter-spacing: 0px;
-    color: #363636;
+  margin: unset;
+  padding: 2rem;
+  letter-spacing: 0px;
+  color: #363636;
 }
 
 .splitContainer .borderLine {
-    margin: unset;
-    border-top-style: dashed;
-    margin-bottom: 2rem;
+  margin: unset;
+  border-top-style: dashed;
+  margin-bottom: 2rem;
 }
 
 .splitContainer .bodyContainer {
-    width: 100%;
+  width: 100%;
 }
 
 .splitContainer .bodyContainer p {
-    color: #363636;
-    width: 70% !important;
-    text-align: center;
-    margin: 0px auto;
-    font-size: 0.9rem;
+  color: #363636;
+  width: 70% !important;
+  text-align: center;
+  margin: 0px auto;
+  font-size: 0.9rem;
 }
 
 .layoutBtn {
-    background: #ec1c24;
-    color: #fff;
-    padding: 10px 40px;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    min-width: 200px;
+  background: #ec1c24;
+  color: #fff;
+  padding: 10px 40px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  min-width: 200px;
 }
 
 .redText {
-    color: #ec1c24;
-    font-size: 0.9rem;
+  color: #ec1c24;
+  font-size: 0.9rem;
 }
 
 .linkText {
-    cursor: pointer;
+  cursor: pointer;
 }

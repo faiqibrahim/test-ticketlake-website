@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="640.003" height="480" viewBox="0 0 640.003 480">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_21087" data-name="Path 21087" d="M0,0H640V480H0Z" fill="rgba(0,0,0,0.67)"/>
+    </clipPath>
+  </defs>
+  <g id="sudan" clip-path="url(#clip-path)">
+    <path id="Path_21083" data-name="Path 21083" d="M0,319.988H960V480H0Z" fill-rule="evenodd"/>
+    <path id="Path_21084" data-name="Path 21084" d="M0,159.975H960V319.988H0Z" fill="#fff" fill-rule="evenodd"/>
+    <path id="Path_21085" data-name="Path 21085" d="M0,0H960.75V160.012H0Z" fill="red" fill-rule="evenodd"/>
+    <path id="Path_21086" data-name="Path 21086" d="M0,0V480L319.988,240Z" fill="#009a00" fill-rule="evenodd"/>
+  </g>
+</svg>

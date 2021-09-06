@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640.727" height="480" viewBox="0 0 640.727 480">
+  <g id="kenya" transform="translate(0.227)">
+    <path id="Path_21004" data-name="Path 21004" d="M0,0H640V480H0Z" fill="#fff"/>
+    <path id="Path_21005" data-name="Path 21005" d="M0,0H640V144H0Z"/>
+    <path id="Path_21006" data-name="Path 21006" d="M0,336H640V480H0Z" fill="#060"/>
+    <g id="b" transform="translate(320 240)">
+      <path id="Path_21007" data-name="Path 21007" d="M-85.74,142.5l5.2,3L59.6-97.23c8.2-2.19,12.7-9.99,17.2-17.781,3-5.2,15-25.98,20.2-52.989-20.79,18.009-32.79,38.79-35.79,43.989-4.5,7.794-9,15.588-6.8,23.784Z" stroke="#000" stroke-width="3"/>
+      <path id="Path_21008" data-name="Path 21008" d="M-85.74,142.5l5.2,3L59.6-97.23c8.2-2.19,12.7-9.99,17.2-17.781,3-5.2,15-25.98,20.2-52.989-20.79,18.009-32.79,38.79-35.79,43.989-4.5,7.794-9,15.588-6.8,23.784Z" fill="#fff"/>
+    </g>
+    <g id="Group_7364" data-name="Group 7364" transform="translate(320 240) rotate(180)">
+      <path id="Path_21009" data-name="Path 21009" d="M-85.74-142.5l5.2-3L59.6,97.23c8.2,2.19,12.7,9.99,17.2,17.781,3,5.2,15,25.98,20.2,52.989-20.79-18.009-32.79-38.79-35.79-43.989-4.5-7.794-9-15.588-6.8-23.784Z" stroke="#000" stroke-width="3"/>
+      <path id="Path_21010" data-name="Path 21010" d="M-85.74-142.5l5.2-3L59.6,97.23c8.2,2.19,12.7,9.99,17.2,17.781,3,5.2,15,25.98,20.2,52.989-20.79-18.009-32.79-38.79-35.79-43.989-4.5-7.794-9-15.588-6.8-23.784Z" fill="#fff"/>
+    </g>
+    <path id="Path_21011" data-name="Path 21011" d="M640.5,168H377c-9-24-39-72-57-72s-48,48-57,72H-.227V312H263c9,24,39,72,57,72s48-48,57-72H640.5Z" fill="#b00"/>
+    <path id="c" d="M377,312c9-24,15-48,15-72s-6-48-15-72c-9,24-15,48-15,72s6,48,15,72"/>
+    <path id="Path_21012" data-name="Path 21012" d="M377-312c9,24,15,48,15,72s-6,48-15,72c-9-24-15-48-15-72s6-48,15-72" transform="translate(640) rotate(180)"/>
+    <g id="Group_7365" data-name="Group 7365" transform="translate(320 240)">
+      <ellipse id="Ellipse_641" data-name="Ellipse 641" cx="12" cy="18" rx="12" ry="18" transform="translate(-12 -18)" fill="#fff"/>
+      <path id="d" d="M3,17.55s12,24,12,63-12,63-12,63Z" fill="#fff"/>
+      <path id="Path_21013" data-name="Path 21013" d="M3,17.55s12,24,12,63-12,63-12,63Z" transform="rotate(180)" fill="#fff"/>
+      <path id="Path_21014" data-name="Path 21014" d="M3-17.55s12-24,12-63-12-63-12-63Z" transform="rotate(180)" fill="#fff"/>
+      <path id="Path_21015" data-name="Path 21015" d="M3-17.55s12-24,12-63-12-63-12-63Z" fill="#fff"/>
+    </g>
+  </g>
+</svg>

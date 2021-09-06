@@ -8,7 +8,7 @@ import HeaderNavMenu from "../../commonComponents/headerNavMenu";
 import { Dropdown, DropdownToggle } from "reactstrap";
 
 // Helper
-import { nameSplitter } from "../../utils/common-utils";
+import { getCountryLabel, nameSplitter } from "../../utils/common-utils";
 
 // Logo
 import Logo from "../../commonComponents/logo";
@@ -63,9 +63,8 @@ class Header extends Component {
   };
 
   handleCountrySelect = (countryCode) => {
-    const reactFlags = require("../../utils/flag-countries");
     let eventsCountry = {
-      label: reactFlags[countryCode],
+      label: getCountryLabel(countryCode),
       countryCode,
       storeInSession: true,
     };

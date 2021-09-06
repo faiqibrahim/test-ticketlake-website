@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="640" height="480" viewBox="0 0 640 480">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_21092" data-name="Path 21092" d="M40,0H680V480H40Z" fill="rgba(0,0,0,0.67)"/>
+    </clipPath>
+  </defs>
+  <g id="tanzania" transform="translate(-40)" clip-path="url(#clip-path)">
+    <path id="Path_21088" data-name="Path 21088" d="M0,0H720V480H0Z" fill="#09f" fill-rule="evenodd"/>
+    <path id="Path_21089" data-name="Path 21089" d="M0,0H720L0,480Z" fill="#090" fill-rule="evenodd"/>
+    <path id="Path_21090" data-name="Path 21090" d="M0,480H160L720,100V0H560L0,380Z" fill-rule="evenodd"/>
+    <path id="Path_21091" data-name="Path 21091" d="M0,365.824,548.72,0H602.8L0,401.88ZM117.18,480,719.98,78.12v36.056L171.26,480H117.18Z" fill="#ff0" fill-rule="evenodd"/>
+  </g>
+</svg>
