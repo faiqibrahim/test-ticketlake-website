@@ -18,31 +18,33 @@ class PaypalProcessor extends Component {
     } = this.props;
 
     return (
-      <Row className={styles.method}>
-        <Col>
-          <PayPalButton
-            description={description}
-            amount={amount}
-            currency={currency}
-            onSuccess={(details, data) => {
-              axios
-                .post(
-                  "/transaction/paypal",
-                  { orderId: data.orderID, transactionType: purpose },
-                  "v2"
-                )
-                .then(({ data }) => {
-                  onPaymentSuccessful(type, data.data._id);
-                })
-                .catch((error) => {
-                  onPaymentFailure(type, error);
-                });
-            }}
-            onError={(error) => onPaymentFailure(type, error)}
-            options={{ clientId, currency }}
-          />
-        </Col>
-      </Row>
+      <div className={"payment-gateway-box"}>
+        <Row className={styles.method}>
+          <Col>
+            <PayPalButton
+              description={description}
+              amount={amount}
+              currency={currency}
+              onSuccess={(details, data) => {
+                axios
+                  .post(
+                    "/transaction/paypal",
+                    { orderId: data.orderID, transactionType: purpose },
+                    "v2"
+                  )
+                  .then(({ data }) => {
+                    onPaymentSuccessful(type, data.data._id);
+                  })
+                  .catch((error) => {
+                    onPaymentFailure(type, error);
+                  });
+              }}
+              onError={(error) => onPaymentFailure(type, error)}
+              options={{ clientId, currency }}
+            />
+          </Col>
+        </Row>
+      </div>
     );
   }
 }

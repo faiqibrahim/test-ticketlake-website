@@ -202,6 +202,7 @@ class Wallet extends Component {
 
   getWallet = (walletBalance) => {
     const hrefLink = "#";
+    const { walletPagination, walletPaginationProcessing } = this.props;
     return (
       <>
         <section className="middle-padding">
@@ -262,16 +263,18 @@ class Wallet extends Component {
                   </tbody>
                 </table>
 
-                <a
-                  className="load-more-button load-more-button-light"
-                  href={hrefLink}
-                  onClick={(e) => this.loadMoreTransaction(e)}
-                >
-                  Load more
-                  {this.props.walletPaginationProcessing ? (
-                    <i className="fas fa-spinner" />
-                  ) : null}
-                </a>
+                {walletPagination && walletPagination.hasNextPage === true ? (
+                  <a
+                    className="load-more-button load-more-button-light"
+                    href={hrefLink}
+                    onClick={(e) => this.loadMoreTransaction(e)}
+                  >
+                    Load more
+                    {walletPaginationProcessing ? (
+                      <i className="fas fa-spinner" />
+                    ) : null}
+                  </a>
+                ) : null}
               </div>
             </div>
           </div>

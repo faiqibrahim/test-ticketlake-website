@@ -94,15 +94,17 @@ class WalletProcessor extends Component {
 
   render() {
     return (
-      <div onClick={this.processPayment} className={styles.method}>
-        <div className={"information-img"}>
-          <img
-            src={walletImg}
-            style={{ width: "71px", height: "62px" }}
-            alt={"wallet-img"}
-          />
+      <div className={"payment-gateway-box"}>
+        <div onClick={this.processPayment} className={styles.method}>
+          <div className={"information-img"}>
+            <img
+              src={walletImg}
+              style={{ width: "71px", height: "62px" }}
+              alt={"wallet-img"}
+            />
+          </div>
+          <div className={"information"}>{this.getBalanceInfo()}</div>
         </div>
-        <div className={"information"}>{this.getBalanceInfo()}</div>
       </div>
     );
   }
