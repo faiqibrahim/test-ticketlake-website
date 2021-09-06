@@ -210,7 +210,13 @@ class BuyTicketStepOne extends React.Component {
   };
 
   render() {
-    const { customSeatingPlan } = this.props;
+    const { customSeatingPlan, ticketClasses, passClasses } = this.props;
+    if (!ticketClasses.length && !passClasses.length)
+      return (
+        <h5 className="mb-5">
+          No tickets or passes are available to purchase for this event.
+        </h5>
+      );
     return (
       <React.Fragment>
         {customSeatingPlan ? this.renderCustomView() : this.renderSeatsView()}
