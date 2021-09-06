@@ -54,7 +54,7 @@ class UserProfile extends Component {
     this.setCity = this.setCity.bind(this);
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     getCountries().forEach((data) => {
       countries.push({
         value: data,
@@ -94,9 +94,7 @@ class UserProfile extends Component {
       cities = citiesArr;
     }
 
-    const userData = await this.props.fetchUserProfile();
-
-    this.fetchProfileStats(userData);
+    this.props.fetchUserProfile();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -106,10 +104,6 @@ class UserProfile extends Component {
       });
     }
   }
-
-  fetchProfileStats = (userData) => {
-    console.log("Hello called Mother", userData);
-  };
 
   onSaveChanges = (e) => {
     e.preventDefault();

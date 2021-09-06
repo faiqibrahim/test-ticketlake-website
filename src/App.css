@@ -2332,11 +2332,9 @@ input[type="number"] {
   max-width: 1400px;
   text-align: left;
   position: absolute;
-  margin: auto;
   left: 0;
   right: 0;
   bottom: 0;
-  top: 20vh;
 }
 .close-button {
   cursor: pointer;
@@ -2899,7 +2897,7 @@ input[type="number"] {
   outline: none;
   border-radius: 5px;
 }
-.fullWidthRedButton.w-30{
+.fullWidthRedButton.w-30 {
   width: 30% !important;
 }
 

@@ -35,20 +35,12 @@ import {
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { getTransactionHistory } from "../../redux/wallet/wallet-actions";
 import moment from "moment";
-import axios from "../../utils/axios";
 import { Helmet } from "react-helmet";
-import TransactionHistoryModal from "../../commonComponents/ModalFactory/TransactionHistoryModal/TransactionHistoryModal";
 import "./style.css";
 import { formatCurrency, refreshPaypalConfig } from "../../utils/common-utils";
+import InvoiceDetail from "../../commonComponents/invoiceDetail";
 
-const header = [
-  "Date",
-  "Transaction ID",
-  "Payment Method",
-  "Type",
-  "Amount",
-  "Details",
-];
+const header = ["Date", "Order ID", "Purchase Type", "Amount", "Details"];
 
 const options = currencies.map((currency) => ({
   value: currency,
@@ -61,101 +53,43 @@ class Wallet extends Component {
     super(props);
 
     this.state = {
-      modal: false,
-      modal2: false,
+      topUpModal: false,
       topUpAmount: null,
       walletCurrency: "",
-      conversionRates: {},
-      conversionRatesGivenAmount: 0,
-      modalData: [],
-      modalDataFromApi: [],
-      isLoaded: false,
-      ticketsState: [],
-      passesState: [],
-      passesPriceState: [],
-      ticketsPriceState: [],
-      isLoadedKey: false,
+      orderDetails: null,
+      detailModal: false,
+      currentPage: 1,
     };
-
-    this.toggle = this.toggle.bind(this);
   }
 
-  toggle2 = (data) => {
-    axios
-      .get(`/consumers/get-order-details/${data.orderId}`)
-      .then((response) => {
-        this.setState(
-          {
-            modalDataFromApi: response.data,
-            isLoaded: true,
-          },
-          () => {
-            const { modalDataFromApi } = this.state;
-            const { tickets, passes } = modalDataFromApi;
-            const ticketKeys = tickets ? Object.keys(tickets) : [];
-            const passKeys = passes ? Object.keys(passes) : [];
-            const passPrices = [];
-
-            passKeys.forEach((keyItem) => {
-              passPrices.push(passes[keyItem][0].price);
-            });
-
-            this.setState({
-              ticketsState: ticketKeys,
-              passesState: passKeys,
-              passesPriceState: passPrices,
-              isLoadedKey: true,
-            });
-          }
-        );
-      })
-      .catch((err) => {
-        console.error("Error /consumers/get-order-details", err);
-      });
+  toggleOrderDetails = (data = null) => {
+    const { detailModal } = this.state;
     this.setState({
-      modal2: !this.state.modal2,
-      modalData: data,
-    });
-  };
-  canceltoggle2 = () => {
-    this.setState({
-      modal2: !this.state.modal2,
-      modalData: [],
-      isLoaded: false,
-      isLoadedKey: false,
-      modalDataFromApi: [],
+      detailModal: !detailModal,
+      orderDetails: data,
     });
   };
 
   componentDidMount() {
     refreshPaypalConfig();
-
-    this.props.getTransactionHistory(1, 10);
+    this.fetchOrderHistory();
     this.props.fetchUserProfile();
-    var url = new URL(document.URL);
-    var query_string = url.search;
-    var search_params = new URLSearchParams(query_string);
-    var checkoutid = search_params.get("checkoutid");
-
-    if (checkoutid !== null) {
-      axios
-        .get(`/hubtel/fetch-hubtel-status/${checkoutid}?isTopUp=true`)
-        .then((response) => {})
-        .catch((err) => {
-          console.error("request faild!", err);
-        });
-    }
   }
 
-  toggle() {
+  fetchOrderHistory = () => {
+    const { currentPage } = this.state;
+    this.props.getTransactionHistory(currentPage, 10);
+  };
+
+  toggleTopupModal = () => {
     const { userWallet } = this.props;
     const { currency } = userWallet;
     this.setState((prevState) => ({
-      modal: !prevState.modal,
+      topUpModal: !prevState.topUpModal,
       topUpAmount: null,
       walletCurrency: currency || "",
     }));
-  }
+  };
 
   pageTitle = () => {
     return (
@@ -211,65 +145,59 @@ class Wallet extends Component {
     this.props.getTransactionHistory(this.props.walletPagination.page, 10);
   };
 
-  renderTransactionModal = () => {
+  renderOrderDetailModal = () => {
+    const { detailModal, orderDetails } = this.state;
+
     return (
-      <TransactionHistoryModal
-        parentState={this.state}
-        closeModal={this.canceltoggle2}
-      />
+      <Modal centered isOpen={detailModal} className="transaction-modal">
+        <InvoiceDetail
+          orderDetails={orderDetails}
+          closeModalCB={() => this.toggleOrderDetails()}
+        />
+      </Modal>
     );
   };
 
-  getData = () => {
-    const { transactionHistory } = this.props;
-    let jsx =
-      transactionHistory && transactionHistory.length === 0 ? (
-        <tbody key={2}>
-          <tr>
-            <td colSpan={5}>No Wallet Transaction</td>
-          </tr>
-        </tbody>
-      ) : (
-        Array.isArray(transactionHistory) &&
-        transactionHistory.map((data) => {
-          const { paymentMethod } = data;
-          const notRefundTopup = !["Refund", "Top-up"].includes(paymentMethod);
+  renderOrders = () => {
+    const { transactionHistory: orderHistory } = this.props;
+
+    if (!orderHistory.length)
+      return (
+        <tr>
+          <td colSpan={5}>No Wallet Transaction</td>
+        </tr>
+      );
+
+    return (
+      <>
+        {orderHistory.map((orderItem) => {
+          const { _id, currency, amount, createdAt, purchaseType } = orderItem;
+          console.log(orderItem);
           return (
-            <tr key={data._id}>
-              <td>{moment(data.createdAt).format("MM-DD-YYYY")}</td>
-              <td>{data.transactionId}</td>
-              <td>{data.paymentMethod}</td>
-              <td>{data.type}</td>
-              <td style={{ display: "inline-flex" }}>
-                <span
-                  className={`${notRefundTopup ? "red-color" : "green-color"}`}
-                >
-                  {data.transactionAmount && data.transactionAmount.toFixed(2)}
-                </span>
-              </td>
+            <tr key={_id}>
+              <td>{moment(createdAt).format("MM-DD-YYYY")}</td>
+              <td>{_id}</td>
+              <td>{purchaseType}</td>
+              <td>{formatCurrency(amount, currency)}</td>
+
               <td>
-                {notRefundTopup ? (
-                  <>
-                    <InfoCircleOutlined
-                      onClick={() => this.toggle2(data)}
-                      size="large"
-                      fill="#000"
-                      style={{
-                        cursor: "pointer",
-                        marginLeft: "10px",
-                        fontSize: "1.3rem",
-                        color: "#ccc",
-                      }}
-                    />
-                  </>
-                ) : null}
+                <InfoCircleOutlined
+                  onClick={() => this.toggleOrderDetails(orderItem)}
+                  size="large"
+                  fill="#000"
+                  style={{
+                    cursor: "pointer",
+                    marginLeft: "10px",
+                    fontSize: "1.3rem",
+                    color: "#ccc",
+                  }}
+                />
               </td>
             </tr>
           );
-        })
-      );
-
-    return <tbody id="scrollTable">{jsx}</tbody>;
+        })}
+      </>
+    );
   };
 
   getWallet = (walletBalance) => {
@@ -282,7 +210,7 @@ class Wallet extends Component {
               <HeadingWithButton
                 heading={"Wallet"}
                 buttonText={"+ Top-up balance"}
-                clicker={this.toggle}
+                clicker={this.toggleTopupModal}
               />
               <div className="list-single-facts fl-wrap">
                 <div className="inline-facts-wrap text-left profile-bal-box">
@@ -305,39 +233,45 @@ class Wallet extends Component {
             <div className="dasboard-wrap fl-wrap">
               <div className="dashboard-content fl-wrap">
                 <div className="box-widget-item-header">
-                  <h3> Transaction History</h3>
+                  <h3> Order History</h3>
                 </div>
               </div>
 
-              {this.renderTransactionModal()}
+              {this.renderOrderDetailModal()}
 
               <div className={"table-responsive"}>
                 <table className={"customTable transaction-table"}>
                   <thead style={{ backgroundColor: "#f2f3f8" }}>
                     <TableHead>{header}</TableHead>
                   </thead>
-
-                  {this.props.processing ? (
-                    <React.Fragment>
-                      <Loader style={{ marginLeft: "430%" }} />
-                    </React.Fragment>
-                  ) : (
-                    this.getData()
-                  )}
+                  <tbody>
+                    {this.props.processing ? (
+                      <tr>
+                        <td colSpan={5}>
+                          <Loader
+                            style={{
+                              marginTop: "unset",
+                              marginBottom: "unset",
+                            }}
+                          />
+                        </td>
+                      </tr>
+                    ) : (
+                      this.renderOrders()
+                    )}
+                  </tbody>
                 </table>
-                {this.props.walletPagination &&
-                this.props.walletPagination.hasNextPage === true ? (
-                  <a
-                    className="load-more-button load-more-button-light"
-                    href={hrefLink}
-                    onClick={(e) => this.loadMoreTransaction(e)}
-                  >
-                    Load more
-                    {this.props.walletPaginationProcessing ? (
-                      <i className="fas fa-spinner" />
-                    ) : null}
-                  </a>
-                ) : null}
+
+                <a
+                  className="load-more-button load-more-button-light"
+                  href={hrefLink}
+                  onClick={(e) => this.loadMoreTransaction(e)}
+                >
+                  Load more
+                  {this.props.walletPaginationProcessing ? (
+                    <i className="fas fa-spinner" />
+                  ) : null}
+                </a>
               </div>
             </div>
           </div>
@@ -354,11 +288,13 @@ class Wallet extends Component {
 
     return (
       <Modal
-        isOpen={this.state.modal}
+        isOpen={this.state.topUpModal}
         className={this.props.className}
         style={{ width: "40%" }}
       >
-        <ModalHeader toggle={this.toggle}>Top up your balance</ModalHeader>
+        <ModalHeader toggle={this.toggleTopupModal}>
+          Top up your balance
+        </ModalHeader>
         <ModalBody className="topUpBody">
           <FormGroup>
             <Label for="topUpAmount">Wallet Currency</Label>
@@ -405,7 +341,7 @@ class Wallet extends Component {
           <Button
             color="secondary"
             className={"buttonDefault defaultBackground"}
-            onClick={this.toggle}
+            onClick={this.toggleTopupModal}
           >
             Cancel
           </Button>{" "}

@@ -7,6 +7,7 @@ import axios from "./axios";
 const clm = require("country-locale-map");
 
 export const NOTIFICATION_TIME = 3000;
+const dateFormat = "DD-MM-YYYY";
 
 export const getObjectValue = (obj, path) => {
   let val = null;
@@ -312,4 +313,86 @@ export const refreshPaypalConfig = () => {
 export const getCountryLabel = (countryCode) => {
   const countryLabels = require("./flag-countries");
   return countryLabels[countryCode];
+};
+
+export const prepareTicketStructure = (ticketDetails) => {
+  const ticketStructure = {
+    data: [],
+    columns: [],
+  };
+
+  if (!ticketDetails.length) return ticketStructure;
+
+  ticketDetails.forEach((detailItem) => {
+    const { ticketClassInfo, srNo, purchasedDate, ticketSeat } = detailItem;
+
+    ticketStructure.data.push({
+      "Purchase Date": moment(purchasedDate).format("DD-MM-YYYY"),
+      "Ticket Id": srNo,
+      Seat: ticketSeat.seatName,
+      "Ticket Class": ticketClassInfo.ticketClassName,
+      Quantity: 1,
+    });
+  });
+
+  ticketStructure.columns = Object.keys(ticketStructure.data[0]);
+
+  return ticketStructure;
+};
+
+export const preparePassStructure = (passDetails) => {
+  const passStructure = {
+    data: [],
+    columns: [],
+  };
+
+  if (!passDetails.length) return passStructure;
+
+  passDetails.forEach((detailItem) => {
+    const { ticketClassInfo, uuid, purchasedDate, event } = detailItem;
+
+    passStructure.data.push({
+      "Item #": uuid,
+      Description: ticketClassInfo.ticketClassName,
+      Event: event.eventTitle,
+      "Purchase Date": moment(purchasedDate).format("DD-MM-YYYY"),
+    });
+  });
+
+  passStructure.columns = Object.keys(passStructure.data[0]);
+
+  return passStructure;
+};
+
+export const prepareTransactionStructure = (transactionDetails) => {
+  const transactionStructure = {
+    data: [],
+    columns: [],
+  };
+
+  if (!transactionDetails.length) return transactionStructure;
+
+  let transactionAmount = 0;
+  transactionDetails.forEach((detailItem) => {
+    const { amount, id, currency, method, transactionTime } = detailItem;
+    transactionAmount += amount;
+
+    transactionStructure.data.push({
+      Date: moment(transactionTime).format(dateFormat),
+      "Transaction Id": id,
+      Method: method,
+      Amount: formatCurrency(amount, currency),
+    });
+  });
+
+  transactionStructure.data.push({
+    Date: "",
+    "Transaction Id": "",
+    Method: "Subtotal: ",
+    Amount: formatCurrency(transactionAmount, transactionDetails[0].currency),
+  });
+
+  transactionStructure.columns = Object.keys(transactionStructure.data[0]);
+
+  return transactionStructure;
 };

@@ -3,38 +3,43 @@ import { Table } from "reactstrap";
 import classes from "./style.module.css";
 
 const TableHeaders = (props) => {
-  return props.columns.map((column) => <th>{column}</th>);
+  return props.columns.map((column, colIndex) => (
+    <th key={colIndex}>{column}</th>
+  ));
 };
 
 class CustomTable extends React.Component {
   render() {
-    const { noDataText, tableData } = this.props;
+    const { tableData, heading } = this.props;
     const { columns, data } = tableData;
 
+    if (!data.length) return null;
+
     return (
-      <Table responsive borderless className="border custom-table">
-        <thead className={`border-bottom ${classes.customHeader}`}>
-          <tr>
-            <TableHeaders columns={columns} />
-          </tr>
-        </thead>
+      <div className={classes.customTable}>
+        <h4>{heading}</h4>
+        <Table responsive borderless className="border">
+          <thead className={`border-bottom ${classes.customHeader}`}>
+            <tr>
+              <TableHeaders columns={columns} />
+            </tr>
+          </thead>
 
-        <tbody className="border-bottom middle-section">
-          <>
-            {!data.length && noDataText}
-
-            {data.map((row, index) => {
-              return (
-                <tr key={index}>
-                  {columns.map((col) => (
-                    <td>{row[col]}</td>
-                  ))}
-                </tr>
-              );
-            })}
-          </>
-        </tbody>
-      </Table>
+          <tbody className="border-bottom middle-section">
+            <>
+              {data.map((row, index) => {
+                return (
+                  <tr key={index}>
+                    {columns.map((col, colIndex) => (
+                      <td key={colIndex}>{row[col]}</td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </>
+          </tbody>
+        </Table>
+      </div>
     );
   }
 }

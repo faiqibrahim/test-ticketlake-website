@@ -122,8 +122,7 @@ export const PASSES_GET_SEATS = "/events/get-seats-passSlots";
 export const CLIENT_ID_GET = "";
 
 // Wallet
-export const GET_WALLET_TRANSACTION_HISTORY =
-  "/consumers/get-transaction-history";
+export const GET_WALLET_TRANSACTION_HISTORY = "/orders/list";
 
 // Checkout
 export const SEND_SMS_OTP = "/consumers/send-sms-otp";
@@ -192,4 +191,14 @@ export const movieDetailButtonSettings = {
   mainNextClass: "fc-cont movie-detail-arrow lc-next",
   previousIcon: "fa fa-angle-left",
   nextIcon: "fa fa-angle-right",
+};
+
+export const getPaypalClientId = () => {
+  const { REACT_APP_ENV } = process.env;
+
+  if (["staging", "production"].includes(REACT_APP_ENV.trim().toLowerCase())) {
+    return "AVxMDtg2UkfX0IFBK86r_l_EcCeloAcMmOQf7vbOuPQsr10I5QJBf-u4YVn504puI-GyLQ0ZcKRYBG2T";
+  } else {
+    return "AVxMDtg2UkfX0IFBK86r_l_EcCeloAcMmOQf7vbOuPQsr10I5QJBf-u4YVn504puI-GyLQ0ZcKRYBG2T";
+  }
 };

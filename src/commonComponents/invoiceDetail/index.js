@@ -1,7 +1,12 @@
-import moment from "moment";
 import React from "react";
+import moment from "moment";
+import { CloseCircleOutlined } from "@ant-design/icons";
 import { Row, Col } from "reactstrap";
-import { prepareTableStructure } from "../../utils/common-utils";
+import {
+  preparePassStructure,
+  prepareTicketStructure,
+  prepareTransactionStructure,
+} from "../../utils/common-utils";
 import CustomTable from "./CustomTable";
 import InvoiceHeader from "./InvoiceHeader";
 
@@ -16,11 +21,6 @@ const InvoiceHeaders = (props) => {
 class InvoiceDetail extends React.Component {
   invoiceHeaders = [
     {
-      title: "Order Date",
-      content: moment(new Date()).format("MM/DD/YYYY"),
-    },
-
-    {
       title: "Event Name",
       content: "Event",
     },
@@ -32,8 +32,14 @@ class InvoiceDetail extends React.Component {
   ];
 
   render() {
+    const { orderDetails, closeModalCB } = this.props;
+
+    if (!orderDetails) return null;
+
+    const { _id: orderNumber } = orderDetails;
+
     return (
-      <Row style={{ paddingTop: "115px" }}>
+      <Row style={{ paddingTop: "115px" }} className="transaction-history">
         <Col md={3} className="red-bg">
           <Row style={{ padding: "20px" }}>
             <Col md="12">
@@ -42,24 +48,30 @@ class InvoiceDetail extends React.Component {
           </Row>
         </Col>
 
-        <Col md={9}>
+        <Col md={9} className="white-bg">
+          <h3>Order# {orderNumber}</h3>
+          <CloseCircleOutlined
+            size="large"
+            className="close-button close-btn-styling"
+            onClick={closeModalCB}
+          />
           <Row style={{ padding: "20px" }}>
-            <h4> Tickets </h4>
             <CustomTable
-              tableData={prepareTableStructure([1])}
+              tableData={prepareTicketStructure(orderDetails.tickets)}
               noDataText={"No ticket"}
+              heading={"Tickets"}
             />
 
-            <h4> Passes </h4>
             <CustomTable
-              tableData={prepareTableStructure([])}
+              tableData={preparePassStructure(orderDetails.passes)}
+              heading={"Passes"}
               noDataText={"No passes"}
             />
 
-            <h4> Wallet </h4>
             <CustomTable
-              tableData={prepareTableStructure([])}
-              noDataText={"No wallet"}
+              tableData={prepareTransactionStructure(orderDetails.transactions)}
+              heading={"Transactions"}
+              noDataText={"No transaction found"}
             />
           </Row>
         </Col>
