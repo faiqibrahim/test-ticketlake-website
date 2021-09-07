@@ -100,27 +100,28 @@ class PaymentProcessor extends Component {
 
     return (
       <div className={"payment-wrp"}>
+          {!_.isNil(autoPayment) && (
+             <>
+               <span className={"wallet-message"}>Wallet balance used</span>
+               <div className={"payment-gateway-wrp pt-0"}>
+                 {PaymentProcessorFactory.getProcessor(autoPayment.type, {
+                   ...autoPayment,
+                 })}
+               </div>
+             </>
+
+          )}
         {!_.isNil(autoPayment) && (
-          <div className={"wallet-stats-wrp"}>
-            <div className={"payment-type-wrp col-md-4"}>
-              <p>Wallet balance used</p>
-              {PaymentProcessorFactory.getProcessor(autoPayment.type, {
-                ...autoPayment,
-              })}
-            </div>
-
-            <div className={"payment-type-wrp col-md-4"}>
-              <p>
+            <span className={"wallet-message"}>
                 Choose method for remaining:
-                {` ${formatCurrency(
-                  paymentMethods[0].amount,
-                  paymentMethods[0].currency
-                )}`}
-              </p>
-            </div>
-          </div>
+                <span className={"color-red"}>
+                  {` ${formatCurrency(
+                      paymentMethods[0].amount,
+                      paymentMethods[0].currency
+                  )}`}
+                </span>
+              </span>
         )}
-
         <div className={"payment-gateway-wrp"}>
           {paymentMethods.map((method) => (
             <React.Fragment key={method.type}>
