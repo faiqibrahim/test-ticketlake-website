@@ -134,7 +134,7 @@ class HeaderNavMenu extends Component {
           key={i}
           onClick={() => this.closeMenu(item._id, navState)}
         >
-          {item.name}
+          {item.name || ""}
         </DropdownItem>
       );
     }

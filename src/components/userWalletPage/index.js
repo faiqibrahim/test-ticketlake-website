@@ -23,7 +23,7 @@ import AuthRoutes from "../../commonComponents/authRotes";
 import TableHead from "../../commonComponents/tableHead";
 import Loader from "../../commonComponents/loader";
 import CustomSelectIconDropDown from "../../commonComponents/selectDropdownWithIcon";
-import { NETWORK_IMG, currencies } from "../../utils/config";
+import { CURRENCY_IMG, currencies } from "../../utils/config";
 
 // Redux
 import { connect } from "react-redux";
@@ -40,6 +40,7 @@ import "./style.css";
 import { formatCurrency, refreshPaypalConfig } from "../../utils/common-utils";
 import InvoiceDetail from "../../commonComponents/invoiceDetail";
 
+const _ = require("lodash");
 const header = ["Date", "Order ID", "Purchase Type", "Amount", "Details"];
 
 const options = currencies.map((currency) => ({
@@ -292,7 +293,7 @@ class Wallet extends Component {
     const { topUpAmount, walletCurrency } = this.state;
     const { currency } = this.props.userWallet;
 
-    const validTopup = !isNaN(+topUpAmount) && +topUpAmount > 0;
+    const validTopup = !isNaN(+topUpAmount) && _.round(+topUpAmount, 2) > 0;
 
     return (
       <Modal
@@ -323,7 +324,7 @@ class Wallet extends Component {
                   ? options.filter(({ value }) => value === currency)
                   : null
               }
-              networkImg={NETWORK_IMG}
+              networkImg={CURRENCY_IMG}
             />
 
             {!currency && (
