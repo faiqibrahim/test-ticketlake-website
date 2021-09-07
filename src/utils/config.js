@@ -55,7 +55,7 @@ export const VODA_IMG = "/images/network/voda.svg";
 export const AIRTEL_IMG = "/images/network/airtel.svg";
 export const GLO_IMG = "/images/network/glo.svg";
 export const NETWORK_IMG = "/images/network/sim.svg";
-
+export const CURRENCY_IMG = "/images/currency.svg";
 export const currencies = [
   "GHS",
   "USD",

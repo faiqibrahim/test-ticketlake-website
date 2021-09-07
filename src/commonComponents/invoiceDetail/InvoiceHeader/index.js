@@ -5,8 +5,7 @@ const InvoiceHeader = (props) => {
   return (
     <div className="col-md-12">
       <p className="str">
-        <strong>{heading}</strong>
-        <br />
+        {heading && <strong>{heading}</strong>}
         {children && children}
       </p>
     </div>

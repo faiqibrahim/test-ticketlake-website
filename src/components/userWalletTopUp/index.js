@@ -6,6 +6,7 @@ import PaymentProcessor from "../../commonComponents/PaymentProcessor";
 import { getTopUpInfo } from "./topup-info-provider";
 import axios from "../../utils/axios";
 import { NotificationManager } from "react-notifications";
+import Loader from "../../commonComponents/loader";
 
 class UserWalletTopUp extends Component {
   state = {
@@ -15,12 +16,14 @@ class UserWalletTopUp extends Component {
   onTopupSuccess = (transactionIds) => {
     const { currency } = getTopUpInfo();
 
-    axios
-      .post("/purchase/wallet-balance", { transactionIds, currency }, "v2")
-      .then(() => {
-        this.props.history.goBack();
-      })
-      .catch(this.onTopupFailure);
+    this.setState({ loading: true }, () => {
+      axios
+        .post("/purchase/wallet-balance", { transactionIds, currency }, "v2")
+        .then(() => {
+          this.props.history.goBack();
+        })
+        .catch(this.onTopupFailure);
+    });
   };
 
   onTopupFailure = (error) => {
@@ -30,6 +33,7 @@ class UserWalletTopUp extends Component {
   };
 
   render() {
+    const { loading } = this.state;
     const breadCrumbs = [];
     breadCrumbs.push(
       <BreadcrumbsItem glyph="home" to="/">
@@ -56,11 +60,15 @@ class UserWalletTopUp extends Component {
                   <div className="box-widget-item-header">
                     <h3> Wallet Top Up</h3>
                   </div>
-                  <PaymentProcessor
-                    {...info}
-                    onSuccess={this.onTopupSuccess}
-                    onFailure={this.onTopupFailure}
-                  />
+                  {loading ? (
+                    <Loader />
+                  ) : (
+                    <PaymentProcessor
+                      {...info}
+                      onSuccess={this.onTopupSuccess}
+                      onFailure={this.onTopupFailure}
+                    />
+                  )}
                 </div>
               </div>
             </section>

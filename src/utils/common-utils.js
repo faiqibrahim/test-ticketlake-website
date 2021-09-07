@@ -7,7 +7,7 @@ import axios from "./axios";
 const clm = require("country-locale-map");
 
 export const NOTIFICATION_TIME = 3000;
-const dateFormat = "DD-MM-YYYY";
+export const dateFormat = "DD-MM-YYYY";
 
 export const getObjectValue = (obj, path) => {
   let val = null;
@@ -324,14 +324,20 @@ export const prepareTicketStructure = (ticketDetails) => {
   if (!ticketDetails.length) return ticketStructure;
 
   ticketDetails.forEach((detailItem) => {
-    const { ticketClassInfo, srNo, purchasedDate, ticketSeat } = detailItem;
+    const { ticketClassInfo, srNo, ticketSeat, price, currency } = detailItem;
+    const { ticketClassName, ticketClassType } = ticketClassInfo;
+
+    const seatInfo = {
+      regular: "Seat",
+      table: "Table",
+    };
 
     ticketStructure.data.push({
-      "Purchase Date": moment(purchasedDate).format("DD-MM-YYYY"),
       "Ticket Id": srNo,
       Seat: ticketSeat.seatName,
-      "Ticket Class": ticketClassInfo.ticketClassName,
-      Quantity: 1,
+      "Ticket Class": ticketClassName,
+      "Ticket Type": seatInfo[ticketClassType.toLowerCase()],
+      Amount: formatCurrency(price, currency),
     });
   });
 
@@ -373,12 +379,11 @@ export const prepareTransactionStructure = (transactionDetails) => {
   if (!transactionDetails.length) return transactionStructure;
 
   transactionDetails.forEach((detailItem) => {
-    const { amount, id, currency, method, transactionTime } = detailItem;
+    const { amount, id, currency, method } = detailItem;
 
     transactionStructure.data.push({
-      Date: moment(transactionTime).format(dateFormat),
       "Transaction Id": id,
-      Method: method,
+      "Payment Method": method,
       Amount: formatCurrency(amount, currency),
     });
   });
