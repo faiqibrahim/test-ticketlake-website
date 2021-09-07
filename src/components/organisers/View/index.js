@@ -95,7 +95,7 @@ class Organisers extends Component {
                       src={data.imageURL}
                     />
                     <div>
-                      <p className="cardTitle">{data.name}</p>
+                      <p className="organiserCardTitle">{data.name}</p>
 
                       <p className="cardSubheading">{label}</p>
                       <p className="cardEventsText">{data.eventCount} Events</p>
