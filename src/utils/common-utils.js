@@ -385,13 +385,6 @@ export const prepareTransactionStructure = (transactionDetails) => {
     });
   });
 
-  transactionStructure.data.push({
-    Date: "",
-    "Transaction Id": "",
-    Method: "Subtotal: ",
-    Amount: formatCurrency(transactionAmount, transactionDetails[0].currency),
-  });
-
   transactionStructure.columns = Object.keys(transactionStructure.data[0]);
 
   return transactionStructure;

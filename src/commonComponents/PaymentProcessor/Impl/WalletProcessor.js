@@ -80,13 +80,15 @@ class WalletProcessor extends Component {
             available
           </span>
           <br />
-          <span className={styles.methodText}>
-            <span className={styles.currency}>{`${formatCurrency(
-              balanceInRequestedCurrency,
-              currency
-            )} `}</span>
-            available
-          </span>
+          {currency !== walletCurrency ? (
+            <span className={styles.methodText}>
+              <span className={styles.currency}>{`${formatCurrency(
+                balanceInRequestedCurrency,
+                currency
+              )} `}</span>
+              available
+            </span>
+          ) : null}
         </div>
       );
     }

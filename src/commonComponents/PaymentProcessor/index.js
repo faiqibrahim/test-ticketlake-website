@@ -53,9 +53,8 @@ class PaymentProcessor extends Component {
       } else {
         paymentMethods.push({
           ...method,
-          amount: _.round(+method.amount - +maxAmount),
+          amount: _.round(+method.amount - +maxAmount, 2),
         });
-
         const transIds = [...this.state.transIds];
         transIds.push(transId);
 
