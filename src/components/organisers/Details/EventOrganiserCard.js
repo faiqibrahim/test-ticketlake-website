@@ -48,7 +48,7 @@ class EventOrganiserCard extends Component {
           alt="event organiser"
         />
 
-        <h4 className="cardTitle">{name}</h4>
+        <h4 className="organiserCardTitle">{name}</h4>
         <p className="cardSubheading">Events Oraganised {eventsOrganised}</p>
         <p className="cardSubheading ">Venue - {venue}</p>
         <div className="cardSubheading borderBottom">

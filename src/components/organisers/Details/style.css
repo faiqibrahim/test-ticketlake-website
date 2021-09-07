@@ -100,7 +100,7 @@
   overflow: hidden;
 }
 
-.card .cardTitle {
+.card .organiserCardTitle {
   font-size: 24px;
   font-family: "NeuePlakBold";
   padding-top: 12px;
@@ -344,7 +344,7 @@
     width: 37%;
     margin-top: 0 !important;
   }
-  .card .cardTitle {
+  .card .organiserCardTitle {
     color: #17224e;
     font-size: 16px;
     font-family: "NeuePlakSemiBold";
@@ -440,7 +440,7 @@
     padding-top: 10px;
   }
 
-  .card .cardTitle {
+  .card .organiserCardTitle {
     color: #17224e;
     font-size: 16px;
     font-family: "NeuePlakSemiBold";

@@ -32,7 +32,7 @@ class ListView extends Component {
                 </div>
                 <div className="col">
                   <div className="card-block px-4">
-                    <h4 className="cardTitle">{event.title}</h4>
+                    <h4 className="organiserCardTitle">{event.title}</h4>
                     <p className="cardSubheading">
                       {event.categories.map(({ title }) => title).join(" & ")}
                     </p>
