@@ -12831,7 +12831,6 @@ input[type="number"] {
 .expiry-msg {
   float: left;
   width: 100%;
-  margin-bottom: 2rem;
 }
 .payment-wrp {
   float: left;
@@ -12879,4 +12878,12 @@ input[type="number"] {
     width: calc(100% / 1);
     margin-bottom: 20px;
   }
+}
+.wallet-message {
+  display: inline-block;
+  margin: 10px 0px;
+}
+.color-red {
+  color: #ec1c24;
+  font-weight: bold;
 }
