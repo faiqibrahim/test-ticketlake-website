@@ -110,7 +110,7 @@ class HeaderNavMenu extends Component {
       state: { parentCategory: item, breadCrumbs: breadCrumb, navLink: true },
     };
 
-    if (item.children.length > 0) {
+    if (item && item.children && item.children.length > 0) {
       return (
         <UncontrolledDropdown key={i} nav inNavbar>
           <DropdownToggle

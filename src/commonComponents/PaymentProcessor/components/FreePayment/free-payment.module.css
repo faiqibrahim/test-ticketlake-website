@@ -1,3 +1,7 @@
+.paymentContainer {
+  margin-top: 2rem;
+}
+
 .paymentContainer .header {
   margin: unset;
   padding: 2rem;
@@ -26,7 +30,7 @@
 
 .layoutBtn {
   height: 49px;
-  width: 40%;
+  width: 30%;
   background: #ec1c24;
   color: #fff;
   border: none;

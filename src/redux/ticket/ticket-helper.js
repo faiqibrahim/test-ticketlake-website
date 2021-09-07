@@ -22,7 +22,6 @@ export const getTicketClassConfigData = (classesConfig, ticketClasses) => {
       );
     }
   });
-  console.log("Tickets", classData);
   return classData;
 };
 
@@ -286,7 +285,6 @@ export const getPassesConfigData = (
     }
   });
 
-  console.log("passes", classData);
   return classData;
 };
 

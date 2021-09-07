@@ -80,29 +80,40 @@ class WalletProcessor extends Component {
             available
           </span>
           <br />
-          <span className={styles.methodText}>
-            <span className={styles.currency}>{`${formatCurrency(
-              balanceInRequestedCurrency,
-              currency
-            )} `}</span>
-            available
-          </span>
+          {currency !== walletCurrency ? (
+            <span className={styles.methodText}>
+              <span className={styles.currency}>{`${formatCurrency(
+                balanceInRequestedCurrency,
+                currency
+              )} `}</span>
+              available
+            </span>
+          ) : null}
         </div>
       );
     }
   };
 
   render() {
+    const { fixedPayment } = this.props;
+    const { balanceInRequestedCurrency } = this.state;
+
+    const isDisabledWallet = fixedPayment || !balanceInRequestedCurrency;
     return (
-      <div onClick={this.processPayment} className={styles.method}>
-        <div className={"information-img"}>
-          <img
-            src={walletImg}
-            style={{ width: "71px", height: "62px" }}
-            alt={"wallet-img"}
-          />
+      <div
+        className={`payment-gateway-box ${isDisabledWallet &&
+          "disabled-gateway-box"}`}
+      >
+        <div onClick={this.processPayment} className={styles.method}>
+          <div className={"information-img"}>
+            <img
+              src={walletImg}
+              style={{ width: "71px", height: "62px" }}
+              alt={"wallet-img"}
+            />
+          </div>
+          <div className={"information"}>{this.getBalanceInfo()}</div>
         </div>
-        <div className={"information"}>{this.getBalanceInfo()}</div>
       </div>
     );
   }

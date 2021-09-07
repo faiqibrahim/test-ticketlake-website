@@ -491,11 +491,10 @@ class BillSummary extends Component {
               <button
                 className="checkoutButton"
                 onClick={() => {
-                  // eslint-disable-next-line no-unused-expressions
-                  this.props.history.goBack;
+                  this.props.history.push("/");
                 }}
               >
-                Back
+                Shop More Events
               </button>
             )}
           </div>

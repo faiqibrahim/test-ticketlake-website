@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PaymentProcessorFactory from "./payment-processor-factory";
 import _ from "lodash";
 import { formatCurrency } from "../../utils/common-utils";
@@ -53,16 +53,20 @@ class PaymentProcessor extends Component {
       } else {
         paymentMethods.push({
           ...method,
-          amount: _.round(+method.amount - +maxAmount),
+          amount: _.round(+method.amount - +maxAmount, 2),
         });
-
         const transIds = [...this.state.transIds];
         transIds.push(transId);
 
-        this.setState({paymentMethods, autoPayment, transIds, childComponent: null});
+        this.setState({
+          paymentMethods,
+          autoPayment,
+          transIds,
+          childComponent: null,
+        });
       }
     });
-  }
+  };
 
   onPaymentSuccessful = (type, transId) => {
     const { transIds } = this.state;
@@ -117,19 +121,16 @@ class PaymentProcessor extends Component {
           </div>
         )}
 
-                <div className={"payment-gateway-wrp"}>
-                        {
-                            paymentMethods.map(method => (
-                                <div className={"payment-gateway-box"}  key={method.type}>
-                                    {PaymentProcessorFactory.getProcessor(method.type, {...method})}
-                                </div>
-                            ))
-                        }
-                </div>
-
-            </div>
-        );
-    }
+        <div className={"payment-gateway-wrp"}>
+          {paymentMethods.map((method) => (
+            <React.Fragment key={method.type}>
+              {PaymentProcessorFactory.getProcessor(method.type, { ...method })}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default PaymentProcessor;

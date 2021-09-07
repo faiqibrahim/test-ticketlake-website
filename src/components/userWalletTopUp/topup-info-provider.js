@@ -1,5 +1,6 @@
 import { getStore } from "../../index";
 import { formatCurrency } from "../../utils/common-utils";
+import { getPaypalClientId } from "../../utils/config";
 
 export const getTopUpInfo = () => {
   const state = getStore().getState();
@@ -19,8 +20,7 @@ export const getTopUpInfo = () => {
       },
       {
         type: "PAYPAL",
-        clientId:
-          "AVxMDtg2UkfX0IFBK86r_l_EcCeloAcMmOQf7vbOuPQsr10I5QJBf-u4YVn504puI-GyLQ0ZcKRYBG2T",
+        clientId: getPaypalClientId(),
       },
     ],
   };
