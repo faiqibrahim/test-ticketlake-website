@@ -143,9 +143,10 @@
   object-fit: fill;
 }
 
-.cardTitle {
+.organiserCardTitle {
   font-size: 24px;
   font-family: "NeuePlakBold";
+  color: #231f20;
   padding-top: 12px;
   padding-bottom: 12px;
   margin: 0px;

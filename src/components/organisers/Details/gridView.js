@@ -33,7 +33,7 @@ class GridView extends Component {
                     src={event.bannerImageKey.imageUrl}
                   />
                   <div>
-                    <p className="cardTitle">{event.title}</p>
+                    <p className="organiserCardTitle">{event.title}</p>
                     <p className="cardSubheading">
                       {event.categories.map(({ title }) => title).join(" & ")}
                     </p>
