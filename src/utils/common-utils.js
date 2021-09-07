@@ -372,10 +372,8 @@ export const prepareTransactionStructure = (transactionDetails) => {
 
   if (!transactionDetails.length) return transactionStructure;
 
-  let transactionAmount = 0;
   transactionDetails.forEach((detailItem) => {
     const { amount, id, currency, method, transactionTime } = detailItem;
-    transactionAmount += amount;
 
     transactionStructure.data.push({
       Date: moment(transactionTime).format(dateFormat),
