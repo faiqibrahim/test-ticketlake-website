@@ -2887,8 +2887,15 @@ input[type="number"].react-daterange-picker__inputGroup__input {
   float: left;
   width: 100%;
   position: relative;
-  padding: 4rem 40px 4rem 0;
+  padding: 6rem 40px 6rem 0;
 }
+
+@media only screen and (min-width: 1800px) {
+  .colomn-text {
+    padding: 11rem 40px 11rem 0;
+  }
+}
+
 
 .pad-top-column-text_small {
   padding-top: 40px;
@@ -11530,17 +11537,16 @@ div.gm-style-mtc {
 
 .images-collage-title {
   position: absolute;
-  left: 38px;
+  right: 38px;
   width: 180px;
   padding: 12px 0;
   z-index: 10;
-  top: 190px;
+  top: 90px;
   border-radius: 6px;
-  font-weight: 800;
-  font-size: 18px;
-  color: #fc6d6d !important;
-  text-transform: uppercase;
-
+  font-weight: bold;
+  font-size: 14px;
+  color: #fff !important;
+  background-color: #5377e5;
   box-shadow: 0px 0px 0px 7px rgba(255, 255, 255, 0.2);
   animation: bounce 4s ease-in-out infinite;
 }
@@ -11567,7 +11573,7 @@ div.gm-style-mtc {
   color: #fff;
   position: absolute;
   top: 50px;
-  right: 80px;
+  left: 80px;
   padding: 12px 25px;
   border-radius: 4px;
   font-size: 10px;
