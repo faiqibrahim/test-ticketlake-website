@@ -10,7 +10,7 @@ const GET_URL = () => {
       url = "https://api.qa.ticketlake.com/";
       break;
     case "staging":
-      url = "https://stagingapi.ticketlake.com/";
+      url = "https://api.staging.ticketlake.com/";
       break;
     case "production":
       url = "https://api.ticketlake.com/";
