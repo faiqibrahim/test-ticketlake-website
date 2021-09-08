@@ -11856,6 +11856,9 @@ div.gm-style-mtc {
   box-shadow: 0 0 15px -2px #d8d9e0de;
   max-height: 550px;
   overflow-y: scroll;
+  position: absolute;
+  z-index: 999;
+  background-color: #FFFFFF;
 }
 .top-header-search-icon {
   float: left;
