@@ -28,7 +28,6 @@ import UserProfile from "./components/userProfilePage";
 import ForgotPassword from "./components/forgotPasswordPage";
 import Movies from "./components/moviesPage/Movies";
 import Sports from "./components/sportsPage";
-import PromotedEvents from "./components/promotedEventsPage";
 import ScrollToTop from "./commonComponents/ScrollToTop/ScrollToTop";
 import PrivacyPolicy from "./components/privacyPolicy/PrivacyPolicy";
 import Terms from "./components/Terms/Terms";
@@ -203,11 +202,7 @@ class App extends Component {
                 />
                 <Route path="/terms" name={"Sports"} component={Terms} />
                 <Route path="/sports" name={"Sports"} component={Sports} />
-                <Route
-                  path="/events/promoted"
-                  name={"PromotedEvents"}
-                  component={PromotedEvents}
-                />
+
                 <Route
                   path="/events/nearby-events"
                   name={"NearByEvents"}

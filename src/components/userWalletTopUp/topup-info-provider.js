@@ -1,5 +1,4 @@
 import { getStore } from "../../index";
-import { formatCurrency } from "../../utils/common-utils";
 import { getPaypalClientId } from "../../utils/config";
 
 export const getTopUpInfo = () => {
@@ -10,10 +9,7 @@ export const getTopUpInfo = () => {
     amount: walletTopUp.topUpAmount,
     currency: walletTopUp.walletCurrency,
     purpose: "WALLET_TOP_UP",
-    description: `${formatCurrency(
-      walletTopUp.topUpAmount,
-      walletTopUp.walletCurrency
-    )} Wallet Topup`,
+    description: `${walletTopUp.topUpAmount} ${walletTopUp.walletCurrency} Wallet Topup`,
     paymentMethods: [
       {
         type: "MOBILE_MONEY",

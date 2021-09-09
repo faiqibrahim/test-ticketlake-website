@@ -100,9 +100,11 @@ class HeaderNavMenu extends Component {
 
   /********************** Mobile Nav Menu *************************/
 
-  lpFunctions = (item, i, link, breadCrumbState) => {
+  mobileChildCategory = (item, i, link, breadCrumbState, isCustomNav) => {
     let breadCrumb = [...breadCrumbState];
-    let pathURL = `${link}/?id=${item._id}`;
+    let pathURL = isCustomNav
+      ? `${link}/sub-category/?id=${item._id}`
+      : `${link}/?id=${item._id}`;
     breadCrumb.push({ category: item, url: pathURL, mainLink: link });
 
     let navState = {
@@ -122,7 +124,7 @@ class HeaderNavMenu extends Component {
           </DropdownToggle>
           <DropdownMenu right className="one p-0 right-menu">
             {item.children.map((item, i) =>
-              this.lpFunctions(item, i, link, breadCrumb)
+              this.mobileChildCategory(item, i, link, breadCrumb, isCustomNav)
             )}
           </DropdownMenu>
         </UncontrolledDropdown>
@@ -140,12 +142,13 @@ class HeaderNavMenu extends Component {
     }
   };
 
-  renderDisplayMenu = () => {
+  renderMobileMenu = () => {
     let categoryState = this.getSessionState();
 
     return (
       categoryState &&
       categoryState.map((item, i) => {
+        const { children } = item;
         if (i < navLimit) {
           let { selectedCategories } = this.props;
           let breadCrumbsState = [];
@@ -154,8 +157,11 @@ class HeaderNavMenu extends Component {
             (category) => category.title === item.name.trim()
           );
           let link = `/events/listing`;
+          const isCustomCategory = Boolean(
+            selectedCategories && selectedCategories.length
+          );
 
-          if (selectedCategories && selectedCategories.length) {
+          if (isCustomCategory) {
             link = selectedCategories[0].link;
             breadCrumbsState.push({
               category: item,
@@ -173,7 +179,8 @@ class HeaderNavMenu extends Component {
               navLink: true,
             },
           };
-          return item.children.length > 0 ? (
+
+          return children && children.length > 0 ? (
             <UncontrolledDropdown
               key={i}
               nav
@@ -189,8 +196,14 @@ class HeaderNavMenu extends Component {
                 {item.name ? item.name : item.title}
               </DropdownToggle>
               <DropdownMenu right className="one p-0 hee right-menu">
-                {item.children.map((item, i) =>
-                  this.lpFunctions(item, i, link, breadCrumbsState)
+                {children.map((item, i) =>
+                  this.mobileChildCategory(
+                    item,
+                    i,
+                    link,
+                    breadCrumbsState,
+                    isCustomCategory
+                  )
                 )}
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -200,7 +213,7 @@ class HeaderNavMenu extends Component {
               className="border-bottom hee"
               onClick={() => this.closeMenu(item._id, navState)}
             >
-              {item.name}
+              {item.name || ""}
             </DropdownItem>
           );
         } else return null;
@@ -273,22 +286,40 @@ class HeaderNavMenu extends Component {
 
   /************************** End ********************************/
 
-  onWebsiteMenuChildClick = (item) => {
+  onWebsiteMenuChildClick = (item, link) => {
     const { setCategorySection, history } = this.props;
+    let obj = {
+      parentCategory: item,
+      navLink: true,
+    };
     setCategorySection(item.parentId);
-    history.push(`/movies/sub-category/${item._id}`);
+    history.push(link);
+
     sessionStorage.setItem("parentCategory", item.parentId);
     sessionStorage.setItem("subCategoryItem", JSON.stringify(item));
-    window.location.reload();
+
+    if (!link.search("events")) {
+      window.location.reload();
+    } else {
+      sessionStorage.setItem("eventsListing", JSON.stringify(obj));
+    }
   };
 
   /********************** Website Nav Menu *************************/
 
-  websiteMenuLoop = (item, i, link, breadCrumbState) => {
+  websiteChildCategory = (
+    item,
+    i,
+    link,
+    breadCrumbState,
+    isCustomNav = false
+  ) => {
     let breadCrumb = [...breadCrumbState];
-    let pathURL = `${link}/sub-category/?id=${item._id}`;
+    let pathURL = isCustomNav
+      ? `${link}/sub-category/?id=${item._id}`
+      : `${link}/?id=${item._id}`;
     breadCrumb.push({ category: item, url: pathURL, mainLink: link });
-    if (item.children.length > 0) {
+    if (item.children && item.children.length > 0) {
       return (
         <Fragment key={i}>
           <li>
@@ -303,7 +334,7 @@ class HeaderNavMenu extends Component {
                   navLink: true,
                 },
               }}
-              onClick={() => this.onWebsiteMenuChildClick(item)}
+              onClick={() => this.onWebsiteMenuChildClick(item, pathURL)}
             >
               {item.name}
               <span>
@@ -312,7 +343,13 @@ class HeaderNavMenu extends Component {
             </NavLink>
             <ul className="sub-menu-child">
               {item.children.map((item, i) =>
-                this.websiteMenuLoop(item, i, link, breadCrumb)
+                this.websiteChildCategory(
+                  item,
+                  i,
+                  link,
+                  breadCrumb,
+                  isCustomNav
+                )
               )}
             </ul>
           </li>
@@ -322,7 +359,6 @@ class HeaderNavMenu extends Component {
       return (
         <Fragment key={i}>
           <li key={i}>
-            {/*<a href={`/events/listing/?id=${item._id}`}> {item.name} </a>*/}
             <NavLink
               to={{
                 pathname: pathURL,
@@ -332,9 +368,9 @@ class HeaderNavMenu extends Component {
                   navLink: true,
                 },
               }}
-              onClick={() => this.onWebsiteMenuChildClick(item)}
+              onClick={() => this.onWebsiteMenuChildClick(item, pathURL)}
             >
-              {item.name}
+              {item.name || ""}
             </NavLink>
           </li>
         </Fragment>
@@ -342,7 +378,7 @@ class HeaderNavMenu extends Component {
     }
   };
 
-  renderWebsiteDisplayMenu = () => {
+  renderWebsiteMenu = () => {
     let categoryState = this.getSessionState();
     let { selectedCategories } = this.props;
     let breadCrumbsState = [];
@@ -355,8 +391,11 @@ class HeaderNavMenu extends Component {
             (category) => category.title === item.name.trim()
           );
           let link = `/events/listing`;
+          const isCustomCategory = Boolean(
+            selectedCategories && selectedCategories.length
+          );
 
-          if (selectedCategories && selectedCategories.length) {
+          if (isCustomCategory) {
             link = selectedCategories[0].link;
             breadCrumbsState.push({
               category: item,
@@ -367,9 +406,8 @@ class HeaderNavMenu extends Component {
 
           let pathName = `${link}/?id=${item._id}`;
 
-          return item.children.length > 0 ? (
+          return item.children && item.children.length > 0 ? (
             <li key={i}>
-              {/*<a href={`/events/listing/?id=${item._id}`}> {item.name} <i class="fas fa-caret-down"/></a>*/}
               <NavLink
                 to={{
                   pathname: pathName,
@@ -388,7 +426,13 @@ class HeaderNavMenu extends Component {
               </NavLink>
               <ul className="sub-menu">
                 {item.children.map((item, i) =>
-                  this.websiteMenuLoop(item, i, link, breadCrumbsState)
+                  this.websiteChildCategory(
+                    item,
+                    i,
+                    link,
+                    breadCrumbsState,
+                    isCustomCategory
+                  )
                 )}
               </ul>
             </li>
@@ -405,7 +449,7 @@ class HeaderNavMenu extends Component {
                 }}
                 onClick={() => this.onNavClick(item)}
               >
-                {item.name}
+                {item.name || ""}
               </NavLink>
             </li>
           );
@@ -428,7 +472,11 @@ class HeaderNavMenu extends Component {
         );
         let link = `/events/listing`;
 
-        if (selectedCategories && selectedCategories.length) {
+        const isCustomCategory = Boolean(
+          selectedCategories && selectedCategories.length
+        );
+
+        if (isCustomCategory) {
           link = selectedCategories[0].link;
           breadCrumbsState.push({
             category: item,
@@ -514,7 +562,7 @@ class HeaderNavMenu extends Component {
                   <span style={{ lineHeight: "47px" }}>Loading menu...</span>
                 ) : (
                   <>
-                    {this.renderDisplayMenu()}
+                    {this.renderMobileMenu()}
                     {this.renderMobileMoreCategories(
                       menu.length + selectedCategories.length
                     )}
@@ -546,7 +594,7 @@ class HeaderNavMenu extends Component {
             ) : (
               <nav>
                 <ul className="parent-menu">
-                  {this.renderWebsiteDisplayMenu()}
+                  {this.renderWebsiteMenu()}
                   {this.renderWebsiteMoreCategories(
                     menu.length + selectedCategories.length
                   )}
