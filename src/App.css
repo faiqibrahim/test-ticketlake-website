@@ -2564,6 +2564,10 @@ input[type="number"] {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;
 }
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .nearby-text {
   text-align: left;
   display: flex;
