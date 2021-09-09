@@ -146,6 +146,7 @@ class HeaderNavMenu extends Component {
     return (
       categoryState &&
       categoryState.map((item, i) => {
+        const { children } = item;
         if (i < navLimit) {
           let { selectedCategories } = this.props;
           let breadCrumbsState = [];
@@ -173,7 +174,7 @@ class HeaderNavMenu extends Component {
               navLink: true,
             },
           };
-          return item.children.length > 0 ? (
+          return children && children.length > 0 ? (
             <UncontrolledDropdown
               key={i}
               nav
@@ -189,7 +190,7 @@ class HeaderNavMenu extends Component {
                 {item.name ? item.name : item.title}
               </DropdownToggle>
               <DropdownMenu right className="one p-0 hee right-menu">
-                {item.children.map((item, i) =>
+                {children.map((item, i) =>
                   this.lpFunctions(item, i, link, breadCrumbsState)
                 )}
               </DropdownMenu>
@@ -200,7 +201,7 @@ class HeaderNavMenu extends Component {
               className="border-bottom hee"
               onClick={() => this.closeMenu(item._id, navState)}
             >
-              {item.name}
+              {item.name || ""}
             </DropdownItem>
           );
         } else return null;
@@ -288,7 +289,7 @@ class HeaderNavMenu extends Component {
     let breadCrumb = [...breadCrumbState];
     let pathURL = `${link}/sub-category/?id=${item._id}`;
     breadCrumb.push({ category: item, url: pathURL, mainLink: link });
-    if (item.children.length > 0) {
+    if (item.children && item.children.length > 0) {
       return (
         <Fragment key={i}>
           <li>
@@ -322,7 +323,6 @@ class HeaderNavMenu extends Component {
       return (
         <Fragment key={i}>
           <li key={i}>
-            {/*<a href={`/events/listing/?id=${item._id}`}> {item.name} </a>*/}
             <NavLink
               to={{
                 pathname: pathURL,
@@ -334,7 +334,7 @@ class HeaderNavMenu extends Component {
               }}
               onClick={() => this.onWebsiteMenuChildClick(item)}
             >
-              {item.name}
+              {item.name || ""}
             </NavLink>
           </li>
         </Fragment>
@@ -367,7 +367,7 @@ class HeaderNavMenu extends Component {
 
           let pathName = `${link}/?id=${item._id}`;
 
-          return item.children.length > 0 ? (
+          return item.children && item.children.length > 0 ? (
             <li key={i}>
               {/*<a href={`/events/listing/?id=${item._id}`}> {item.name} <i class="fas fa-caret-down"/></a>*/}
               <NavLink
@@ -405,7 +405,7 @@ class HeaderNavMenu extends Component {
                 }}
                 onClick={() => this.onNavClick(item)}
               >
-                {item.name}
+                {item.name || ""}
               </NavLink>
             </li>
           );

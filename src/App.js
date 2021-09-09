@@ -206,7 +206,7 @@ class App extends Component {
                 <Route
                   path="/events/promoted"
                   name={"PromotedEvents"}
-                  component={PromotedEvents}
+                  component={EventListing}
                 />
                 <Route
                   path="/events/nearby-events"
