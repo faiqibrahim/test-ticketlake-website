@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import { Breadcrumbs, BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 import Heading from '../../commonComponents/heading';
 import Loader from "../../commonComponents/loader";
-import {distance, getCardDates} from '../../utils/common-utils';
+import {distance} from '../../utils/common-utils';
 import GoogleMap from "../nearByEvents/googleMap";
 import { getVenueTypes, getNearByCinemas } from '../../redux/venues/venue-action';
 import CardWithBottomInfo from '../../commonComponents/cardWithBottomInfo';
