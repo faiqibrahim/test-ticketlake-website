@@ -76,17 +76,21 @@ const userPagesContainer = (props) => {
                   Dashboard Menu <i className="fal fa-bars" />
                 </div>
                 <ul className="dasboard-menu-wrap" id={"filtersContainer"}>
-                  {tabs.map((item, i) => (
-                    <li key={i}>
-                      <NavLink to={item.link} className={item.isActiveClass}>
-                        <i className={item.icon} />
-                        {item.name}
-                        {item.tag === undefined ? null : (
-                          <span className={"tag"}>{item.tag}</span>
-                        )}
-                      </NavLink>
-                    </li>
-                  ))}
+                  {tabs.map((item, i) => {
+                    const { link } = item;
+
+                    return (
+                      <li key={i}>
+                        <NavLink to={link} className={item.isActiveClass}>
+                          <i className={item.icon} />
+                          {item.name}
+                          {item.tag === undefined ? null : (
+                            <span className={"tag"}>{item.tag}</span>
+                          )}
+                        </NavLink>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </div>

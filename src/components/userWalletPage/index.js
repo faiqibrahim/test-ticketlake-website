@@ -369,7 +369,9 @@ class Wallet extends Component {
 
   render() {
     const breadCrumbs = [];
-    const { userWallet } = this.props;
+    const { userWallet, ticketPagination = {} } = this.props;
+    const { myTicketsCount = 0 } = ticketPagination;
+
     const { availableBalance, currency } = userWallet;
     breadCrumbs.push(
       <BreadcrumbsItem glyph="home" to="/" key={1}>
@@ -393,6 +395,7 @@ class Wallet extends Component {
             page={"wallet"}
             breadcrumbs={breadCrumbs}
             walletBalance={walletBalance}
+            userTickets={myTicketsCount}
           >
             {this.getWallet(walletBalance)}
           </UserPagesContainer>
