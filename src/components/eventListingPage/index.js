@@ -546,16 +546,16 @@ class EventListing extends Component {
                                                         {!allEvents.length ?
                                                             <div className={"Error-msg-wrp w100"}>
                                                                 <div className={"Error-heading"}>Sorry, No Event Found.</div>
-                                                                <span className={"Error-sub-heading"}>Sorry, we found no matches for the {` "${this.getSearchTitle()}"` }</span>
-                                                               {/* <span className={"Error-heading display-block"}>Search Suggestions</span>*/}
-                                                               {/*<div className={"suggestion-point-wrp"}>*/}
-                                                               {/*     <ul>*/}
-                                                               {/*         <li> Try updating your location</li>*/}
-                                                               {/*         <li> Try expanding your date range</li>*/}
-                                                               {/*         <li> Check your spelling</li>*/}
-                                                               {/*         <li> Try using more general keywords</li>*/}
-                                                               {/*     </ul>*/}
-                                                               {/*</div>*/}
+                                                                <span className={"Error-sub-heading"}>We found no matches for the {` "${this.getSearchTitle()}"` }</span>
+                                                                <span className={"Error-heading display-block"}>Search Suggestions</span>
+                                                               <div className={"suggestion-point-wrp"}>
+                                                                    <ul>
+                                                                        <li> Try updating your location</li>
+                                                                        <li> Try expanding your date range</li>
+                                                                        <li> Check your spelling</li>
+                                                                        <li> Try using more general keywords</li>
+                                                                    </ul>
+                                                               </div>
 
                                                             </div>
                                                             :

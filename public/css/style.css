@@ -12896,3 +12896,22 @@ input[type="number"] {
   color: #ec1c24;
   font-weight: bold;
 }
+span.Error-heading.display-block {
+  display: block;
+  font-weight: bold !important;
+  font-size: 16px;
+  width: 20%;
+  margin: 20px auto 10px auto;
+  text-align: left;
+}
+
+.suggestion-point-wrp {
+  width: 20%;
+  margin: auto;
+  text-align: left;
+}
+
+.suggestion-point-wrp ul {
+  list-style: disc;
+  padding-left: 20px;
+}
