@@ -12315,9 +12315,30 @@ source {
     width: calc(100% / 3 - 25px);
   }
 }
+@media only screen and (max-width: 768px) {
+  span.Error-heading.display-block
+  {
+    width: 30% !important;
+    text-align: center !important;
+  }
+  .suggestion-point-wrp
+  {
+    width: 30% !important;
+  }
+}
+
 @media only screen and (max-width: 500px) {
   .organiser-box {
     width: calc(100% / 2 - 25px);
+  }
+  span.Error-heading.display-block
+  {
+    width: 100% !important;
+    text-align: center !important;
+  }
+  .suggestion-point-wrp
+  {
+    width: 100% !important;
   }
 }
 @media only screen and (max-width: 375px) {
