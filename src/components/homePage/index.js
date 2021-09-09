@@ -45,8 +45,8 @@ renderHomePage = () => {
                                          text={"Chalk out your entertainment by exploring the upcoming events based on your preferences"}/>
                     <UpcomingEvents/>
                     <WhyChooseUs/>
-                    <EventOrganizer/>
                     <MobileAppBanner/>
+                    <EventOrganizer/>
                 </div>
             </div>
         )

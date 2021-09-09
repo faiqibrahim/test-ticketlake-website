@@ -736,7 +736,8 @@ class EventDetail extends Component {
                                                        style={{
                                                            marginBottom: "initial",
                                                            fontSize: '14px'
-                                                       }}>Description -
+                                                       }}>
+                                                         <span className={"description"} style={{marginRight:"5px"}}>Description -</span>
                                                         {this.readMore(data.parentEventInfo && data.parentEventInfo.description)}
                                                     </p>
                                                 </div>
