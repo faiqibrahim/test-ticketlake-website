@@ -203,11 +203,7 @@ class App extends Component {
                 />
                 <Route path="/terms" name={"Sports"} component={Terms} />
                 <Route path="/sports" name={"Sports"} component={Sports} />
-                <Route
-                  path="/events/promoted"
-                  name={"PromotedEvents"}
-                  component={EventListing}
-                />
+
                 <Route
                   path="/events/nearby-events"
                   name={"NearByEvents"}

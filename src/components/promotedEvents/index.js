@@ -77,7 +77,10 @@ class PromotedEvents extends Component {
                       paragraph={newEventList.paragraph}
                       date={newEventList.eventDateTimeSlot.eventStartTime}
                       cardClass={cardClass}
-                      cardLink={`event/detail/${newEventList.eventSlotId}`}
+                      cardLink={{
+                        pathname: `event/detail/${newEventList.eventSlotId}`,
+                        state: { isPromoted: true },
+                      }}
                       key={i}
                       item={newEventList}
                       eventTitle={newEventList.eventTitle}
@@ -90,7 +93,7 @@ class PromotedEvents extends Component {
 
               <div>
                 <TwoShadedButton
-                  buttonLink={"/events/promoted"}
+                  buttonLink={"/events/listing"}
                   buttonText={"Explore all Events"}
                   navState={{ isPromoted: true }}
                 />
