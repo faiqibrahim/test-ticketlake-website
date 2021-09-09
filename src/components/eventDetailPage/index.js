@@ -422,6 +422,7 @@ class EventDetail extends Component {
     if (!this.props.processing && this.props.singleEventDetail) {
       let data = this.props.singleEventDetail;
       const { parentEventInfo } = data;
+      const { organizationId } = parentEventInfo;
       let eventStartTime =
         data && data.eventDateTimeSlot
           ? data.eventDateTimeSlot.eventStartTime
@@ -1162,41 +1163,36 @@ class EventDetail extends Component {
                           <div className="box-widget">
                             <div className="box-widget-content">
                               <div className="box-widget-item-header">
-                                <h3> Organizer Information</h3>
+                                <h3> Organization Information</h3>
                               </div>
                               <div className="box-widget-list detailImagesIcons">
                                 <ul>
-                                  {data.parentEventInfo &&
-                                  data.parentEventInfo.contactPersonInfo
-                                    .phoneNumber.length === 0 ? null : (
-                                    <li>
-                                      <img
-                                        src={
-                                          window.location.origin +
-                                          "/images/icons/call-red.svg"
-                                        }
-                                        alt=""
-                                        style={{
-                                          width: "6%",
-                                          verticalAlign: "bottom",
-                                        }}
-                                      />
-                                      <span
-                                        className="contact-details-heading"
-                                        style={{
-                                          color: "#363636",
-                                          float: "unset",
-                                        }}
-                                      >
-                                        Phone :
-                                      </span>
-                                      <a href={hrefLink}>
-                                        {data.organization
-                                          ? data.organization.phoneNumber
-                                          : "Organizer Phone Number"}
-                                      </a>
-                                    </li>
-                                  )}
+                                  <li>
+                                    <img
+                                      src={
+                                        window.location.origin +
+                                        "/images/icons/call-red.svg"
+                                      }
+                                      alt=""
+                                      style={{
+                                        width: "6%",
+                                        verticalAlign: "bottom",
+                                      }}
+                                    />
+                                    <span
+                                      className="contact-details-heading"
+                                      style={{
+                                        color: "#363636",
+                                        float: "unset",
+                                      }}
+                                    >
+                                      Phone :
+                                    </span>
+                                    <a href={hrefLink}>
+                                      {organizationId.phoneNumber || ""}
+                                    </a>
+                                  </li>
+
                                   <li>
                                     <img
                                       src={
@@ -1219,9 +1215,7 @@ class EventDetail extends Component {
                                       Email:
                                     </span>
                                     <a href={hrefLink}>
-                                      {data.organization
-                                        ? data.organization.email
-                                        : "Organizer Email"}
+                                      {organizationId.email || ""}
                                     </a>
                                   </li>
                                   <li>
@@ -1247,10 +1241,9 @@ class EventDetail extends Component {
                                     </span>
 
                                     <a href={hrefLink}>
-                                      {data.organization
-                                        ? data.organization.address &&
-                                          `${data.organization.address.city}, ${data.organization.address.country}`
-                                        : "Address"}
+                                      {organizationId.address
+                                        ? `${organizationId.address.city}, ${organizationId.address.country}`
+                                        : ""}
                                     </a>
                                   </li>
                                 </ul>
