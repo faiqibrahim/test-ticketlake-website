@@ -2556,13 +2556,39 @@ input[type="number"] {
   width: 100%;
   height: 95px;
   border-radius: 8px;
+  object-fit: cover;
+  object-position: top;
+}
+.hide-scrollbar
+{
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;
 }
 .nearby-text {
   text-align: left;
+  display: flex;
+  align-items: center;
 }
+.heading-info-wrp {
+  float: left;
+  text-align: left !important;
+}
+.heading-info-wrp .event-title {
+  text-align: left !important;
+  margin-bottom: 0;
+}
+.heading-info-wrp .sub-info {
+  padding: 0;
+  margin: 0;
+}
+.switch-grid-view .zero {
+  position: relative;
+  top: 5px;
+}
+
 .km {
   position: absolute;
-  right: 0;
+  right: 15px;
   top: 0;
 }
 .km-count {

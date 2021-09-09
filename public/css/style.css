@@ -12940,3 +12940,11 @@ span.Error-heading.display-block {
 {
   float: left;
 }
+.hover-effect:hover {
+  box-shadow: 0px 0px 10px #ddd;
+  transition: 0.5s;
+  background-color: #fff;
+}
+.pt-15 {
+  padding-top: 15px;
+}
