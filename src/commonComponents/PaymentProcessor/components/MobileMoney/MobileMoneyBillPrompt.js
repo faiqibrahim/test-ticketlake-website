@@ -12,7 +12,6 @@ const _clearInterval = () => {
 class MobileMoneyBillPrompt extends Component {
 
     componentDidMount() {
-        console.log(this.props);
         this.requestPayment()
             .catch(error => {
                 console.error("Could not request payment.", error);
@@ -63,7 +62,6 @@ class MobileMoneyBillPrompt extends Component {
     }
 
     trackPayment = async (checkInternally, transactionId) => {
-        console.log(checkInternally, checkCount);
         const {type, onPaymentSuccessful, purpose: purchaseType} = this.props;
 
         const {data} = await axios.post(`/tickets/hubtel-payment-status/${transactionId}`, {
@@ -80,14 +78,14 @@ class MobileMoneyBillPrompt extends Component {
 
     render() {
         return (
-            <div className={'row'}>
-                <div className={'col-md-12'} style={{margin: "5% 0%"}}>
+            <div className={'row fl-l'}>
+                <div className={'col-md-12'} style={{margin: "2% 0%"}}>
                     <h4 className="title">Bill Prompt Sent</h4>
                 </div>
 
                 <div className={'col-md-12'}>
                     <img src={'/images/checkout/bill.svg'}
-                         style={{width: '45%'}}
+                         style={{width: '100px'}}
                          alt={'img'}/>
                 </div>
 
