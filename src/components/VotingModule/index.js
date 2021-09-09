@@ -119,16 +119,16 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDisptachToProps = (disptach) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     getAllVotingEvents: (eventsLimit, cb) =>
-      disptach(getAllVotingEvents(eventsLimit, cb)),
+      dispatch(getAllVotingEvents(eventsLimit, cb)),
   };
 };
 
 const eventsConnnected = connect(
   mapStateToProps,
-  mapDisptachToProps
+  mapDispatchToProps
 )(VotingEvents);
 
 export default withRouter(eventsConnnected);

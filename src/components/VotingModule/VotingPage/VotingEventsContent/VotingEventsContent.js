@@ -5,7 +5,7 @@ import { duration } from "../Duration/duration";
 import CardItem from "../CardItem/CardItem";
 import "./VotingEventsContent.css";
 
-const eventSelectedHandler = (id, name, props, eventClosed) => {
+const eventSelectedHandler = (id, props) => {
   props.history.push({
     pathname: "/voting/" + id,
   });
@@ -26,14 +26,7 @@ const VotingEvents = (props) => {
               key={event.id}
               {...event}
               status={duration(event).eventEnd}
-              clicked={() =>
-                eventSelectedHandler(
-                  event.id,
-                  event.name,
-                  props,
-                  duration(event).eventEnd
-                )
-              }
+              clicked={() => eventSelectedHandler(event.id, props)}
             />
           );
         })

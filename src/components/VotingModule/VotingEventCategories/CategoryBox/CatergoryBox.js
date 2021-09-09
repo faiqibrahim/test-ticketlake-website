@@ -5,7 +5,7 @@ import ToolTips from "../../ToolTips/ToolTips";
 import "./CatergoryBox.css";
 
 const CatergoryBox = (props) => {
-  const { image, name, clicked } = props;
+  const { image, name, clicked, nomineeCount } = props;
 
   const categoryName = (
     <ToolTips
@@ -13,21 +13,20 @@ const CatergoryBox = (props) => {
       textLength={22}
       classes={{
         toolStyle: "tooltipStyle",
-        textClasses: {
-          title: image ? "boxTitle" : "boxTitleNoImage",
-          overlayTool: image ? "votingOverlay" : "votingOverlayNoImage",
-        },
+        textClasses: { title: "boxTitle" },
       }}
     />
   );
 
   return (
     <div className="CategoryBoxCol" onClick={clicked}>
-      <div
-        className="boxContent"
-        style={image ? { backgroundImage: `url('${image}')` } : null}
-      >
-        {categoryName}
+      <div className="boxContent">
+        <div className="categoryImage">
+          <img src={image} alt="img" />
+        </div>
+        <div>
+          {categoryName}--{nomineeCount}
+        </div>
       </div>
     </div>
   );

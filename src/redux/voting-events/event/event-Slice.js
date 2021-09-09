@@ -4,10 +4,14 @@ const votingEventSlice = createSlice({
   name: "Voting Events",
   initialState: {
     eventsListing: [],
+    singleEvent: null,
   },
   reducers: {
-    getAllEvents(state, action) {
+    setAllEvents(state, action) {
       state.eventsListing = action.payload;
+    },
+    setSingleEvent(state, action) {
+      state.singleEvent = action.payload;
     },
   },
 });
