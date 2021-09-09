@@ -44,7 +44,6 @@ import { getAllCategories } from "../../redux/category/category-actions";
 
 import { NotificationManager } from "react-notifications";
 import { filteredCities } from "../../utils/config";
-import Heading from "../../commonComponents/heading";
 
 let isWishlist = false;
 let categoryKey = "eventsListing";
@@ -462,8 +461,6 @@ class EventListing extends Component {
   // Rendering Method
   render() {
     let cities = filteredCities();
-    const listingState = this.getEventListingState();
-    const isPromoted = Boolean(listingState && listingState.isPromoted);
 
     let dataIs =
       this.props.allEvents &&
@@ -541,19 +538,9 @@ class EventListing extends Component {
             <section
               className="light-red-bg small-padding event-listing-wrp"
               id="sec1"
-              style={{ paddingTop: "30px", paddingBottom: "10px" }}
+              style={{ paddingTop: "0px" }}
             >
               <div className="container custom-container">
-                {isPromoted && (
-                  <Heading
-                    style={{ marginBottom: "0px", textAlign: "left" }}
-                    heading={"Top Events"}
-                    text={
-                      "Navigate through number of outrageous events happening around"
-                    }
-                  />
-                )}
-
                 <div className="row">
                   <div className="col-md-12">
                     <EventListingFilters
