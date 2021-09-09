@@ -12,7 +12,6 @@
 .boxContent {
   display: flex;
   flex-flow: column;
-  align-items: flex-start;
   padding: 44px 0;
   cursor: pointer;
   border-radius: 10px;
@@ -21,10 +20,6 @@
   object-fit: cover;
   background-position: left center;
   position: relative;
-}
-
-.boxContent > div {
-  /* align-self: center; */
 }
 .boxTitle {
   font-size: 16px;
@@ -45,6 +40,28 @@
 .tooltipStyle {
   width: 250px !important;
 }
+.categoryMeta .categoryNomineeCount {
+  margin: 0;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0;
+  padding-top: 5px;
+}
+.categoryMeta .categoryNomineeCount > span:first-child {
+  font-size: 11px;
+  color: #747a95;
+  padding: 0;
+  text-align: right;
+}
+.categoryMeta .categoryNomineeCount > span:last-child {
+  font-size: 18px;
+  color: #17224e;
+  font-weight: bold;
+  margin-top: -5px;
+}
+
 .categoryImage img {
   width: 100%;
   border-radius: 10px;
