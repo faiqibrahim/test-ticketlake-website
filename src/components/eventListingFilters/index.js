@@ -5,10 +5,6 @@ import moment from "moment";
 
 class eventListingFilters extends React.Component {
 
-    state = {
-
-    };
-
     toggleShowOnMobile = () => {
         const container = document.getElementById('filtersContainer');
         if (container.style.display === '' || container.style.display === 'none') {
