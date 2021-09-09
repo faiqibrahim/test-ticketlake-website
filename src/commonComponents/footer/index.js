@@ -23,24 +23,6 @@ import { withRouter } from "react-router-dom";
 const eventLimit = 7;
 
 // Style
-const footerLinkStyle = {
-  color: "#ACAEB2",
-  textAlign: "left",
-  width: "100%",
-  float: "left",
-  margin: "2px 0",
-  fontWeight: 400,
-};
-
-const socialMediaStyle = {
-  color: "white",
-  textAlign: "left",
-  width: "100%",
-  float: "left",
-  margin: "2px 0",
-  fontWeight: 400,
-};
-
 const imgStyle = {
   width: "42px",
 };
@@ -134,7 +116,7 @@ class Footer extends React.Component {
           return (
             <li key={i}>
               <NavLink
-                style={footerLinkStyle}
+                className={"footer-link-style"}
                 to={{
                   pathname: pathName,
                   state: {
@@ -165,35 +147,22 @@ class Footer extends React.Component {
               <div className="col-md-4 col-lg-4 col-xl-3" span={8}>
                 <div className="footer-widget fl-wrap">
                   <h3>Ticketlake</h3>
-                  <div className="pull-left">
-                    <p style={{ textAlign: "left", color: "#ACAEB2" }}>
+                  <div className="pull-left color-white">
+                    <p className={"footer-text"}>
                       Ticketlake is an amazing platform to help users purchase
                       tickets globally with great range of coupons and
                       promotions
                     </p>
                   </div>
                 </div>
-                <ul className="footer-contacts fl-wrap red-text">
+                <ul className="footer-contacts fl-wrap footer-second-widget">
                   <li>
-                    <span>{/*<i className="far fa-envelope"/>*/}</span>
                     <a href={hrefLink}>info@ticketlake.com</a>
                   </li>
                   <li>
-                    <span>{/*<i className="fas fa-map-marker-alt"/>*/}</span>
-                    <p
-                      style={{
-                        fontSize: "13px",
-                        fontWeight: "400",
-                        color: "#999999",
-                        marginBottom: "0px",
-                        paddingBottom: "0",
-                      }}
-                    >
-                      Odotei Tsui Avenue, Dzorwulu (GA-121-9846) - Accra, Ghana
-                    </p>
+                    Odotei Tsui Avenue, Dzorwulu (GA-121-9846) - Accra, Ghana
                   </li>
                   <li>
-                    <span>{/*<i className="fas fa-phone"/>*/}</span>
                     <a href={hrefLink}>
                       +233 (0) 30 296 3020 | +233 (0) 55 252 0555
                     </a>
@@ -208,42 +177,34 @@ class Footer extends React.Component {
               >
                 <div className="footer-widget fl-wrap">
                   <h3>Explore</h3>
-                  <div className="pull-left">
+                  <div className="pull-left color-white">
                     <ul className="footer-contacts-custom">
-                      <li>
-                        <a
+                      <li><a
                           title="Footer Links"
                           href="/about-us"
-                          style={footerLinkStyle}
+                          className={"footer-link-style"}
                         >
-                          About Ticketlake
+                          About Us
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                            title="Footer Links"
+                            href="/contact-us"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={"footer-link-style"}
+                        >
+                          Contact Us
                         </a>
                       </li>
                       <li>
                         <a
                           title="Footer Links"
                           href="/organisers"
-                          style={footerLinkStyle}
+                          className={"footer-link-style"}
                         >
                           Event Organisers
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          title="Footer Links"
-                          href="/about-us"
-                          style={footerLinkStyle}
-                        >
-                          Services
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          title="Footer Links"
-                          href="/"
-                          style={footerLinkStyle}
-                        >
-                          Clients & Partners
                         </a>
                       </li>
                       <li>
@@ -252,36 +213,9 @@ class Footer extends React.Component {
                           href="https://admin.qa.ticketlake.com/event-organiser"
                           target="_blank"
                           rel="noopener noreferrer"
-                          style={footerLinkStyle}
+                          className={"footer-link-style"}
                         >
                           Publish an Event
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          title="Footer Links"
-                          href="/"
-                          style={footerLinkStyle}
-                        >
-                          Gigs
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          title="Footer Links"
-                          href="/"
-                          style={footerLinkStyle}
-                        >
-                          News & Articles
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          title="Footer Links"
-                          href="/"
-                          style={footerLinkStyle}
-                        >
-                          International
                         </a>
                       </li>
                     </ul>
@@ -289,20 +223,20 @@ class Footer extends React.Component {
                 </div>
               </div>
               <div
-                className="col-md-4 col-lg-4 col-xl-2 offset-xl-1"
+                className="col-md-4 col-lg-4 col-xl-2 "
                 span={5}
                 style={{ marginBottom: "17px" }}
               >
                 <div className="footer-widget fl-wrap">
                   <h3>Events</h3>
                 </div>
-                <div className="pull-left">
+                <div className="pull-left color-white">
                   <ul className="footer-contacts-custom">
                     {this.getEventBullets()}
                   </ul>
                 </div>
               </div>
-              <div className="col-md-5 col-lg-5 col-xl-3" span={6}>
+              <div className="col-md-5 col-lg-5 col-xl-4" span={6}>
                 <div className="footer-widget fl-wrap">
                   <h3>Social Media</h3>
                 </div>
@@ -312,7 +246,7 @@ class Footer extends React.Component {
                     <li>
                       <a
                         href={ticketLakeFbLink}
-                        style={socialMediaStyle}
+                        className={"social-media-style"}
                         target={"_blank"}
                       >
                         <i className="fab fa-facebook-f" />
@@ -330,7 +264,7 @@ class Footer extends React.Component {
                     <li>
                       <a
                         href={ticketLakeTwitterLink}
-                        style={socialMediaStyle}
+                        className={"social-media-style"}
                         target={"_blank"}
                       >
                         <i className="fab fa-twitter" />
@@ -365,7 +299,7 @@ class Footer extends React.Component {
                 </div>
 
                 <div className="footer-widget fl-wrap">
-                  <h3 style={{ marginTop: "50px" }}>Subscribe</h3>
+                  <h3 style={{ marginTop: "60px" }}>Subscribe</h3>
                 </div>
                 <div className="subscribe-form">
                   <Input
@@ -380,7 +314,6 @@ class Footer extends React.Component {
                   <button
                     onClick={this.subscribeNow}
                     className="color2-bg subscribe-btn"
-                    style={{ background: "#494949" }}
                   >
                     Subscribe
                   </button>

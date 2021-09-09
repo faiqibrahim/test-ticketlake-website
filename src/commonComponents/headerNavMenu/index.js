@@ -567,12 +567,6 @@ class HeaderNavMenu extends Component {
                       </NavLink>
                     </ul>
                   </li>
-                  <li key={menu.length + selectedCategories.length + 2}>
-                    <NavLink to="/about-us">About Us</NavLink>
-                  </li>
-                  <li key={menu.length + selectedCategories.length + 3}>
-                    <NavLink to="/contact-us">Contact</NavLink>
-                  </li>
                   <li key={menu.length + selectedCategories.length + 4}>
                     <NavLink to="/voting">Voting</NavLink>
                   </li>

@@ -659,6 +659,7 @@ a.checkoutButton {
 
 .subscribe-form {
   float: left;
+  width: 100%;
 }
 
 .navbar {
@@ -1491,10 +1492,6 @@ label {
   background: #211f1f !important;
 }
 
-.sub-footer .copyright {
-  font-weight: normal;
-  color: #acaeb2;
-}
 
 .footer-inner {
   color: #acaeb2;
