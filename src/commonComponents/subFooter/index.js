@@ -19,7 +19,7 @@ const subFooter = () => {
             <div className="container">
                 <div className="copyright"> © Ticketlake 2020 - All Rights Reserved</div>
 
-                <div className="subfooter-nav" style={{marginRight: '0px'}}>
+                <div className="subfooter-nav" >
                     <ul>
                         {footerMenu.map((menu, i) => (
                             <li key={i}>
