@@ -19,6 +19,7 @@ import DefaultCard from "../../commonComponents/defaultCard";
 import ResultForHeading from "../../commonComponents/resultForHeading";
 import EventListingFilters from "../eventListingFilters";
 import Loader from "../../commonComponents/loader";
+import Heading from "../../commonComponents/heading";
 
 //redux
 import {
@@ -49,24 +50,28 @@ let isWishlist = false;
 let categoryKey = "eventsListing";
 
 class EventListing extends Component {
-  state = {
-    storeCategories: null,
-    country: "",
-    city: "",
-    keyword: null,
-    allSearchedEvents: [],
-    start: moment().subtract(29, "days"),
-    end: moment(),
-    //date: [new Date(), new Date()],
-    from: null,
-    to: null,
-    doSearch: false,
-    title: "",
-    activeModal: "",
-    currentPage: 1,
-    pageSize: 12,
-    searchParam: false,
-  };
+  constructor(props) {
+    super(props);
+    const eventState = this.getEventListingState();
+    this.state = {
+      storeCategories: null,
+      country: "",
+      city: "",
+      keyword: null,
+      allSearchedEvents: [],
+      start: moment().subtract(29, "days"),
+      end: moment(),
+      from: null,
+      to: null,
+      doSearch: false,
+      title: "",
+      activeModal: "",
+      currentPage: 1,
+      pageSize: 12,
+      searchParam: false,
+      isPromoted: Boolean(eventState && eventState.isPromoted),
+    };
+  }
 
   // Getting Category State and use Id
   getEventListingState = (navLink, categoryId) => {
@@ -280,11 +285,10 @@ class EventListing extends Component {
   ) => {
     let cat = category && category !== "All" ? [category] : null;
 
-    const eventState = this.getEventListingState();
+    const { isPromoted } = this.state;
 
-    const isFeatured = Boolean(eventState && eventState.isPromoted);
     this.props.getAllEventsDefault(
-      isFeatured, // IsFeatured
+      isPromoted, // IsFeatured
       true, // isPublished
       false, // isDraft
       cat, //Categories
@@ -461,7 +465,7 @@ class EventListing extends Component {
   // Rendering Method
   render() {
     let cities = filteredCities();
-
+    const { isPromoted } = this.state;
     let dataIs =
       this.props.allEvents &&
       this.props.allEvents.data &&
@@ -538,9 +542,18 @@ class EventListing extends Component {
             <section
               className="light-red-bg small-padding event-listing-wrp"
               id="sec1"
-              style={{ paddingTop: "0px" }}
+              style={{ paddingTop: "30px", paddingBottom: "10px" }}
             >
               <div className="container custom-container">
+                {isPromoted && (
+                  <Heading
+                    style={{ marginBottom: "0px", textAlign: "left" }}
+                    heading={"Top Events"}
+                    text={
+                      "Navigate through number of outrageous events happening around"
+                    }
+                  />
+                )}
                 <div className="row">
                   <div className="col-md-12">
                     <EventListingFilters
