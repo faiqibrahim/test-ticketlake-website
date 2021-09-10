@@ -11,6 +11,7 @@ import {
   FormGroup,
   Label,
   Input,
+  Row
 } from "reactstrap";
 import swal from "@sweetalert/with-react";
 import { InfoCircleOutlined } from "@ant-design/icons";
@@ -151,10 +152,12 @@ class Wallet extends Component {
 
     return (
       <Modal centered isOpen={detailModal} className="transaction-modal">
+        <Row style={{ paddingTop: "115px" }} >
         <InvoiceDetail
           orderDetails={orderDetails}
           closeModalCB={() => this.toggleOrderDetails()}
         />
+        </Row>
       </Modal>
     );
   };

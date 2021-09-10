@@ -2325,6 +2325,7 @@ input[type="number"] {
 .white-bg {
   background: #ffffff;
   padding: 50px 30px;
+  text-align: left;
 }
 .transaction-modal {
   width: 100%;
@@ -3446,6 +3447,7 @@ input[type="number"] {
 
 .transaction-history .red-bg {
   padding: 50px 30px;
+  text-align: left;
 }
 
 .daterangepicker {

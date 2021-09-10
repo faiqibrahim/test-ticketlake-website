@@ -41,7 +41,7 @@ class InvoiceDetail extends React.Component {
     } = orderDetails;
 
     return (
-      <Row style={{ paddingTop: "115px" }} className="transaction-history">
+      <Row style={{ width: "100%" }} className="transaction-history">
         <Col md={3} className="red-bg">
           <Row>
             <Col md="12">

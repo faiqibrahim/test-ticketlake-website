@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
 
 import { prepareHoldData } from "./checkout-util";
 import Loader from "../../commonComponents/loader";
@@ -9,8 +8,8 @@ import axios from "../../utils/axios";
 import Timer from "../../commonComponents/Timer";
 import CheckoutSuccess from "./CheckoutSuccess";
 import CheckoutFailed from "./CheckoutFailed";
-import { setUserWallet } from "../../redux/user/user-actions";
 import { getPaymentInfo } from "./payment-info-provider";
+import InvoiceDetail from "../../commonComponents/invoiceDetail";
 
 class Checkout extends Component {
   state = {
@@ -18,6 +17,7 @@ class Checkout extends Component {
     reservationId: null,
     orderSuccessful: false,
     orderFailed: false,
+    showInvoice: false,
   };
 
   componentDidMount() {
@@ -44,7 +44,7 @@ class Checkout extends Component {
       .post("/purchase/tickets", { transactionIds, reservationId }, "v2")
       .then(({ data }) => {
         console.log("Purchase successful", data);
-        this.setState({ orderSuccessful: true });
+        this.setState({ orderSuccessful: true, orderDetails: data.data });
       })
       .catch(this.onFailure);
   };
@@ -54,14 +54,34 @@ class Checkout extends Component {
     this.setState({ orderFailed: true });
   };
 
-  
-  render() {
-    const { loading, reservationId, orderSuccessful, orderFailed } = this.state;
+  showInvoice = () => {
+    const { showInvoice } = this.state;
+    this.setState({ showInvoice: !showInvoice });
+  };
 
+  render() {
+    const {
+      loading,
+      reservationId,
+      orderSuccessful,
+      orderFailed,
+      orderDetails,
+      showInvoice,
+    } = this.state;
+
+    
     if (loading) return <Loader />;
     else if (!reservationId) return <div>Could not hold tickets</div>;
+    else if (showInvoice)
+      return (
+        <InvoiceDetail
+          orderDetails={orderDetails}
+          closeModalCB={this.showInvoice}
+        />
+      );
     else if (orderFailed) return <CheckoutFailed />;
-    else if (orderSuccessful) return <CheckoutSuccess />;
+    else if (orderSuccessful)
+      return <CheckoutSuccess showInvoice={this.showInvoice} />;
 
     const info = getPaymentInfo();
 
