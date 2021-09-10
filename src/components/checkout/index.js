@@ -10,6 +10,7 @@ import CheckoutSuccess from "./CheckoutSuccess";
 import CheckoutFailed from "./CheckoutFailed";
 import { getPaymentInfo } from "./payment-info-provider";
 import InvoiceDetail from "../../commonComponents/invoiceDetail";
+import CheckoutReceipt from "./CheckoutReceipt";
 
 class Checkout extends Component {
   state = {
@@ -69,12 +70,11 @@ class Checkout extends Component {
       showInvoice,
     } = this.state;
 
-    
     if (loading) return <Loader />;
     else if (!reservationId) return <div>Could not hold tickets</div>;
     else if (showInvoice)
       return (
-        <InvoiceDetail
+        <CheckoutReceipt
           orderDetails={orderDetails}
           closeModalCB={this.showInvoice}
         />
