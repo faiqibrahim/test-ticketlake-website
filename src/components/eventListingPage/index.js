@@ -500,6 +500,16 @@ class EventListing extends Component {
             this.props.wishLists !== "" &&
             this.props.wishLists.includes(data.eventSlotId);
         }
+
+        let link = `/event/detail/${data.eventSlotId}`;
+      
+        if (isPromoted) {
+          link = {
+            state: {isPromoted},
+            pathname: link,
+          };
+        }
+      
         return (
           <Fragment key={i}>
             <DefaultCard
@@ -516,9 +526,7 @@ class EventListing extends Component {
               cardAddress={data.venue ? data.venue.address : ""}
               country={data.venue ? data.venue.country : []}
               city={data.venue ? data.venue.city : []}
-              onClick={() =>
-                this.props.history.push(`/event/detail/${data.eventSlotId}`)
-              }
+              onClick={() =>this.props.history.push(link)}
               buttonText={getMaxAndMinPrice(data)}
               buttonLink={`/buy-ticket/${data.eventSlotId}`}
               sharing={this.sharingSocial}
