@@ -28,8 +28,8 @@ class SearchFormEvents extends React.Component {
         datesInput: null,
         categories: null,
         keyword: null,
-        start: moment().subtract(29, 'days'),
-        end: moment()
+        start: moment(),
+        end: moment().add(29, "days"),
     };
 
     componentDidMount() {
