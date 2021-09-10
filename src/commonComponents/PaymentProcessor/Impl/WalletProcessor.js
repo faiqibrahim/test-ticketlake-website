@@ -101,10 +101,11 @@ class WalletProcessor extends Component {
     const isDisabledWallet = fixedPayment || !balanceInRequestedCurrency;
     return (
       <div
+      onClick={this.processPayment}
         className={`payment-gateway-box ${isDisabledWallet &&
           "disabled-gateway-box"}`}
       >
-        <div onClick={this.processPayment} className={styles.method}>
+        <div className={styles.method}>
           <div className={"information-img"}>
             <img
               src={walletImg}

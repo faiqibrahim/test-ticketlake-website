@@ -41,7 +41,7 @@ class InvoiceDetail extends React.Component {
     } = orderDetails;
 
     return (
-      <Row style={{ paddingTop: "115px" }} className="transaction-history">
+      <Row style={{ width: "100%" }} className="transaction-history">
         <Col md={3} className="red-bg">
           <Row>
             <Col md="12">
@@ -50,18 +50,16 @@ class InvoiceDetail extends React.Component {
               </InvoiceHeader>
 
               <InvoiceHeader heading={"Purchase Type"}>
-                <p>{purchaseType}</p>
+                {purchaseType}
               </InvoiceHeader>
 
               <InvoiceHeader heading={"Transaction Date"}>
-                <p>
-                  {moment(transactions[0].transactionTime).format(dateFormat)}
-                </p>
+                {moment(transactions[0].transactionTime).format(dateFormat)}
               </InvoiceHeader>
 
               {tickets.length > 0 && (
                 <InvoiceHeader heading={"Event Name"}>
-                  <p>{tickets[0].event.eventTitle}</p>
+                  {tickets[0].event.eventTitle}
                 </InvoiceHeader>
               )}
             </Col>
@@ -74,6 +72,7 @@ class InvoiceDetail extends React.Component {
             size="large"
             className="close-button close-btn-styling"
             onClick={closeModalCB}
+            style={{fontSize:"1.4rem"}}
           />
           <Row style={{ padding: "20px" }}>
             <CustomTable

@@ -2,8 +2,8 @@ import { getStore } from "../../index";
 import { getPaypalClientId } from "../../utils/config";
 
 export const getPaymentInfo = () => {
-  const state = getStore().getState();
-
+  const { getState } = getStore();
+  const state = getState();
   const info = {
     amount: state.ticket.totalBill,
     currency: state.ticket.ticketCurrency,

@@ -24,7 +24,8 @@ const userPagesContainer = (props) => {
     },
     {
       name: "Wallet",
-      link: "/user/wallet",
+      link: "#",
+      location: "/user/wallet",
       isActiveClass: props.page === "wallet" ? "user-profile-act" : null,
       icon: "fas fa-wallet",
       tag: props.walletBalance,
@@ -51,6 +52,7 @@ const userPagesContainer = (props) => {
       icon: "far fa-keyboard",
     },
   ];
+
   return (
     <AuthRoutes>
       {props.breadcrumbs}
@@ -77,11 +79,18 @@ const userPagesContainer = (props) => {
                 </div>
                 <ul className="dasboard-menu-wrap" id={"filtersContainer"}>
                   {tabs.map((item, i) => {
-                    const { link } = item;
+                    const { link, location } = item;
 
                     return (
                       <li key={i}>
-                        <NavLink to={link} className={item.isActiveClass}>
+                        <NavLink
+                          to={link}
+                          onClick={() => {
+                            if(location)
+                            window.location = location;
+                          }}
+                          className={item.isActiveClass}
+                        >
                           <i className={item.icon} />
                           {item.name}
                           {item.tag === undefined ? null : (

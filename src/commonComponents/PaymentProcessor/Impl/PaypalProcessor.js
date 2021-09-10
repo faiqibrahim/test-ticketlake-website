@@ -1,47 +1,37 @@
 import React, { Component } from "react";
-import axios from "../../../utils/axios";
-import { PayPalButton } from "react-paypal-button-v2";
+import paypalImage from "../assets/paypal.svg";
 import { Col, Row } from "reactstrap";
 import styles from "../styles.module.css";
+import PaypalButtonPrompt from "../components/Paypal/PaypalButtonPrompt";
 
 class PaypalProcessor extends Component {
   render() {
-    const {
-      type,
-      amount,
-      currency,
-      clientId,
-      onPaymentSuccessful,
-      onPaymentFailure,
-      purpose,
-      description,
-    } = this.props;
-
+    const { setActiveComponent } = this.props;
     return (
-      <div className={"payment-gateway-box"}>
+      <div
+        className={"payment-gateway-box"}
+        onClick={() =>
+          setActiveComponent(<PaypalButtonPrompt {...this.props} />)
+        }
+      >
         <Row className={styles.method}>
-          <Col>
-            <PayPalButton
-              description={description}
-              amount={amount}
-              currency={currency}
-              onSuccess={(details, data) => {
-                axios
-                  .post(
-                    "/transaction/paypal",
-                    { orderId: data.orderID, transactionType: purpose },
-                    "v2"
-                  )
-                  .then(({ data }) => {
-                    onPaymentSuccessful(type, data.data._id);
-                  })
-                  .catch((error) => {
-                    onPaymentFailure(type, error);
-                  });
-              }}
-              onError={(error) => onPaymentFailure(type, error)}
-              options={{ clientId, currency }}
-            />
+          <Col xs={12}>
+            <Row>
+              <Col>
+                <img
+                  src={paypalImage}
+                  style={{ width: "71px", height: "62px" }}
+                  alt={"paypal-logo"}
+                />
+              </Col>
+            </Row>
+            <br />
+            <Row>
+              <Col>
+                <span className={styles.methodName}>Paypal</span> <br />
+                <span className={styles.methodText}>Pay via Paypal</span>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </div>

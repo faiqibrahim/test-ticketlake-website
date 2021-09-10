@@ -11,6 +11,7 @@ import {
   FormGroup,
   Label,
   Input,
+  Row
 } from "reactstrap";
 import swal from "@sweetalert/with-react";
 import { InfoCircleOutlined } from "@ant-design/icons";
@@ -37,7 +38,7 @@ import { getTransactionHistory } from "../../redux/wallet/wallet-actions";
 import moment from "moment";
 import { Helmet } from "react-helmet";
 import "./style.css";
-import { formatCurrency, refreshPaypalConfig } from "../../utils/common-utils";
+import { formatCurrency } from "../../utils/common-utils";
 import InvoiceDetail from "../../commonComponents/invoiceDetail";
 
 const _ = require("lodash");
@@ -72,7 +73,7 @@ class Wallet extends Component {
   };
 
   componentDidMount() {
-    refreshPaypalConfig();
+    
     this.fetchOrderHistory();
     this.props.fetchUserProfile();
   }
@@ -151,10 +152,12 @@ class Wallet extends Component {
 
     return (
       <Modal centered isOpen={detailModal} className="transaction-modal">
+        <Row style={{ paddingTop: "115px" }} >
         <InvoiceDetail
           orderDetails={orderDetails}
           closeModalCB={() => this.toggleOrderDetails()}
         />
+        </Row>
       </Modal>
     );
   };
@@ -415,6 +418,7 @@ const mapStateToProps = (state) => {
     isUserLoading: state.user.processing,
     isCurrencyConverted: state.user.isCurrencyConverted,
     currencyConversion: state.user.currencyConversion,
+    ticketPagination: state.user.ticketPagination,
   };
 };
 

@@ -1492,7 +1492,6 @@ label {
   background: #211f1f !important;
 }
 
-
 .footer-inner {
   color: #acaeb2;
 }
@@ -2322,10 +2321,12 @@ input[type="number"] {
 .red-bg strong {
   font-weight: 600;
   font-size: 1rem;
+  display: block;
 }
 .white-bg {
   background: #ffffff;
   padding: 50px 30px;
+  text-align: left;
 }
 .transaction-modal {
   width: 100%;
@@ -2556,9 +2557,8 @@ input[type="number"] {
   object-fit: cover;
   object-position: top;
 }
-.hide-scrollbar
-{
-  -ms-overflow-style: none;  /* IE and Edge */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
 }
 .hide-scrollbar::-webkit-scrollbar {
@@ -2817,12 +2817,15 @@ input[type="number"] {
   border-radius: 7px;
   margin: 0;
   margin-bottom: 6%;
-  /*height: 360px;*/
   width: 100%;
   text-align: left;
   padding: 35px;
   float: left;
   margin-right: 1%;
+}
+
+.paypal-box {
+  text-align: center;
 }
 
 .label-heading {
@@ -3445,6 +3448,7 @@ input[type="number"] {
 
 .transaction-history .red-bg {
   padding: 50px 30px;
+  text-align: left;
 }
 
 .daterangepicker {

@@ -38,7 +38,7 @@ import {
   getDateFromISO,
   getTimeFromISO,
   dateSplitter,
-  refreshPaypalConfig,
+  
 } from "../../utils/common-utils";
 import {
   valueAlreadyExists,
@@ -83,8 +83,7 @@ class EventDetail extends Component {
   }
 
   componentDidMount() {
-    refreshPaypalConfig();
-
+    
     const eventId = this.props.match.params.id;
     this.props.getEventDetail(eventId);
     if (this.props.auth) {

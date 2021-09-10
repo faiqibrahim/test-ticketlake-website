@@ -53,9 +53,9 @@ class BuyTicketPage extends Component {
       passData: null,
       eventId: undefined,
       bills: [],
-      purchaseType: "",
+      purchaseType: "ticket",
       seatsType: "",
-      seatSelection: "",
+      seatSelection: "preferred",
       venueSeats: [],
     };
   }
@@ -584,6 +584,8 @@ class BuyTicketPage extends Component {
         <div className="breadcrumbs-hero-buttom fl-wrap buy-ticket-bc">
           <div className="breadcrumbs">
             <Breadcrumbs
+              compare={(a, b) => a.weight - b.weight}
+              removeProps={{ weight: true }}
               item={NavLink}
               finalItem={"span"}
               finalProps={{
@@ -676,6 +678,7 @@ class BuyTicketPage extends Component {
                       backward={() => this.changeStepBackward(customSeats)}
                       currentStep={step}
                       paymentPage={() => this.goToPayment(customSeats)}
+                      customSeatingPlan={customSeats}
                     />
                   </div>
                 </div>

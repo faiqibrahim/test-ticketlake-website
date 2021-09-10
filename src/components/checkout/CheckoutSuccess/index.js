@@ -50,7 +50,7 @@ const CheckoutSuccess = (props) => {
                         View Ticket
                     </button>
 
-                    <button className={`simpleBlueBtn ${classes.successBtn}`}>
+                    <button className={`simpleBlueBtn ${classes.successBtn}`} onClick={()=>props.showInvoice()}>
                         View Receipt
                     </button>
                 </div>

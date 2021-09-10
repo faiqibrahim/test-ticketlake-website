@@ -30,8 +30,8 @@ class MobileMoneyProcessor extends Component {
 
   render() {
     return (
-      <div className={"payment-gateway-box"}>
-        <Row onClick={this.processPayment} className={styles.method}>
+      <div className={"payment-gateway-box"} onClick={this.processPayment}>
+        <Row className={styles.method}>
           <Col xs={12}>
             <Row>
               <Col>

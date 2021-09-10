@@ -13,6 +13,7 @@ import CustomSelectIconDropDown from "../../../selectDropdownWithIcon";
 import ReactPhoneInput from "react-phone-input-2";
 import PhoneNumber from "awesome-phonenumber";
 import MobileMoneyBillPrompt from "./MobileMoneyBillPrompt";
+import mobileMoneyImg from "../../assets/mobilemoney.svg";
 
 const options = [
   { value: "MTN", label: "MTN", icon: MTN_IMG },
@@ -74,7 +75,11 @@ class MobileMoneyPhoneInput extends Component {
     return (
       <div className="mtn-payment-wrp">
         <div className={"row"}>
-          <TopBar onBack={() => this.props.setActiveComponent(null)} />
+          <TopBar
+            imageSrc={mobileMoneyImg}
+            text="Mobile Money"
+            onBack={() => this.props.setActiveComponent(null)}
+          />
 
           <div className={"col-lg-12"}>
             <div className={"static-box"}>

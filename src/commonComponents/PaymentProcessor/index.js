@@ -33,11 +33,29 @@ class PaymentProcessor extends Component {
         purpose,
         setActiveComponent: this.setChildComponent,
         description,
+        changeProp: (key, value, cb) => this.changeAttribute(method.type, key, value, cb)
       };
     });
 
     this.setState({ paymentMethods: methods, processing: false });
   }
+
+  changeAttribute = (type, key, value, cb) => {
+    const paymentMethods = this.state.paymentMethods.map(method => {
+      const result =  {
+        ...method
+      }
+
+      if(method.type === type){
+        result[key] = value
+      }
+
+      return result;
+    })
+
+    this.setState({paymentMethods}, cb);
+  } 
+
 
   splitPayment = (type, maxAmount, transId) => {
     const paymentMethods = [];
