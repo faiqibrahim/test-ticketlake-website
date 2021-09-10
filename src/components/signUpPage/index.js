@@ -5,7 +5,6 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import moment from "moment";
 import DatePicker from "react-datepicker";
-// import Select from 'react-select'
 import ReactPhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import validator from "validator";
@@ -16,7 +15,6 @@ import {resetRedux, saveFormData, verifyUser} from '../../redux/user/user-action
 import connect from 'react-redux/es/connect/connect';
 import Loader from "../../commonComponents/loader";
 import { Checkbox} from 'antd';
-// import { SettingOutlined } from '@ant-design/icons';
 import {Modal, ModalBody} from 'reactstrap';
 
 // Helpers
@@ -29,7 +27,7 @@ const errorMessages = {
 
     name:"Please enter name",
     email:"Please enter email",
-    password:"Password should contain at least 7 to 15 characters, one numeric digit and a special character",
+    password:"Please enter password",
     phoneNumber:"Please enter valid phone number",
     country:"Please enter country",
     city:"Please enter city",
@@ -126,7 +124,6 @@ class SignUp extends Component {
             error[name] = errorMessages[name];
         }
         state[name] = value;
-        console.log("onInputChange", {...error})
         state.error = {...error}
         this.setState(state);
     };
@@ -139,14 +136,14 @@ class SignUp extends Component {
         return validator.isEmail(email);
     };
 
-    getPasswordValid = (password) => {
-        let pswRegx=  /^(?=.*[0-9])(?=.*[!_@#$%^&*])[a-zA-Z0-9!@_#$%^&*]{7,15}$/;
-        if(password.match(pswRegx)) {
-            return true;
-        }else{
-            return false;
-        }
-    };
+    // getPasswordValid = (password) => {
+    //     let pswRegx=  /^(?=.*[0-9])(?=.*[!_@#$%^&*])[a-zA-Z0-9!@_#$%^&*]{7,15}$/;
+    //     if(password.match(pswRegx)) {
+    //         return true;
+    //     }else{
+    //         return false;
+    //     }
+    // };
 
     isAllKeyEmpty = (object) => {
         for (let key in object) {
@@ -163,13 +160,13 @@ class SignUp extends Component {
 
         let isEmailValid = this.getEmailValid(email);
         let isValidNumber = this.getPhoneNumberValid(phone);
-        let isValidPassword = this.getPasswordValid(password);
+        //let isValidPassword = this.getPasswordValid(password);
 
         if (name === '') {
             error.name = errorMessages.name;
         }if (!isEmailValid) {
             error.email = errorMessages.email;
-        }if (!isValidPassword) {
+        }if (password === '') {
             error.password = errorMessages.password;
         }if (!isValidNumber) {
             error.phone =  errorMessages.phoneNumber;

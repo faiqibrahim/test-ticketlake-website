@@ -138,7 +138,6 @@ class Footer extends React.Component {
 
   render() {
     const { isTooltipOpen } = this.state;
-    const hrefLink = "#";
     return (
       <footer className="main-footer" id="main-footer">
         <div className="footer-inner">
@@ -157,15 +156,15 @@ class Footer extends React.Component {
                 </div>
                 <ul className="footer-contacts fl-wrap footer-second-widget">
                   <li>
-                    <a href={hrefLink}>info@ticketlake.com</a>
+                    <a href={"mailto:info@ticketlake.com"}>info@ticketlake.com</a>
                   </li>
                   <li>
                     Odotei Tsui Avenue, Dzorwulu (GA-121-9846) - Accra, Ghana
                   </li>
                   <li>
-                    <a href={hrefLink}>
+                    <span>
                       +233 (0) 30 296 3020 | +233 (0) 55 252 0555
-                    </a>
+                    </span>
                   </li>
                 </ul>
               </div>

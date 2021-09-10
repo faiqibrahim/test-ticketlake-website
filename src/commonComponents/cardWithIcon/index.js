@@ -8,7 +8,7 @@ const cardWithIcon = (props) => {
             <div className="time-line-icon">
                 <img src={props.cardIcon} alt="icon" style={props.cardIconStyle}/>
             </div>
-            <h4><a href={props.cardLink}> {props.cardTitle}</a></h4>
+            <h4>{props.cardTitle}</h4>
             <p>{props.cardDescription}</p>
         </div>
     );

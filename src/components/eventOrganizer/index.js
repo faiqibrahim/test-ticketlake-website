@@ -1,20 +1,14 @@
 // Library
 import React, {Component} from 'react';
-import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 
 // Component
 import HeroBanner from '../../commonComponents/heroBanner';
+import {withRouter} from "react-router-dom";
 
 class EventOrganizer extends Component {
 
-    state = {
-        modalOpen: false
-    };
-
-    openModal = () => {
-        this.setState({
-            modalOpen: !this.state.modalOpen
-        })
+    openPage = () => {
+        window.location = "https://admin.qa.ticketlake.com/event-organiser";
     };
 
     render() {
@@ -30,7 +24,7 @@ class EventOrganizer extends Component {
                                     <div className="colomn-text-title">
                                         <h3>Are you an event Organizer?</h3>
                                         <p>Ticketlake is tailor-made for you! Register with us today and get your events on our platform and instantly reach a wider audience never before possible!</p>
-                                        <div onClick={() => this.openModal()}
+                                        <div onClick={() => this.openPage()}
                                              style={{cursor: 'pointer'}}
                                              className={'btn color-bg float-btn float-unset btn-new '}>
                                             Publish your events
@@ -42,26 +36,9 @@ class EventOrganizer extends Component {
                         </div>
                     </div>
                 </HeroBanner>
-                <div>
-                    <Modal isOpen={this.state.modalOpen} toggle={this.openModal}
-                           className={'modal-danger' + this.props.className}>
-                        <ModalHeader toggle={this.openModal}>
-                            Contact Support
-                        </ModalHeader>
-                        <ModalBody>
-                            Please contact <b>info@ticketlake.com</b> for further assistance.
-                        </ModalBody>
-                        <ModalFooter>
-                            <button className={'btn btn-danger buttonDefault defaultBackground'} onClick={this.openModal}>
-                                Cancel
-                            </button>
-                        </ModalFooter>
-                    </Modal>
-
-                </div>
             </div>
         );
     }
 }
 
-export default EventOrganizer;
+export default withRouter(EventOrganizer);

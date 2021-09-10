@@ -12,7 +12,6 @@ const cards = [
         id: 1,
         cardIcon: window.location.origin + "/images/icons/shopping-cart.svg",
         cardIconStyle: {width:'22%'},
-        cardLink: '#',
         cardTitle: 'Buy Tickets Online',
         cardDescription: 'You’re always just a few clicks away from securing the perfect seats to the events you love.'
     },
@@ -20,7 +19,6 @@ const cards = [
         id: 2,
         cardIcon: window.location.origin + "/images/icons/share.svg",
         cardIconStyle: {width:'22%'},
-        cardLink: '#',
         cardTitle: 'Share with anyone',
         cardDescription: 'Transfer your seats to your friends and family for free - so you can get on with making memories that last.'
     },
@@ -28,7 +26,6 @@ const cards = [
         id: 3,
         cardIcon: window.location.origin + "/images/icons/discount.svg",
         cardIconStyle: {width:'16%'},
-        cardLink: '#',
         cardTitle: 'Discount Coupons',
         cardDescription: 'Ticketlake offers you plenty of coupons to use on live events and makes it easy to buy, sell, and get in.'
     },
@@ -53,7 +50,7 @@ class WhyChooseUs extends Component {
                     })
                 })
                 .catch(err => {
-                    console.error('request faild!', err)
+                    console.error('request failed!', err)
                 });
     }
 
