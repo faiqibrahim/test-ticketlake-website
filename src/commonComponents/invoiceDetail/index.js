@@ -40,8 +40,12 @@ class InvoiceDetail extends React.Component {
       purchaseType,
     } = orderDetails;
 
+    const hasTransactions = Boolean(transactions.length);
     return (
-      <Row style={{ width: "100%" }} className="transaction-history">
+      <Row
+        style={{ width: "100%", paddingLeft: "30px" }}
+        className="transaction-history"
+      >
         <Col md={3} className="red-bg">
           <Row>
             <Col md="12">
@@ -53,9 +57,13 @@ class InvoiceDetail extends React.Component {
                 {purchaseType}
               </InvoiceHeader>
 
-              <InvoiceHeader heading={"Transaction Date"}>
-                {moment(transactions[0].transactionTime).format(dateFormat)}
-              </InvoiceHeader>
+              {hasTransactions && (
+                <InvoiceHeader heading={"Transaction Date"}>
+                  {moment(transactions[0].transactionTime).format(
+                    dateFormat
+                  )}
+                </InvoiceHeader>
+              )}
 
               {tickets.length > 0 && (
                 <InvoiceHeader heading={"Event Name"}>
@@ -72,7 +80,7 @@ class InvoiceDetail extends React.Component {
             size="large"
             className="close-button close-btn-styling"
             onClick={closeModalCB}
-            style={{fontSize:"1.4rem"}}
+            style={{ fontSize: "1.4rem" }}
           />
           <Row style={{ padding: "20px" }}>
             <CustomTable

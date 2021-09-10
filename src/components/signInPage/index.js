@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {login, errorHandling, loginFacebook, loginFacebookData, loginGoogle, loginGoogleData} from '../../redux/user/user-actions';
 import Loader from "../../commonComponents/loader";
 import FacebookLogin from 'react-facebook-login';
-import GoogleLogin from 'react-google-login';
+import {GoogleLogin} from 'react-google-login';
 
 import axios from '../../utils/axios';
 import {NotificationManager} from "react-notifications";

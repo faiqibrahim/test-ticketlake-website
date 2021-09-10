@@ -126,7 +126,6 @@ class SignUp extends Component {
             error[name] = errorMessages[name];
         }
         state[name] = value;
-        console.log("onInputChange", {...error})
         state.error = {...error}
         this.setState(state);
     };
@@ -314,7 +313,7 @@ class SignUp extends Component {
                                         <Input name="email" id="email" type="email" placeholder="Email"
                                                value={this.state.email}
                                                onChange={this.onInputChange}/>
-                                               {error.email &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.email} < /span> }
+                                               {error.email &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.email} </span> }
                                     </div>
 
                                     <div className={"field-wrp"}>
@@ -322,14 +321,14 @@ class SignUp extends Component {
                                         <Input name="password" type="password" placeholder="Password"
                                                value={this.state.password}
                                                onChange={this.onInputChange}/>
-                                               {error.password &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.password} < /span> }
+                                               {error.password &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.password} </span> }
                                     </div>
 
                                     <div className={"field-wrp"}>
                                         <label style={{marginBottom:'10px'}}>Name <span>*</span> </label>
                                         <Input name="name" id="name" type="text" placeholder="Name" value={this.state.name}
                                                onChange={this.onInputChange}/>
-                                               {error.name &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.name} < /span> }
+                                               {error.name &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.name} </span> }
 
                                     </div>
 
@@ -343,7 +342,7 @@ class SignUp extends Component {
                                                 onChange={this.handlePhoneChange}
                                             />
                                         </div>
-                                        {error.phone &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.phone} < /span> }
+                                        {error.phone &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.phone} </span> }
                                     </div>
 
                                     <div className={"field-wrp"}>
@@ -360,7 +359,7 @@ class SignUp extends Component {
                                                 )
                                             })}
                                         </select>
-                                        {error.country &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.country} < /span> }
+                                        {error.country &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.country} </span> }
                                     </div>
 
                                     <div className={"field-wrp"}>
@@ -376,7 +375,7 @@ class SignUp extends Component {
                                                 )
                                             })}
                                         </select>
-                                        {error.city &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.city} < /span> }
+                                        {error.city &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.city} </span> }
                                     </div>
 
                                     <div className={"field-wrp"}>
@@ -399,7 +398,7 @@ class SignUp extends Component {
                                                 />
                                             </div>
                                         </div>
-                                        {error.DOB &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.DOB} < /span> }
+                                        {error.DOB &&  <span className = {"signup-error-message"} style = {{ color: 'red' } } > {error.DOB} </span> }
                                     </div>
 
                                     <div className="terms-and-condition-wrap">

@@ -24,7 +24,7 @@ import { FILE_URL } from "../../utils/config";
 import store from "../../redux/store";
 import { Helmet } from "react-helmet";
 
-const header = ["Ticket#", "Event", "Type | Class", "Event Date", "Action"];
+const header = ["Ticket#", "Event", "Type | Class","Purchase Date", "Event Date", "Action"];
 const spanStyle = {
   color: "#EC1C24",
   cursor: "pointer",
@@ -249,35 +249,27 @@ class Tickets extends Component {
         ) : (
           Array.isArray(this.props.allTickets) &&
           this.props.allTickets.map((data, i) => {
+            const { eventInfo, ticketClassInfo, purchaseDetails } = data;
             return (
               <tbody key={i} style={{ textAlign: "left" }}>
                 <tr key={i}>
                   <td>{++i}</td>
-                  {/*<td>*/}
-                  {/*    {data.purchaseDetails.name}*/}
-                  {/*</td>*/}
-                  <td>{data.eventInfo.eventTitle}</td>
-                  {/*<td>*/}
-                  {/*    {*/}
-                  {/*        data.ticketStatus === 'VALID' ?*/}
-                  {/*            <span className={'badge badge-success'}*/}
-                  {/*                  style={{fontSize: '12px'}}>{data.ticketStatus}</span>*/}
-                  {/*            : data.ticketStatus === 'REFUNDED' ?*/}
-                  {/*            <span className={'badge badge-warning'}*/}
-                  {/*                  style={{fontSize: '12px'}}>{data.ticketStatus}</span> :*/}
-                  {/*            <span className={'badge badge-danger'}*/}
-                  {/*                  style={{fontSize: '12px'}}>{data.ticketStatus}</span>*/}
-                  {/*    }*/}
-                  {/*</td>*/}
+
+                  <td>{eventInfo.eventTitle}</td>
+
                   <td>
-                    {data.type}{" "}
-                    {data.ticketClassInfo.ticketClassName ? "|" : ""}{" "}
-                    {data.ticketClassInfo.ticketClassName}
+                    {data.type} {ticketClassInfo.ticketClassName ? "|" : ""}{" "}
+                    {ticketClassInfo.ticketClassName}
                   </td>
                   <td>
                     {getDateAndTimeFromIso(
-                      data.eventInfo && data.eventInfo.eventDateTimeSlot
-                        ? data.eventInfo.eventDateTimeSlot.eventStartTime
+                      purchaseDetails.purchasedDate || "Invalid Date"
+                    )}
+                  </td>
+                  <td>
+                    {getDateAndTimeFromIso(
+                      eventInfo.eventDateTimeSlot
+                        ? eventInfo.eventDateTimeSlot.eventStartTime
                         : "Invalid Date"
                     )}
                   </td>

@@ -23,7 +23,7 @@ class WalletProcessor extends Component {
       amount,
     } = this.props;
 
-    if (!fixedPayment) {
+    if (!fixedPayment && walletCurrency) {
       convertAmount(walletCurrency, currency, balance)
         .then((balanceInRequestedCurrency) => {
           console.log("balanceInRequestedCurrency", balanceInRequestedCurrency);
@@ -52,7 +52,7 @@ class WalletProcessor extends Component {
   };
 
   getBalanceInfo = () => {
-    const { balance, walletCurrency, currency, fixedPayment } = this.props;
+    const {  currency, fixedPayment } = this.props;
     const { balanceInRequestedCurrency } = this.state;
 
     if (fixedPayment) {
@@ -74,21 +74,11 @@ class WalletProcessor extends Component {
           <span className={styles.methodName}>Wallet</span> <br />
           <span className={styles.methodText}>
             <span className={styles.currency}>{`${formatCurrency(
-              balance,
-              walletCurrency
+              balanceInRequestedCurrency,
+              currency
             )} `}</span>
             available
           </span>
-          <br />
-          {currency !== walletCurrency ? (
-            <span className={styles.methodText}>
-              <span className={styles.currency}>{`${formatCurrency(
-                balanceInRequestedCurrency,
-                currency
-              )} `}</span>
-              available
-            </span>
-          ) : null}
         </div>
       );
     }
@@ -101,7 +91,7 @@ class WalletProcessor extends Component {
     const isDisabledWallet = fixedPayment || !balanceInRequestedCurrency;
     return (
       <div
-      onClick={this.processPayment}
+        onClick={this.processPayment}
         className={`payment-gateway-box ${isDisabledWallet &&
           "disabled-gateway-box"}`}
       >

@@ -12911,6 +12911,7 @@ input[type="number"] {
 .expiry-msg {
   float: left;
   width: 100%;
+  margin-bottom: 40px;
 }
 .payment-wrp {
   float: left;

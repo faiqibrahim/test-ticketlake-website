@@ -7,7 +7,7 @@ const FreePaymentDialog = ({ onClick }) => {
       <h4 className={styles.header}>Free Reservation</h4>
       <hr className={styles.borderLine} />
       <div className={styles.bodyContainer}>
-        <p>There is not any amount in your bill.</p>
+        <p>Please click on continue button to reserve your free tickets.</p>
       </div>
 
       <button className={styles.layoutBtn} onClick={onClick}>

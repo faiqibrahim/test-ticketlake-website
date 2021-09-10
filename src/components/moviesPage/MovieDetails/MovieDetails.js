@@ -196,11 +196,9 @@ class MovieDetails extends Component {
                             <span
                               key={index}
                               className="slots-box pointer"
-                              onClick={() =>
-                                this.props.history.push(
-                                  `/buy-ticket/${timeSlot.data.eventSlotId}`
-                                )
-                              }
+                              onClick={() => {
+                                window.location = `/buy-ticket/${timeSlot.data.eventSlotId}`;
+                              }}
                             >
                               {getTimeFromISO(
                                 timeSlot.data &&

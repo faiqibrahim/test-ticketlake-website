@@ -38,7 +38,6 @@ import {
   getDateFromISO,
   getTimeFromISO,
   dateSplitter,
-  
 } from "../../utils/common-utils";
 import {
   valueAlreadyExists,
@@ -83,7 +82,6 @@ class EventDetail extends Component {
   }
 
   componentDidMount() {
-    
     const eventId = this.props.match.params.id;
     this.props.getEventDetail(eventId);
     if (this.props.auth) {
@@ -1090,8 +1088,10 @@ class EventDetail extends Component {
                                 </div>
 
                                 <NavLink
-                                  to={`/buy-ticket/${data.eventSlotId}
-                                                                        `}
+                                  to={"#"}
+                                  onClick={() => {
+                                    window.location = `/buy-ticket/${data.eventSlotId}`;
+                                  }}
                                   className="btn btn-danger buttonDefault defaultBackground"
                                   style={{
                                     width: "100%",
@@ -1108,7 +1108,10 @@ class EventDetail extends Component {
                               </>
                             ) : (
                               <NavLink
-                                to={`/buy-ticket/${data.eventSlotId}`}
+                                to={"#"}
+                                onClick={() => {
+                                  window.location = `/buy-ticket/${data.eventSlotId}`;
+                                }}
                                 className="btn btn-danger buttonDefault defaultBackground"
                                 style={{
                                   width: "100%",
