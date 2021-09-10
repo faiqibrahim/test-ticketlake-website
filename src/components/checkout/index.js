@@ -10,7 +10,7 @@ import Timer from "../../commonComponents/Timer";
 import CheckoutSuccess from "./CheckoutSuccess";
 import CheckoutFailed from "./CheckoutFailed";
 import { setUserWallet } from "../../redux/user/user-actions";
-import { getPaypalClientId } from "../../utils/config";
+import { getPaymentInfo } from "./payment-info-provider";
 
 class Checkout extends Component {
   state = {
@@ -54,36 +54,7 @@ class Checkout extends Component {
     this.setState({ orderFailed: true });
   };
 
-  getPaymentInfo = () => {
-    const { reduxState: state, updateUserWallet, userWallet } = this.props;
-
-    
-    const info = {
-      amount: state.ticket.totalBill,
-      currency: state.ticket.ticketCurrency,
-      purpose: "TICKET_PURCHASE",
-      description:
-        "Ticket purchase for " + state.ticket.event.data.data.eventTitle,
-      paymentMethods: [
-        {
-          type: "WALLET",
-          walletCurrency: userWallet.currency,
-          balance: userWallet.availableBalance,
-          updateUserWallet,
-        },
-        {
-          type: "MOBILE_MONEY",
-        },
-        {
-          type: "PAYPAL",
-          clientId: getPaypalClientId(),
-        },
-      ],
-    };
-
-    return info;
-  };
-
+  
   render() {
     const { loading, reservationId, orderSuccessful, orderFailed } = this.state;
 
@@ -92,7 +63,7 @@ class Checkout extends Component {
     else if (orderFailed) return <CheckoutFailed />;
     else if (orderSuccessful) return <CheckoutSuccess />;
 
-    const info = this.getPaymentInfo();
+    const info = getPaymentInfo();
 
     return (
       <>
@@ -114,18 +85,4 @@ class Checkout extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    reduxState: { ...state },
-    userWallet: state.user.userWallet,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateUserWallet: (userWallet) => dispatch(setUserWallet(userWallet)),
-  };
-};
-
-const connected = connect(mapStateToProps, mapDispatchToProps)(Checkout);
-export default withRouter(connected);
+export default withRouter(Checkout);

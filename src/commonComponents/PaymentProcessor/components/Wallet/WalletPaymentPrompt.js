@@ -3,6 +3,7 @@ import Loader from "../../../loader";
 import axios from "../../../../utils/axios";
 import SplitPaymentDialog from "./SplitPaymentDialog";
 import ConfirmPaymentDialog from "./ConfirmPaymentDialog";
+import { NotificationManager } from "react-notifications";
 
 class WalletPaymentPrompt extends React.Component {
   state = {
@@ -20,7 +21,7 @@ class WalletPaymentPrompt extends React.Component {
       onPaymentFailure,
       isSplitPayment,
       splitPayment,
-      changeProp
+      changeProp,
     } = this.props;
 
     const transactionAmount = Math.min(balanceInRequestedCurrency, amount);
@@ -41,10 +42,14 @@ class WalletPaymentPrompt extends React.Component {
           const { data } = error.response;
           if (data.info) {
             const { consumerBalance } = data.info;
-            changeProp('balance', consumerBalance, () => {
-              //TODO Show Error Message
+            changeProp("balance", consumerBalance, () => {
+              NotificationManager.error(
+                "Seems like, wallet balance is already deducted by some other transaction",
+                "",
+                3000
+              );
               this.cancelPayment();
-            })
+            });
           } else {
             onPaymentFailure(type, error);
           }
