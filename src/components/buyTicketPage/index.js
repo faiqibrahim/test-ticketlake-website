@@ -53,9 +53,9 @@ class BuyTicketPage extends Component {
       passData: null,
       eventId: undefined,
       bills: [],
-      purchaseType: "",
+      purchaseType: "ticket",
       seatsType: "",
-      seatSelection: "",
+      seatSelection: "preferred",
       venueSeats: [],
     };
   }

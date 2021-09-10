@@ -9,7 +9,7 @@ export const getTopUpInfo = () => {
     amount: walletTopUp.topUpAmount,
     currency: walletTopUp.walletCurrency,
     purpose: "WALLET_TOP_UP",
-    description: `${walletTopUp.topUpAmount} ${walletTopUp.walletCurrency} Wallet Topup`,
+    description: `${walletTopUp.walletCurrency} ${walletTopUp.topUpAmount} Wallet Topup`,
     paymentMethods: [
       {
         type: "MOBILE_MONEY",

@@ -82,7 +82,7 @@ class BuyTicketStepOne extends React.Component {
             setSeatState(
               {
                 purchaseType: target.value,
-                seatSelection: "preferred",
+                seatSelection: "",
                 seatsType: "",
               },
               resetBill()
@@ -191,8 +191,8 @@ class BuyTicketStepOne extends React.Component {
     return (
       <div className="col-md-12 text-left mb-5 seatsView">
         <React.Fragment>
-          {this.displayPurchaseType()}
-          {/* {this.displaySeatSelection()} */}
+          {/* {this.displayPurchaseType()}
+          {this.displaySeatSelection()} */}
           {this.displaySeatType()}
           {this.displayClasses()}
           {this.displayVenue()}

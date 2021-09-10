@@ -293,7 +293,7 @@ class BillSummary extends Component {
         );
       } else {
         displayButton.push(
-          <button className="checkoutButton" onClick={this.showModal}>
+          <button key={0} className="checkoutButton" onClick={this.showModal}>
             Continue
           </button>
         );

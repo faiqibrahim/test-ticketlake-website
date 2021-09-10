@@ -103,8 +103,9 @@ class WalletProcessor extends Component {
       <div
         className={`payment-gateway-box ${isDisabledWallet &&
           "disabled-gateway-box"}`}
+        onClick={this.processPayment}
       >
-        <div onClick={this.processPayment} className={styles.method}>
+        <div className={styles.method}>
           <div className={"information-img"}>
             <img
               src={walletImg}
