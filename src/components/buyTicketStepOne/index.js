@@ -6,6 +6,7 @@ import { SeatsioSeatingChart } from "@seatsio/seatsio-react";
 import "./style.css";
 import { seatsIOPublicKey } from "../../utils/constant";
 import { formatCurrency, getVenuePrices } from "../../utils/common-utils";
+import EventMessage from "../../commonComponents/eventMessage";
 
 const SeatsRadio = (props) => {
   const { value, onChange, radioOptions, name } = props;
@@ -211,12 +212,18 @@ class BuyTicketStepOne extends React.Component {
 
   render() {
     const { customSeatingPlan, ticketClasses, passClasses } = this.props;
-    if (!ticketClasses.length && !passClasses.length)
+
+    if (
+      (!ticketClasses.length && !passClasses.length) ||
+      customSeatingPlan !== false
+    )
       return (
-        <h5 className="mb-5">
-          No tickets or passes are available to purchase for this event.
-        </h5>
+        <EventMessage
+          heading="Sorry!"
+          subHeading="There are no tickets or passes available to purchase this event."
+        />
       );
+
     return (
       <React.Fragment>
         {customSeatingPlan ? this.renderCustomView() : this.renderSeatsView()}

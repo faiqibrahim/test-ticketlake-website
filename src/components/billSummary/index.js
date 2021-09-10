@@ -278,22 +278,28 @@ class BillSummary extends Component {
       couponValue,
       currency,
       totalBill,
+      customSeatingPlan
     } = this.props;
 
+    const isDisabledBtn = customSeatingPlan !== false;
+    const checkoutClass = `checkoutButton ${isDisabledBtn?'disableCheckoutBtn':''}`
+    
     if (currentStep === 1) {
       if (user && profileData) {
+        
         displayButton.push(
           <button
-            className="checkoutButton"
+            className={checkoutClass}
             key={0}
             onClick={this.props.forward}
+            disabled={isDisabledBtn}
           >
             Continue
           </button>
         );
       } else {
         displayButton.push(
-          <button key={0} className="checkoutButton" onClick={this.showModal}>
+          <button key={0} className={checkoutClass} onClick={this.showModal} disabled={isDisabledBtn}>
             Continue
           </button>
         );

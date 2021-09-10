@@ -678,6 +678,7 @@ class BuyTicketPage extends Component {
                       backward={() => this.changeStepBackward(customSeats)}
                       currentStep={step}
                       paymentPage={() => this.goToPayment(customSeats)}
+                      customSeatingPlan={customSeats}
                     />
                   </div>
                 </div>
