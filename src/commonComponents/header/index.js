@@ -201,9 +201,9 @@ class Header extends Component {
                                     My Calendar
                                   </NavLink>
                                 </li>
-                                <li className={"hide-on-web"}>
+                                <li className={"view-on-screens"}>
                                   <NavLink
-                                    to="user/wishlist"
+                                    to="/user/wishlist"
                                     onClick={this.toggle}
                                   >
                                     Wishlist

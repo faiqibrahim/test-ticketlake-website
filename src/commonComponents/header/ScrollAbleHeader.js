@@ -162,8 +162,8 @@ class ScrollAbleHeader extends Component {
                                 Profile
                               </NavLink>
                             </li>
-                            <li className={"view-on-mobile"}>
-                              <NavLink to="user/wishlist" onClick={this.toggle}>
+                            <li className={"view-on-mobile view-on-screens"}>
+                              <NavLink to="/user/wishlist" onClick={this.toggle}>
                                 Wishlist
                               </NavLink>
                             </li>
