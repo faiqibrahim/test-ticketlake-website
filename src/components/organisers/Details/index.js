@@ -102,7 +102,6 @@ class OrganiserDetails extends Component {
         reviews,
       });
     } catch (error) {
-      console.log(error.response);
       NotificationManager.error("Some Error Occured!", "Error");
       this.setState({ loader: false });
     }

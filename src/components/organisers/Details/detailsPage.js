@@ -1,22 +1,19 @@
 import React, { Component } from "react";
 import classes from "./style.module.css";
+import Gallery from "react-grid-gallery";
 
 class Details extends Component {
-  state = { count: 4 };
+  getImages = () => {
+    const { images } = this.props;
+    const arrangeImages = images.map((image) => ({
+      src: image.imageUrl,
+      thumbnail: image.imageUrl,
+    }));
+    return arrangeImages;
+  };
 
   render() {
-    const { count } = this.state;
-    const { name, eventsOrganised, venue, description, images } = this.props;
-
-    let loadMore = false;
-    let showImages = [];
-    if (images) {
-      showImages = images.slice(0, count);
-      if (images.length > showImages.length) {
-        loadMore = true;
-        showImages = images.slice(0, count);
-      }
-    }
+    const { name, eventsOrganised, venue, description } = this.props;
 
     return (
       <div className="container mt-5 mb-5">
@@ -27,27 +24,13 @@ class Details extends Component {
           <p className={classes.description}>{description}</p>
         </div>
         <p className={classes.detailsTitle}>Gallery</p>
-        <div className="row">
-          {showImages.map((image, index) => (
-            <div className="col-lg-3 col-md-4 col-sm-6  mb-3" key={index}>
-              <img
-                src={image.imageUrl}
-                className={classes.galleryImages}
-                alt="gallery"
-              />
-            </div>
-          ))}
+        <div className={"Gallery-section"} id={"gallery"}>
+          <Gallery
+            className={classes.galleryImages}
+            images={this.getImages()}
+            enableImageSelection={false}
+          />
         </div>
-        {loadMore ? (
-          <button
-            onClick={() => {
-              this.setState({ count: count + 4 });
-            }}
-            className={classes.loadMoreBtn}
-          >
-            Load More
-          </button>
-        ) : null}
       </div>
     );
   }

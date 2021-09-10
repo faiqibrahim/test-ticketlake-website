@@ -40,11 +40,14 @@ class Reviews extends Component {
       <div className="container modalParent mb-5">
         <div className="row">
           <div className="col-lg-8 col-md-8 col-sm-12">
-            {reviews.map((review) => {
+            {reviews.map((review, index) => {
               return (
-                <div className="listViewCard mt-5 " key={review.id}>
+                <div className="listViewCard mt-5 " key={index}>
                   <div className="card pt-0">
-                    <div className="row no-gutters">
+                    <div
+                      className="row no-gutters"
+                      style={{ alignItems: "center" }}
+                    >
                       <div className="col-auto">
                         <img
                           src={
