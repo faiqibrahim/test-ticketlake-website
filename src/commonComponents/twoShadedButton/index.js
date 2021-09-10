@@ -6,8 +6,6 @@ const twoShadedButton = (props) => {
   const { navState, buttonLink } = props;
   let link = buttonLink;
 
-  const isBuy = Boolean(link.match("buy"));
-
   if (navState) {
     link = {
       state: navState,
@@ -17,10 +15,7 @@ const twoShadedButton = (props) => {
 
   return (
     <NavLink
-      to={isBuy ? "#" : link}
-      onClick={() => {
-        if (isBuy) window.location = buttonLink;
-      }}
+      to={link}
       className={
         props.float
           ? "btn color-bg btn-new float-btn float-unset"
