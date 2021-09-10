@@ -1,9 +1,10 @@
 import { getStore } from "../../index";
+import { setUserWallet } from "../../redux/user/user-actions";
 import { getPaypalClientId } from "../../utils/config";
 
 export const getPaymentInfo = () => {
-  const state = getStore().getState();
-
+  const { getState, dispatch } = getStore();
+  const state = getState();
   const info = {
     amount: state.ticket.totalBill,
     currency: state.ticket.ticketCurrency,
@@ -15,6 +16,7 @@ export const getPaymentInfo = () => {
         type: "WALLET",
         walletCurrency: state.user.userWallet.currency,
         balance: state.user.userWallet.availableBalance,
+        updateUserWallet: (wallet) => dispatch(setUserWallet(wallet)),
       },
       {
         type: "MOBILE_MONEY",
