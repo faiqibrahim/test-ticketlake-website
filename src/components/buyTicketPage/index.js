@@ -568,7 +568,6 @@ class BuyTicketPage extends Component {
   };
 
   renderBreadCrumbs = () => {
-    const { params } = this.props.match;
     return (
       <div className="breadcrumbs-fs no-bg">
         <BreadcrumbsItem glyph="home" to="/">
