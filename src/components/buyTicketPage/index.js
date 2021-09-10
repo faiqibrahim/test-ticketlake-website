@@ -568,6 +568,7 @@ class BuyTicketPage extends Component {
   };
 
   renderBreadCrumbs = () => {
+    const { params } = this.props.match;
     return (
       <div className="breadcrumbs-fs no-bg">
         <BreadcrumbsItem glyph="home" to="/">
@@ -584,6 +585,8 @@ class BuyTicketPage extends Component {
         <div className="breadcrumbs-hero-buttom fl-wrap buy-ticket-bc">
           <div className="breadcrumbs">
             <Breadcrumbs
+              compare={(a, b) => a.weight - b.weight}
+              removeProps={{ weight: true }}
               item={NavLink}
               finalItem={"span"}
               finalProps={{

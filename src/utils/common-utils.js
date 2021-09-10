@@ -298,17 +298,6 @@ export const convertAmount = async (from, to, amount) => {
   return Math.floor(convertedAmount * 100) / 100;
 };
 
-export const refreshPaypalConfig = () => {
-  const key = "PAYPAL_LOAD";
-  const paypalLoad = sessionStorage.getItem(key);
-
-  if (paypalLoad) {
-    sessionStorage.removeItem(key);
-  } else {
-    sessionStorage.setItem(key, true);
-    window.location.reload();
-  }
-};
 
 export const getCountryLabel = (countryCode) => {
   const countryLabels = require("./flag-countries");

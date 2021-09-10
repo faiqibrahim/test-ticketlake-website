@@ -37,7 +37,7 @@ import { getTransactionHistory } from "../../redux/wallet/wallet-actions";
 import moment from "moment";
 import { Helmet } from "react-helmet";
 import "./style.css";
-import { formatCurrency, refreshPaypalConfig } from "../../utils/common-utils";
+import { formatCurrency } from "../../utils/common-utils";
 import InvoiceDetail from "../../commonComponents/invoiceDetail";
 
 const _ = require("lodash");
@@ -72,7 +72,7 @@ class Wallet extends Component {
   };
 
   componentDidMount() {
-    refreshPaypalConfig();
+    
     this.fetchOrderHistory();
     this.props.fetchUserProfile();
   }
@@ -415,6 +415,7 @@ const mapStateToProps = (state) => {
     isUserLoading: state.user.processing,
     isCurrencyConverted: state.user.isCurrencyConverted,
     currencyConversion: state.user.currencyConversion,
+    ticketPagination: state.user.ticketPagination,
   };
 };
 

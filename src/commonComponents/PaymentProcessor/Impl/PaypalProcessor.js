@@ -21,7 +21,7 @@ class PaypalProcessor extends Component {
                 <img
                   src={paypalImage}
                   style={{ width: "71px", height: "62px" }}
-                  alt={"mobilemoney-logo"}
+                  alt={"paypal-logo"}
                 />
               </Col>
             </Row>

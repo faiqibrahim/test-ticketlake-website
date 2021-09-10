@@ -20,6 +20,7 @@ class WalletPaymentPrompt extends React.Component {
       onPaymentFailure,
       isSplitPayment,
       splitPayment,
+      changeProp
     } = this.props;
 
     const transactionAmount = Math.min(balanceInRequestedCurrency, amount);
@@ -37,8 +38,16 @@ class WalletPaymentPrompt extends React.Component {
             : onPaymentSuccessful(type, _id);
         })
         .catch((error) => {
-          // check response code - 51 => current balance - update wallet balance - set active component null
-          onPaymentFailure(type, error);
+          const { data } = error.response;
+          if (data.info) {
+            const { consumerBalance } = data.info;
+            changeProp('balance', consumerBalance, () => {
+              //TODO Show Error Message
+              this.cancelPayment();
+            })
+          } else {
+            onPaymentFailure(type, error);
+          }
         });
     });
   };

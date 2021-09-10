@@ -315,6 +315,7 @@ const mapStateToProps = (state) => {
   return {
     wishList:
       state.wishlist.wishList !== null ? state.wishlist.wishList.data : null,
+    ticketPagination: state.user.ticketPagination,
     allTickets: state.user.allTickets,
     userWallet: state.user.userWallet,
     auth: state.user.authenticated,
