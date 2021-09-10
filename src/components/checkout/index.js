@@ -9,7 +9,6 @@ import Timer from "../../commonComponents/Timer";
 import CheckoutSuccess from "./CheckoutSuccess";
 import CheckoutFailed from "./CheckoutFailed";
 import { getPaymentInfo } from "./payment-info-provider";
-import InvoiceDetail from "../../commonComponents/invoiceDetail";
 import CheckoutReceipt from "./CheckoutReceipt";
 
 class Checkout extends Component {
