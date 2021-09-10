@@ -1,0 +1,41 @@
+.cardShareButton,
+.cardWishButton {
+  background-color: transparent;
+  border: 2px solid #ec1b23 !important;
+  width: 48px;
+  border-radius: 5px;
+  padding: 0;
+  text-align: center;
+}
+
+.cardShareButton:hover,
+.cardWishButton:hover,
+.cardShareButton:focus,
+.cardWishButton:focus,
+.cardShareButton:active,
+.cardWishButton:active {
+  outline: none !important;
+  box-shadow: none;
+  background-color: transparent !important;
+}
+
+.cardAddButton {
+  background-color: #ec1b23;
+  border: 1px solid #ec1b23 !important;
+  width: 100%;
+  text-align: center;
+  font-weight: bold !important;
+  font-size: 14px;
+  padding: 0;
+  border-radius: 5px;
+}
+.cardAddButton:hover,
+.cardAddButton:focus,
+.cardAddButton:active {
+  box-shadow: none !important;
+  background-color: #ec1b23 !important;
+  border: 1px solid #ec1b23 !important;
+}
+.cardAddButton:after {
+  display: none;
+}

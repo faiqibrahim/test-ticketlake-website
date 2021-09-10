@@ -12,7 +12,6 @@
 .boxContent {
   display: flex;
   flex-flow: column;
-  align-items: flex-start;
   padding: 44px 0;
   cursor: pointer;
   border-radius: 10px;
@@ -22,77 +21,51 @@
   background-position: left center;
   position: relative;
 }
-.boxContent:hover .boxTitle,
-.boxContent:hover .boxTitleNoImage {
-  color: #fff;
-}
-
-.boxContent > div {
-  align-self: center;
-}
 .boxTitle {
-  font-size: 28px;
-  color: #fff;
+  font-size: 16px;
+  color: #17224e;
   font-weight: bold;
+  padding: 10px 0 8px;
   line-height: 41px;
   font-size-adjust: 0.4;
-  z-index: 5;
-  text-transform: capitalize;
+  text-align: left;
   white-space: nowrap;
   width: 100%;
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0 15px;
-}
-
-.boxTitleNoImage {
-  font-size: 28px;
-  color: #000;
-  font-weight: bold;
-  line-height: 41px;
-  font-size-adjust: 0.4;
-  z-index: 5;
   text-transform: capitalize;
-  white-space: nowrap;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0 15px;
-}
-.votingOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000;
-  opacity: 0.5;
-  z-index: 2;
-  border-radius: inherit;
 }
 
-.votingOverlayNoImage {
-  opacity: 1;
-  background-color: #fff7f7;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  border-radius: inherit;
-}
-.votingOverlay:hover,
-.votingOverlayNoImage:hover,
-.boxTitle:hover + .votingOverlay,
-.boxTitleNoImage:hover + .votingOverlayNoImage {
-  background-color: #ec1b23;
-  opacity: 1;
-}
 .tooltipStyle {
   width: 250px !important;
 }
+.categoryMeta .categoryNomineeCount {
+  margin: 0;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0;
+  padding-top: 5px;
+}
+.categoryMeta .categoryNomineeCount > span:first-child {
+  font-size: 11px;
+  color: #747a95;
+  padding: 0;
+  text-align: right;
+}
+.categoryMeta .categoryNomineeCount > span:last-child {
+  font-size: 18px;
+  color: #17224e;
+  font-weight: bold;
+  margin-top: -5px;
+}
 
+.categoryImage img {
+  width: 100%;
+  border-radius: 10px;
+}
 @media screen and (min-width: 2700px) and (max-width: 4000px) {
   .CategoryBoxCol {
     padding: 0 30px;

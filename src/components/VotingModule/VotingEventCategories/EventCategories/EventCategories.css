@@ -1,36 +1,36 @@
-body{
-    background-color: #fff !important;
+body {
+  background-color: #fff !important;
 }
-.categoryBoxRow{
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
+.categoryContainer {
+  max-width: 70%;
 }
-.contentBox{
-    padding: 60px 0 70px;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
+.categoryBoxRow {
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
 }
-@media screen and (min-width:2700px) and (max-width:4000px){
-    .categoryBoxRow{
-        margin-right: -30px;
-        margin-left: -30px;
-    }
+.contentBox {
+  padding: 60px 15px 70px;
 }
-
-@media screen and (min-width:2100px) and (max-width:2699px){
-    .categoryBoxRow{
-        margin-right: -25px;
-        margin-left: -25px;
-    }
+@media screen and (min-width: 2700px) and (max-width: 4000px) {
+  .categoryBoxRow {
+    margin-right: -30px;
+    margin-left: -30px;
+  }
 }
 
-@media screen and (max-width:1400px){
-    .categoryBoxRow{
-        margin-right: 0px;
-        margin-left: 0px;
-    }
+@media screen and (min-width: 2100px) and (max-width: 2699px) {
+  .categoryBoxRow {
+    margin-right: -25px;
+    margin-left: -25px;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .categoryBoxRow {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
 }

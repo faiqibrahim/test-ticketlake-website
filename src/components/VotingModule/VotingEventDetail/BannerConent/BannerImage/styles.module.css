@@ -1,0 +1,20 @@
+.bannerContainer {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 630px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 110px;
+}
+.bannerOverLay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.6;
+}

@@ -3,6 +3,12 @@ import moment from "moment";
 
 import { votingEventActions } from "./event-Slice";
 
+/**
+ * @convertAllEventApiStructureToListingData
+ * @param {*} data
+ * @returns
+ */
+
 const convertAllEventApiStructureToListingData = (data) => {
   let convertEventData = [];
 
@@ -33,6 +39,13 @@ const convertAllEventApiStructureToListingData = (data) => {
   return convertEventData;
 };
 
+/**
+ * @getAllVotingEvents
+ * @param {*} eventsLimit
+ * @param {*} cb
+ * @returns
+ */
+
 export const getAllVotingEvents = (eventsLimit, cb) => {
   const sortBy = "startTime";
   const sortOrder = "-1";
@@ -46,9 +59,73 @@ export const getAllVotingEvents = (eventsLimit, cb) => {
       )
       .then((response) => {
         const { data } = response;
+        console.log("dta", data);
         const eventsList = convertAllEventApiStructureToListingData(data.data);
 
-        dispatch(votingEventActions.getAllEvents(eventsList));
+        dispatch(votingEventActions.setAllEvents(eventsList));
+        cb && cb(null, response);
+      })
+      .catch((error) => {
+        cb && cb(error);
+      });
+  };
+};
+
+/**
+ * @getSingleVotingEvent
+ * @param {*} eventID
+ * @param {*} cb
+ * @returns
+ */
+
+const convertEventApiStructureToEventData = (data) => {
+  const startDateTime = moment(data.startTime, "YYYY/MM/DD");
+  const endDateTime = moment(data.endTime, "YYYY/MM/DD");
+
+  const startMonth = startDateTime.format("MMM");
+  const startDate = startDateTime.format("D");
+
+  const endMonth = endDateTime.format("MMM");
+  const endDate = endDateTime.format("D");
+
+  const checkBalloting = data.secretBalloting
+    ? "Secret Balloting"
+    : data.totalVotes;
+
+  const eventData = {
+    id: data._id,
+    name: data.name,
+    image: data.images[0],
+    description: data.description,
+    numberOfNominees: data.numberOfNominees,
+    startMonth,
+    startDate,
+    startTime: data.startTime,
+    endMonth,
+    endDate,
+    endTime: data.endTime,
+    votingType: data.votingType,
+    nextVoteTime: data.nextVoteTime,
+    votePrice: data.votePrice ? `Vote Now (${data.votePrice}GHS)` : 0,
+    secretBalloting: checkBalloting,
+    votingCounting: data.totalVotes,
+    organizationId: data.organizationId,
+    active: data.active,
+  };
+
+  return eventData;
+};
+
+export const getSingleVotingEvent = (eventID, cb) => {
+  return (dispatch) => {
+    axios
+      .get(`/voting-events/${eventID}`)
+      .then((response) => {
+        const { data } = response;
+
+        const eventData = convertEventApiStructureToEventData(data.data);
+
+        dispatch(votingEventActions.setSingleEvent(eventData));
         cb && cb(null, response);
       })
       .catch((error) => {

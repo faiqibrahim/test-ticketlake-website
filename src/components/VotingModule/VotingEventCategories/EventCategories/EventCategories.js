@@ -2,17 +2,20 @@ import React, { Component, Fragment } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAllVotingCategories } from "../../../../redux/voting-events/category/category-action";
-import VotingHeader from "../../Header/Layout/Layout";
 import Loader from "../../../../commonComponents/loader";
 
 import CategoryBox from "../CategoryBox/CatergoryBox";
 import "./EventCategories.css";
 
 class VotingCategories extends Component {
-  state = {
-    loading: true,
-    categories: [],
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      categories: [],
+      nomineeCount: props.numberOfNominees,
+    };
+  }
 
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -24,14 +27,6 @@ class VotingCategories extends Component {
           categories: this.props.categoryListing,
           eventTitle: this.props.categoryListing[0],
           eventClosed: this.props.categoryListing[1].endEvent,
-          breadCrumbs: [
-            { path: "/", crumbTitle: "Home" },
-            { path: "/voting", crumbTitle: "Votings" },
-            {
-              path: `/voting/${id}`,
-              crumbTitle: this.props.categoryListing[0],
-            },
-          ],
         });
       } else {
         this.props.history.push("/voting");
@@ -55,26 +50,14 @@ class VotingCategories extends Component {
     if (this.state.loading) return <Loader />;
 
     const [, , ...categories] = this.state.categories;
-    const { eventClosed } = this.state;
+    const { eventClosed, nomineeCount } = this.state;
 
     return (
       <Fragment>
-        <div className="container">
-          <div className="headerContainer">
-            <VotingHeader
-              pageTitle={this.state.eventTitle}
-              breadCrumbs={this.state.breadCrumbs}
-            />
-          </div>
-        </div>
-        <hr style={{ margin: "5px 0" }} />
-        <div className="container">
+        <div className="container categoryContainer">
           <div className="contentBox">
             <div className="Header">
               <div className="heading">Categories</div>
-              <div className="subHeading">
-                Please select a category to cast your vote
-              </div>
             </div>
             <div className="categoryBoxRow">
               {categories && categories.length > 0 ? (
@@ -90,6 +73,7 @@ class VotingCategories extends Component {
                           eventClosed
                         )
                       }
+                      nomineeCount={nomineeCount}
                     />
                   );
                 })
