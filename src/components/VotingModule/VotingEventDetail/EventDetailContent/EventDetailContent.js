@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, createRef } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Loader from "../../../../commonComponents/loader";
+import { scroller } from "react-scroll";
 
 import { getSingleVotingEvent } from "../../../../redux/voting-events/event/event-actions";
-import { duration } from "../../VotingPage/Duration/duration";
 import BannerContent from "../BannerConent/BannerImage/BannerImage";
 import DetailDescription from "../DetailDescription/DetailDescription";
 import VotingCategories from "../../VotingEventCategories/EventCategories/EventCategories";
@@ -15,10 +15,13 @@ class EventDetailContent extends Component {
   is_Mounted = false;
   constructor(props) {
     super(props);
+    this.categoryRef = createRef();
     this.state = {
       loading: true,
       eventID: props.match.params.id,
       event: null,
+      bannerImage: null,
+      bannerContent: null,
       remainingTime: null,
     };
   }
@@ -38,18 +41,24 @@ class EventDetailContent extends Component {
     getSingleVotingEvent(eventID, (error, data) => {
       if (!error && data) {
         const { event } = this.props;
-        let durationCheck = duration(event);
 
         this.setState({
           loading: false,
           event,
-          remainingTime: durationCheck.eventEnd
-            ? durationCheck.durationString
-            : durationCheck,
+          bannerContentData: event[1],
+          bannerInfoData: event[0],
         });
       } else {
         this.setState({ loading: false });
       }
+    });
+  };
+
+  scrollToSection = () => {
+    scroller.scrollTo("scrollToVoteCategory", {
+      duration: 800,
+      delay: 0,
+      smooth: "easeInOutQuart",
     });
   };
 
@@ -61,25 +70,33 @@ class EventDetailContent extends Component {
     console.log("wishlistEventHandler");
   };
 
+  castVoteHandler = (target) => this.scrollToSection(target);
+
   render() {
     if (this.state.loading) return <Loader />;
 
-    const { event, remainingTime } = this.state;
-    const { numberOfNominees } = event;
+    const { bannerContentData, bannerInfoData } = this.state;
+
+    const { image, votePrice, description } = bannerInfoData;
     return (
       <Fragment>
         <div className={classes.detailPageContainer}>
           <BannerContent
-            bannerContent={event}
-            remainingTime={remainingTime}
-            shareClick={this.shareEventHandler}
-            wishClick={this.wishlistEventHandler}
+            bannerCardContent={bannerContentData}
+            bannerImage={image}
+            bannerButtons={{
+              onShareButton: this.shareEventHandler,
+              onWishButton: this.wishlistEventHandler,
+              onAddButton: {
+                text: votePrice,
+                funcClick: () => this.castVoteHandler(this.categoryRef),
+              },
+            }}
           />
-          <DetailDescription
-            title="Description"
-            description={event.description}
-          />
-          <VotingCategories numberOfNominees={numberOfNominees} />
+          <DetailDescription title="Description" description={description} />
+          <div ref={this.categoryRef} className="scrollToVoteCategory">
+            <VotingCategories />
+          </div>
         </div>
       </Fragment>
     );

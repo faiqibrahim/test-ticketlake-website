@@ -12,7 +12,7 @@ import { getSingleNomineeDetail } from "../../../../redux/voting-events/nominee/
 import ToolTips from "../../ToolTips/ToolTips";
 
 import VotingHeader from "../../Header/Layout/Layout";
-import { duration } from "../../VotingPage/Duration/duration";
+import { duration } from "../../../../commonComponents//Duration/duration";
 import "./EventNominees.css";
 import "../../VotingModule.css";
 

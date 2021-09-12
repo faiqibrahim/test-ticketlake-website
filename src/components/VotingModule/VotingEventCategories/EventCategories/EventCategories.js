@@ -13,7 +13,6 @@ class VotingCategories extends Component {
     this.state = {
       loading: true,
       categories: [],
-      nomineeCount: props.numberOfNominees,
     };
   }
 
@@ -50,7 +49,7 @@ class VotingCategories extends Component {
     if (this.state.loading) return <Loader />;
 
     const [, , ...categories] = this.state.categories;
-    const { eventClosed, nomineeCount } = this.state;
+    const { eventClosed } = this.state;
 
     return (
       <Fragment>
@@ -73,7 +72,6 @@ class VotingCategories extends Component {
                           eventClosed
                         )
                       }
-                      nomineeCount={nomineeCount}
                     />
                   );
                 })

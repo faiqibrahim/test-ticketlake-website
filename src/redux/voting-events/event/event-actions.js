@@ -1,5 +1,6 @@
 import axios from "../../../utils/axios";
 import moment from "moment";
+import { duration } from "../../../commonComponents/Duration/duration";
 
 import { votingEventActions } from "./event-Slice";
 
@@ -59,7 +60,6 @@ export const getAllVotingEvents = (eventsLimit, cb) => {
       )
       .then((response) => {
         const { data } = response;
-        console.log("dta", data);
         const eventsList = convertAllEventApiStructureToListingData(data.data);
 
         dispatch(votingEventActions.setAllEvents(eventsList));
@@ -79,6 +79,8 @@ export const getAllVotingEvents = (eventsLimit, cb) => {
  */
 
 const convertEventApiStructureToEventData = (data) => {
+  console.log("data", data);
+
   const startDateTime = moment(data.startTime, "YYYY/MM/DD");
   const endDateTime = moment(data.endTime, "YYYY/MM/DD");
 
@@ -92,26 +94,28 @@ const convertEventApiStructureToEventData = (data) => {
     ? "Secret Balloting"
     : data.totalVotes;
 
-  const eventData = {
-    id: data._id,
-    name: data.name,
-    image: data.images[0],
-    description: data.description,
-    numberOfNominees: data.numberOfNominees,
-    startMonth,
-    startDate,
-    startTime: data.startTime,
-    endMonth,
-    endDate,
-    endTime: data.endTime,
-    votingType: data.votingType,
-    nextVoteTime: data.nextVoteTime,
-    votePrice: data.votePrice ? `Vote Now (${data.votePrice}GHS)` : 0,
-    secretBalloting: checkBalloting,
-    votingCounting: data.totalVotes,
-    organizationId: data.organizationId,
-    active: data.active,
-  };
+  const remainingTime = duration(data);
+
+  const eventData = [
+    {
+      id: data._id,
+      image: data.images[0],
+      description: data.description,
+      startTime: data.startTime,
+      votePrice: data.votePrice ? `Vote Now (${data.votePrice}GHS)` : "",
+    },
+    {
+      startAndEndMonth: `${startMonth} - ${endMonth}`,
+      startAndEndDate: `${startDate} - ${endDate}`,
+      name: data.name,
+      borderBar: null,
+      organization: "Organized by Capri Complex",
+      secretBalloting: checkBalloting,
+      endTime: remainingTime.eventEnd
+        ? remainingTime.durationString
+        : remainingTime,
+    },
+  ];
 
   return eventData;
 };

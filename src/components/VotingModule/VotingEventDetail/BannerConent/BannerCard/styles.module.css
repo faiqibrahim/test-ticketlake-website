@@ -44,6 +44,7 @@
 }
 .cardBorderDesign {
   border: 3px solid #ec1b23;
+  background-color: #ec1b23;
   border-radius: 5px;
   width: 22.5%;
   margin-top: 75px;
@@ -53,4 +54,155 @@
   position: relative;
   top: 70px;
   margin-left: -15px !important;
+}
+
+@media screen and (min-width: 3500px) {
+  .detailCardImage img {
+    height: 1200px;
+  }
+  .cardMonths,
+  .cardOrganization,
+  .cardBalloting,
+  .cardRemaingTime {
+    font-size: 46px;
+  }
+  .cardDates {
+    font-size: 64px;
+  }
+  .cardName {
+    font-size: 58px;
+  }
+  .cardBorderDesign {
+    border-width: 6px;
+    margin-top: 95px;
+    margin-bottom: 40px;
+  }
+  .cardButtons {
+    top: 150px;
+  }
+}
+
+@media screen and (max-width: 3499px) and (min-width: 2700px) {
+  .detailCardImage img {
+    height: 860px;
+  }
+  .cardMonths,
+  .cardOrganization,
+  .cardBalloting,
+  .cardRemaingTime {
+    font-size: 36px;
+  }
+  .cardDates {
+    font-size: 54px;
+  }
+  .cardName {
+    font-size: 48px;
+  }
+  .cardBorderDesign {
+    border-width: 5px;
+    margin-top: 85px;
+    margin-bottom: 30px;
+  }
+  .cardButtons {
+    top: 110px;
+  }
+}
+
+@media screen and (max-width: 2699px) and (min-width: 2400px) {
+  .detailCardImage img {
+    height: 760px;
+  }
+  .cardMonths,
+  .cardOrganization,
+  .cardBalloting,
+  .cardRemaingTime {
+    font-size: 26px;
+  }
+  .cardDates {
+    font-size: 44px;
+  }
+  .cardName {
+    font-size: 38px;
+  }
+  .cardBorderDesign {
+    border-width: 4px;
+    margin-top: 75px;
+    margin-bottom: 25px;
+  }
+  .cardButtons {
+    top: 90px;
+  }
+}
+
+@media screen and (max-width: 2399px) and (min-width: 2200px) {
+  .detailCardImage img {
+    height: 680px;
+  }
+  .cardMonths,
+  .cardOrganization,
+  .cardBalloting,
+  .cardRemaingTime {
+    font-size: 26px;
+  }
+  .cardDates {
+    font-size: 34px;
+  }
+  .cardName {
+    font-size: 28px;
+  }
+  .cardBorderDesign {
+    border-width: 4px;
+    margin-top: 70px;
+    margin-bottom: 25px;
+  }
+  .cardButtons {
+    top: 80px;
+  }
+}
+
+@media screen and (max-width: 2199px) and (min-width: 2000px) {
+  .detailCardImage img {
+    height: 580px;
+  }
+  .cardMonths,
+  .cardOrganization,
+  .cardBalloting,
+  .cardRemaingTime {
+    font-size: 20px;
+  }
+  .cardDates {
+    font-size: 34px;
+  }
+  .cardName {
+    font-size: 30px;
+  }
+  .cardButtons {
+    top: 75px;
+  }
+}
+
+@media screen and (max-width: 1999px) and (min-width: 1600px) {
+  .detailCardImage img {
+    height: 480px;
+  }
+  .cardMonths,
+  .cardOrganization,
+  .cardBalloting,
+  .cardRemaingTime {
+    font-size: 18px;
+  }
+  .cardDates {
+    font-size: 28px;
+  }
+  .cardName {
+    font-size: 28px;
+  }
+  .cardBorderDesign {
+    border-width: px;
+    margin-top: 60px;
+    margin-bottom: 20px;
+  }
+  .cardButtons {
+    top: 60px;
+  }
 }

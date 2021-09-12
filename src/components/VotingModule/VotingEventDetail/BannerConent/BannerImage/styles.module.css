@@ -18,3 +18,51 @@
   background-color: #000;
   opacity: 0.6;
 }
+
+@media screen and (min-width: 3500px) {
+  .bannerContainer {
+    height: 1320px;
+    margin-bottom: 210px;
+  }
+}
+
+@media screen and (max-width: 3499px) and (min-width: 2700px) {
+  .bannerContainer {
+    height: 950px;
+    margin-bottom: 150px;
+  }
+}
+
+@media screen and (max-width: 2699px) and (min-width: 2400px) {
+  .bannerContainer {
+    height: 850px;
+    margin-bottom: 120px;
+  }
+}
+
+@media screen and (max-width: 2399px) and (min-width: 2200px) {
+  .bannerContainer {
+    height: 770px;
+    margin-bottom: 110px;
+  }
+}
+
+@media screen and (max-width: 2199px) and (min-width: 2000px) {
+  .bannerContainer {
+    height: 670px;
+  }
+}
+
+@media screen and (max-width: 1999px) and (min-width: 1600px) {
+  .bannerContainer {
+    height: 540px;
+    margin-bottom: 85px;
+  }
+}
+
+@media screen and (max-width: 1599px) and (min-width: 1400px) {
+  .bannerContainer {
+    height: 540px;
+    margin-bottom: 85px;
+  }
+}
