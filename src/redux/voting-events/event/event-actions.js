@@ -99,7 +99,7 @@ const convertEventApiStructureToEventData = (data) => {
   const eventData = [
     {
       id: data._id,
-      image: data.images[0],
+      votingImage: data.images[0],
       description: data.description,
       startTime: data.startTime,
       votePrice: data.votePrice ? `Vote Now (${data.votePrice}GHS)` : "",
@@ -107,9 +107,9 @@ const convertEventApiStructureToEventData = (data) => {
     {
       startAndEndMonth: `${startMonth} - ${endMonth}`,
       startAndEndDate: `${startDate} - ${endDate}`,
-      name: data.name,
+      votingEventName: data.name,
       borderBar: null,
-      organization: "Organized by Capri Complex",
+      votingOrganization: "Organized by Capri Complex",
       secretBalloting: checkBalloting,
       endTime: remainingTime.eventEnd
         ? remainingTime.durationString

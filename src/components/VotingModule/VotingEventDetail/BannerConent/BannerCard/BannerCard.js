@@ -15,12 +15,12 @@ const BannerCard = (props) => {
   return (
     <Container className={classes.detailCardContainer}>
       <Row>
-        <Col md={8}>
+        <Col md={8} className={classes.bannerCardCol}>
           <div className={classes.detailCardImage}>
             <img src={cardImage} alt="img" />
           </div>
         </Col>
-        <Col md={4}>
+        <Col md={4} className={classes.bannerCardCol}>
           <div className={classes.detailCardContent}>
             <Row>{renderCard}</Row>
             <Row className={classes.cardButtons}>{renderButtons}</Row>

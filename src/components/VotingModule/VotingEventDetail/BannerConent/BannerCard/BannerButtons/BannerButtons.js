@@ -18,14 +18,14 @@ const checkButtonType = (key, value) => {
       ) : null;
 
       button = (
-        <Col md={2} key={key} className={key}>
+        <Col md={2} key={key} className={`${key} bannerCutsomCol-2`}>
           <Button onClick={value}>{imageOrText}</Button>
         </Col>
       );
       break;
     case "object":
       button = (
-        <Col md={2} key={key} className={key}>
+        <Col md={2} key={key} className={`${key} bannerCutsomCol-4`}>
           <Button onClick={value.funcClick}>{value.text}</Button>
         </Col>
       );

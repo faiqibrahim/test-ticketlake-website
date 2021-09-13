@@ -77,13 +77,13 @@ class EventDetailContent extends Component {
 
     const { bannerContentData, bannerInfoData } = this.state;
 
-    const { image, votePrice, description } = bannerInfoData;
+    const { votingImage, votePrice, description } = bannerInfoData;
     return (
       <Fragment>
         <div className={classes.detailPageContainer}>
           <BannerContent
             bannerCardContent={bannerContentData}
-            bannerImage={image}
+            bannerImage={votingImage}
             bannerButtons={{
               onShareButton: this.shareEventHandler,
               onWishButton: this.wishlistEventHandler,

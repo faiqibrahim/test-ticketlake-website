@@ -1,33 +1,43 @@
 .startAndEndMonth,
-.organization,
+.votingOrganization,
 .secretBalloting {
-  font-size: 16px;
+  font-size: 0.84vw;
   color: #6f7287;
 }
 .startAndEndDate {
-  font-size: 34px;
+  font-size: 1.8vw;
   color: #ec1b23;
   font-weight: bold;
 }
-.name {
-  font-size: 28px;
+.votingEventName {
+  font-size: 1.5vw;
   color: #17224e;
   font-weight: bold;
 }
 .endTime {
-  font-size: 16px;
+  font-size: 0.84vw;
   color: #ec1b23;
 }
 .borderBar {
-  border: 3px solid #ec1b23;
+  border: 0.15vw solid #ec1b23;
   background-color: #ec1b23;
-  border-radius: 5px;
+  border-radius: 0.5vw;
   width: 22.5%;
-  margin-top: 75px;
-  margin-bottom: 20px;
+  margin-top: 6vh;
+  margin-bottom: 2.3vh;
 }
-.cardButtons {
-  position: relative;
-  top: 70px;
-  margin-left: -15px !important;
+
+@media screen and (max-width: 1600px) {
+  .startAndEndMonth,
+  .votingOrganization,
+  .secretBalloting,
+  .endTime {
+    font-size: 1rem;
+  }
+  .votingEventName {
+    font-size: 1.8rem;
+  }
+  .startAndEndDate {
+    font-size: 2.1rem;
+  }
 }
