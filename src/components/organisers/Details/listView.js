@@ -37,11 +37,10 @@ class ListView extends Component {
                       {event.categories.map(({ title }) => title).join(" & ")}
                     </p>
                     <p className="cardSubheading" style={{ color: "#EC1B23" }}>
-                      <Moment format="ddd, MMMM DD">
+                      <Moment format="ddd, MMM DD">
                         {event.startDateTime}
                       </Moment>{" "}
-                      -
-                      <Moment format="ddd, MMMM DD">{event.endDateTime}</Moment>
+                      -<Moment format="ddd, MMM DD">{event.endDateTime}</Moment>
                     </p>
                     <p className="cardSubheading">
                       {event.slotsData.length} Shows

@@ -1,53 +1,43 @@
 import React, { Component } from "react";
 import classes from "./style.module.css";
+import Gallery from "react-grid-gallery";
 
 class Details extends Component {
-  state = { count: 4 };
+  getImages = () => {
+    const { images } = this.props;
+    const arrangeImages = images.map((image) => ({
+      src: image.imageUrl,
+      thumbnail: image.imageUrl,
+    }));
+    return arrangeImages;
+  };
 
   render() {
-    const { count } = this.state;
-    const { name, eventsOrganised, venue, description, images } = this.props;
-
-    let loadMore = false;
-    let showImages = [];
-    if (images) {
-      showImages = images.slice(0, count);
-      if (images.length > showImages.length) {
-        loadMore = true;
-        showImages = images.slice(0, count);
-      }
-    }
+    const { eventsOrganised, venue, description } = this.props;
 
     return (
       <div className="container mt-5 mb-5">
-        <p className={classes.detailsTitle}>{name}</p>
-        <p className={classes.veneueText}>Events Organised {eventsOrganised}</p>
-        <p className={classes.veneueText}>Venue - {venue}</p>
-        <div className="col-md-8 col-sm-12 p-0">
-          <p className={classes.description}>{description}</p>
-        </div>
-        <p className={classes.detailsTitle}>Gallery</p>
-        <div className="row">
-          {showImages.map((image, index) => (
-            <div className="col-lg-3 col-md-4 col-sm-6  mb-3" key={index}>
-              <img
-                src={image.imageUrl}
-                className={classes.galleryImages}
-                alt="gallery"
-              />
+        <div className="row mb-5">
+          <div className="col-md-8 col-sm-12 ">
+            <p className={classes.detailsTitle}>Description</p>
+
+            <div className={classes.description}>{description}</div>
+          </div>
+          <div className="col-md-4 col-sm-12 ">
+            <div className={classes.veneueText}>
+              Events Organised{" "}
+              <span style={{ color: "#ec1b23" }}> {eventsOrganised} </span>{" "}
             </div>
-          ))}
+            <div className={classes.veneueText}>
+              Venue -<span style={{ color: "#ec1b23" }}>{venue}</span>
+            </div>
+          </div>
         </div>
-        {loadMore ? (
-          <button
-            onClick={() => {
-              this.setState({ count: count + 4 });
-            }}
-            className={classes.loadMoreBtn}
-          >
-            Load More
-          </button>
-        ) : null}
+
+        <p className={classes.detailsTitle}>Gallery</p>
+        <div className={"Gallery-section "} id={"gallery"}>
+          <Gallery images={this.getImages()} enableImageSelection={false} />
+        </div>
       </div>
     );
   }

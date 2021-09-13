@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Card } from "react-bootstrap";
 import Moment from "react-moment";
 import classes from "./style.module.css";
+import ReactTooltip from "react-tooltip";
 
 class GridView extends Component {
   state = { count: 8 };
@@ -23,7 +24,7 @@ class GridView extends Component {
           {showEvents.map((event) => {
             return (
               <div
-                className="col-xl-3 col-lg-4 col-md-6 marginBottom"
+                className="col col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3     marginBottom"
                 key={event._id}
               >
                 <Card key={event.id} className="cardStyling">
@@ -33,16 +34,17 @@ class GridView extends Component {
                     src={event.bannerImageKey.imageUrl}
                   />
                   <div>
-                    <p className="organiserCardTitle">{event.title}</p>
+                    <p data-tip={event.title} className="organiserCardTitle">
+                      {event.title}
+                    </p>
                     <p className="cardSubheading">
                       {event.categories.map(({ title }) => title).join(" & ")}
                     </p>
                     <p className="cardSubheading" style={{ color: "#EC1B23" }}>
-                      <Moment format="ddd, MMMM DD">
+                      <Moment format="ddd, MMM DD">
                         {event.startDateTime}
                       </Moment>{" "}
-                      -
-                      <Moment format="ddd, MMMM DD">{event.endDateTime}</Moment>
+                      -<Moment format="ddd, MMM DD">{event.endDateTime}</Moment>
                     </p>
                     <p className="cardSubheading">
                       {event.slotsData.length} Shows
@@ -53,7 +55,7 @@ class GridView extends Component {
             );
           })}
         </div>
-        {loadMore ? (
+        {loadMore && (
           <button
             onClick={() => {
               this.setState({ count: count + 8 });
@@ -62,7 +64,8 @@ class GridView extends Component {
           >
             Load More
           </button>
-        ) : null}
+        )}
+        <ReactTooltip />
       </div>
     );
   }

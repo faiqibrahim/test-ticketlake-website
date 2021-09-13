@@ -46,8 +46,12 @@ class OrganiserDetails extends Component {
   };
 
   updateDimensions = () => {
-    if (window.innerWidth < 768 && this.state.gridView) {
+    if (window.innerWidth < 768 && window.innerWidth >= 576) {
       this.setState({ gridView: false });
+    }
+
+    if (window.innerWidth < 576) {
+      this.setState({ gridView: true });
     }
 
     if (window.innerWidth < 1278) {
@@ -102,7 +106,6 @@ class OrganiserDetails extends Component {
         reviews,
       });
     } catch (error) {
-      console.log(error.response);
       NotificationManager.error("Some Error Occured!", "Error");
       this.setState({ loader: false });
     }
@@ -171,7 +174,15 @@ class OrganiserDetails extends Component {
   };
 
   componentDidMount() {
-    if (window.screen.width < 768) this.setState({ gridView: false });
+    const reviewsTab = sessionStorage.getItem("reviewsTab");
+    if (reviewsTab) {
+      this.setReviewsState();
+      sessionStorage.removeItem("reviewsTab");
+    }
+
+    if (window.screen.width < 768 && window.screen.width >= 576) {
+      this.setState({ gridView: false });
+    } else if (window.screen.width < 576) this.setState({ gridView: true });
     window.addEventListener("resize", this.updateDimensions);
 
     if (window.screen.width < 1278) this.setState({ offSet: false });

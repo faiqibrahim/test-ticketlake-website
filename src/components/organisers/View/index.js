@@ -178,7 +178,7 @@ class Organisers extends Component {
             <>
               {" "}
               {this.getImageCards()}
-              {pageCount > 1 ? (
+              {pageCount > 1 && (
                 <div className="row">
                   <div className="col-lg-12 float-left">
                     <div className="d-flex">
@@ -202,7 +202,7 @@ class Organisers extends Component {
                     </div>
                   </div>
                 </div>
-              ) : null}
+              )}
             </>
           )}
         </div>

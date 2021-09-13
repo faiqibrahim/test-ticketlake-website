@@ -65,13 +65,13 @@ class EventOrganiserCard extends Component {
         {readMore ? (
           <>
             {" "}
-            <p className="cardSubheading descriptionContainer">{description}</p>
+            <p className=" descriptionContainer">{description}</p>
             <button onClick={handleDetails} className="readMoreBtn">
               read more
             </button>{" "}
           </>
         ) : (
-          <p className="cardSubheading descriptionContainer">{description}</p>
+          <p className=" descriptionContainer">{description}</p>
         )}
 
         <ModelGallery setDetailsView={handleDetails} images={images} />
