@@ -46,7 +46,6 @@ class GoogleMap extends Component {
 
     displayMarkers = () => {
         return this.props.nearByData.map((store, index) => {
-            console.log("Hello Called Mother",store);
             return <Marker
                 key={index}
                 id={index}
