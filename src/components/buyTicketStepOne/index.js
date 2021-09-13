@@ -183,6 +183,7 @@ class BuyTicketStepOne extends React.Component {
           }}
           onObjectSelected={(seat) => onSeatChange(seat)}
           onObjectDeselected={(seat) => onSeatChange(seat, false)}
+          className={"seats-io-wrp"}
         />
       </div>
     );

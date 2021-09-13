@@ -46,11 +46,12 @@ class GoogleMap extends Component {
 
     displayMarkers = () => {
         return this.props.nearByData.map((store, index) => {
+            console.log("Hello Called Mother",store);
             return <Marker
                 key={index}
                 id={index}
                 name={store.venue ? store.venue.name : store.address}
-                title={store}
+                title={store.name}
                 position={{
                     lat: store.venue ? store.venue.latitude : store.latitude,
                     lng: store.venue ? store.venue.longitude : store.longitude
@@ -74,7 +75,7 @@ class GoogleMap extends Component {
             <div className="map listing-map" style={{marginTop: '-52px'}}>
                 <Map
                     google={this.props.google}
-                    zoom={11}
+                    zoom={16}
                     style={mapStyles}
                     initialCenter={{lat: this.props.latitude, lng: this.props.longitude}}
                 >

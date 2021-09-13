@@ -138,7 +138,7 @@ class Footer extends React.Component {
 
   render() {
     const { isTooltipOpen } = this.state;
-    return (
+      return (
       <footer className="main-footer" id="main-footer">
         <div className="footer-inner">
           <div className="container">

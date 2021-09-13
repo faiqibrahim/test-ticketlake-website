@@ -12999,3 +12999,8 @@ span.Error-heading.display-block {
 .pt-15 {
   padding-top: 15px;
 }
+.seatsView {
+  float: left;
+  width: 100%;
+  overflow: hidden;
+}
