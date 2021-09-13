@@ -389,6 +389,11 @@
     width: 37%;
     margin-top: 0 !important;
   }
+
+  .eventCardImage {
+    margin-bottom: 5px;
+  }
+
   .card .organiserCardTitle {
     color: #17224e;
     font-size: 16px;
@@ -431,6 +436,19 @@
 @media (max-width: 767px) {
   .eventOrganiserContainer {
     display: none;
+  }
+
+  .organiser-row {
+    padding-left: 15px;
+  }
+
+  .organiser-row .col-xl-3 {
+    flex: 0 0 100%;
+    max-width: 50%;
+  }
+
+  .setWidth {
+    width: 100%;
   }
 
   .emptyColumn {
@@ -519,6 +537,14 @@
   .category-filter.col-sm-6 {
     width: 50%;
   }
+  .organiser-row .col-xl-3 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .eventCardImage {
+    height: 220px;
+  }
+
   .customTabBtn {
     font-size: 12px;
     height: 100%;

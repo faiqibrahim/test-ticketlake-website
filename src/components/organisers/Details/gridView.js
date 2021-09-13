@@ -24,7 +24,7 @@ class GridView extends Component {
           {showEvents.map((event) => {
             return (
               <div
-                className="col-xl-3 col-lg-4 col-md-6 marginBottom"
+                className="col col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3     marginBottom"
                 key={event._id}
               >
                 <Card key={event.id} className="cardStyling">

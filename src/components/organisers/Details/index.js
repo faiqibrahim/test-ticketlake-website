@@ -47,7 +47,7 @@ class OrganiserDetails extends Component {
 
   updateDimensions = () => {
     if (window.innerWidth < 768 && this.state.gridView) {
-      this.setState({ gridView: false });
+      this.setState({ gridView: true });
     }
 
     if (window.innerWidth < 1278) {
@@ -176,7 +176,7 @@ class OrganiserDetails extends Component {
       sessionStorage.removeItem("reviewsTab");
     }
 
-    if (window.screen.width < 768) this.setState({ gridView: false });
+    if (window.screen.width < 768) this.setState({ gridView: true });
     window.addEventListener("resize", this.updateDimensions);
 
     if (window.screen.width < 1278) this.setState({ offSet: false });
