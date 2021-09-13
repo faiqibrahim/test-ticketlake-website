@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import MapContainer from "../../commonComponents/googleMapComponent";
 // Component
 import ToolTip from '../../commonComponents/toolTip';
-import {ticketLakeFbLink, ticketLakeInstagramLink, ticketLakeTwitterLink, ticketLakeYoutubeLink} from '../../utils/constant';
+import {ticketLakeFbLink, ticketLakeInstagramLink, ticketLakeTwitterLink, ticketLakeYoutubeLink, ticketLakeWhatsAppLink} from '../../utils/constant';
 import {Helmet} from "react-helmet";
 
 
@@ -86,11 +86,12 @@ class ContactUsPage extends Component {
                                                      className={'pointer'}
                                                      id="contactPageIcon"
                                                      alt="WhatsApp"
+                                                     onClick={() => window.open(ticketLakeWhatsAppLink)}
                                                      style={imgStyle}/>
                                                 <ToolTip isOpen={isTooltipOpen}
                                                          target={'contactPageIcon'}
                                                          toggle={this.onToggleTooltip}
-                                                         value={'+233 552 520 555'}
+                                                         value={'Chat with us'}
                                                 />
                                             </li>
                                         </ul>
