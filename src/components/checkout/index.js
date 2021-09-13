@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 import { prepareHoldData } from "./checkout-util";
 import Loader from "../../commonComponents/loader";
@@ -10,6 +11,7 @@ import CheckoutSuccess from "./CheckoutSuccess";
 import CheckoutFailed from "./CheckoutFailed";
 import { getPaymentInfo } from "./payment-info-provider";
 import CheckoutReceipt from "./CheckoutReceipt";
+import { setUserWallet } from "../../redux/user/user-actions";
 
 class Checkout extends Component {
   state = {
@@ -43,8 +45,13 @@ class Checkout extends Component {
     axios
       .post("/purchase/tickets", { transactionIds, reservationId }, "v2")
       .then(({ data }) => {
-        console.log("Purchase successful", data);
-        this.setState({ orderSuccessful: true, orderDetails: data.data });
+        const { setUserWallet } = this.props;
+        const { consumerWallet, data: orderDetails } = data;
+        if (consumerWallet) {
+          setUserWallet(consumerWallet);
+        }
+
+        this.setState({ orderSuccessful: true, orderDetails});
       })
       .catch(this.onFailure);
   };
@@ -104,4 +111,5 @@ class Checkout extends Component {
   }
 }
 
-export default withRouter(Checkout);
+const connected = connect(null, { setUserWallet })(Checkout);
+export default withRouter(connected);
