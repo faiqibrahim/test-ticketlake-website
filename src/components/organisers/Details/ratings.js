@@ -6,9 +6,13 @@ import classes from "./style.module.css";
 import { NotificationManager } from "react-notifications";
 import { saveReviewInDB } from "./api-handler";
 import { setRedirectTo } from "../../../redux/user/user-actions";
+
 class Ratings extends Component {
   state = {
     errors: [],
+    rating: 0,
+    review: "",
+    loader: true,
   };
 
   onInputChange = (e) => {
@@ -22,7 +26,7 @@ class Ratings extends Component {
     try {
       await saveReviewInDB(organisationId, review, rating);
       NotificationManager.success("Rating and Review Posted Successfully");
-      this.setState({ name: "", review: "", rating: 0 });
+      this.setState({ review: "", rating: 0 });
       if (handleToggle) {
         handleToggle();
       }
@@ -34,7 +38,6 @@ class Ratings extends Component {
 
   validateData = () => {
     const fields = [
-      { name: "name", label: "Name" },
       { name: "review", label: "Comment" },
       { name: "rating", label: "Rating" },
     ];
@@ -64,6 +67,9 @@ class Ratings extends Component {
         "redirectTo",
         this.props.history.location.pathname
       );
+      sessionStorage.setItem("reviewsTab", true);
+      sessionStorage.setItem("rating", this.state.rating);
+      sessionStorage.setItem("review", this.state.review);
       this.props.setRedirectTo(this.props.history.location.pathname);
       this.props.history.push("/authentication");
     } else {
@@ -71,21 +77,22 @@ class Ratings extends Component {
     }
   };
 
+  componentDidMount() {
+    const rating = sessionStorage.getItem("rating");
+    const review = sessionStorage.getItem("review");
+    if (rating || review) {
+      this.setState({ rating, review });
+      sessionStorage.removeItem("rating");
+      sessionStorage.removeItem("review");
+    }
+  }
+
   render() {
-    const { rating, name, review, errors } = this.state;
+    const { rating, review, errors } = this.state;
 
     return (
       <div className="container">
         <p className={classes.ratingheading}>Share your review and rating</p>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={this.onInputChange}
-          name="name"
-          className={classes.customInputname}
-        />
-        <span className="red-color">{errors["name"]}</span>
         <textarea
           placeholder="Add a comment…"
           rows="10"

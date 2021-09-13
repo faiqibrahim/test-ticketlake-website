@@ -25,6 +25,7 @@ class ModelGallery extends React.Component {
       <Modal
         centered
         style={{ width: "900px", maxWidth: "50%" }}
+        className="modal-gallery-wrp"
         isOpen={isImages}
         toggle={this.toggleCarousel}
       >

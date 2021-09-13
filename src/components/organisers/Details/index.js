@@ -170,6 +170,12 @@ class OrganiserDetails extends Component {
   };
 
   componentDidMount() {
+    const reviewsTab = sessionStorage.getItem("reviewsTab");
+    if (reviewsTab) {
+      this.setReviewsState();
+      sessionStorage.removeItem("reviewsTab");
+    }
+
     if (window.screen.width < 768) this.setState({ gridView: false });
     window.addEventListener("resize", this.updateDimensions);
 

@@ -186,6 +186,12 @@
   height: 125px;
   overflow: hidden;
   display: inline;
+  font-size: 18px;
+  font-family: "neuePlak";
+  font-weight: normal;
+  margin: 0px;
+  color: #555555;
+  padding-bottom: unset;
 }
 
 .eventOrganiserContainer .borderBottom {
@@ -309,11 +315,13 @@
   font-size: 18px;
   font-family: "NeuePlak";
   border: 1px solid white;
+  height: 100%;
 }
 
 .tabscontainer .customTabBtn:hover {
   background-color: #ec1b23;
   color: #ffffff;
+  height: 100%;
 }
 
 .eventsBtnBorderRadius {
@@ -322,6 +330,22 @@
 
 .reviewsBtnBorderRadius {
   border-radius: 0px 10px 10px 0px;
+}
+
+.modal-gallery-wrp .modal-body {
+  padding: unset;
+}
+
+.modal-gallery-wrp .carousel .control-dots .dot {
+  background: red;
+}
+
+.modal-gallery-wrp .carousel .carousel-status {
+  color: red;
+}
+
+.Gallery-section .ReactGridGallery {
+  max-width: 100%;
 }
 
 @media (max-width: 1401px) {
@@ -451,6 +475,7 @@
 
   .customTabBtn {
     font-size: 14px;
+    height: 100%;
   }
   .customBorder .fontSetting {
     display: none;
@@ -494,6 +519,10 @@
   .category-filter.col-sm-6 {
     width: 50%;
   }
+  .customTabBtn {
+    font-size: 12px;
+    height: 100%;
+  }
 }
 
 .readMoreBtn {
@@ -524,4 +553,8 @@ div.cardSubheading div {
   .modal.fade.show {
     justify-content: center !important;
   }
+}
+
+.Gallery-section img {
+  width: 100%;
 }

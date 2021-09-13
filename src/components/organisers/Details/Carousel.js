@@ -12,6 +12,9 @@ class ImageCarousel extends Component {
         className="model-carousel"
         showIndicators={true}
         centerMode={false}
+        dynamicHeight
+        useKeyboardArrows
+        autoFocus={true}
       >
         {images.map((image, index) => {
           const imageSrcUrl = image.imageUrl;

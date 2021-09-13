@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactReadMoreReadLess from "react-read-more-read-less";
+import { Rate } from "antd";
 import { Modal, ModalBody } from "reactstrap";
 import classes from "./style.module.css";
 import Ratings from "./ratings";
@@ -46,7 +47,7 @@ class Reviews extends Component {
                   <div className="card pt-0">
                     <div
                       className="row no-gutters"
-                      style={{ alignItems: "center" }}
+                      style={{ alignItems: "flex-start" }}
                     >
                       <div className="col-auto">
                         <img
@@ -64,18 +65,26 @@ class Reviews extends Component {
                           <h4 className={classes.reviewerName}>
                             {review.name}
                           </h4>
+                          <Rate
+                            disabled
+                            allowHalf
+                            defaultValue={review.rating}
+                            value={review.rating}
+                          />
                           <p className={classes.review}>
                             <ReactReadMoreReadLess
                               charLimit={100}
                               readMoreText={"read more"}
-                              readLessText={"read less"}
+                              readLessText={"show less"}
                               readMoreStyle={{
                                 color: "#EC1B23",
                                 textDecoration: "underline",
+                                cursor: "pointer",
                               }}
                               readLessStyle={{
                                 color: "#EC1B23",
                                 textDecoration: "underline",
+                                cursor: "pointer",
                               }}
                             >
                               {review.review}
