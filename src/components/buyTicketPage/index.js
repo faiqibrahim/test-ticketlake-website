@@ -160,7 +160,6 @@ class BuyTicketPage extends Component {
     const { parent, own: seatNumber, section } = labelInfo;
     const row = parent || "N/A";
 
-    console.log("row", row);
     return {
       label,
       seatNumber,

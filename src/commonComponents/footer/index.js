@@ -9,7 +9,7 @@ import {
   ticketLakeInstagramLink,
   ticketLakeTwitterLink,
   ticketLakeYoutubeLink,
-  tickLakeWhatsAppLink,
+  ticketLakeWhatsAppLink,
 } from "../../utils/constant";
 import { NavLink } from "react-router-dom";
 
@@ -284,7 +284,7 @@ class Footer extends React.Component {
                         className={"pointer"}
                         id="footerPageIcon"
                         alt="WhatsApp"
-                        onClick={() => window.open(tickLakeWhatsAppLink)}
+                        onClick={() => window.open(ticketLakeWhatsAppLink)}
                         style={imgStyle}
                       />
                       <ToolTip
