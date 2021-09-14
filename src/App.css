@@ -1173,6 +1173,7 @@ label {
 .whiteBackground {
   background: white !important;
   border-radius: 6px;
+  padding-bottom: 30px;
 }
 
 #progressbar {

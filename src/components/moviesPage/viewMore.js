@@ -8,6 +8,7 @@ import ReactPaginate from "react-paginate";
 // Component
 import Heading from "../../commonComponents/heading";
 import { CardWithHoverEffect } from "../../commonComponents/CardWithHoverEffect";
+import '../../css/cardWithHoverEffect.css';
 import {
   getTrendingEvents,
   getShowingInCinemasEvents,

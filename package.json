@@ -90,6 +90,7 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
+    "source-map-explorer": "^2.5.2",
     "sweetalert": "^2.1.2",
     "validator": "^10.11.0"
   },
@@ -101,6 +102,7 @@
     "production-win": "SET REACT_APP_ENV=production && react-scripts start",
     "build-dev-win": "set REACT_APP_ENV=dev && react-scripts build",
     "build-dev": "REACT_APP_ENV=dev react-scripts build",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "build-qa-win": "set REACT_APP_ENV=qa && react-scripts build",
     "build-qa": "REACT_APP_ENV=qa react-scripts build",
     "build-staging-win": "set REACT_APP_ENV=staging && react-scripts build",
