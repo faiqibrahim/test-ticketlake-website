@@ -72,7 +72,7 @@
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.2.0",
-    "react-scroll": "^1.8.1",
+    "react-scroll": "^1.8.4",
     "react-scrollchor": "^6.0.0",
     "react-select": "^3.0.4",
     "react-share": "^3.0.0",

@@ -46,6 +46,7 @@ const convertAllCategoriesApiStructureToListingData = (eventID, data, cb) => {
       id: category._id,
       name: category.title,
       image: category.image,
+      numberOfNominees: category.numberOfNominees,
     });
     noOfAsyncTasks--;
   }

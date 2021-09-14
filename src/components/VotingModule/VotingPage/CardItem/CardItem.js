@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import ToolTips from "../../ToolTips/ToolTips";
 
-import { duration } from "../Duration/duration";
+import { duration } from "../../../../commonComponents/Duration/duration";
 import "./CardItem.css";
 
 const CardItem = (props) => {

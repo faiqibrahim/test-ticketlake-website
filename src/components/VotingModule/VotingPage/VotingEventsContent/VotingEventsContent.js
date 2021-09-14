@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-import { duration } from "../Duration/duration";
+import { duration } from "../../../../commonComponents/Duration/duration";
 import CardItem from "../CardItem/CardItem";
 import "./VotingEventsContent.css";
 

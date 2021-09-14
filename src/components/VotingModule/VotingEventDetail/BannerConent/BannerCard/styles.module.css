@@ -1,18 +1,19 @@
 .detailCardContainer {
-  max-width: 70%;
+  max-width: 70vw;
+  z-index: 10;
 }
 .detailCardContainer > div > div {
   padding: 0;
 }
 .detailCardImage img {
   width: 100%;
-  height: 569px;
+  height: 58vh;
   object-fit: cover;
 }
 .detailCardContent {
   background-color: #fff;
-  padding-top: 70px;
-  padding-left: 20px;
+  padding-top: 4.8vh;
+  padding-left: 0.8vw;
   text-align: left;
   height: 100%;
   display: flex;
@@ -22,35 +23,91 @@
 .detailCardContent > div {
   margin: 0;
 }
-.cardMonths,
-.cardOrganization,
-.cardBalloting {
-  font-size: 16px;
-  color: #6f7287;
-}
-.cardDates {
-  font-size: 34px;
-  color: #ec1b23;
-  font-weight: bold;
-}
-.cardName {
-  font-size: 28px;
-  color: #17224e;
-  font-weight: bold;
-}
-.cardRemaingTime {
-  font-size: 16px;
-  color: #ec1b23;
-}
-.cardBorderDesign {
-  border: 3px solid #ec1b23;
-  border-radius: 5px;
-  width: 22.5%;
-  margin-top: 75px;
-  margin-bottom: 20px;
-}
 .cardButtons {
   position: relative;
-  top: 70px;
-  margin-left: -15px !important;
+  top: 9vh;
+  margin-left: -1.1vw !important;
+}
+
+@media screen and (max-width: 1600px) and (min-width: 1200px) {
+  .detailCardContainer {
+    max-width: 80vw;
+  }
+}
+
+@media screen and (max-width: 1199px) and (min-width: 1050px) {
+  .detailCardContainer {
+    max-width: 90vw;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .detailCardContainer {
+    width: 100%;
+    max-width: 100vw;
+  }
+  .detailCardImage img {
+    height: 64vh;
+  }
+}
+@media screen and (max-width: 1049px) and (min-width: 769px) {
+  .bannerCardCol:first-child {
+    max-width: 60%;
+    flex: 0 0 60%;
+  }
+  .bannerCardCol:last-child {
+    max-width: 40%;
+    flex: 0 0 40%;
+  }
+}
+@media screen and (max-width: 768px) and (min-width: 768px) {
+  .bannerCardCol:first-child {
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+  .bannerCardCol:last-child {
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .cardButtons {
+    position: fixed;
+    bottom: 0;
+    top: unset;
+    left: 0;
+    right: 0;
+    flex-direction: row;
+    flex-flow: row;
+    background-color: #fff;
+    padding: 2rem 6rem;
+    border-top: 1px solid #eee;
+    box-shadow: 0px -2px 5px #eee;
+    width: 100%;
+    margin-left: 0 !important;
+  }
+  .detailCardImage img {
+    height: 42vh;
+  }
+}
+@media screen and (max-width: 575px) {
+  .cardButtons {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+@media screen and (max-width: 400px) {
+  .cardButtons {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation: portrait) {
+  .cardButtons {
+    bottom: 10vh;
+  }
+}
+@media only screen and (min-device-width: 1024px) and (max-device-height: 1366px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  .detailCardImage img {
+    height: 44vh;
+  }
 }

@@ -2,12 +2,12 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 630px;
+  height: 64vh;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  margin-bottom: 110px;
+  margin-bottom: 13vh;
 }
 .bannerOverLay {
   position: absolute;
@@ -17,4 +17,16 @@
   left: 0;
   background-color: #000;
   opacity: 0.6;
+}
+
+@media screen and (max-width: 768px) {
+  .bannerContainer {
+    height: auto;
+    margin-bottom: 7vh;
+  }
+}
+@media only screen and (min-device-width: 1024px) and (max-device-height: 1366px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  .bannerContainer {
+    height: 44vh;
+  }
 }

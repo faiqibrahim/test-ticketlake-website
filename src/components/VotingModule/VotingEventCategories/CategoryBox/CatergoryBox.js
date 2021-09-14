@@ -6,7 +6,7 @@ import { Row, Col } from "reactstrap";
 import "./CatergoryBox.css";
 
 const CatergoryBox = (props) => {
-  const { image, name, clicked, nomineeCount } = props;
+  const { image, name, clicked, numberOfNominees } = props;
 
   const categoryName = (
     <ToolTips
@@ -27,11 +27,11 @@ const CatergoryBox = (props) => {
         </div>
         <div className="categoryMeta">
           <Row>
-            <Col md={8} className="categoryNameTime">
+            <Col md={8} className="categoryNameTime col-8">
               {categoryName}
             </Col>
-            <Col md={4} className="categoryNomineeCount">
-              <span>NOMINEES</span> <span>{nomineeCount}</span>
+            <Col md={4} className="categoryNomineeCount col-4">
+              <span>NOMINEES</span> <span>{numberOfNominees}</span>
             </Col>
           </Row>
         </div>
