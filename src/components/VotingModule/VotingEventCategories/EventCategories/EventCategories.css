@@ -12,7 +12,7 @@ body {
   margin-left: -15px;
 }
 .contentBox {
-  padding: 4vh 0 4vw;
+  padding: 4vh 1vw 4vh;
 }
 @media screen and (min-width: 2700px) and (max-width: 4000px) {
   .categoryBoxRow {
@@ -27,7 +27,11 @@ body {
     margin-left: -25px;
   }
 }
-
+@media screen and (max-width: 1600px) {
+  .contentBox {
+    padding: 3.8rem 0 3.8rem;
+  }
+}
 @media screen and (max-width: 1600px) and (min-width: 1200px) {
   .categoryContainer {
     max-width: 80vw;

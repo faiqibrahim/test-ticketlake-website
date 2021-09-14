@@ -23,7 +23,6 @@
 .detailCardContent > div {
   margin: 0;
 }
-
 .cardButtons {
   position: relative;
   top: 9vh;
@@ -71,11 +70,6 @@
   }
 }
 @media screen and (max-width: 768px) {
-  .detailCardImage img {
-    height: 42vh;
-  }
-}
-@media screen and (max-width: 768px) {
   .cardButtons {
     position: fixed;
     bottom: 0;
@@ -91,6 +85,9 @@
     width: 100%;
     margin-left: 0 !important;
   }
+  .detailCardImage img {
+    height: 42vh;
+  }
 }
 @media screen and (max-width: 575px) {
   .cardButtons {
@@ -103,8 +100,6 @@
     padding-left: 0;
     padding-right: 0;
   }
-}
-@media screen and (max-width: 768px) and (max-height: 1024px) {
 }
 @media all and (device-width: 768px) and (device-height: 1024px) and (orientation: portrait) {
   .cardButtons {
