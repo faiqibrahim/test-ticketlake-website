@@ -1,5 +1,7 @@
 import React from "react";
 import Loader from "react-loader-spinner";
+import classes from './styles.module.css';
+
 
 const loader = (props) => {
   let _props = {
@@ -28,17 +30,18 @@ const loader = (props) => {
 
   return (
     <div
+    className={classes.loaderContainer}
       style={{
         textAlign: "center",
         marginBottom: props
           ? props.style && props.style.marginBottom
             ? props.style.marginBottom
-            : "5%"
+            : "3%"
           : null,
         marginTop: props
           ? props.style && props.style.marginTop
             ? props.style.marginTop
-            : "5%"
+            : "3%"
           : null,
         marginLeft: props
           ? props.style && props.style.marginLeft
