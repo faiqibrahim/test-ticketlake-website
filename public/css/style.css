@@ -4248,7 +4248,7 @@ input[type="number"].react-daterange-picker__inputGroup__input {
 }
 
 .list-wrap-search.lisfw {
-  margin: 50px 0px 60px;
+  margin: 10px 0px 30px;
   border-radius: 10px;
   border: 1px solid #eee;
 }
@@ -12998,4 +12998,9 @@ span.Error-heading.display-block {
 }
 .pt-15 {
   padding-top: 15px;
+}
+.seatsView {
+  float: left;
+  width: 100%;
+  overflow: hidden;
 }
