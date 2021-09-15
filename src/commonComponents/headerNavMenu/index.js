@@ -24,10 +24,9 @@ class HeaderNavMenu extends Component {
   is_Mounted = false;
   constructor(props) {
     super(props);
-    this.toggle = this.toggle.bind(this);
+
     this.state = {
       isOpen: false,
-      isClose: false,
       menu: [],
       loaded: false,
       isTop: true,
@@ -63,7 +62,6 @@ class HeaderNavMenu extends Component {
       if (isTop !== this.state.isTop && this.is_Mounted) {
         this.setState({
           isOpen: false,
-          isClose: true,
         });
       }
     });
@@ -73,20 +71,16 @@ class HeaderNavMenu extends Component {
     this.is_Mounted = false;
   }
 
-  toggle() {
+  toggle = () =>{
+    const { isOpen } = this.state;
     this.setState({
-      isOpen: !this.state.isOpen,
-      isClose: true,
+      isOpen: !isOpen,
     });
   }
 
   closeMenu(a, navState) {
     sessionStorage.setItem("eventsListing", JSON.stringify(navState.state));
     this.props.history.push(navState);
-    this.toggle();
-    this.setState({
-      isClose: !this.state.isOpen,
-    });
   }
 
   onNavClick = (item) => {
@@ -526,7 +520,7 @@ class HeaderNavMenu extends Component {
   render() {
     let sessionState = this.getSessionState();
     let { selectedCategories } = this.props;
-    let { menu } = this.state;
+    let { menu, isOpen } = this.state;
 
     // Statements to limit Navigations
 
@@ -544,19 +538,20 @@ class HeaderNavMenu extends Component {
           <Navbar expand="md" className="website-mobile-menu">
             <div
               className={
-                this.state.isOpen
+                isOpen
                   ? "nav-button-wrap opened"
                   : "nav-button-wrap color-bg"
               }
+
             >
-              <div onClick={this.toggle} className={"nav-button"}>
+              <div  className={"nav-button"} onClick={this.toggle}>
                 <span />
                 <span />
                 <span />
               </div>
             </div>
 
-            <Collapse isOpen={this.state.isOpen} navbar>
+            <Collapse isOpen={isOpen} navbar>
               <Nav navbar className={"header-mob-nav"}>
                 {!this.state.loaded && !sessionState ? (
                   <span style={{ lineHeight: "47px" }}>Loading menu...</span>
