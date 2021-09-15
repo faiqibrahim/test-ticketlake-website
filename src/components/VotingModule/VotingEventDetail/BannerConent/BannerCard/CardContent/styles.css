@@ -1,7 +1,10 @@
 .startAndEndMonth,
-.votingOrganization,
+.votingOrganization a,
 .secretBalloting {
   font-size: 0.84vw;
+  color: #6f7287;
+}
+.votingOrganization a:hover {
   color: #6f7287;
 }
 .startAndEndDate {
@@ -29,7 +32,7 @@
 
 @media screen and (max-width: 1600px) {
   .startAndEndMonth,
-  .votingOrganization,
+  .votingOrganization a,
   .secretBalloting,
   .endTime {
     font-size: 1rem;

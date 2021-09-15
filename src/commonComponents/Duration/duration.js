@@ -17,16 +17,16 @@ export const duration = (props) => {
   days += daysInMonths * months + daysInYear * years;
 
   if (days > 0) {
-    durationString = `${days === 1 ? days + "day" : days + "days"}, ${
-      hours === 1 ? hours + "hour" : hours + "hours"
-    } , ${minutes === 1 ? minutes + "min" : minutes + "mins"}  left`;
+    durationString = `${days === 1 ? days + " day" : days + " days"}, ${
+      hours === 1 ? hours + " hour" : hours + " hours"
+    } , ${minutes === 1 ? minutes + " min" : minutes + " mins"}  left`;
   } else if (hours > 0) {
     durationString = `00 days, ${
-      hours === 1 ? hours + "hour" : hours + "hours"
-    } , ${minutes === 1 ? minutes + "min" : minutes + "mins"}  left`;
+      hours === 1 ? hours + " hour" : hours + " hours"
+    } , ${minutes === 1 ? minutes + " min" : minutes + " mins"}  left`;
   } else if (minutes > 0) {
     durationString = `00 days, 00 hours, ${
-      minutes === 1 ? minutes + "min" : minutes + "mins"
+      minutes === 1 ? minutes + " min" : minutes + " mins"
     }  left`;
   } else {
     durationString = `00 days, 00 hours, 00 mins left`;

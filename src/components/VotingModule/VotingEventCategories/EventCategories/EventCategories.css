@@ -8,11 +8,9 @@ body {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
 }
 .contentBox {
-  padding: 4vh 1vw 4vh;
+  padding: 4vh 0 4vh;
 }
 @media screen and (min-width: 2700px) and (max-width: 4000px) {
   .categoryBoxRow {

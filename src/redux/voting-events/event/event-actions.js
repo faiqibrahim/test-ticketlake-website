@@ -79,8 +79,6 @@ export const getAllVotingEvents = (eventsLimit, cb) => {
  */
 
 const convertEventApiStructureToEventData = (data) => {
-  console.log("data", data);
-
   const startDateTime = moment(data.startTime, "YYYY/MM/DD");
   const endDateTime = moment(data.endTime, "YYYY/MM/DD");
 
@@ -90,9 +88,13 @@ const convertEventApiStructureToEventData = (data) => {
   const endMonth = endDateTime.format("MMM");
   const endDate = endDateTime.format("D");
 
+  const { totalVotes } = data;
+
   const checkBalloting = data.secretBalloting
     ? "Secret Balloting"
-    : data.totalVotes;
+    : totalVotes === 1
+    ? `<span style="color:#ec1b23">${totalVotes} Vote</span>`
+    : `<span style="color:#ec1b23">${totalVotes} Votes</span>`;
 
   const remainingTime = duration(data);
 
@@ -109,7 +111,7 @@ const convertEventApiStructureToEventData = (data) => {
       startAndEndDate: `${startDate} - ${endDate}`,
       votingEventName: data.name,
       borderBar: null,
-      votingOrganization: "Organized by Capri Complex",
+      votingOrganization: `<a href=/organisers/details/${data.organizationId}>Organized by Capri Complex</a>`,
       secretBalloting: checkBalloting,
       endTime: remainingTime.eventEnd
         ? remainingTime.durationString

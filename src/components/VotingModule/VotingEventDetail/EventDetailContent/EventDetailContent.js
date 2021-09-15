@@ -23,6 +23,7 @@ class EventDetailContent extends Component {
       bannerImage: null,
       bannerContent: null,
       remainingTime: null,
+      votingImage: null,
     };
   }
 
@@ -36,7 +37,7 @@ class EventDetailContent extends Component {
 
   fetchEvent = () => {
     const { eventID } = this.state;
-    const { getSingleVotingEvent } = this.props;
+    const { getSingleVotingEvent, history } = this.props;
 
     getSingleVotingEvent(eventID, (error, data) => {
       if (!error && data) {
@@ -49,6 +50,7 @@ class EventDetailContent extends Component {
           bannerInfoData: event[0],
         });
       } else {
+        history.push("/voting");
         this.setState({ loading: false });
       }
     });
