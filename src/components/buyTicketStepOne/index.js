@@ -4,9 +4,9 @@ import ClassQuanityTable from "./ClassQuantityTable";
 import { Radio, Form } from "antd";
 import { SeatsioSeatingChart } from "@seatsio/seatsio-react";
 import "./style.css";
-import { seatsIOPublicKey } from "../../utils/constant";
 import { formatCurrency, getVenuePrices } from "../../utils/common-utils";
 import EventMessage from "../../commonComponents/eventMessage";
+import { getSeatsIOPublicKey } from "../../utils/config";
 
 const SeatsRadio = (props) => {
   const { value, onChange, radioOptions, name } = props;
@@ -165,13 +165,14 @@ class BuyTicketStepOne extends React.Component {
 
     let renderOnValue = purchaseType === "ticket" ? seatSelection : seatsType;
     renderOnValue = seatSelection === "auto" ? "" : renderOnValue;
+    console.log("getSeats", getSeatsIOPublicKey())
     return (
       <div style={this.animatedStyle(renderOnValue)}>
         <SeatsioSeatingChart
           region="eu"
           showLegend
           session="continue"
-          workspaceKey={seatsIOPublicKey}
+          workspaceKey={getSeatsIOPublicKey()}
           event={eventDetail.eventSlotId}
           objectWithoutPricingSelectable={false}
           legend={{ hideNonSelectableCategories: true }}

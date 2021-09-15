@@ -99,6 +99,7 @@
     "dev": "SET REACT_APP_ENV=dev && react-scripts start",
     "qa": "REACT_APP_ENV=qa  react-scripts start",
     "qa-win": "SET REACT_APP_ENV=qa && react-scripts start",
+    "staging-win": "SET REACT_APP_ENV=staging && react-scripts start",
     "production-win": "SET REACT_APP_ENV=production && react-scripts start",
     "build-dev-win": "set REACT_APP_ENV=dev && react-scripts build",
     "build-dev": "REACT_APP_ENV=dev react-scripts build",
