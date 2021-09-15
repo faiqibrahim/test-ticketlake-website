@@ -31,7 +31,7 @@ class WalletProcessor extends Component {
         })
         .catch(console.error);
     } else {
-      this.setState({ balanceInRequestedCurrency: amount });
+      this.setState({ balanceInRequestedCurrency: walletCurrency && amount });
     }
   };
 
@@ -88,6 +88,7 @@ class WalletProcessor extends Component {
     const { fixedPayment } = this.props;
     const { balanceInRequestedCurrency } = this.state;
 
+    console.log("balanceInRequestedCurrency", balanceInRequestedCurrency);
     const isDisabledWallet = fixedPayment || !balanceInRequestedCurrency;
     return (
       <div

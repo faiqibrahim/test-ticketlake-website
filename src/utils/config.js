@@ -202,3 +202,14 @@ export const getPaypalClientId = () => {
     return "AVxMDtg2UkfX0IFBK86r_l_EcCeloAcMmOQf7vbOuPQsr10I5QJBf-u4YVn504puI-GyLQ0ZcKRYBG2T";
   }
 };
+
+
+export const getSeatsIOPublicKey = () => {
+  const { REACT_APP_ENV } = process.env;
+
+  if (["staging", "production"].includes(REACT_APP_ENV.trim().toLowerCase())) {
+    return "67ca804f-eae6-4dea-94dd-0b1b5c364914";
+  } else {
+    return "c51911a0-5cde-456b-a8ab-04738526d45c";
+  }
+};
