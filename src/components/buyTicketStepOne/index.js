@@ -165,7 +165,6 @@ class BuyTicketStepOne extends React.Component {
 
     let renderOnValue = purchaseType === "ticket" ? seatSelection : seatsType;
     renderOnValue = seatSelection === "auto" ? "" : renderOnValue;
-    console.log("getSeats", getSeatsIOPublicKey())
     return (
       <div style={this.animatedStyle(renderOnValue)}>
         <SeatsioSeatingChart
