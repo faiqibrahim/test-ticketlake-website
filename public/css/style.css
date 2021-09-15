@@ -10794,8 +10794,20 @@ article.post-article .list-single-main-item {
     overflow-y: auto;
     position: absolute;
     right: 0;
-    top: 60px;
+    top: 38px;
+  }
+
+  .navbar-collapse
+  {
+    position: absolute !important;
+    top:38px;
+    margin-top: 6px;
     width: 290px;
+  }
+
+  .navbarHolder .navbar
+  {
+    justify-content: flex-end !important;
   }
 
   .scrollable-header .logo-holder {
@@ -12534,9 +12546,6 @@ input[type="number"] {
 }
 .header-content-wrp-bottom {
   float: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
 }
 
