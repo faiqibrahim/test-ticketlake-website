@@ -10794,13 +10794,13 @@ article.post-article .list-single-main-item {
     overflow-y: auto;
     position: absolute;
     right: 0;
-    top: 60px;
+    top: 38px;
   }
 
   .navbar-collapse
   {
     position: absolute !important;
-    top:60px;
+    top:38px;
     margin-top: 6px;
     width: 290px;
   }
