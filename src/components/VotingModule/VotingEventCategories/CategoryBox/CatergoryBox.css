@@ -58,11 +58,15 @@
   text-align: right;
   padding: 0;
 }
+.categoryImage {
+  height: 18.5vh;
+}
 
 .categoryImage img {
   width: 100%;
   border-radius: 0.7vw;
-  height: 18.5vh;
+  height: 100%;
+  object-fit: fill;
 }
 @media screen and (min-width: 2700px) and (max-width: 4000px) {
   .CategoryBoxCol {
