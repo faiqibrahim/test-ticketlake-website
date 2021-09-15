@@ -31,8 +31,6 @@ button {
   -ms-flex-wrap: wrap;
   flex-direction: column;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
   align-items: flex-start;
   text-align: left;
 }
@@ -40,6 +38,7 @@ button {
   font-size: 1.5vw;
   font-weight: bold;
   color: #17224e;
+  padding-bottom: 4.485219164118247vh;
 }
 .subHeading {
   font-size: 22px;
@@ -287,6 +286,12 @@ form[name="userMobileInfoForm"] button.mobile_payment span {
 .loadMore:focus {
   background-color: #ec1b23 !important;
   box-shadow: none !important;
+}
+
+@media screen and (max-width: 1600px) {
+  .heading {
+    font-size: 1.75rem;
+  }
 }
 
 @media screen and (max-width: 1400px) {

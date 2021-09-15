@@ -5,12 +5,12 @@
 }
 
 .CategoryBoxCol:nth-child(4n + 0) ~ div {
-  padding-top: 30px;
+  margin-top: 30px;
 }
 .boxContent {
   display: flex;
   flex-flow: column;
-  padding: 44px 0 10px;
+  padding: 0 0 1.019367991845056vh;
   cursor: pointer;
   border-radius: 10px;
   background-size: cover;
@@ -39,25 +39,24 @@
   width: 250px !important;
 }
 .categoryMeta .categoryNomineeCount {
-  margin: 0;
-  display: flex;
-  flex-flow: row;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 0;
-  padding-top: 5px;
+  padding-top: 10px;
 }
-.categoryMeta .categoryNomineeCount > span:first-child {
+.categoryMeta .categoryNomineeCount > div {
+  margin: 0;
+}
+.categoryMeta .categoryNomineeCount > div > div:first-child {
+  font-size: 1.12vw;
+  color: #17224e;
+  font-weight: bold;
+  padding: 0;
+  text-align: right;
+}
+.categoryMeta .categoryNomineeCount > div > div:last-child {
   font-size: 0.68vw;
   color: #747a95;
   padding: 0;
   text-align: right;
-}
-.categoryMeta .categoryNomineeCount > span:last-child {
-  font-size: 1.12vw;
-  color: #17224e;
-  font-weight: bold;
-  margin-top: -5px;
+  padding: 0;
 }
 
 .categoryImage img {
@@ -79,12 +78,16 @@
 @media screen and (max-width: 1600px) {
   .boxTitle {
     font-size: 1.12rem;
+    padding-bottom: 0.625rem;
   }
-  .categoryMeta .categoryNomineeCount > span:first-child {
+  .categoryMeta .categoryNomineeCount > div > div:first-child {
+    font-size: 1.12rem;
+  }
+  .categoryMeta .categoryNomineeCount > div > div:last-child {
     font-size: 0.7rem;
   }
-  .categoryMeta .categoryNomineeCount > span:last-child {
-    font-size: 1.12rem;
+  .categoryImage img {
+    border-radius: 0.7rem;
   }
 }
 
@@ -93,6 +96,9 @@
     flex: 0 0 33.33%;
     max-width: 33.33%;
   }
+  .CategoryBoxCol:nth-child(3n + 0) ~ div {
+    margin-top: 30px;
+  }
 }
 
 @media screen and (max-width: 992px) {
@@ -100,11 +106,17 @@
     flex: 0 0 50%;
     max-width: 50%;
   }
+  .CategoryBoxCol:nth-child(2n + 0) ~ div {
+    margin-top: 30px;
+  }
 }
 
 @media screen and (max-width: 575px) {
   .CategoryBoxCol {
     flex: 0 0 100%;
     max-width: 100%;
+  }
+  .CategoryBoxCol:nth-child(1n + 0) ~ div {
+    margin-top: 30px;
   }
 }

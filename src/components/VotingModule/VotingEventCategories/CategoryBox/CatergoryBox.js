@@ -31,7 +31,10 @@ const CatergoryBox = (props) => {
               {categoryName}
             </Col>
             <Col md={4} className="categoryNomineeCount col-4">
-              <span>NOMINEES</span> <span>{numberOfNominees}</span>
+              <Row>
+                <Col md={12}>{numberOfNominees}</Col>
+                <Col md={12}>NOMINEES</Col>
+              </Row>
             </Col>
           </Row>
         </div>

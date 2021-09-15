@@ -23,6 +23,7 @@ class EventDetailContent extends Component {
       bannerImage: null,
       bannerContent: null,
       remainingTime: null,
+      votingImage: null,
     };
   }
 
