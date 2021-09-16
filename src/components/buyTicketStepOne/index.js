@@ -145,7 +145,7 @@ class BuyTicketStepOne extends React.Component {
   displayClasses = () => {
     const { seatProps } = this.props;
     return (
-      <div style={this.animatedStyle(seatProps.seatsType)}>
+      <div style={this.animatedStyle(seatProps.seatSelection === 'auto')}>
         {this.displayClassesTable()}
       </div>
     );
@@ -193,9 +193,8 @@ class BuyTicketStepOne extends React.Component {
     return (
       <div className="col-md-12 text-left mb-5 seatsView">
         <React.Fragment>
-          {/* {this.displayPurchaseType()}
-          {this.displaySeatSelection()} */}
-          {this.displaySeatType()}
+          {/* {this.displayPurchaseType()} */}
+          {this.displaySeatSelection()}
           {this.displayClasses()}
           {this.displayVenue()}
         </React.Fragment>
@@ -206,7 +205,7 @@ class BuyTicketStepOne extends React.Component {
   renderCustomView = () => {
     return (
       <div style={{ paddingLeft: "15px", height: "inherit" }}>
-        {this.displayClassesTable()}
+        {this.displayClassesTable()}  
       </div>
     );
   };

@@ -1,5 +1,6 @@
 .seatsView .ant-form-item-label {
   color: #000;
+  margin-bottom: 1rem;
 }
 
 .seatsView .ant-form-item-control {
@@ -12,12 +13,22 @@
   border-color: #ec1c24;
 }
 
+.seatsView .ant-radio {
+  margin-right: .8rem;
+  cursor: pointer;
+}
+
+.seatsView .ant-radio input{
+  cursor: pointer;
+}
+
 .seatsView .ant-radio-inner::after {
   background-color: #ec1c24;
 }
 
 .seatsView .radioGroup .ant-radio-wrapper {
   margin-right: 1.5em;
+  cursor: pointer;
 }
 
 #chart {

@@ -18,14 +18,15 @@ class CustomTable extends React.Component {
     return (
       <div className={classes.customTable}>
         <h4>{heading}</h4>
-        <Table responsive borderless className="border">
+        <Table responsive borderless className={`border`}>
           <thead className={`border-bottom ${classes.customHeader}`}>
             <tr>
               <TableHeaders columns={columns} />
             </tr>
           </thead>
 
-          <tbody className="border-bottom middle-section">
+          
+            <tbody className="border-bottom middle-section">
             <>
               {data.map((row, index) => {
                 return (
