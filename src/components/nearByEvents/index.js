@@ -93,6 +93,12 @@ class NearByEvents extends Component {
     });
   };
 
+    onMarkerClick = (index, marker, e) => {
+        this.setState({
+            activeMarkerIndex:index
+        });
+    };
+
   pageTitle = () => {
     return (
         <Helmet>
@@ -101,7 +107,6 @@ class NearByEvents extends Component {
     )
   }
 
-  listOver = (listOver) => {};
   render() {
       return (
           <div id="wrapper" key={2}>
@@ -263,7 +268,8 @@ class NearByEvents extends Component {
                                                                   `/event/detail/${data.eventSlotId}`
                                                               )
                                                           }
-                                                          onMouseOver={() => this.listOver(data.venue)}
+                                                          onMouseEnter={()=>this.onMarkerClick(i)}
+                                                          onMouseLeave={()=>this.onMarkerClick()}
                                                       >
                                                           <div className="col-md-5 nearby-img">
                                                               <img style={{height: "130px"}}
@@ -333,6 +339,7 @@ class NearByEvents extends Component {
                                               nearByData={this.state.nearByData}
                                               longitude={this.state.longitude}
                                               latitude={this.state.latitude}
+                                              activeMarker={this.state.activeMarkerIndex}
                                           />
                                       </div>
                                   </div>

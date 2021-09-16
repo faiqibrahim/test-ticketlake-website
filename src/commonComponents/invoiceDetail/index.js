@@ -82,7 +82,7 @@ class InvoiceDetail extends React.Component {
             onClick={closeModalCB}
             style={{ fontSize: "1.4rem" }}
           />
-          <Row style={{ padding: "20px" }}>
+          <div style={{ padding: "20px" }}>
             <CustomTable
               tableData={prepareTicketStructure(tickets)}
               noDataText={"No ticket"}
@@ -100,7 +100,7 @@ class InvoiceDetail extends React.Component {
               heading={"Transactions"}
               noDataText={"No transaction found"}
             />
-          </Row>
+          </div>
         </Col>
       </Row>
     );

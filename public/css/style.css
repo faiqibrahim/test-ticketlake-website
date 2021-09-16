@@ -13014,3 +13014,45 @@ span.Error-heading.display-block {
   width: 100%;
   overflow: hidden;
 }
+.marker-info-card {
+  float: left;
+  width: 250px;
+}
+.info-card-img {
+  float: left;
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
+.info-card-img img {
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+  max-height: 100%;
+}
+.marker-info-card .info-detail-wrp {
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+  text-align: left;
+  padding: 0px 15px 10px 15px;
+}
+.marker-info-card .info-detail-wrp .heading {
+  text-transform: capitalize;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+.marker-info-card .info-detail-wrp .dates {
+  display: block;
+  padding-bottom: 5px;
+  font-size: 10px;
+}
+.marker-info-card .info-detail-wrp .venue {
+  display: block;
+  padding-bottom: 5px;
+  font-size: 10px;
+}
+.gm-style-iw.gm-style-iw-c
+{
+  padding: 0;
+}
