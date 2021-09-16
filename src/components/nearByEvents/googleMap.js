@@ -1,6 +1,7 @@
 // Library
 import React, {Component} from 'react';
 import {Map, GoogleApiWrapper, Marker, InfoWindow, Polyline} from 'google-maps-react';
+import {getCardDates,dateSplitter} from "../../utils/common-utils";
 
 const mapStyles = {
     width: '100%',
@@ -29,6 +30,7 @@ class GoogleMap extends Component {
     }
 
     onMarkerClick = (props, marker, e) => {
+        console.log("Hello Called Marker",props);
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
@@ -45,21 +47,33 @@ class GoogleMap extends Component {
     };
 
     displayMarkers = () => {
+        const {activeMarker} = this.props;
         return this.props.nearByData.map((store, index) => {
+            console.log("Hello Called Nearby Data",store);
+            const isActive = index === activeMarker;
             return <Marker
+                style={{scale:index === activeMarker?4:0}}
                 key={index}
                 id={index}
-                name={store.venue ? store.venue.name : store.address}
-                title={store.name}
+                venue={store.venue ? store.venue.name : store.address}
                 position={{
                     lat: store.venue ? store.venue.latitude : store.latitude,
                     lng: store.venue ? store.venue.longitude : store.longitude
                 }}
+                bannerImage={store.bannerImageKey ? store.bannerImageKey.imageUrl:store.defaultImage}
+                eventTitle={store.eventTitle ? store.eventTitle : store.name}
+                eventDate={store.eventDateTimeSlot ? getCardDates(store.eventDateTimeSlot) : dateSplitter(store.createdAt)}
+                eventSlotId={store.eventSlotId}
+                onMouseOver={index === activeMarker && this.onMarkerClick}
                 onClick={this.onMarkerClick}
-                // onMousemove={this.onMarkerRemove}
+                icon={{
+                    url: '/images/icons/map-marker.png',
+                    scaledSize: {width:isActive?50:30, height:isActive?50:30}
+                }}
+
             />
         })
-    };
+    }
 
     render() {
         const triangleCoords = [
@@ -69,6 +83,7 @@ class GoogleMap extends Component {
             {lat: 25.774, lng: -80.190}
         ];
 
+        const infoCardData = this.state.selectedPlace;
         return (
 
             <div className="map listing-map" style={{marginTop: '-52px'}}>
@@ -82,9 +97,20 @@ class GoogleMap extends Component {
                     <InfoWindow
                         marker={this.state.activeMarker}
                         visible={this.state.showingInfoWindow}>
-                        <div className="direction-here">
-                            <strong>{this.state.selectedPlace.title !== undefined ? this.state.selectedPlace.title.eventTitle : null}</strong>
-                            <p>{this.state.selectedPlace.name}</p>
+                        <div className="marker-info-card">
+                           <div className={"info-card-img"}>
+                               <img src={infoCardData.bannerImage} alt='InfoCardImage'
+                                    onClick={() =>
+                                        this.props.history.push(
+                                            `/event/detail/${infoCardData.eventSlotId}`
+                                        )
+                                    }/>
+                           </div>
+                            <div className={"info-detail-wrp"}>
+                                <h4 className={"heading"}>{infoCardData.eventTitle}</h4>
+                                <span className={"dates"}>{infoCardData.eventDate}</span>
+                                <span className={"venue"}>{infoCardData.venue}</span>
+                            </div>
                         </div>
                     </InfoWindow>
                     <Polyline

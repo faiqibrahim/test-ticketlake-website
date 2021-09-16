@@ -26,7 +26,8 @@ class NearByCinemas extends Component {
             nearByData: [],
             switchView: true,
             longitude: null,
-            latitude: null
+            latitude: null,
+            activeMarkerIndex:-1,
         };
     }
 
@@ -85,8 +86,12 @@ class NearByCinemas extends Component {
         })
     };
 
-    listOver = (listOver) => {
+    onMarkerClick = (index, marker, e) => {
+        this.setState({
+            activeMarkerIndex:index
+        });
     };
+
 
     render() {
         const {nearByData} = this.state;
@@ -229,7 +234,10 @@ class NearByCinemas extends Component {
                                                                      pathname: `/events/nearby-cinemas/detail/${data._id}`,
                                                                      data: data,
                                                                  })}
-                                                                 onMouseOver={() => this.listOver(data.venue)}>
+                                                                 onMouseEnter={()=>this.onMarkerClick(i)}
+                                                                 onMouseLeave={()=>this.onMarkerClick()}
+
+                                                                 >
                                                                 <div className="col-md-5 nearby-img">
                                                                     <img style={{height: "130px"}} src={data.defaultImage ? data.defaultImage : '/images/card_2.png'} alt='img' />
                                                                 </div>
@@ -305,6 +313,7 @@ class NearByCinemas extends Component {
                                                 nearByData={nearByData}
                                                 longitude={this.state.longitude}
                                                 latitude={this.state.latitude}
+                                                activeMarker={this.state.activeMarkerIndex}
                                             />
                                         </div>
                                     </div>
