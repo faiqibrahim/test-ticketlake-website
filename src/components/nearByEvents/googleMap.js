@@ -30,7 +30,6 @@ class GoogleMap extends Component {
     }
 
     onMarkerClick = (props, marker, e) => {
-        console.log("Hello Called Marker",props);
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
@@ -49,7 +48,6 @@ class GoogleMap extends Component {
     displayMarkers = () => {
         const {activeMarker} = this.props;
         return this.props.nearByData.map((store, index) => {
-            console.log("Hello Called Nearby Data",store);
             const isActive = index === activeMarker;
             return <Marker
                 style={{scale:index === activeMarker?4:0}}
