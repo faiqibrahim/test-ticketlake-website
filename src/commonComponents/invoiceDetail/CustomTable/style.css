@@ -1,0 +1,28 @@
+.customReactTable .customHeader th {
+  font-weight: bold;
+}
+
+.customReactTable {
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.customReactTable h4{
+  margin-bottom: 1rem;
+}
+.customReactTable .table-responsive {
+  border: 1px solid #ddd;
+  max-height:400px;
+  overflow-y: auto;
+}
+
+.customReactTable .table-responsive tbody{
+  border-bottom: unset !important;
+}
+
+.customReactTable thead th { position: sticky; top: 0; z-index: 1; }
+
+/* Just common table stuff. Really. */
+.customReactTable table  { border-collapse: collapse; width: 100%; }
+.customReactTable th, td { padding: 8px 16px; }
+.customReactTable th     { background:#fff; }

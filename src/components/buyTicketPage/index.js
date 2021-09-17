@@ -22,6 +22,7 @@ import CheckoutStepThreeVerification from "../../commonComponents/checkoutStepTh
 import {
   getDateAndTimeFromIso,
   hasTicketsQuantity,
+  NOTIFICATION_TIME,
 } from "../../utils/common-utils";
 import { Helmet } from "react-helmet";
 
@@ -224,7 +225,7 @@ class BuyTicketPage extends Component {
     bills.forEach((billItem) => (billItem.ticketClassQty = 0));
 
     setBillSummary(bills);
-    this.setState({ bills: bills });
+    this.setState({ bills: bills, loading: false });
   };
 
   getBuyingFreeTickets = (arr) => {
@@ -681,6 +682,12 @@ class BuyTicketPage extends Component {
     );
   };
 
+  displayError = (error) => {
+    const { data } = error.response;
+    NotificationManager.error(data._error[0], "", NOTIFICATION_TIME);
+    this.setState({ loading: false });
+  };
+  
   getForm = () => {
     const { event, billSummary } = this.props;
     if (event && event.data) {
@@ -727,7 +734,9 @@ class BuyTicketPage extends Component {
                   <div className="col-lg-4 col-md-12 col-sm-12 float-left billSummaryContainer">
                     <BillSummary
                       forward={() =>
-                        this.changeStepForward(customSeats).catch(console.error)
+                        this.changeStepForward(customSeats).catch((error) => {
+                          this.displayError(error);
+                        })
                       }
                       backward={() => this.changeStepBackward(customSeats)}
                       currentStep={step}

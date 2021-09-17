@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "reactstrap";
-import classes from "./style.module.css";
+import "./style.css";
 
 const TableHeaders = (props) => {
   return props.columns.map((column, colIndex) => (
@@ -16,10 +16,10 @@ class CustomTable extends React.Component {
     if (!data.length) return null;
 
     return (
-      <div className={classes.customTable}>
+      <div className={"customReactTable"}>
         <h4>{heading}</h4>
-        <Table responsive borderless className={`border`}>
-          <thead className={`border-bottom ${classes.customHeader}`}>
+        <Table responsive borderless>
+          <thead className={`border-bottom customHeader`}>
             <tr>
               <TableHeaders columns={columns} />
             </tr>
