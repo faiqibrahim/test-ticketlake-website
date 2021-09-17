@@ -22,6 +22,7 @@ import CheckoutStepThreeVerification from "../../commonComponents/checkoutStepTh
 import {
   getDateAndTimeFromIso,
   hasTicketsQuantity,
+  NOTIFICATION_TIME,
 } from "../../utils/common-utils";
 import { Helmet } from "react-helmet";
 
@@ -40,6 +41,7 @@ import Error from "../../commonComponents/error";
 import { fetchUserProfile } from "../../redux/user/user-actions";
 import PassInfoModal from "../../commonComponents/ModalFactory/PassInfoModal/PassInfoModal";
 import { seatSessionKey } from "../../utils/constant";
+import { fetchSeatsCapacity } from "./apiHandler";
 
 let totalFreeTicketCount = null;
 
@@ -55,8 +57,9 @@ class BuyTicketPage extends Component {
       bills: [],
       purchaseType: "ticket",
       seatsType: "",
-      seatSelection: "preferred",
+      seatSelection: "",
       venueSeats: [],
+      loading: false,
     };
   }
 
@@ -155,7 +158,7 @@ class BuyTicketPage extends Component {
     this.setState({ bills });
   };
 
-  prepareSeat = (seat) => {
+  getSeatInfo = (seat) => {
     const { labels: labelInfo, label, seatId } = seat;
     const { parent, own: seatNumber, section } = labelInfo;
     const row = parent || "N/A";
@@ -167,18 +170,34 @@ class BuyTicketPage extends Component {
       sectionId: section,
       sectionName: section,
       rowName: `${row}`,
-      rowNumber: `${row}`,    
+      rowNumber: `${row}`,
     };
+  };
+
+  prepareVenueSeatsData = (seat, selected = true) => {
+    const { venueSeats } = this.state;
+    const { category, label } = seat;
+    const selectedSeatClass = category.label;
+    let classSeats = venueSeats[selectedSeatClass] || [];
+
+    if (selected) {
+      classSeats.push(this.getSeatInfo(seat));
+    } else {
+      classSeats = classSeats.filter((seatItem) => seatItem.label !== label);
+    }
+
+    venueSeats[selectedSeatClass] = [...classSeats];
+
+    return venueSeats;
   };
 
   onSeatChange = (seat, selected = true) => {
     const { billSummary } = this.props;
-    const { venueSeats } = this.state;
-    const { category, label } = seat;
+    const { category } = seat;
 
     const bills = [...billSummary];
+
     const selectedSeatClass = category.label;
-    let classSeats = venueSeats[selectedSeatClass] || [];
 
     const itemIndex = bills.findIndex(
       (item) => item.ticketClassName === selectedSeatClass
@@ -188,17 +207,14 @@ class BuyTicketPage extends Component {
 
     if (selected) {
       bills[itemIndex].ticketClassQty = ticketClassQty + 1;
-      classSeats.push(this.prepareSeat(seat));
     } else {
       bills[itemIndex].ticketClassQty = ticketClassQty - 1;
-      classSeats = classSeats.filter((seatItem) => seatItem.label !== label);
     }
 
-    venueSeats[selectedSeatClass] = [...classSeats];
     this.props.setBillSummary(bills);
     this.setState({
       bills,
-      venueSeats,
+      venueSeats: this.prepareVenueSeatsData(seat, selected),
     });
   };
 
@@ -209,7 +225,7 @@ class BuyTicketPage extends Component {
     bills.forEach((billItem) => (billItem.ticketClassQty = 0));
 
     setBillSummary(bills);
-    this.setState({ bills: bills });
+    this.setState({ bills: bills, loading: false });
   };
 
   getBuyingFreeTickets = (arr) => {
@@ -426,14 +442,46 @@ class BuyTicketPage extends Component {
     return jsx;
   };
 
-  changeStepForward = (isCustomSeats) => {
-    const { bills, seatsAssignedFlag, passesAssignedFlag } = this.props;
-    const { venueSeats } = this.state;
+  prepareReservationData = () => {
+    const {
+      event: { data },
+      billSummary,
+    } = this.props;
+
+    const ticketClassesInfo = billSummary
+      .filter(({ ticketClassQty }) => ticketClassQty > 0)
+      .map((billItem) => {
+        const { ticketClassId, ticketClassName, ticketClassQty } = billItem;
+        return {
+          ticketClassId,
+          ticketClassName,
+          count: ticketClassQty,
+        };
+      });
+
+    const reservationData = {
+      eventId: data.data._id,
+      ticketClassesInfo,
+    };
+
+    return reservationData;
+  };
+
+  changeStepForward = async (isCustomSeats) => {
+    const {
+      bills,
+
+      seatsAssignedFlag,
+      passesAssignedFlag,
+    } = this.props;
+    const { seatSelection } = this.state;
+    let { venueSeats } = this.state;
 
     if (this.state.step === 1) {
       let billsData = bills || [];
       let buyingFreeTicketsCount = this.getBuyingFreeTickets(billsData);
       let totalFreeTickets = buyingFreeTicketsCount + totalFreeTicketCount;
+
       if (!(seatsAssignedFlag || passesAssignedFlag) && isCustomSeats) {
         NotificationManager.error(
           "Seats are not assigned for this event",
@@ -441,34 +489,39 @@ class BuyTicketPage extends Component {
           3000
         );
       }
+
       if (totalFreeTickets > 10) {
         NotificationManager.error(
           `You've reached maximum limit of 10 for your free event tickets.`,
           "",
           3000
         );
+      } else if (this.props.totalBill < 0 || !hasTicketsQuantity()) {
+        NotificationManager.error("Please Select at-least one seat", "", 3000);
       } else {
-        if (this.props.totalBill < 0 || !hasTicketsQuantity()) {
-          NotificationManager.error(
-            "Please Select at-least one seat",
-            "",
-            3000
-          );
-        } else {
-          this.props.setAssignedSeats(
-            this.props.billSummary,
-            this.props.seats,
-            this.props.wallet,
-            this.props.event,
-            this.props.passData,
-            this.props.passTicketClasses,
-            venueSeats,
-            isCustomSeats,
-            () => {
-              this.setState({ step: this.state.step + 1 });
-            }
-          );
+        if (seatSelection === "auto") {
+          await this.setState({ loading: true });
+
+          const reservationData = this.prepareReservationData();
+          const seatsData = await fetchSeatsCapacity(reservationData);
+
+          seatsData.forEach((seatItem) => {
+            venueSeats = this.prepareVenueSeatsData(seatItem);
+          });
         }
+        this.props.setAssignedSeats(
+          this.props.billSummary,
+          this.props.seats,
+          this.props.wallet,
+          this.props.event,
+          this.props.passData,
+          this.props.passTicketClasses,
+          venueSeats,
+          isCustomSeats,
+          () => {
+            this.setState({ step: this.state.step + 1, loading: false });
+          }
+        );
       }
     }
   };
@@ -629,6 +682,12 @@ class BuyTicketPage extends Component {
     );
   };
 
+  displayError = (error) => {
+    const { data } = error.response;
+    NotificationManager.error(data._error[0], "", NOTIFICATION_TIME);
+    this.setState({ loading: false });
+  };
+  
   getForm = () => {
     const { event, billSummary } = this.props;
     if (event && event.data) {
@@ -674,7 +733,11 @@ class BuyTicketPage extends Component {
 
                   <div className="col-lg-4 col-md-12 col-sm-12 float-left billSummaryContainer">
                     <BillSummary
-                      forward={() => this.changeStepForward(customSeats)}
+                      forward={() =>
+                        this.changeStepForward(customSeats).catch((error) => {
+                          this.displayError(error);
+                        })
+                      }
                       backward={() => this.changeStepBackward(customSeats)}
                       currentStep={step}
                       paymentPage={() => this.goToPayment(customSeats)}
@@ -693,7 +756,7 @@ class BuyTicketPage extends Component {
   };
 
   render() {
-    if (this.props.processing) {
+    if (this.props.processing || this.state.loading) {
       return (
         <AuthRoutes>
           <div id="wrapper">

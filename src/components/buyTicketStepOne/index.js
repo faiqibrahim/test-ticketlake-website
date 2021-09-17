@@ -145,7 +145,7 @@ class BuyTicketStepOne extends React.Component {
   displayClasses = () => {
     const { seatProps } = this.props;
     return (
-      <div style={this.animatedStyle(seatProps.seatsType)}>
+      <div style={this.animatedStyle(seatProps.seatSelection === "auto")}>
         {this.displayClassesTable()}
       </div>
     );
@@ -161,7 +161,8 @@ class BuyTicketStepOne extends React.Component {
     } = this.props;
     const { purchaseType, seatSelection, seatsType } = seatProps;
 
-    if (!purchaseType || !seatSelection) return null;
+    if (!purchaseType || !seatSelection || seatSelection !== "preferred")
+      return null;
 
     let renderOnValue = purchaseType === "ticket" ? seatSelection : seatsType;
     renderOnValue = seatSelection === "auto" ? "" : renderOnValue;
@@ -193,9 +194,8 @@ class BuyTicketStepOne extends React.Component {
     return (
       <div className="col-md-12 text-left mb-5 seatsView">
         <React.Fragment>
-          {/* {this.displayPurchaseType()}
-          {this.displaySeatSelection()} */}
-          {this.displaySeatType()}
+          {/* {this.displayPurchaseType()} */}
+          {this.displaySeatSelection()}
           {this.displayClasses()}
           {this.displayVenue()}
         </React.Fragment>
