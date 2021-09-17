@@ -58,6 +58,7 @@ class BuyTicketPage extends Component {
       seatsType: "",
       seatSelection: "",
       venueSeats: [],
+      loading: false,
     };
   }
 
@@ -446,7 +447,6 @@ class BuyTicketPage extends Component {
       billSummary,
     } = this.props;
 
-
     const ticketClassesInfo = billSummary
       .filter(({ ticketClassQty }) => ticketClassQty > 0)
       .map((billItem) => {
@@ -476,11 +476,11 @@ class BuyTicketPage extends Component {
     const { seatSelection } = this.state;
     let { venueSeats } = this.state;
 
-
     if (this.state.step === 1) {
       let billsData = bills || [];
       let buyingFreeTicketsCount = this.getBuyingFreeTickets(billsData);
       let totalFreeTickets = buyingFreeTicketsCount + totalFreeTicketCount;
+
       if (!(seatsAssignedFlag || passesAssignedFlag) && isCustomSeats) {
         NotificationManager.error(
           "Seats are not assigned for this event",
@@ -495,39 +495,32 @@ class BuyTicketPage extends Component {
           "",
           3000
         );
+      } else if (this.props.totalBill < 0 || !hasTicketsQuantity()) {
+        NotificationManager.error("Please Select at-least one seat", "", 3000);
       } else {
-        console.log("Api Data", this.prepareReservationData());
-        if(seatSelection === 'auto'){
+        if (seatSelection === "auto") {
+          await this.setState({ loading: true });
+
           const reservationData = this.prepareReservationData();
           const seatsData = await fetchSeatsCapacity(reservationData);
-          
-          seatsData.forEach((seatItem)=>{
+
+          seatsData.forEach((seatItem) => {
             venueSeats = this.prepareVenueSeatsData(seatItem);
-          })
+          });
         }
-
-
-        if (this.props.totalBill < 0 || !hasTicketsQuantity()) {
-          NotificationManager.error(
-            "Please Select at-least one seat",
-            "",
-            3000
-          );
-        } else {
-          this.props.setAssignedSeats(
-            this.props.billSummary,
-            this.props.seats,
-            this.props.wallet,
-            this.props.event,
-            this.props.passData,
-            this.props.passTicketClasses,
-            venueSeats,
-            isCustomSeats,
-            () => {
-              this.setState({ step: this.state.step + 1 });
-            }
-          );
-        }
+        this.props.setAssignedSeats(
+          this.props.billSummary,
+          this.props.seats,
+          this.props.wallet,
+          this.props.event,
+          this.props.passData,
+          this.props.passTicketClasses,
+          venueSeats,
+          isCustomSeats,
+          () => {
+            this.setState({ step: this.state.step + 1, loading: false });
+          }
+        );
       }
     }
   };
@@ -754,7 +747,7 @@ class BuyTicketPage extends Component {
   };
 
   render() {
-    if (this.props.processing) {
+    if (this.props.processing || this.state.loading) {
       return (
         <AuthRoutes>
           <div id="wrapper">
