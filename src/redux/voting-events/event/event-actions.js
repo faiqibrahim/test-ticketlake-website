@@ -79,6 +79,8 @@ export const getAllVotingEvents = (eventsLimit, cb) => {
  */
 
 const convertEventApiStructureToEventData = (data) => {
+  console.log("data", data);
+
   const startDateTime = moment(data.startTime, "YYYY/MM/DD");
   const endDateTime = moment(data.endTime, "YYYY/MM/DD");
 
@@ -98,6 +100,10 @@ const convertEventApiStructureToEventData = (data) => {
 
   const remainingTime = duration(data);
 
+  const organizationName = data.organization
+    ? `Organized by <a href=/organisers/details/${data.organization._id}>${data.organization.name}</a>`
+    : null;
+
   const eventData = [
     {
       id: data._id,
@@ -111,7 +117,7 @@ const convertEventApiStructureToEventData = (data) => {
       startAndEndDate: `${startDate} - ${endDate}`,
       votingEventName: data.name,
       borderBar: null,
-      votingOrganization: `<a href=/organisers/details/${data.organizationId}>Organized by Capri Complex</a>`,
+      votingOrganization: organizationName,
       secretBalloting: checkBalloting,
       endTime: remainingTime.eventEnd
         ? remainingTime.durationString
@@ -130,9 +136,10 @@ export const getSingleVotingEvent = (eventID, cb) => {
         const { data } = response;
 
         const eventData = convertEventApiStructureToEventData(data.data);
+        console.log("eventData", eventData);
 
         dispatch(votingEventActions.setSingleEvent(eventData));
-        cb && cb(null, response);
+        cb && cb(null, data);
       })
       .catch((error) => {
         cb && cb(error);

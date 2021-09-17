@@ -11,7 +11,6 @@ import { getEventBreadCrumbs } from "../../../../redux/voting-events/bread-crumb
 import { getSingleNomineeDetail } from "../../../../redux/voting-events/nominee/nominee-action";
 import ToolTips from "../../ToolTips/ToolTips";
 
-import VotingHeader from "../../Header/Layout/Layout";
 import { duration } from "../../../../commonComponents//Duration/duration";
 import "./EventNominees.css";
 import "../../VotingModule.css";
@@ -30,21 +29,31 @@ class EventNominees extends Component {
     voteCount: null,
     authentication: this.props.auth,
     wallet: this.props.wallet,
+    categoryID: this.props.match.params.categoryId,
+    eventID: this.props.match.params.id,
   };
 
   componentDidMount() {
     this.is_Mounted = true;
 
-    const { id, categoryId } = this.props.match.params;
+    if (this.is_Mounted) {
+      this.fetchAllNominees();
+    }
+  }
 
-    this.props.getAllVotingNominees(categoryId, (error, data) => {
+  fetchAllNominees = () => {
+    const { eventID, categoryID } = this.state;
+
+    this.props.getAllVotingNominees(categoryID, (error, data) => {
       if (!error && data.length > 0) {
         let durationCheck = duration(this.props.nomineeListing[0]);
 
         if (durationCheck.eventEnd) {
-          this.props.history.push(`/voting/${id}/event-results/${categoryId}`);
+          this.props.history.push(
+            `/voting/${eventID}/event-results/${categoryID}`
+          );
         } else {
-          this.getBreadCrumbs(id, categoryId);
+          this.getBreadCrumbs(eventID, categoryID);
           this.setState({
             loading: false,
             nominees: this.props.nomineeListing,
@@ -55,6 +64,19 @@ class EventNominees extends Component {
         this.props.history.push("/voting");
       }
     });
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.categoryID !== this.props.catalogueCategoryID) {
+      this.setState(
+        {
+          categoryID: this.props.catalogueCategoryID,
+        },
+        () => {
+          this.fetchAllNominees();
+        }
+      );
+    }
   }
 
   componentWillUnmount() {
@@ -67,18 +89,6 @@ class EventNominees extends Component {
         this.setState({
           eventName: this.props.breadCrumbs[0].eventName + " - Nominees",
           categoryName: this.props.breadCrumbs[1].categoryName,
-          breadCrumbs: [
-            { path: "/", crumbTitle: "Home" },
-            { path: "/voting", crumbTitle: "Votings" },
-            {
-              path: `/voting/${eventID}`,
-              crumbTitle: this.props.breadCrumbs[0].eventName,
-            },
-            {
-              path: `/voting/${eventID}/categories/${categoryID}`,
-              crumbTitle: this.props.breadCrumbs[1].categoryName,
-            },
-          ],
         });
       }
     });
@@ -160,21 +170,13 @@ class EventNominees extends Component {
     return (
       <Fragment>
         {this.renderNomineesModal()}
-        <div className="container">
-          <div className="headerContainer">
-            <VotingHeader
-              pageTitle={this.state.eventName}
-              breadCrumbs={this.state.breadCrumbs}
-            />
-          </div>
-        </div>
-        <hr style={{ margin: "5px 0" }} />
         <div className="container eventNomineesContainer">
           <div className="contentBox">
             <div className="Header">
               <div className="nomineeHeaderCol">
                 <div className="heading">
-                  Nominees <span>for</span> "{this.state.categoryName}
+                  Nominees <span>for</span>{" "}
+                  <div>"{this.state.categoryName}"</div>
                 </div>
                 <div className="subHeading">
                   Please select a nominee to vote for
@@ -183,14 +185,10 @@ class EventNominees extends Component {
               <div className="nomineeHeaderCol">
                 <div className="timeContent">
                   <div className="nomineeBoxRow">
-                    <div className="col3">
-                      <img
-                        className="timerClock"
-                        src={"/images/votingimages/clock.svg"}
-                        alt="img"
-                      />
+                    <div className="col-md-3 timerClock">
+                      <img src={"/images/votingimages/clock.svg"} alt="img" />
                     </div>
-                    <div className="col9">
+                    <div className="col-md-9">
                       <ToolTips
                         text={remainingTime}
                         textLength={21}

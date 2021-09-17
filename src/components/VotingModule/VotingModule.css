@@ -27,25 +27,30 @@ button {
 *   Header
 */
 .Header {
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
   text-align: left;
+  padding-bottom: 6.63vh;
 }
 .heading {
-  font-size: 1.5vw;
+  font-size: 1.5151515151515151vw;
   font-weight: bold;
   color: #17224e;
-  padding-bottom: 4.485219164118247vh;
 }
 .subHeading {
-  font-size: 22px;
+  font-size: 1.19vw;
   color: #747a95;
   font-weight: normal;
+  margin-top: 2.42vh;
 }
-
+.headingSecondary {
+  font-size: 1.8398268398268398vw;
+  font-weight: bold;
+  color: #17224e;
+}
+.subHeadingSecondary {
+  font-size: 1.0822510822510822vw;
+  color: #ec1b23;
+  font-weight: bold;
+}
 /*
 * Display Nominee Modal Content
 */

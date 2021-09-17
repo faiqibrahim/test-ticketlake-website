@@ -6,7 +6,15 @@ import { Row, Col } from "reactstrap";
 import "./CatergoryBox.css";
 
 const CatergoryBox = (props) => {
-  const { image, name, clicked, numberOfNominees } = props;
+  const {
+    image,
+    name,
+    clicked,
+    numberOfNominees,
+    catalogue,
+    selectedCategory,
+    id,
+  } = props;
 
   const categoryName = (
     <ToolTips
@@ -19,8 +27,24 @@ const CatergoryBox = (props) => {
     />
   );
 
+  const nomineeCountDesign = catalogue ? (
+    <>
+      <Col md={12}>
+        <span>{numberOfNominees}</span>
+        <span>Nominees</span>
+      </Col>
+    </>
+  ) : (
+    <>
+      <Col md={12}>{numberOfNominees}</Col>
+      <Col md={12}>NOMINEES</Col>
+    </>
+  );
+
+  const activeCategory = id === selectedCategory ? "activeCateogry" : "null";
+
   return (
-    <div className="CategoryBoxCol" onClick={clicked}>
+    <div className={`CategoryBoxCol ${activeCategory}`} onClick={clicked}>
       <div className="boxContent">
         <div className="categoryImage">
           <img src={image} alt="img" />
@@ -31,10 +55,7 @@ const CatergoryBox = (props) => {
               {categoryName}
             </Col>
             <Col md={4} className="categoryNomineeCount col-4">
-              <Row>
-                <Col md={12}>{numberOfNominees}</Col>
-                <Col md={12}>NOMINEES</Col>
-              </Row>
+              <Row>{nomineeCountDesign}</Row>
             </Col>
           </Row>
         </div>

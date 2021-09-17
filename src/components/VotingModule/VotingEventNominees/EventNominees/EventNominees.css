@@ -3,14 +3,17 @@
   max-width: 16.66%;
   padding: 0 15px;
 }
+.eventNomineesContainer {
+  max-width: 70vw;
+}
 .eventNomineesContainer .col3 {
   flex: 0 0 25%;
   max-width: 25%;
   padding: 0 15px;
 }
-.col9 {
-  flex: 0 0 75%;
-  max-width: 75%;
+.col7 {
+  flex: 0 0 58.33%;
+  max-width: 58.33%;
   padding: 0 15px;
 }
 .contentBox {
@@ -21,11 +24,6 @@
 }
 .eventNomineesContainer .Header {
   flex-direction: row;
-}
-.eventNomineesContainer .nomineeHeaderCol {
-  flex: 0 0 50%;
-  max-width: 50%;
-  padding: 0;
 }
 .eventNomineesContainer .nomineeHeaderCol .heading {
   text-transform: capitalize;
@@ -43,22 +41,28 @@
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
 }
+
 .timerClock {
+  text-align: center;
+}
+.timerClock img {
   position: relative;
   top: 5px;
+  width: 2.43vw;
+  height: 4.74vh;
 }
 .timeContent {
-  max-width: 64%;
-  margin: 0 0 0 auto;
+  background-color: #fff;
   border: 1px solid #d8dae3;
-  border-radius: 20px;
-  padding: 10px 25px;
+  border-radius: 0.48vw;
+  padding: 1.58vh 1.35vw;
+  width: 21.07vw;
+  height: 8.85vh;
+  margin-top: 5.37vh;
 }
 .timeLeft {
-  font-size: 28px;
+  font-size: 0.97vw;
   color: #231f20;
   text-align: left;
   font-weight: bold;
@@ -68,7 +72,7 @@
   text-overflow: ellipsis;
 }
 .timeText {
-  font-size: 20px;
+  font-size: 0.86vw;
   color: #747a95;
   text-align: left;
   white-space: nowrap;

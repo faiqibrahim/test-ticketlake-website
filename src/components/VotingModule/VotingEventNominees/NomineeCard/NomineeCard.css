@@ -2,24 +2,29 @@ body {
   background-color: #fff !important;
 }
 .cardItemCol {
-  flex: 0 0 25%;
-  max-width: 25%;
-  padding: 0 30px 0 15px;
+  max-width: 16.55vw;
+  height: 36.03vh;
+  padding: 0;
+  padding-right: 1.4vw;
 }
-.cardItemCol:nth-child(4n + 0) {
-  padding-right: 15px;
-}
-.cardItemCol:nth-child(4n + 0) ~ div {
-  padding-top: 45px;
+
+.cardItemCol:nth-child(2n + 0) ~ div {
+  margin-top: 3.26vh;
 }
 .cardItemContainer {
   border: 1px solid #d8dae3;
-  border-radius: 20px;
-  padding: 40px 0;
+  border-radius: 1.08vw;
+  padding: 4.11vh 0;
+  background-color: #ffffff;
 }
-.imageContainer img {
-  width: 120px;
-  height: 120px;
+.eventNomineesContainer .imageContainer {
+  height: 12.64vh;
+  max-width: 6.49vw;
+  margin: 0 auto;
+}
+.eventNomineesContainer .imageContainer img {
+  width: 100%;
+  height: 100%;
   border-radius: 50% 50%;
   filter: grayscale(100%);
   object-fit: cover;
@@ -35,15 +40,12 @@ body {
   width: 100%;
 }
 .cardTitle {
-  font-size: 28px;
-  color: #231f20;
-  font-weight: bold;
-  padding: 20px 15px 8px;
-  line-height: 41px;
+  font-size: 0.97vw;
+  color: #17224e;
+  font-weight: 900;
+  padding: 2.73vh 0 0;
   font-size-adjust: 0.4;
   white-space: nowrap;
-  width: 100%;
-  max-width: 65%;
   margin: 0 auto !important;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -53,20 +55,20 @@ body {
   line-height: 25px;
 }
 .voteType {
-  color: #747a95;
-  font-size: 22px;
+  color: #6f7287;
+  font-size: 0.86vw;
   font-weight: normal;
   font-size-adjust: 0.4;
-  padding: 0 0 45px 0;
+  padding: 0.52vh 0 3.37vh;
 }
 .voteButton button {
   background: #ec1b23;
   border-radius: 8px;
-  padding: 0 6px 6px 6px;
+  padding: 0.63vh 1.78vw 1.05vh;
   color: #fff;
   border: 1px solid #ec1b23;
-  width: 100px;
-  font-size: 18px;
+  /* width: 100px; */
+  font-size: 0.86vw;
   cursor: pointer;
 }
 
