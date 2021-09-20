@@ -656,7 +656,8 @@ class BuyTicketPage extends Component {
 
   displayError = (error) => {
     const { data } = error.response;
-    NotificationManager.error(data._error[0], "", NOTIFICATION_TIME);
+    const { _error } = data;
+    NotificationManager.error(_error ? _error[0]:"Server Error Occured!", "", NOTIFICATION_TIME);
     this.setState({ loading: false });
   };
 
@@ -668,7 +669,7 @@ class BuyTicketPage extends Component {
       const { eventTitle, eventDateTimeSlot, seatingType } = data;
       const { eventStartTime } = eventDateTimeSlot;
       const isCustomSeat =
-        SeatType[seatingType ? seatingType.toLowerCase() : "unstructured"];
+        SeatType[seatingType ? seatingType.toLowerCase() : "structured"];
 
       return (
         <div id="wrapper">
