@@ -126,7 +126,6 @@ export const GET_WALLET_TRANSACTION_HISTORY = "/orders/list";
 
 // Checkout
 export const SEND_SMS_OTP = "/consumers/send-sms-otp";
-export const VERIFY_SMS_OTP = "/consumers/verify-sms-otp";
 export const INITIATE_HUBTEL_DIRECT_PAYMENT =
   "/hubtel/hubtel-direct-payment-iniate";
 
@@ -197,7 +196,7 @@ export const getPaypalClientId = () => {
   const { REACT_APP_ENV } = process.env;
 
   if (["staging", "production"].includes(REACT_APP_ENV.trim().toLowerCase())) {
-    return "AVxMDtg2UkfX0IFBK86r_l_EcCeloAcMmOQf7vbOuPQsr10I5QJBf-u4YVn504puI-GyLQ0ZcKRYBG2T";
+    return "AVp7PWuKICJpeV7VS4EHljTEG4bztGkJm_7TsG3ipwR-i9u3WKXWhRZuNaY5KxXsX6Fn0yVNiHWpnj8s";
   } else {
     return "AVxMDtg2UkfX0IFBK86r_l_EcCeloAcMmOQf7vbOuPQsr10I5QJBf-u4YVn504puI-GyLQ0ZcKRYBG2T";
   }

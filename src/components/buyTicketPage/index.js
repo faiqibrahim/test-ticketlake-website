@@ -12,11 +12,8 @@ import BillSummary from "../billSummary";
 import BuyTicketStepOne from "../buyTicketStepOne";
 import BuyTicketStepTwo from "../buyTicketStepTwo";
 import Checkout from "../checkout";
-import BuyTicketConfirmation from "../buyTicketConfirmation";
 import Loader from "../../commonComponents/loader";
 import AuthRoutes from "../../commonComponents/authRotes";
-import CheckoutStepTwo from "../../commonComponents/checkoutStepTwo";
-import CheckoutStepThreeVerification from "../../commonComponents/checkoutStepThreeVerification";
 
 // Helper
 import {
@@ -40,7 +37,7 @@ import { setUserPurchasedTickets } from "../../redux/user/user-actions";
 import Error from "../../commonComponents/error";
 import { fetchUserProfile } from "../../redux/user/user-actions";
 import PassInfoModal from "../../commonComponents/ModalFactory/PassInfoModal/PassInfoModal";
-import { seatSessionKey } from "../../utils/constant";
+import { seatSessionKey, SeatType } from "../../utils/constant";
 import { fetchSeatsCapacity } from "./apiHandler";
 
 let totalFreeTicketCount = null;
@@ -468,12 +465,7 @@ class BuyTicketPage extends Component {
   };
 
   changeStepForward = async (isCustomSeats) => {
-    const {
-      bills,
-
-      seatsAssignedFlag,
-      passesAssignedFlag,
-    } = this.props;
+    const { bills } = this.props;
     const { seatSelection } = this.state;
     let { venueSeats } = this.state;
 
@@ -481,14 +473,6 @@ class BuyTicketPage extends Component {
       let billsData = bills || [];
       let buyingFreeTicketsCount = this.getBuyingFreeTickets(billsData);
       let totalFreeTickets = buyingFreeTicketsCount + totalFreeTicketCount;
-
-      if (!(seatsAssignedFlag || passesAssignedFlag) && isCustomSeats) {
-        NotificationManager.error(
-          "Seats are not assigned for this event",
-          "",
-          3000
-        );
-      }
 
       if (totalFreeTickets > 10) {
         NotificationManager.error(
@@ -499,7 +483,7 @@ class BuyTicketPage extends Component {
       } else if (this.props.totalBill < 0 || !hasTicketsQuantity()) {
         NotificationManager.error("Please Select at-least one seat", "", 3000);
       } else {
-        if (seatSelection === "auto") {
+        if (seatSelection === "auto" || isCustomSeats) {
           await this.setState({ loading: true });
 
           const reservationData = this.prepareReservationData();
@@ -596,19 +580,7 @@ class BuyTicketPage extends Component {
             setCheckoutStepTwo={() => this.setState({ step: 5 })}
           />
         );
-      case 4:
-        return (
-          <BuyTicketConfirmation confirmation={this.props.successfulPayment} />
-        );
-      case 5:
-        return (
-          <CheckoutStepTwo
-            customSeatingPlan={customSeatingPlan}
-            setCheckoutStepThree={() => this.setState({ step: 6 })}
-          />
-        );
-      case 6:
-        return <CheckoutStepThreeVerification />;
+
       default:
         return (
           <BuyTicketStepOne
@@ -687,15 +659,17 @@ class BuyTicketPage extends Component {
     NotificationManager.error(data._error[0], "", NOTIFICATION_TIME);
     this.setState({ loading: false });
   };
-  
+
   getForm = () => {
     const { event, billSummary } = this.props;
     if (event && event.data) {
       const { step } = this.state;
       const { data } = event.data;
-      const { eventTitle, eventDateTimeSlot, parentEventInfo } = data;
+      const { eventTitle, eventDateTimeSlot, seatingType } = data;
       const { eventStartTime } = eventDateTimeSlot;
-      const { customSeatingPlan: customSeats } = parentEventInfo;
+      const isCustomSeat =
+        SeatType[seatingType ? seatingType.toLowerCase() : "unstructured"];
+
       return (
         <div id="wrapper">
           {this.renderPassInformationModal(data)}
@@ -728,20 +702,20 @@ class BuyTicketPage extends Component {
                 >
                   <div className="col-lg-8 col-md-12 col-sm-12 float-left whiteBackground">
                     {this.getFormSteps(step)}
-                    {this.renderBuyTicketForm(data, billSummary, customSeats)}
+                    {this.renderBuyTicketForm(data, billSummary, isCustomSeat)}
                   </div>
 
                   <div className="col-lg-4 col-md-12 col-sm-12 float-left billSummaryContainer">
                     <BillSummary
                       forward={() =>
-                        this.changeStepForward(customSeats).catch((error) => {
+                        this.changeStepForward(isCustomSeat).catch((error) => {
                           this.displayError(error);
                         })
                       }
-                      backward={() => this.changeStepBackward(customSeats)}
+                      backward={() => this.changeStepBackward(isCustomSeat)}
                       currentStep={step}
-                      paymentPage={() => this.goToPayment(customSeats)}
-                      customSeatingPlan={customSeats}
+                      paymentPage={() => this.goToPayment(isCustomSeat)}
+                      customSeatingPlan={isCustomSeat}
                     />
                   </div>
                 </div>
@@ -795,9 +769,6 @@ const mapStateToProps = (state) => {
     userToken: state.user.token,
     totalBill: state.ticket.totalBill,
     currency: state.ticket.ticketCurrency,
-    assignedSeatsForDisplay: state.ticket.assignedSeatsForDisplay,
-    seatsAssignedFlag: state.ticket.seatsAssignedFlag,
-    passesAssignedFlag: state.ticket.passesAssignedFlag,
     error: state.ticket.error,
     errorMessage: state.ticket.errorMessage,
     wallet: state.user.userWallet,
