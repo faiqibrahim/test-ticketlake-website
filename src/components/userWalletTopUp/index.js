@@ -36,12 +36,12 @@ class UserWalletTopUp extends Component {
     const { loading } = this.state;
     const breadCrumbs = [];
     breadCrumbs.push(
-      <BreadcrumbsItem glyph="home" to="/">
+      <BreadcrumbsItem key={"home"} glyph="home" to="/">
         Home Page
       </BreadcrumbsItem>
     );
     breadCrumbs.push(
-      <BreadcrumbsItem to="/user/wallet">User Wallet</BreadcrumbsItem>
+      <BreadcrumbsItem key={"wallet"} to="/user/wallet">User Wallet</BreadcrumbsItem>
     );
 
     const info = getTopUpInfo();

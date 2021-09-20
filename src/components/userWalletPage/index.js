@@ -88,7 +88,7 @@ class Wallet extends Component {
     const { currency } = userWallet;
     this.setState((prevState) => ({
       topUpModal: !prevState.topUpModal,
-      topUpAmount: null,
+      topUpAmount: '',
       walletCurrency: currency || "",
     }));
   };
@@ -104,7 +104,7 @@ class Wallet extends Component {
   handleInputChange = (target) => {
     const { name, value } = target;
     const roundedValue = _.round(value,2);
-    this.setState({ [name]: roundedValue || null });
+    this.setState({ [name]: roundedValue || '' });
   };
 
   handleCurrencyChange = (target, saveInput = true) => {

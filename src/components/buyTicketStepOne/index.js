@@ -214,10 +214,7 @@ class BuyTicketStepOne extends React.Component {
   render() {
     const { customSeatingPlan, ticketClasses, passClasses } = this.props;
 
-    if (
-      (!ticketClasses.length && !passClasses.length) ||
-      customSeatingPlan !== false
-    )
+    if (!ticketClasses.length && !passClasses.length)
       return (
         <EventMessage
           heading="Sorry!"

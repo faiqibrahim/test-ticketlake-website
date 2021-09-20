@@ -14,4 +14,4 @@ export const GoogleMapAPIKey = "AIzaSyDopg1y0GhLx_WTxXyoT-0MkOVQ34CmpDI";
 
 // Physical Mac Address
 export const macAddress = "‎A0-C5-89-A4-46-C9";
-export const SeatType = { true: "STRUCTURED", false: "UNSTRUCTURED" };
+export const SeatType = {  unstructured: true, structured: false };

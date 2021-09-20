@@ -5,12 +5,11 @@ import _ from "lodash";
 import {
   getTicketClassConfigData,
   formatObject,
-  getSeatsFromResponse,
+  
   seatsQtySearch,
   setCheckoutDataPaypal,
   checkTicketsForMySelf,
-  checkSeatsAssigned,
-  getPassesConfigData,
+    getPassesConfigData,
   formatObjectForPasses,
   arrangePassesSeatsWithEventSlots,
   arrangeAllPassesSeatsData,
@@ -31,7 +30,6 @@ import {
   CLIENT_ID_GET,
   PASSES_GET_SEATS,
   SEND_SMS_OTP,
-  VERIFY_SMS_OTP,
   INITIATE_HUBTEL_DIRECT_PAYMENT,
   DIRECT_PAYMENT_STATUS,
   PAYMENT_RESPONSE_CODE,
@@ -132,15 +130,11 @@ export const getEventDetail = (id) => {
       .then((response) => {
         dispatch(setError(false));
         const { data: eventDetail } = response.data;
-        const {
-          parentEventInfo,
-          ticketClasses,
-          seats: eventSeats,
-        } = eventDetail;
+        const { parentEventInfo, ticketClasses } = eventDetail;
         const {
           currency,
           ticketClassesConfig,
-          customSeatingPlan: customSeats,
+
           passConfigs,
         } = parentEventInfo;
         const checkEventForDate = checkEvent(eventDetail);
@@ -150,8 +144,6 @@ export const getEventDetail = (id) => {
           ticketClassesConfig,
           ticketClasses
         );
-
-        customSeats && dispatch(setSeats(eventSeats.seats, ticketData));
 
         dispatch(setEvent(response));
 
@@ -239,15 +231,6 @@ export const setBillSummary = (arr, wallet = 0) => {
   };
 };
 
-const setSeats = (eventSeats, ticketData) => {
-  const seatDataFromResponse = eventSeats[0].seats;
-  const seats = getSeatsFromResponse(seatDataFromResponse, ticketData);
-  const assignedSeatFlag = checkSeatsAssigned(seats) > 0;
-  return (dispatch) => {
-    dispatch(setAssignedSeatsFlag(assignedSeatFlag));
-    dispatch(setSeating(seats));
-  };
-};
 
 const setPassesSeatsData = (
   billSummary,
@@ -568,12 +551,7 @@ export const setPaymentSuccess = (success) => {
   };
 };
 
-const setAssignedSeatsFlag = (flag) => {
-  return {
-    type: ASSINGED_SEATS_FLAG,
-    payload: flag,
-  };
-};
+
 const setAssignedPassesFlag = (flag) => {
   return {
     type: SET_ASSIGNED_PASS,
@@ -581,12 +559,7 @@ const setAssignedPassesFlag = (flag) => {
   };
 };
 
-const setSeating = (seats) => {
-  return {
-    type: SET_SEATS,
-    payload: seats,
-  };
-};
+
 export const setAssignedSeatsForDisplay = (seats) => {
   return {
     type: ASSIGNED_SEATS_FOR_DISPLAY,
@@ -692,28 +665,7 @@ export const sendSmsOTP = (phoneNumber, network, cb) => {
   };
 };
 
-export const verifySmsOTP = (smsOTP, cb, errorCB) => {
-  return (dispatch, getState) => {
-    const { verificationCredentials, retryPaymentProcess } = getState().ticket;
-    const obj = {
-      smsOTP,
-      _id: verificationCredentials && verificationCredentials.tokenId,
-    };
 
-    axios
-      .post(VERIFY_SMS_OTP, obj)
-      .then((response) => {
-        dispatch(initiateHubtelDirectPayment(retryPaymentProcess));
-        cb && cb();
-      })
-      .catch((err) => {
-        let errorMessage = handleError(err);
-        errorCB && errorCB();
-        dispatch(errorHandling(true, errorMessage));
-        NotificationManager.error(errorMessage, "", NOTIFICATION_TIME);
-      });
-  };
-};
 
 const hubtelPaymentInitiated = (response, isSeatEvent = false) => {
   return (dispatch) => {
