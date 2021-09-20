@@ -31,7 +31,7 @@ button {
   padding-bottom: 6.63vh;
 }
 .heading {
-  font-size: 1.5151515151515151vw;
+  font-size: 1.56vw;
   font-weight: bold;
   color: #17224e;
 }
@@ -42,12 +42,12 @@ button {
   margin-top: 2.42vh;
 }
 .headingSecondary {
-  font-size: 1.8398268398268398vw;
+  font-size: 1.84vw;
   font-weight: bold;
   color: #17224e;
 }
 .subHeadingSecondary {
-  font-size: 1.0822510822510822vw;
+  font-size: 1.08vw;
   color: #ec1b23;
   font-weight: bold;
 }
@@ -297,13 +297,22 @@ form[name="userMobileInfoForm"] button.mobile_payment span {
   .heading {
     font-size: 1.75rem;
   }
+  .headingSecondary {
+    font-size: 2.125rem;
+  }
+  .subHeadingSecondary {
+    font-size: 1.25rem;
+  }
+  .subHeading {
+    font-size: 1.375rem;
+  }
 }
 
 @media screen and (max-width: 1400px) {
-  .Header {
+  /* .Header {
     margin-left: 0 !important;
     margin-right: 0 !important;
-  }
+  } */
 }
 
 @media screen and (max-width: 768px) {

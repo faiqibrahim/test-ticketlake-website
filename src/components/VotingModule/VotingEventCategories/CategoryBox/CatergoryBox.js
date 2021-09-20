@@ -41,7 +41,7 @@ const CatergoryBox = (props) => {
     </>
   );
 
-  const activeCategory = id === selectedCategory ? "activeCateogry" : "null";
+  const activeCategory = id === selectedCategory ? "activeCateogry" : "";
 
   return (
     <div className={`CategoryBoxCol ${activeCategory}`} onClick={clicked}>

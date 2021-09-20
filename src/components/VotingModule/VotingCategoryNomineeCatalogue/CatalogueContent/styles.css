@@ -49,13 +49,18 @@
   padding-left: 1.29vw;
   width: 19.15vw;
 }
-.catalogueCategoryContainer .CategoryBoxCol .categoryMeta .boxTitle {
+.catalogueCategoryContainer .categoryMeta .boxTitle {
   font-size: 1.51vw;
 }
-.catalogueCategoryContainer .CategoryBoxCol .categoryMeta > .row {
+.catalogueCategoryContainer .categoryMeta > .row {
   flex-flow: column;
 }
 
+.catalogueCategoryContainer .categoryMeta .categoryNomineeCount,
+.catalogueCategoryContainer .categoryMeta .categoryNameTime {
+  max-width: 100%;
+  flex: 0 0 100%;
+}
 .catalogueCategoryContainer .categoryMeta .categoryNomineeCount > div > div {
   text-align: left;
 }
@@ -66,7 +71,7 @@
   padding-right: 0.27vw;
 }
 
-.catalogueCategoryContainer .CategoryBoxCol .boxContent .categoryImage {
+.catalogueCategoryContainer .boxContent .categoryImage {
   width: 10.6vw;
   height: 11.59vh;
 }
@@ -79,4 +84,111 @@
   font-size: 1.94vw;
   color: #231f20;
   font-weight: bold;
+}
+
+@media screen and (max-width: 1600px) {
+  .catalogueCategoryContainer .categoryContainer .Header,
+  .catalogueCategoryContainer .CategoryBoxCol .boxContent {
+    margin: 0 10%;
+    max-width: 100%;
+  }
+  .catalogueNomineeContainer .heading {
+    font-size: 2.25rem;
+  }
+  .catalogueCategoryContainer .categoryMeta .boxTitle {
+    font-size: 1.75rem;
+  }
+  .catalogueCategoryContainer .categoryMeta .categoryNomineeCount span {
+    font-size: 1rem;
+  }
+  .catalogueCategoryContainer .boxContent .categoryImage {
+    width: 12.25rem;
+    height: 7rem;
+  }
+  .catalogueContainer .CategoryBoxCol .categoryImage img {
+    border-radius: 0.625rem;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .catalogueContainer > .row {
+    flex-flow: column;
+  }
+  .catalogueCategoryContainer .categoryContainer {
+    max-width: 90vw;
+  }
+  .catalogueCategoryContainer .CategoryBoxCol {
+    border-bottom: 0;
+  }
+  .catalogueCategoryContainer .categoryContainer .Header,
+  .catalogueCategoryContainer .CategoryBoxCol .boxContent {
+    margin: auto;
+  }
+  .catalogueContainer .contentBox {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+  .catalogueCategoryContainer .CategoryBoxCol .boxContent {
+    flex-flow: column;
+  }
+  .catalogueCategoryContainer .boxContent .categoryImage {
+    width: 100%;
+    height: 14.75vh;
+  }
+  .catalogueContainer .catalogueCategoryCol,
+  .catalogueContainer .catalogueNomineeCol {
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+  .catalogueCategoryContainer .categoryMeta .categoryNomineeCount span {
+    font-size: 0.8rem;
+  }
+  .catalogueCategoryContainer .categoryBoxRow {
+    flex-flow: row;
+    overflow-x: scroll;
+  }
+  .catalogueCategoryContainer .CategoryBoxCol {
+    max-width: 25%;
+    flex: 0 0 25%;
+  }
+  .catalogueCategoryContainer .CategoryBoxCol .categoryMeta {
+    padding-left: 0;
+    width: 100%;
+  }
+  .catalogueCategoryContainer .CategoryBoxCol {
+    padding-right: 0.9375rem;
+    margin-top: 0 !important;
+  }
+  .catalogueContainer .activeCateogry {
+    background-color: transparent;
+  }
+  .catalogueContainer .CategoryBoxCol .categoryImage img {
+    opacity: 0.5;
+  }
+  .catalogueContainer .activeCateogry .categoryImage img {
+    opacity: 1;
+  }
+  .catalogueCategoryContainer .categoryMeta .boxTitle {
+    font-size: 1.2rem;
+  }
+  .catalogueCategoryContainer .categoryMeta .categoryNomineeCount,
+  .catalogueCategoryContainer .categoryMeta .categoryNameTime {
+    padding-top: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .catalogueCategoryContainer .CategoryBoxCol {
+    max-width: 33.33%;
+    flex: 0 0 33.33%;
+  }
+  .catalogueCategoryContainer .boxContent .categoryImage {
+    height: 7.5rem;
+  }
+}
+@media screen and (max-width: 575px) {
+  .catalogueCategoryContainer .CategoryBoxCol {
+    max-width: 503%;
+    flex: 0 0 50%;
+  }
 }

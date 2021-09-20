@@ -79,8 +79,6 @@ export const getAllVotingEvents = (eventsLimit, cb) => {
  */
 
 const convertEventApiStructureToEventData = (data) => {
-  console.log("data", data);
-
   const startDateTime = moment(data.startTime, "YYYY/MM/DD");
   const endDateTime = moment(data.endTime, "YYYY/MM/DD");
 
@@ -110,7 +108,9 @@ const convertEventApiStructureToEventData = (data) => {
       votingImage: data.images[0],
       description: data.description,
       startTime: data.startTime,
-      votePrice: data.votePrice ? `Vote Now (${data.votePrice}GHS)` : "",
+      votePrice: data.votePrice
+        ? `Vote Now (${data.votePrice}${data.currency})`
+        : "",
     },
     {
       startAndEndMonth: `${startMonth} - ${endMonth}`,

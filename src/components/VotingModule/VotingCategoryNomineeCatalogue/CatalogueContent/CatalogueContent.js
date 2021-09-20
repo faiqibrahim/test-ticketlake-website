@@ -74,10 +74,10 @@ class CatalogueContent extends Component {
     return (
       <Container className="catalogueContainer container">
         <Row>
-          <Col md={6}>
+          <Col md={6} className="catalogueCategoryCol">
             <div className="catalogueCategoryContainer">{categoryListing}</div>
           </Col>
-          <Col md={6}>
+          <Col md={6} className="catalogueNomineeCol">
             <div className="catalogueNomineeContainer">{nomineeListing}</div>
           </Col>
         </Row>

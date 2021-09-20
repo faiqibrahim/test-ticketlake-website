@@ -18,20 +18,23 @@ import "../../VotingModule.css";
 class EventNominees extends Component {
   is_Mounted = false;
 
-  state = {
-    loading: true,
-    nominees: null,
-    visible: false,
-    nomineeId: null,
-    remainingTime: null,
-    categoryName: "",
-    eventName: "",
-    voteCount: null,
-    authentication: this.props.auth,
-    wallet: this.props.wallet,
-    categoryID: this.props.match.params.categoryId,
-    eventID: this.props.match.params.id,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      nominees: null,
+      visible: false,
+      nomineeId: null,
+      remainingTime: null,
+      categoryName: "",
+      eventName: "",
+      voteCount: null,
+      authentication: this.props.auth,
+      wallet: this.props.wallet,
+      categoryID: this.props.match.params.categoryId,
+      eventID: this.props.match.params.id,
+    };
+  }
 
   componentDidMount() {
     this.is_Mounted = true;

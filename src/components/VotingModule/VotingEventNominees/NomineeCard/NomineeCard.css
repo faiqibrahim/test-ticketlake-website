@@ -3,7 +3,6 @@ body {
 }
 .cardItemCol {
   max-width: 16.55vw;
-  height: 36.03vh;
   padding: 0;
   padding-right: 1.4vw;
 }
@@ -67,7 +66,6 @@ body {
   padding: 0.63vh 1.78vw 1.05vh;
   color: #fff;
   border: 1px solid #ec1b23;
-  /* width: 100px; */
   font-size: 0.86vw;
   cursor: pointer;
 }
@@ -76,103 +74,70 @@ body {
   width: 250px !important;
 }
 
-@media screen and (min-width: 2000px) and (max-width: 4000px) {
-  .cardMetaBox {
-    line-height: 30px;
-  }
-}
-
-@media screen and (min-width: 2700px) and (max-width: 4000px) {
-  .cardItemCol {
-    padding: 0 30px;
-  }
-  .cardItemCol:nth-child(4n + 0) ~ div {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-}
-
-@media screen and (min-width: 2100px) and (max-width: 2699px) {
-  .cardItemCol {
-    padding: 0 25px;
-  }
-  .cardItemCol:nth-child(4n + 0) ~ div {
-    padding-left: 25px;
-    padding-right: 25px;
-  }
-}
-
-@media screen and (min-width: 1401px) and (max-width: 1580px) {
+@media screen and (max-width: 1600px) {
   .cardTitle {
-    font-size: 26px;
+    font-size: 1.125rem;
   }
-  .timeLeft,
-  .voteCount {
-    font-size: 20px;
+  .voteType,
+  .voteButton button {
+    font-size: 1rem;
+  }
+  .voteButton button {
+    padding: 0.375rem 2rem 0.625rem;
+  }
+  .eventNomineesContainer .imageContainer {
+    max-width: 7.5rem;
+    height: 7.5rem;
+  }
+  .cardItemContainer {
+    border-radius: 0.625rem;
+  }
+  .cardItemCol {
+    padding-right: 1.5625rem;
+  }
+}
+@media screen and (min-width: 1201px) and (max-width: 1600px) {
+  .cardItemCol {
+    flex: 0 0 41.66%;
+    max-width: 41.66%;
   }
 }
 
-@media screen and (min-width: 993px) and (max-width: 1400px) {
+@media screen and (max-width: 1200px) {
   .cardItemCol {
     flex: 0 0 33.33%;
     max-width: 33.33%;
   }
-  .cardItemCol:nth-child(4n + 0) {
-    padding-right: 30px;
+  .cardItemCol:nth-child(2n + 0) ~ div {
+    margin-top: 0;
   }
   .cardItemCol:nth-child(3n + 0) ~ div {
-    padding-top: 45px;
-  }
-  .cardItemCol:nth-child(3n + 0) {
-    padding-right: 15px;
+    margin-top: 3.26vh;
   }
 }
 
-@media screen and (min-width: 993px) and (max-width: 1100px) {
-  .cardTitle {
-    font-size: 22px;
-  }
-  .timeLeft,
-  .voteCount {
-    font-size: 18px;
-  }
-}
-
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 767px) {
   .cardItemCol {
-    flex: 0 0 50%;
     max-width: 50%;
-  }
-  .cardItemCol:nth-child(3n + 0) {
-    padding-right: 30px;
+    flex: 0 0 50%;
   }
   .cardItemCol:nth-child(2n + 0) ~ div {
-    padding-top: 45px;
-  }
-  .cardItemCol:nth-child(2n + 0) {
-    padding-right: 15px;
+    margin-top: 3.26vh;
   }
 }
-
-@media screen and (min-width: 576px) and (max-width: 670px) {
-  .cardTitle {
-    font-size: 22px;
-  }
-  .timeLeft,
-  .voteCount {
-    font-size: 18px;
-  }
-}
-
 @media screen and (max-width: 575px) {
   .cardItemCol {
-    flex: 0 0 100%;
     max-width: 100%;
+    flex: 0 0 100%;
+    padding-right: 0;
+  }
+  .cardItemCol:nth-child(3n + 0) ~ div {
+    margin-top: 0;
+  }
+  .cardItemCol:nth-child(2n + 0) ~ div {
+    margin-top: 0;
   }
   .cardItemCol:nth-child(1n + 0) ~ div {
-    padding-top: 45px;
-  }
-  .cardItemCol:nth-child(1n + 0) {
-    padding-right: 15px;
+    margin-top: 3.26vh;
   }
 }
