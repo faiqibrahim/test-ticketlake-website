@@ -12317,9 +12317,10 @@ source {
   margin-top: 17px !important;
   min-width: 270px !important;
 }
-.date {
+.map-item .date {
   float: left;
   width: 78%;
+  text-align: left;
 }
 .map-item img {
   float: left;
