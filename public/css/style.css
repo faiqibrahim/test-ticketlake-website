@@ -4505,8 +4505,8 @@ input[type="number"].react-daterange-picker__inputGroup__input {
   margin-bottom: 12px;
   position: relative;
 }
-.custom-section .listing-item {
-  min-height: 433px;
+.custom-section-col .listing-item {
+  margin-bottom: 30px;
 }
 
 .listing-item:nth-child(even) {
