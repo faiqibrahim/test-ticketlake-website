@@ -245,8 +245,8 @@ class PaidModalContent extends Component {
             <div className="row">
               {/* <PaymentProcessor
                 {...info}
-                onSuccess={() => console.log("meri jaan ke totty")}
-                onFailure={() => console.log("meri ex ke totty")}
+                onSuccess={() => console.log("onSuccess")}
+                onFailure={() => console.log("onFailure")}
               /> */}
               {paymentMethods.paymentMethodsList.map((method) => {
                 const isActive =
