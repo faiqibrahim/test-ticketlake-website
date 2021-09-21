@@ -5,6 +5,7 @@ const votingEventSlice = createSlice({
   initialState: {
     eventsListing: [],
     singleEvent: null,
+    eventStatus: null,
   },
   reducers: {
     setAllEvents(state, action) {
@@ -12,6 +13,9 @@ const votingEventSlice = createSlice({
     },
     setSingleEvent(state, action) {
       state.singleEvent = action.payload;
+    },
+    setEventStatus(state, action) {
+      state.eventStatus = action.payload;
     },
   },
 });

@@ -33,6 +33,7 @@
 
 @media screen and (max-width: 1600px) {
   .startAndEndMonth,
+  .votingOrganization,
   .votingOrganization a,
   .secretBalloting,
   .endTime {

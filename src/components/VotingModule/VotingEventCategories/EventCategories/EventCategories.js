@@ -37,19 +37,13 @@ class VotingCategories extends Component {
 
   categorySelectedHandler = (categoryId, name, eventClosed) => {
     const { eventID } = this.state;
-    const { updateCategoryID } = this.props;
-    if (!eventClosed) {
-      if (updateCategoryID) {
-        updateCategoryID(categoryId);
-      }
-      this.props.history.push({
-        pathname: `/voting/${eventID}/listing/${categoryId}`,
-      });
-    } else {
-      this.props.history.push({
-        pathname: this.props.location.pathname + "/event-results/" + categoryId,
-      });
+    const { updateCategoryID, history } = this.props;
+    if (updateCategoryID) {
+      updateCategoryID(categoryId);
     }
+    history.push({
+      pathname: `/voting/${eventID}/listing/${categoryId}`,
+    });
   };
 
   showTitleHandler = () => {

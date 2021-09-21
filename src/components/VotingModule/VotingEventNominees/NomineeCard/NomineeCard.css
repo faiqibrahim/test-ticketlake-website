@@ -7,7 +7,7 @@ body {
   padding-right: 1.4vw;
 }
 
-.cardItemCol:nth-child(2n + 0) ~ div {
+.eventNomineesContainer .cardItemCol:nth-child(2n + 0) ~ div {
   margin-top: 3.26vh;
 }
 .cardItemContainer {
@@ -108,10 +108,10 @@ body {
     flex: 0 0 33.33%;
     max-width: 33.33%;
   }
-  .cardItemCol:nth-child(2n + 0) ~ div {
+  .eventNomineesContainer .cardItemCol:nth-child(2n + 0) ~ div {
     margin-top: 0;
   }
-  .cardItemCol:nth-child(3n + 0) ~ div {
+  .eventNomineesContainer .cardItemCol:nth-child(3n + 0) ~ div {
     margin-top: 3.26vh;
   }
 }
@@ -121,7 +121,7 @@ body {
     max-width: 50%;
     flex: 0 0 50%;
   }
-  .cardItemCol:nth-child(2n + 0) ~ div {
+  .eventNomineesContainer .cardItemCol:nth-child(2n + 0) ~ div {
     margin-top: 3.26vh;
   }
 }
@@ -131,13 +131,13 @@ body {
     flex: 0 0 100%;
     padding-right: 0;
   }
-  .cardItemCol:nth-child(3n + 0) ~ div {
+  .eventNomineesContainer .cardItemCol:nth-child(3n + 0) ~ div {
     margin-top: 0;
   }
-  .cardItemCol:nth-child(2n + 0) ~ div {
+  .eventNomineesContainer .cardItemCol:nth-child(2n + 0) ~ div {
     margin-top: 0;
   }
-  .cardItemCol:nth-child(1n + 0) ~ div {
+  .eventNomineesContainer .cardItemCol:nth-child(1n + 0) ~ div {
     margin-top: 3.26vh;
   }
 }

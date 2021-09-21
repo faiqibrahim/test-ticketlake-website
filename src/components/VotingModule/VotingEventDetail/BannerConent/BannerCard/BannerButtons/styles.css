@@ -65,8 +65,9 @@
 
 @media screen and (max-width: 768px) {
   .bannerCutsomCol-2 {
-    max-width: 15%;
+    max-width: 20%;
     margin-bottom: 15px;
+    padding: 0;
   }
   .onAddButton {
     width: 100%;

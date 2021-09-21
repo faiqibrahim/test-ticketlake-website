@@ -109,8 +109,10 @@ const convertEventApiStructureToEventData = (data) => {
       description: data.description,
       startTime: data.startTime,
       votePrice: data.votePrice
-        ? `Vote Now (${data.votePrice}${data.currency})`
-        : "",
+        ? `Vote Now (${data.votePrice} ${
+            data.currency ? data.currency : "GHS"
+          })`
+        : "Vote Now (Free)",
     },
     {
       startAndEndMonth: `${startMonth} - ${endMonth}`,
@@ -119,9 +121,7 @@ const convertEventApiStructureToEventData = (data) => {
       borderBar: null,
       votingOrganization: organizationName,
       secretBalloting: checkBalloting,
-      endTime: remainingTime.eventEnd
-        ? remainingTime.durationString
-        : remainingTime,
+      endTime: remainingTime.eventEnd ? "Winner Announced" : remainingTime,
     },
   ];
 
@@ -136,7 +136,6 @@ export const getSingleVotingEvent = (eventID, cb) => {
         const { data } = response;
 
         const eventData = convertEventApiStructureToEventData(data.data);
-        console.log("eventData", eventData);
 
         dispatch(votingEventActions.setSingleEvent(eventData));
         cb && cb(null, data);
@@ -144,5 +143,32 @@ export const getSingleVotingEvent = (eventID, cb) => {
       .catch((error) => {
         cb && cb(error);
       });
+  };
+};
+
+/**
+ * @getVotingEventSatus
+ * @param {*} eventID
+ * @param {*} cb
+ */
+
+const extractEventStatusFromApi = (data) => {
+  const remainingTime = duration(data);
+
+  return remainingTime.eventEnd ? remainingTime.eventEnd : false;
+};
+
+export const getVotingEventStatus = (eventID, cb) => {
+  return (dispatch) => {
+    axios
+      .get(`/voting-events/${eventID}`)
+      .then((response) => {
+        const { data } = response;
+
+        const eventStatus = extractEventStatusFromApi(data.data);
+        dispatch(votingEventActions.setEventStatus(eventStatus));
+        cb && cb(null, data);
+      })
+      .catch((error) => cb && cb(error));
   };
 };

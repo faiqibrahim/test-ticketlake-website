@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
+import { connect } from "react-redux";
 
+import "antd/dist/antd.css";
 import Loader from "../../../../commonComponents/loader";
 import VotingCategories from "../../VotingEventCategories/EventCategories/EventCategories";
 import CategoryNominees from "../../VotingEventNominees/EventNominees/EventNominees";
+import EventResults from "../../VotingEventResults/EventResults/EventResults";
+
+import { getVotingEventStatus } from "../../../../redux/voting-events/event/event-actions";
+
 import "./styles.css";
 
 class CatalogueContent extends Component {
@@ -19,14 +25,28 @@ class CatalogueContent extends Component {
       nomineeListing: null,
       catalogue: true,
       selectedCategory: props.match.params.categoryId,
+      eventStatus: null,
     };
   }
 
   componentDidMount() {
     this.is_Mounted = true;
     if (this.is_Mounted) {
-      this.fetchEventCategories();
-      this.fetchCategoryNominees();
+      const { getVotingEventStatus } = this.props;
+      const { eventID } = this.state;
+      getVotingEventStatus(eventID, (error, data) => {
+        if (!error && data) {
+          this.setState(
+            {
+              eventStatus: this.props.eventStatus,
+            },
+            () => {
+              this.fetchEventCategories();
+              this.fetchCategoryNominees();
+            }
+          );
+        }
+      });
     }
   }
 
@@ -53,10 +73,16 @@ class CatalogueContent extends Component {
   };
 
   fetchCategoryNominees = () => {
-    const { categoryID } = this.state;
+    const { categoryID, eventStatus } = this.state;
+
+    const listing = eventStatus ? (
+      <EventResults catalogueCategoryID={categoryID} />
+    ) : (
+      <CategoryNominees catalogueCategoryID={categoryID} />
+    );
 
     this.setState({
-      nomineeListing: <CategoryNominees catalogueCategoryID={categoryID} />,
+      nomineeListing: listing,
     });
   };
 
@@ -86,4 +112,22 @@ class CatalogueContent extends Component {
   }
 }
 
-export default withRouter(CatalogueContent);
+const mapStateToProps = (state) => {
+  return {
+    eventStatus: state.voting.event.eventStatus,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getVotingEventStatus: (eventID, cb) =>
+      dispatch(getVotingEventStatus(eventID, cb)),
+  };
+};
+
+const connectedComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CatalogueContent);
+
+export default withRouter(connectedComponent);
