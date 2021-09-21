@@ -98,24 +98,30 @@ const convertEventApiStructureToEventData = (data) => {
 
   const remainingTime = duration(data);
 
+  const organizationName = data.organization
+    ? `Organized by <a href=/organisers/details/${data.organization._id}>${data.organization.name}</a>`
+    : null;
+
   const eventData = [
     {
       id: data._id,
       votingImage: data.images[0],
       description: data.description,
       startTime: data.startTime,
-      votePrice: data.votePrice ? `Vote Now (${data.votePrice}GHS)` : "",
+      votePrice: data.votePrice
+        ? `Vote Now (${data.votePrice} ${
+            data.currency ? data.currency : "GHS"
+          })`
+        : "Vote Now (Free)",
     },
     {
       startAndEndMonth: `${startMonth} - ${endMonth}`,
       startAndEndDate: `${startDate} - ${endDate}`,
       votingEventName: data.name,
       borderBar: null,
-      votingOrganization: `<a href=/organisers/details/${data.organizationId}>Organized by Capri Complex</a>`,
+      votingOrganization: organizationName,
       secretBalloting: checkBalloting,
-      endTime: remainingTime.eventEnd
-        ? remainingTime.durationString
-        : remainingTime,
+      endTime: remainingTime.eventEnd ? "Winner Announced" : remainingTime,
     },
   ];
 
@@ -132,10 +138,37 @@ export const getSingleVotingEvent = (eventID, cb) => {
         const eventData = convertEventApiStructureToEventData(data.data);
 
         dispatch(votingEventActions.setSingleEvent(eventData));
-        cb && cb(null, response);
+        cb && cb(null, data);
       })
       .catch((error) => {
         cb && cb(error);
       });
+  };
+};
+
+/**
+ * @getVotingEventSatus
+ * @param {*} eventID
+ * @param {*} cb
+ */
+
+const extractEventStatusFromApi = (data) => {
+  const remainingTime = duration(data);
+
+  return remainingTime.eventEnd ? remainingTime.eventEnd : false;
+};
+
+export const getVotingEventStatus = (eventID, cb) => {
+  return (dispatch) => {
+    axios
+      .get(`/voting-events/${eventID}`)
+      .then((response) => {
+        const { data } = response;
+
+        const eventStatus = extractEventStatusFromApi(data.data);
+        dispatch(votingEventActions.setEventStatus(eventStatus));
+        cb && cb(null, data);
+      })
+      .catch((error) => cb && cb(error));
   };
 };

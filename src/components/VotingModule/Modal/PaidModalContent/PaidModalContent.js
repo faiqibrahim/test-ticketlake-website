@@ -6,6 +6,8 @@ import paymentMethods from "../../paymentMethod.json";
 import { savePaidVoteCast } from "../../../../redux/voting-events/vote-cast/vote-cast-action";
 import MobilePaymentMethod from "./MobilePaymentMethod";
 import "../../VotingModule.css";
+// import PaymentProcessor from "../../../../commonComponents/PaymentProcessor";
+// import { getVotingPaymentInfo } from "./voting-info-provider";
 
 class PaidModalContent extends Component {
   constructor(props) {
@@ -24,6 +26,7 @@ class PaidModalContent extends Component {
       wallet: props.wallet,
       errorMessage: null,
       disabledButton: true,
+      // currency: "USD",
     };
   }
 
@@ -210,6 +213,8 @@ class PaidModalContent extends Component {
       disabledButton,
     } = this.state;
 
+    // const info = getVotingPaymentInfo({ currency, amount: totalVotePrice });
+
     return (
       <>
         <div className="title" style={{ marginBottom: "20px" }}>
@@ -238,6 +243,11 @@ class PaidModalContent extends Component {
           <div className="paymentMethod">
             <div className="title">Payment Method</div>
             <div className="row">
+              {/* <PaymentProcessor
+                {...info}
+                onSuccess={() => console.log("onSuccess")}
+                onFailure={() => console.log("onFailure")}
+              /> */}
               {paymentMethods.paymentMethodsList.map((method) => {
                 const isActive =
                   paymentMethod && paymentMethod.id === method.id;

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Loader from "../../../../commonComponents/loader";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { getClosedEventNomineeListingByCategoryId } from "../../../../redux/voting-events/result/result-action";
@@ -10,19 +11,30 @@ import EventResultCard from "../EventResultCard/EventResultCard";
 import "./EventResults.css";
 
 class EventResults extends Component {
+  is_Mounted = false;
   state = {
     loading: true,
     event: null,
     maxVotes: null,
+    categoryID: this.props.match.params.categoryId,
+    eventID: this.props.match.params.id,
   };
 
   componentDidMount() {
-    const { id, categoryId } = this.props.match.params;
+    this.is_Mounted = true;
+
+    if (this.is_Mounted) {
+      this.fetchEventResultNominees();
+    }
+  }
+
+  fetchEventResultNominees = () => {
+    const { eventID, categoryID } = this.state;
     this.props.getClosedEventNomineeListingByCategoryId(
-      categoryId,
+      categoryID,
       (error, data) => {
         if (!error) {
-          this.getBreadCrumbs(id, categoryId);
+          this.getBreadCrumbs(eventID, categoryID);
           this.setState(
             {
               loading: false,
@@ -37,6 +49,19 @@ class EventResults extends Component {
         }
       }
     );
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.categoryID !== this.props.catalogueCategoryID) {
+      this.setState(
+        {
+          categoryID: this.props.catalogueCategoryID,
+        },
+        () => {
+          this.fetchEventResultNominees();
+        }
+      );
+    }
   }
 
   getBreadCrumbs = (eventID, categoryID) => {
@@ -45,18 +70,6 @@ class EventResults extends Component {
         this.setState({
           eventName: this.props.breadCrumbs[0].eventName,
           categoryName: this.props.breadCrumbs[1].categoryName,
-          breadCrumbs: [
-            { path: "/", crumbTitle: "Home" },
-            { path: "/voting", crumbTitle: "Votings" },
-            {
-              path: `/voting/${eventID}`,
-              crumbTitle: this.props.breadCrumbs[0].eventName,
-            },
-            {
-              path: `/voting/${eventID}/categories/${categoryID}`,
-              crumbTitle: this.props.breadCrumbs[1].categoryName,
-            },
-          ],
         });
       }
     });
@@ -190,4 +203,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventResults);
+const eventCategoryConnected = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EventResults);
+
+export default withRouter(eventCategoryConnected);

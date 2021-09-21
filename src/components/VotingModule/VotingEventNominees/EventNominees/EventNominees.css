@@ -3,14 +3,17 @@
   max-width: 16.66%;
   padding: 0 15px;
 }
+.eventNomineesContainer {
+  max-width: 70vw;
+}
 .eventNomineesContainer .col3 {
   flex: 0 0 25%;
   max-width: 25%;
   padding: 0 15px;
 }
-.col9 {
-  flex: 0 0 75%;
-  max-width: 75%;
+.col7 {
+  flex: 0 0 58.33%;
+  max-width: 58.33%;
   padding: 0 15px;
 }
 .contentBox {
@@ -21,11 +24,6 @@
 }
 .eventNomineesContainer .Header {
   flex-direction: row;
-}
-.eventNomineesContainer .nomineeHeaderCol {
-  flex: 0 0 50%;
-  max-width: 50%;
-  padding: 0;
 }
 .eventNomineesContainer .nomineeHeaderCol .heading {
   text-transform: capitalize;
@@ -43,22 +41,27 @@
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
 }
 .timerClock {
+  text-align: center;
+}
+.timerClock img {
   position: relative;
   top: 5px;
+  width: 2.43vw;
+  height: 4.74vh;
 }
 .timeContent {
-  max-width: 64%;
-  margin: 0 0 0 auto;
+  background-color: #fff;
   border: 1px solid #d8dae3;
-  border-radius: 20px;
-  padding: 10px 25px;
+  border-radius: 0.48vw;
+  padding: 1.58vh 1.35vw;
+  width: 100%;
+  max-width: 24vw;
+  margin-top: 5.37vh;
 }
 .timeLeft {
-  font-size: 28px;
+  font-size: 0.97vw;
   color: #231f20;
   text-align: left;
   font-weight: bold;
@@ -68,7 +71,7 @@
   text-overflow: ellipsis;
 }
 .timeText {
-  font-size: 20px;
+  font-size: 0.86vw;
   color: #747a95;
   text-align: left;
   white-space: nowrap;
@@ -80,92 +83,53 @@
 .tooltipStyle {
   width: 250px !important;
 }
-@media screen and (min-width: 2700px) and (max-width: 4000px) {
-  .eventNomineesContainer .nomineeBoxRow {
-    margin-right: -30px;
-    margin-left: -30px;
+
+@media screen and (max-width: 1600px) {
+  .timerClock img {
+    width: 100%;
+  }
+  .eventNomineesContainer .timeLeft {
+    font-size: 1.125rem;
+  }
+  .eventNomineesContainer .timeText {
+    font-size: 1rem;
+  }
+  .eventNomineesContainer .timeContent {
+    max-width: 27.75rem;
+    border-radius: 0.625rem;
   }
 }
 
-@media screen and (min-width: 2100px) and (max-width: 2699px) {
-  .eventNomineesContainer .nomineeBoxRow {
-    margin-right: -25px;
-    margin-left: -25px;
+@media screen and (max-width: 1200px) {
+  .eventNomineesContainer {
+    max-width: 90vw;
+    padding: 0;
+  }
+  .eventNomineesContainer .timeContent {
+    max-width: 60%;
   }
 }
 
-@media screen and (min-width: 993px) and (max-width: 1450px) {
+@media screen and (max-width: 767px) {
   .eventNomineesContainer .timeContent {
     max-width: 70%;
   }
-}
-@media screen and (min-width: 1036px) and (max-width: 1240px) {
-  .eventNomineesContainer .heading {
-    font-size: 30px;
-  }
-  .eventNomineesContainer .timeLeft {
-    font-size: 24px;
-  }
-}
-@media screen and (min-width: 993px) and (max-width: 1035px) {
-  .eventNomineesContainer .heading {
-    font-size: 28px;
-  }
-  .eventNomineesContainer .timeLeft {
-    font-size: 22px;
-  }
-}
-@media screen and (max-width: 992px) {
-  .eventNomineesContainer .nomineeBoxRow {
-    margin-right: 0px;
-    margin-left: 0px;
-  }
-  .eventNomineesContainer .Header {
-    flex-flow: column;
-  }
-  .eventNomineesContainer .nomineeHeaderCol:first-child {
-    margin-bottom: 20px;
-    flex: 0 0 100%;
-    max-width: 100%;
-    padding: 0 15px;
-  }
-  .eventNomineesContainer .nomineeHeaderCol:nth-child(2) {
-    margin-bottom: 20px;
-    flex: 0 0 100%;
-    max-width: 100%;
-    padding: 0 15px;
-  }
-  .eventNomineesContainer .timeContent {
-    max-width: 100%;
-    margin: 0 auto 0 0;
-    padding-left: 0;
-    padding-right: 0;
+  .eventNomineesContainer .timeContent .nomineeBoxRow {
+    flex-flow: row;
   }
 }
 @media screen and (max-width: 575px) {
-  .eventNomineesContainer {
-    padding-left: 0;
-    padding-right: 0;
+  .eventNomineesContainer .timeContent {
+    max-width: 100%;
   }
-  .eventNomineesContainer .Header .nomineeBoxRow {
+  .eventNomineesContainer .timeContent .nomineeBoxRow {
     flex-flow: column;
-    align-items: flex-start;
   }
-  .eventNomineesContainer .nomineeHeaderCol:nth-child(2) {
-    width: 100%;
+  .timerClock {
+    text-align: left;
   }
-  .eventNomineesContainer .col3 {
-    margin: 0;
-    padding-bottom: 15px;
-  }
-  .eventNomineesContainer .timerClock {
-    top: 12px;
-    width: 50px;
-  }
-  .eventNomineesContainer .heading {
-    font-size: 24px;
-  }
-  .eventNomineesContainer .timeLeft {
-    font-size: 20px;
+  .timerClock img {
+    max-width: 15%;
+    top: 0;
   }
 }

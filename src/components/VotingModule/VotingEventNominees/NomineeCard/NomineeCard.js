@@ -32,7 +32,7 @@ const NomineeCard = (props) => {
   );
 
   return (
-    <div className="cardItemCol">
+    <div className="col-md-6 cardItemCol">
       <div className="cardItemContainer">
         <div className="imageContainer">
           <img src={imgSrc} alt="img" />

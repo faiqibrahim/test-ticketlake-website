@@ -3,11 +3,9 @@ import React from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 
 import VotingEvents from "../index";
-// import VotingEventCategories from "../VotingEventCategories/EventCategories/EventCategories";
-import VotingEventNominees from "../VotingEventNominees/EventNominees/EventNominees";
-import VotingEventResults from "../VotingEventResults/EventResults/EventResults";
 import Authentication from "../../../components/authentication";
 import EventDetailContent from "../VotingEventDetail/EventDetailContent/EventDetailContent";
+import CatalogueContent from "../VotingCategoryNomineeCatalogue/CatalogueContent/CatalogueContent";
 
 const PageWrapper = () => {
   return (
@@ -18,14 +16,9 @@ const PageWrapper = () => {
         component={Authentication}
       />
       <Route
-        path="/voting/:id/event-results/:categoryId"
-        component={VotingEventResults}
+        path="/voting/:id/listing/:categoryId"
+        component={CatalogueContent}
       />
-      <Route
-        path="/voting/:id/categories/:categoryId"
-        component={VotingEventNominees}
-      />
-      {/* <Route path="/voting/:id" component={VotingEventCategories} /> */}
       <Route path="/voting/:id" component={EventDetailContent} />
       <Route path="/voting" exact component={VotingEvents} />
       <Redirect to="/" />

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAllVotingCategories } from "../../../../redux/voting-events/category/category-action";
 import Loader from "../../../../commonComponents/loader";
@@ -13,13 +13,15 @@ class VotingCategories extends Component {
     this.state = {
       loading: true,
       categories: [],
+      eventID: props.match.params.id,
+      catalogue: props && props.catalogue,
     };
   }
 
   componentDidMount() {
-    const { id } = this.props.match.params;
+    const { eventID } = this.state;
 
-    this.props.getAllVotingCategories(id, (error, data) => {
+    this.props.getAllVotingCategories(eventID, (error, data) => {
       if (!error && data.length > 0) {
         this.setState({
           loading: false,
@@ -34,35 +36,48 @@ class VotingCategories extends Component {
   }
 
   categorySelectedHandler = (categoryId, name, eventClosed) => {
-    if (!eventClosed) {
-      this.props.history.push({
-        pathname: this.props.location.pathname + "/categories/" + categoryId,
-      });
-    } else {
-      this.props.history.push({
-        pathname: this.props.location.pathname + "/event-results/" + categoryId,
-      });
+    const { eventID } = this.state;
+    const { updateCategoryID, history } = this.props;
+    if (updateCategoryID) {
+      updateCategoryID(categoryId);
     }
+    history.push({
+      pathname: `/voting/${eventID}/listing/${categoryId}`,
+    });
+  };
+
+  showTitleHandler = () => {
+    const { eventTitle, catalogue, eventID } = this.state;
+
+    return catalogue ? (
+      <Link to={`/voting/${eventID}`}>
+        <div className="headingSecondary">{eventTitle}</div>
+        <div className="subHeadingSecondary">All Categories</div>
+      </Link>
+    ) : (
+      <div className="heading">Categories</div>
+    );
   };
 
   render() {
     if (this.state.loading) return <Loader />;
 
     const [, , ...categories] = this.state.categories;
-    const { eventClosed } = this.state;
+    const { eventClosed, catalogue } = this.state;
+    const { selectedCategory } = this.props;
+    const headerLink = this.showTitleHandler();
 
     return (
       <Fragment>
         <div className="container categoryContainer">
           <div className="contentBox">
-            <div className="Header">
-              <div className="heading">Categories</div>
-            </div>
+            <div className="Header">{headerLink}</div>
             <div className="categoryBoxRow">
               {categories && categories.length > 0 ? (
                 categories.map((category) => {
                   return (
                     <CategoryBox
+                      catalogue={catalogue}
                       key={category.id}
                       {...category}
                       clicked={() =>
@@ -72,6 +87,7 @@ class VotingCategories extends Component {
                           eventClosed
                         )
                       }
+                      selectedCategory={selectedCategory}
                     />
                   );
                 })

@@ -3,8 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import classes from "./styles.module.css";
 
 const readMoreButton = (text, isTruncated, readMoreFunc) => {
-  const descriptionSlice = isTruncated ? `${text.slice(0, 350)}...` : text;
-  const description = descriptionSlice;
+  const description = isTruncated ? `${text.slice(0, 350)}...` : text;
 
   const paragraph = description
     .split("\n")

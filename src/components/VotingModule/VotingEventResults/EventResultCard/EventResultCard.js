@@ -21,7 +21,7 @@ const EventResultCard = (props) => {
   );
 
   return (
-    <div className="col3">
+    <div className="col-md-6 resultItemCol">
       <div className="eventResultItemContainer">
         <div className="nomineeImg">
           <img src={props.nomineeDetail.imgSrc} alt="img" />
