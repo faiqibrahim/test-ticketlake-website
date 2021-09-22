@@ -1,6 +1,8 @@
+
 .seatsView .ant-form-item-label {
   color: #000;
   margin-bottom: 1rem;
+  font-size: .9rem;
 }
 
 .seatsView .ant-form-item-control {
