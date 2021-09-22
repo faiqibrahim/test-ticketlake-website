@@ -277,7 +277,7 @@ class EventDetail extends Component {
                 <div className="listing-features fl-wrap">
                   {data.data.map((card) => {
                     return (
-                      <div className={"col-md-6 float-left column-padding"}>
+                      <div className={"col-md-6 float-left column-padding custom-section-col"}>
                         <CardComponent {...card} />
                       </div>
                     );
