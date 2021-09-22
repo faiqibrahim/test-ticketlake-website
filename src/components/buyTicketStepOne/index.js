@@ -106,7 +106,7 @@ class BuyTicketStepOne extends React.Component {
           name={"seatSelection"}
           value={seatSelection}
           radioOptions={[
-            { value: "preferred", name: "Presonal Seating" },
+            { value: "preferred", name: "Reserved Seating" },
             { value: "auto", name: "Auto Select" },
           ]}
           onChange={({ target }) =>
@@ -127,8 +127,8 @@ class BuyTicketStepOne extends React.Component {
     if (purchaseType === "ticket" && seatSelection === "preferred") return null;
 
     const typeOptions = [];
-    hasSeat && typeOptions.push({ value: "seat", name: "Purchase Ticket" });
-    hasTable && typeOptions.push({ value: "Table", name: "Reserve Table" });
+    hasSeat && typeOptions.push({ value: "seat", name: "Purchase Tickets" });
+    hasTable && typeOptions.push({ value: "Table", name: "Reserve Tables" });
 
     return (
       <Form.Item label="Seats Type" style={this.animatedStyle(seatSelection)}>
