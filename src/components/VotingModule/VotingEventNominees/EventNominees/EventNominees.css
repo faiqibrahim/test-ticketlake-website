@@ -31,12 +31,7 @@
 .eventNomineesContainer .nomineeHeaderCol .heading span {
   text-transform: lowercase;
 }
-.nomineeHeaderCol:first-child {
-  text-align: left;
-}
-.nomineeHeaderCol:last-child {
-  text-align: right;
-}
+
 .nomineeBoxRow {
   display: flex;
   -ms-flex-wrap: wrap;

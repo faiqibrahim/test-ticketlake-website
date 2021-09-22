@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import { Button, InputNumber } from "antd";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import paymentMethods from "../../paymentMethod.json";
 import { savePaidVoteCast } from "../../../../redux/voting-events/vote-cast/vote-cast-action";
-import MobilePaymentMethod from "./MobilePaymentMethod";
 import "../../VotingModule.css";
-// import PaymentProcessor from "../../../../commonComponents/PaymentProcessor";
-// import { getVotingPaymentInfo } from "./voting-info-provider";
+import PaymentProcessor from "../../../../commonComponents/PaymentProcessor";
+import { getVotingPaymentInfo } from "./voting-info-provider";
 
 class PaidModalContent extends Component {
   constructor(props) {
@@ -16,6 +14,7 @@ class PaidModalContent extends Component {
       paymentMethod: null,
       activeMethodId: null,
       paidVoteCastSuccess: false,
+      showPaymentProcess: false,
       showMobilePaymentForm: true,
       clientToken: null,
       voteCounter: 1,
@@ -26,7 +25,7 @@ class PaidModalContent extends Component {
       wallet: props.wallet,
       errorMessage: null,
       disabledButton: true,
-      // currency: "USD",
+      currency: "USD",
     };
   }
 
@@ -72,154 +71,43 @@ class PaidModalContent extends Component {
     }
   };
 
-  selectPaymentHandler = (method) => {
+  confirmPriceButtonHandler = () => {
     this.setState({
-      paymentMethod: method,
-      activeMethodId: method.id,
+      showPaymentProcess: true,
     });
   };
 
-  voteCastSuccessHandler = () => {
-    const { activeMethodId } = this.state;
-    if (activeMethodId) {
-      this.setState({
-        paidVoteCastSuccess: true,
-      });
-    }
+  renderPaymentProcesses = () => {
+    const { currency, totalVotePrice } = this.state;
+
+    const info = getVotingPaymentInfo({ currency, amount: totalVotePrice });
+
+    return (
+      <>
+        <div className="paymentMethod">
+          <div className="title">Payment Method</div>
+          <div className="row"></div>
+        </div>
+        <PaymentProcessor
+          {...info}
+          onSuccess={() => console.log("onSuccess")}
+          onFailure={() => console.log("onFailure")}
+        />
+      </>
+    );
   };
 
-  showSelectedPaymentScreen = () => {
-    const { paymentMethod } = this.state;
-
-    if (paymentMethod.cardTitle === "Mobile Money") {
-      return this.mobileMoneyPaymentMethod();
-    }
-
-    if (paymentMethod.cardTitle === "Bank Card") {
-      return this.bankCardPaymentMethod();
-    }
-
-    if (paymentMethod.cardTitle === "Wallet") {
-      return this.walletPaymentMethod();
-    }
-  };
-
-  mobileMoneyPaymentMethod = () => {
-    const { showMobilePaymentForm } = this.state;
-
-    const { nomineeDetail } = this.props;
-    const { voteCounter } = this.state;
-
-    const voteData = {
-      votingEventId: nomineeDetail.votingEventId,
-      votingCategoryId: nomineeDetail.votingCategoryId,
-      votingNomineeId: nomineeDetail.id,
-      numberOfVotes: voteCounter,
-      paymentMethod: "mobileMoney",
-      msisdn: "",
-      channel: "",
-    };
-
-    return showMobilePaymentForm ? (
-      <MobilePaymentMethod
-        title="Mobile Payment"
-        show={showMobilePaymentForm}
-        voteData={voteData}
-      />
-    ) : null;
-  };
-
-  bankCardPaymentMethod = () => {
-    const { nomineeDetail } = this.props;
-    const { voteCounter, paidVoteCastSuccess } = this.state;
-
-    const voteData = {
-      votingEventId: nomineeDetail.votingEventId,
-      votingCategoryId: nomineeDetail.votingCategoryId,
-      votingNomineeId: nomineeDetail.id,
-      numberOfVotes: voteCounter,
-      paymentMethod: "card",
-    };
-
-    if (paidVoteCastSuccess) {
-      this.setState(
-        { paidVoteCastSuccess: false },
-        this.props.savePaidVoteCast(voteData, (error, data) => {
-          if (!error) {
-            this.setState(
-              {
-                ravePayPageRedirection: this.props.voteCastResponse,
-              },
-              () => {
-                window.open(this.state.ravePayPageRedirection.data, "_blank");
-              }
-            );
-          } else {
-            this.setState({
-              error: this.props.error.error,
-            });
-          }
-        })
-      );
-    }
-  };
-
-  walletPaymentMethod = () => {
-    const { nomineeDetail } = this.props;
-    const { voteCounter, paidVoteCastSuccess } = this.state;
-
-    const voteData = {
-      votingEventId: nomineeDetail.votingEventId,
-      votingCategoryId: nomineeDetail.votingCategoryId,
-      votingNomineeId: nomineeDetail.id,
-      numberOfVotes: voteCounter,
-      paymentMethod: "wallet",
-    };
-
-    if (paidVoteCastSuccess) {
-      this.setState(
-        { paidVoteCastSuccess: false },
-        this.props.savePaidVoteCast(voteData, (error, data) => {
-          if (!error) {
-            this.setState(
-              {
-                successResponse: this.props.voteCastResponse,
-                thankyouScreen: true,
-              },
-              () => {
-                this.props.onChange(nomineeDetail.id);
-              }
-            );
-          } else {
-            this.setState({
-              error: this.props.error.error,
-            });
-          }
-        })
-      );
-    }
-  };
-
-  renderVoteCastScreen = () => {
+  inputVoteCountScreen = () => {
     const {
-      paymentMethod,
-      activeMethodId,
       voteCounter,
       error,
       votePrice,
       totalVotePrice,
-      wallet,
       errorMessage,
-      disabledButton,
     } = this.state;
-
-    // const info = getVotingPaymentInfo({ currency, amount: totalVotePrice });
 
     return (
       <>
-        <div className="title" style={{ marginBottom: "20px" }}>
-          Vote for {this.props.nomineeDetail.nomineeName}
-        </div>
         <div className="subTitle">
           <div className="text">GHS {votePrice} per vote</div>
           <div className="text">{error}</div>
@@ -239,68 +127,33 @@ class PaidModalContent extends Component {
             </div>
             <div className="errorMessage">{errorMessage}</div>
           </div>
-
-          <div className="paymentMethod">
-            <div className="title">Payment Method</div>
-            <div className="row">
-              {/* <PaymentProcessor
-                {...info}
-                onSuccess={() => console.log("onSuccess")}
-                onFailure={() => console.log("onFailure")}
-              /> */}
-              {paymentMethods.paymentMethodsList.map((method) => {
-                const isActive =
-                  paymentMethod && paymentMethod.id === method.id;
-
-                let curreny =
-                  method.cardTitle === "Wallet"
-                    ? `${wallet.currency || ""} ${
-                        wallet.availableBalance
-                      } available`
-                    : method.currency;
-
-                return (
-                  <div
-                    className="col4"
-                    key={method.id}
-                    onClick={() => this.selectPaymentHandler(method)}
-                  >
-                    <div className="paymentContent">
-                      <div
-                        className={`${"tickMark"} ${
-                          isActive ? "active_method" : ""
-                        }`}
-                      >
-                        <img
-                          src={"/images/votingimages/tickmark.svg"}
-                          alt="img"
-                        />
-                      </div>
-                      <div className="paymentCard">
-                        <img src={method.imgSrc} alt={"img"} />
-                      </div>
-                      <div className="paymentTitle">{method.cardTitle}</div>
-                      <div className="paymentCurrencey">{curreny}</div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
         </div>
         <div className="castVote">
           <Button
-            className={`${
-              activeMethodId && disabledButton
-                ? "active_method enabled"
-                : "disabled"
-            }`}
-            onClick={this.voteCastSuccessHandler}
+            className={`active_method enabled`}
+            onClick={this.confirmPriceButtonHandler}
           >
             Pay GHS
             {totalVotePrice ? totalVotePrice.toFixed(2) : votePrice.toFixed(2)}
           </Button>
         </div>
+      </>
+    );
+  };
+
+  renderVoteCastScreen = () => {
+    const { showPaymentProcess } = this.state;
+
+    const showScreen = !showPaymentProcess
+      ? this.inputVoteCountScreen()
+      : this.renderPaymentProcesses();
+
+    return (
+      <>
+        <div className="title" style={{ marginBottom: "20px" }}>
+          Vote for {this.props.nomineeDetail.nomineeName}
+        </div>
+        {showScreen}
       </>
     );
   };

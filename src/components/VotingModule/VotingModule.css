@@ -22,6 +22,9 @@ button {
   stroke: #d2d7e6;
   stroke-width: 10%;
 }
+.NomineeModal .DetailBox div {
+  float: unset;
+}
 
 /*
 *   Header

@@ -145,7 +145,7 @@ class EventNominees extends Component {
         visible={this.state.visible}
         onOk={this.toggleModal}
         onCancel={this.toggleModal}
-        width={800}
+        width={650}
         wrapClassName="NomineeModal"
         footer={null}
       >
@@ -178,7 +178,7 @@ class EventNominees extends Component {
             <div className="Header">
               <div className="nomineeHeaderCol">
                 <div className="heading">
-                  Nominees <span>for</span>{" "}
+                  Nominees <span>for</span>
                   <div>"{this.state.categoryName}"</div>
                 </div>
                 <div className="subHeading">
