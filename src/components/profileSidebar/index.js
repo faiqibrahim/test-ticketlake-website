@@ -57,7 +57,12 @@ class ProfileSidebar extends Component {
   };
 
   getForm = () => {
-    let { ticketPagination, wallet, profileImage } = this.props;
+    let {
+      ticketPagination,
+      wallet,
+      profileImage,
+      showUploadButton,
+    } = this.props;
     const { currency, availableBalance } = wallet;
     let totalDocs;
     let walletBalance = availableBalance
@@ -88,26 +93,30 @@ class ProfileSidebar extends Component {
                   />
                 )}
               </div>
-              <div className={"img-btn-wrp"}>
-                <input
-                  type={"file"}
-                  ref={(uploadElement) => (this.uploadElement = uploadElement)}
-                  accept={".jpg,.jpeg,.png"}
-                  hidden
-                  onChange={this.onDrop}
-                  className={"upload-img"}
-                />
-                <a
-                  href="dashboard-add-listing.html"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    this.uploadElement.click();
-                  }}
-                  className="ed-btn change-img-btn"
-                >
-                  Change image
-                </a>
-              </div>
+              {showUploadButton && (
+                <div className={"img-btn-wrp"}>
+                  <input
+                    type={"file"}
+                    ref={(uploadElement) =>
+                      (this.uploadElement = uploadElement)
+                    }
+                    accept={".jpg,.jpeg,.png"}
+                    hidden
+                    onChange={this.onDrop}
+                    className={"upload-img"}
+                  />
+                  <a
+                    href="dashboard-add-listing.html"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      this.uploadElement.click();
+                    }}
+                    className="ed-btn change-img-btn"
+                  >
+                    Change image
+                  </a>
+                </div>
+              )}
             </div>
             <div className={"dashboard-info-wrp"}>
               <div className="dasboard-sidebar-item fl-wrap">
