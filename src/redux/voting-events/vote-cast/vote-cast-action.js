@@ -37,12 +37,13 @@ export const saveFreeVoteCast = (voteData, cb) => {
   };
 };
 
-export const savePaidVoteCast = (voteData, cb) => {
+export const savePaidVoteCast = (transactionIDs, cb) => {
   return (dispatch) => {
     axios
-      .post("/votes/cast-vote", voteData)
+      .post("/votes/cast-vote", transactionIDs)
       .then((response) => {
         const { data } = response;
+        console.log("data", data);
         dispatch(voteCastActions.castPaidVote(data));
         cb && cb(null, response);
       })

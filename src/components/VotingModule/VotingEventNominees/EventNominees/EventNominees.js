@@ -145,8 +145,7 @@ class EventNominees extends Component {
         visible={this.state.visible}
         onOk={this.toggleModal}
         onCancel={this.toggleModal}
-        width={650}
-        wrapClassName="NomineeModal"
+        wrapClassName="nomineeModal"
         footer={null}
       >
         <NomineeModalBody
