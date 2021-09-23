@@ -142,13 +142,50 @@ class eventListingFilters extends React.Component {
                   startDate,
                   endDate,
                   ranges: {
-                    Today: [moment().toDate(), moment().toDate()],
+                    Today: [
+                        moment().toDate(),
+                        moment().toDate()
+                    ],
+
+                    "Tomorrow": [
+                      moment()
+                          .add(1, "days")
+                          .toDate(),
+                      moment().add(1, "days").toDate()
+                    ],
+
                     "This Week": [
                       moment()
-                        .subtract(6, "days")
+                        .startOf( "week")
                         .toDate(),
-                      moment().toDate(),
+                      moment().endOf("week").toDate(),
                     ],
+
+                    "This Weekend": [
+                      moment()
+                          .endOf( "week")
+                          .toDate(),
+                      moment().endOf( "week").toDate(),
+                    ],
+
+                    "Next Week": [
+                      moment()
+                          .endOf( "week").add(1,"days")
+                          .toDate(),
+                      moment().endOf( "week").add(7,"days").toDate(),
+                    ],
+
+                    "Next Weekend": [
+                      moment()
+                          .endOf("week")
+                          .add(7, "days")
+                          .toDate(),
+                      moment()
+                          .endOf("week")
+                          .add(7, "days")
+                          .toDate(),
+                    ],
+
                     "This Month": [
                       moment()
                         .startOf("month")

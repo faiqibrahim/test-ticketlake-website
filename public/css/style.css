@@ -13057,3 +13057,9 @@ span.Error-heading.display-block {
 {
   padding: 0;
 }
+.daterangepicker .drp-selected
+{
+  font-weight: 700;
+  font-style: normal;
+  font-size: 13px;
+}
