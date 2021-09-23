@@ -12275,12 +12275,20 @@ source {
   background-color: #ddd;
 }
 .become-an-organiser {
-  color: #000000;
-  /*padding-right: 20px;*/
+  background: #EC1C24;
+  color: #fff;
+  padding: 4px 15px;
+  border-radius: 4px;
+  font-size: 12px;
+  display: inline-block;
+  border:1px solid transparent;
 }
 .become-an-organiser:hover {
   cursor: pointer;
   color: #ec1c24;
+  background: #fff;
+  transition: 0.5s;
+  border-color: #ec1c24 ;
 }
 .selected--flag--option .country-flag .country-label {
   display: none;
@@ -12300,14 +12308,6 @@ source {
 }
 .react-autosuggest__suggestion--highlighted {
   background-color: #ddd;
-}
-.become-an-organiser {
-  color: #000000;
-  /*padding-right: 20px;*/
-}
-.become-an-organiser:hover {
-  cursor: pointer;
-  color: #ec1c24;
 }
 .selected--flag--option .country-flag .country-label {
   display: none;
