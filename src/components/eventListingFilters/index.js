@@ -1,7 +1,8 @@
 // library
 import React from "react";
-import DateRangePicker from "react-bootstrap-daterangepicker";
 import moment from "moment";
+import { dateRanges } from "../../utils/common-utils";
+import ReactDateRangePicker from "../../commonComponents/reactDateRangePicker";
 
 class eventListingFilters extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class eventListingFilters extends React.Component {
   };
 
   render() {
-    const { categories, city } = this.props;
+    const { categories, city, changeDate } = this.props;
     const { startDate, endDate } = this.state;
     const defaultCity = city.length && city[0].label;
     return (
@@ -135,70 +136,13 @@ class eventListingFilters extends React.Component {
                   alt={"clock"}
                 />
               </span>
-              <DateRangePicker
-                className={"filterDateRange"}
-                onCallback={this.props.changeDate}
-                initialSettings={{
-                  startDate,
-                  endDate,
-                  ranges: {
-                    Today: [
-                        moment().toDate(),
-                        moment().toDate()
-                    ],
 
-                    "Tomorrow": [
-                      moment()
-                          .add(1, "days")
-                          .toDate(),
-                      moment().add(1, "days").toDate()
-                    ],
-
-                    "This Week": [
-                      moment()
-                        .startOf( "week")
-                        .toDate(),
-                      moment().endOf("week").toDate(),
-                    ],
-
-                    "This Weekend": [
-                      moment()
-                          .endOf( "week")
-                          .toDate(),
-                      moment().endOf( "week").toDate(),
-                    ],
-
-                    "Next Week": [
-                      moment()
-                          .endOf( "week").add(1,"days")
-                          .toDate(),
-                      moment().endOf( "week").add(7,"days").toDate(),
-                    ],
-
-                    "Next Weekend": [
-                      moment()
-                          .endOf("week")
-                          .add(7, "days")
-                          .toDate(),
-                      moment()
-                          .endOf("week")
-                          .add(7, "days")
-                          .toDate(),
-                    ],
-
-                    "This Month": [
-                      moment()
-                        .startOf("month")
-                        .toDate(),
-                      moment()
-                        .endOf("month")
-                        .toDate(),
-                    ],
-                  },
-                }}
-              >
-                <input type="text" className="form-control" readOnly />
-              </DateRangePicker>
+              <ReactDateRangePicker
+                startDate={startDate}
+                endDate={endDate}
+                onChange={changeDate}
+                dateRanges={dateRanges}
+              />
             </div>
           </div>
 

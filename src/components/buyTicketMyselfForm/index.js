@@ -38,6 +38,7 @@ class BuyTicketMyselfForm extends React.Component {
     const { changer } = this.props;
     if (checkAll) {
       const allTickets = this.getAllSelectedTickets();
+      
       if (this.is_Mounted) {
         this.setState(
           {

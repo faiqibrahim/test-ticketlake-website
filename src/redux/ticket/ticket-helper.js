@@ -91,11 +91,15 @@ export const seatsQtySearch = (billSummary, seats, isCustomEvent) => {
   const filteredSummary = billSummary.filter(
     ({ ticketClassQty }) => ticketClassQty > 0
   );
+
+
   filteredSummary.forEach((item) => {
     if (item.ticketClassType !== "PASS") {
       for (let i = 0; i < parseInt(item.ticketClassQty); i++) {
+        
         const seatObject = seats[item.ticketClassName][i];
 
+        
         const formattedSeats = formatAssignedSeatsObject({
           ...item,
           ...seatObject,

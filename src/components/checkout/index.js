@@ -51,7 +51,7 @@ class Checkout extends Component {
           setUserWallet(consumerWallet);
         }
 
-        this.setState({ orderSuccessful: true, orderDetails});
+        this.setState({ orderSuccessful: true, orderDetails });
       })
       .catch(this.onFailure);
   };
@@ -76,8 +76,10 @@ class Checkout extends Component {
       showInvoice,
     } = this.state;
 
+    const { customSeatingPlan } = this.props;
     if (loading) return <Loader />;
-    else if (!reservationId) return <div>Could not hold tickets</div>;
+    else if (!reservationId && !customSeatingPlan)
+      return <div>Could not hold tickets</div>;
     else if (showInvoice)
       return (
         <CheckoutReceipt
@@ -93,14 +95,16 @@ class Checkout extends Component {
 
     return (
       <>
-        <div className={"expiry-msg"}>
-          Your reservation will expire in
-          <Timer
-            style={{ fontWeight: "bold", color: "#EC1B23" }}
-            minutes={15}
-            onComplete={this.onFailure}
-          />
-        </div>
+        {reservationId && (
+          <div className={"expiry-msg"}>
+            Your reservation will expire in
+            <Timer
+              style={{ fontWeight: "bold", color: "#EC1B23" }}
+              minutes={15}
+              onComplete={this.onFailure}
+            />
+          </div>
+        )}
         <PaymentProcessor
           {...info}
           onSuccess={this.onSuccess}

@@ -298,7 +298,6 @@ export const convertAmount = async (from, to, amount) => {
   return Math.floor(convertedAmount * 100) / 100;
 };
 
-
 export const getCountryLabel = (countryCode) => {
   const countryLabels = require("./flag-countries");
   return countryLabels[countryCode];
@@ -380,4 +379,22 @@ export const prepareTransactionStructure = (transactionDetails) => {
   transactionStructure.columns = Object.keys(transactionStructure.data[0]);
 
   return transactionStructure;
+};
+
+export const dateRanges = {
+  Today: moment().toDate(),
+  Tomorrow: moment().add(1, "days").toDate(),
+  
+  "Week Start": moment().startOf("week").toDate(),
+  "Week End": moment().endOf("week").toDate(),
+
+  
+  "Next Week Start": moment().endOf("week").add(1, "days").toDate(),
+  "Next Week End": moment().endOf("week").add(7, "days").toDate(),
+
+  "This Weekend": moment().endOf("week").toDate(),
+  "Next Weekend": moment().endOf("week").add(7, "days").toDate(),
+
+  "Month Start":moment().startOf("month").toDate(),
+  "Month End":moment().endOf("month").toDate()
 };
