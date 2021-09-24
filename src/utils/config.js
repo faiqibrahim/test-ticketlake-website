@@ -1,7 +1,6 @@
 import { API_SERVER_URL } from "../server";
 import { getCities } from "./common-utils";
 import store from "../redux/store";
-
 //QA Server
 
 const BASE_SERVER_URL = API_SERVER_URL;

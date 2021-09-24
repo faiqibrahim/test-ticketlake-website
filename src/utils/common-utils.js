@@ -4,6 +4,7 @@ import _ from "lodash";
 import store from "../redux/store";
 import { seatSessionKey } from "./constant";
 import axios from "./axios";
+import { Country } from "country-state-city";
 const clm = require("country-locale-map");
 
 export const NOTIFICATION_TIME = 3000;
@@ -299,8 +300,7 @@ export const convertAmount = async (from, to, amount) => {
 };
 
 export const getCountryLabel = (countryCode) => {
-  const countryLabels = require("./flag-countries");
-  return countryLabels[countryCode];
+  return Country.getCountryByCode(countryCode).name;
 };
 
 export const prepareTicketStructure = (ticketDetails) => {
@@ -383,18 +383,38 @@ export const prepareTransactionStructure = (transactionDetails) => {
 
 export const dateRanges = {
   Today: moment().toDate(),
-  Tomorrow: moment().add(1, "days").toDate(),
-  
-  "Week Start": moment().startOf("week").toDate(),
-  "Week End": moment().endOf("week").toDate(),
+  Tomorrow: moment()
+    .add(1, "days")
+    .toDate(),
 
-  
-  "Next Week Start": moment().endOf("week").add(1, "days").toDate(),
-  "Next Week End": moment().endOf("week").add(7, "days").toDate(),
+  "Week Start": moment()
+    .startOf("week")
+    .toDate(),
+  "Week End": moment()
+    .endOf("week")
+    .toDate(),
 
-  "This Weekend": moment().endOf("week").toDate(),
-  "Next Weekend": moment().endOf("week").add(7, "days").toDate(),
+  "Next Week Start": moment()
+    .endOf("week")
+    .add(1, "days")
+    .toDate(),
+  "Next Week End": moment()
+    .endOf("week")
+    .add(7, "days")
+    .toDate(),
 
-  "Month Start":moment().startOf("month").toDate(),
-  "Month End":moment().endOf("month").toDate()
+  "This Weekend": moment()
+    .endOf("week")
+    .toDate(),
+  "Next Weekend": moment()
+    .endOf("week")
+    .add(7, "days")
+    .toDate(),
+
+  "Month Start": moment()
+    .startOf("month")
+    .toDate(),
+  "Month End": moment()
+    .endOf("month")
+    .toDate(),
 };
