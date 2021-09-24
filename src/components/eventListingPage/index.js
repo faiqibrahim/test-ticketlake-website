@@ -433,10 +433,11 @@ class EventListing extends Component {
     let storeCategories = query.id;
 
     let { categories } = this.props;
-    let { city, title } = this.state;
+    let { city, title} = this.state;
 
     if (title && title !== "") {
       categoryName = title;
+
     } else if (city !== "" || storeCategories) {
       if (storeCategories && categories.length) {
         let selectedCategory = categories.filter(

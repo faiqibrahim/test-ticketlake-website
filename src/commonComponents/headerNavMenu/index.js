@@ -596,17 +596,17 @@ class HeaderNavMenu extends Component {
 
                   <li key={menu.length + selectedCategories.length + 1}>
                     <a href={hrefLink}>
-                      NearBy
+                      Nearby
                       <span>
                         <i className="fas fa-caret-down" />
                       </span>
                     </a>
                     <ul className="sub-menu">
                       <NavLink to="/events/nearby-events">
-                        NearBy Events
+                        Nearby Events
                       </NavLink>
                       <NavLink to="/events/nearby-cinemas">
-                        NearBy Cinemas
+                        Nearby Cinemas
                       </NavLink>
                     </ul>
                   </li>
