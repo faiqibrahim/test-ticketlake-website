@@ -23,6 +23,7 @@ class ClassQuanityTable extends React.Component {
             textAlign: "left",
             fontSize: "20px",
             float: "left",
+            marginBottom:"1rem"
           }}
         >
           {`${heading} (${eventTime})`}

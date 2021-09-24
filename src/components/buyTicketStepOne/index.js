@@ -53,7 +53,7 @@ class BuyTicketStepOne extends React.Component {
   animatedStyle = (value) => {
     return {
       height: value ? "auto" : "0",
-      marginBottom: value ? "24px" : "0",
+      marginBottom: value ? "2.5rem" : "0",
       opacity: value ? "1" : "0",
       transition: "opacity 1s linear ",
     };
@@ -70,8 +70,8 @@ class BuyTicketStepOne extends React.Component {
 
     const typeOptions = [];
     ticketClasses.length > 0 &&
-      typeOptions.push({ value: "ticket", name: "Ticket" });
-    passClasses.length > 0 && typeOptions.push({ value: "pass", name: "Pass" });
+      typeOptions.push({ value: "ticket", name: "Tickets" });
+    passClasses.length > 0 && typeOptions.push({ value: "pass", name: "Packages" });
 
     return (
       <Form.Item label={"Select Purchase Type"}>
@@ -106,8 +106,8 @@ class BuyTicketStepOne extends React.Component {
           name={"seatSelection"}
           value={seatSelection}
           radioOptions={[
-            { value: "preferred", name: "Preferred" },
-            { value: "auto", name: "Auto" },
+            { value: "preferred", name: "Reserved Seating" },
+            { value: "auto", name: "Auto Select" },
           ]}
           onChange={({ target }) =>
             setSeatState(
@@ -127,8 +127,8 @@ class BuyTicketStepOne extends React.Component {
     if (purchaseType === "ticket" && seatSelection === "preferred") return null;
 
     const typeOptions = [];
-    hasSeat && typeOptions.push({ value: "seat", name: "Seat" });
-    hasTable && typeOptions.push({ value: "Table", name: "Table" });
+    hasSeat && typeOptions.push({ value: "seat", name: "Purchase Tickets" });
+    hasTable && typeOptions.push({ value: "Table", name: "Reserve Tables" });
 
     return (
       <Form.Item label="Seats Type" style={this.animatedStyle(seatSelection)}>
@@ -192,7 +192,7 @@ class BuyTicketStepOne extends React.Component {
 
   renderSeatsView = () => {
     return (
-      <div className="col-md-12 text-left mb-5 seatsView">
+      <div className="col-md-12 text-left seatsView">
         <React.Fragment>
           {/* {this.displayPurchaseType()} */}
           {this.displaySeatSelection()}

@@ -6558,7 +6558,7 @@ article.post-article .list-single-main-item {
 #progressbar li {
   list-style-type: none;
   color: #666;
-  font-size: 14px;
+  font-size: .9rem;
   width: 25%;
   float: left;
   text-align: left;

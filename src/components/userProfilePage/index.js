@@ -108,11 +108,18 @@ class UserProfile extends Component {
   onSaveChanges = (e) => {
     e.preventDefault();
     this.props.resetRedux();
+    const {
+      name,
+      email,
+      phoneNumber,
+      dateOfBirth,
+      profileImageKey,
+    } = this.state;
 
     const preparingFormData = {
-      name: this.state.name,
-      email: this.state.email,
-      phoneNumber: this.state.phoneNumber,
+      name,
+      email,
+      phoneNumber,
       country: this.state.country
         ? this.state.country.value
           ? this.state.country.value
@@ -123,8 +130,9 @@ class UserProfile extends Component {
           ? this.state.city.value
           : this.state.city
         : this.state.city,
-      dateOfBirth: this.state.dateOfBirth,
-      profileImageKey: this.state.profileImageKey,
+      dateOfBirth: dateOfBirth,
+      profileImageKey:
+        typeof(profileImageKey) === "string" ? {} : profileImageKey,
     };
 
     this.props.saveFormData(preparingFormData);
