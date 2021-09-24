@@ -76,9 +76,8 @@ class Checkout extends Component {
       showInvoice,
     } = this.state;
 
-    const { customSeatingPlan } = this.props;
     if (loading) return <Loader />;
-    else if (!reservationId && !customSeatingPlan)
+    else if (!reservationId)
       return <div>Could not hold tickets</div>;
     else if (showInvoice)
       return (
@@ -95,16 +94,15 @@ class Checkout extends Component {
 
     return (
       <>
-        {reservationId && (
-          <div className={"expiry-msg"}>
-            Your reservation will expire in
-            <Timer
-              style={{ fontWeight: "bold", color: "#EC1B23" }}
-              minutes={15}
-              onComplete={this.onFailure}
-            />
-          </div>
-        )}
+        <div className={"expiry-msg"}>
+          Your reservation will expire in
+          <Timer
+            style={{ fontWeight: "bold", color: "#EC1B23" }}
+            minutes={15}
+            onComplete={this.onFailure}
+          />
+        </div>
+
         <PaymentProcessor
           {...info}
           onSuccess={this.onSuccess}
