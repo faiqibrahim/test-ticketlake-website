@@ -174,6 +174,7 @@ class BuyTicketPage extends Component {
   prepareVenueSeatsData = (seat, selected = true) => {
     const { venueSeats } = this.state;
     const { category, label } = seat;
+    
     const selectedSeatClass = category.label;
     let classSeats = venueSeats[selectedSeatClass] || [];
 
@@ -488,14 +489,13 @@ class BuyTicketPage extends Component {
 
           const reservationData = this.prepareReservationData();
           const seatsData = await fetchSeatsCapacity(reservationData);
-
           seatsData.forEach((seatItem) => {
             venueSeats = this.prepareVenueSeatsData(seatItem);
           });
         }
+        
         this.props.setAssignedSeats(
           this.props.billSummary,
-          this.props.seats,
           this.props.wallet,
           this.props.event,
           this.props.passData,

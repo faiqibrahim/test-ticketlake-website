@@ -5,11 +5,10 @@ import _ from "lodash";
 import {
   getTicketClassConfigData,
   formatObject,
-  
   seatsQtySearch,
   setCheckoutDataPaypal,
   checkTicketsForMySelf,
-    getPassesConfigData,
+  getPassesConfigData,
   formatObjectForPasses,
   arrangePassesSeatsWithEventSlots,
   arrangeAllPassesSeatsData,
@@ -231,7 +230,6 @@ export const setBillSummary = (arr, wallet = 0) => {
   };
 };
 
-
 const setPassesSeatsData = (
   billSummary,
   event,
@@ -304,7 +302,7 @@ const setPassesSeatsData = (
 
 export const setAssignedSeats = (
   billSummary,
-  seats,
+
   wallet = 0,
   event,
   passData,
@@ -318,8 +316,11 @@ export const setAssignedSeats = (
 
     dispatch(setBillSummary(billSummary, wallet));
 
-    seats = isCustomEvent ? seats : venueSeats;
-    const assignedSeats = seatsQtySearch(billSummary, seats, isCustomEvent);
+    const assignedSeats = seatsQtySearch(
+      billSummary,
+      venueSeats,
+      isCustomEvent
+    );
 
     dispatch({
       type: SET_ASSIGNED_SEATS,
@@ -474,7 +475,6 @@ export const removeAssignedSeatsFromDisplay = (
           passesAssignedSeatsForDisplay,
         } = getState().ticket;
         if (splittedString[0] === "PASS") {
-          //let counter = 0;
           const newArray =
             passesAssignedSeatsForDisplay &&
             passesAssignedSeatsForDisplay.filter(
@@ -490,16 +490,13 @@ export const removeAssignedSeatsFromDisplay = (
           const newArray = [];
           assignedSeatsForDisplay.forEach((item) => {
             const { rowNumber, seatNumber, ticket } = item;
+
             if (ticket.name === splittedString[1]) {
-              const parsedRow = isCustomSeats
-                ? parseInt(splittedString[2])
-                : splittedString[2];
+              const row = splittedString[2];
 
-              const parsedSeat = isCustomSeats
-                ? parseInt(splittedString[3])
-                : splittedString[3];
+              const seat = splittedString[3];
 
-              if (!(rowNumber === parsedRow && seatNumber === parsedSeat)) {
+              if (!(rowNumber === row && seatNumber === seat)) {
                 newArray.push(item);
               }
             } else {
@@ -551,14 +548,12 @@ export const setPaymentSuccess = (success) => {
   };
 };
 
-
 const setAssignedPassesFlag = (flag) => {
   return {
     type: SET_ASSIGNED_PASS,
     payload: flag,
   };
 };
-
 
 export const setAssignedSeatsForDisplay = (seats) => {
   return {
@@ -664,8 +659,6 @@ export const sendSmsOTP = (phoneNumber, network, cb) => {
       });
   };
 };
-
-
 
 const hubtelPaymentInitiated = (response, isSeatEvent = false) => {
   return (dispatch) => {

@@ -2306,6 +2306,7 @@ section.no-pading {
 
 .section-title {
   margin-bottom: 40px;
+  width: 100%;
 }
 
 .section-title h2 {

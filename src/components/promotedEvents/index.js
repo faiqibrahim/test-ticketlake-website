@@ -12,8 +12,8 @@ import { setPromotedEventsForHome } from "../../redux/event/event-actions";
 import { isNullOrEmpty, getMaxAndMinPrice } from "../../utils/common-utils";
 
 const pageHeading = "Top Events";
-// const pageDescription =
-//   "Navigate through number of outrageous events happening around";
+const pageDescription =
+  "Navigate through number of outrageous events happening around";
 
 class PromotedEvents extends Component {
   componentWillMount() {
@@ -37,7 +37,7 @@ class PromotedEvents extends Component {
           className={"mt-5 promoted-event-wrp"}
           style={{ padding: "0px" }}
         >
-          <SectionHeading heading={pageHeading}/>
+          <SectionHeading heading={pageHeading} text={pageDescription} />
           <div className="gallery-items fl-wrap mr-bot spad home-grid">
             <Loader />
           </div>
@@ -47,7 +47,7 @@ class PromotedEvents extends Component {
       if (isNullOrEmpty(events)) {
         return (
           <section id="sec2" className={"mt-5 promoted-event-wrp"}>
-            <SectionHeading heading={pageHeading}/>
+            <SectionHeading heading={pageHeading} text={pageDescription} />
             <div className={"Error-msg-wrp"}>
               <div className={"Error-heading"}>Sorry, No Event Found.</div>
               <span className={"Error-sub-heading"}>
@@ -60,7 +60,7 @@ class PromotedEvents extends Component {
         return (
           <section id="sec2" className={"mt-5 promoted-event-wrp"}>
             <div className="">
-              <SectionHeading heading={pageHeading} />
+              <SectionHeading heading={pageHeading} text={pageDescription} />
               <div className="gallery-items fl-wrap mr-bot spad home-grid ri">
                 {events.map((newEventList, i) => {
                   if (counter === 2) {

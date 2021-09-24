@@ -51,7 +51,7 @@ class Checkout extends Component {
           setUserWallet(consumerWallet);
         }
 
-        this.setState({ orderSuccessful: true, orderDetails});
+        this.setState({ orderSuccessful: true, orderDetails });
       })
       .catch(this.onFailure);
   };
@@ -77,7 +77,8 @@ class Checkout extends Component {
     } = this.state;
 
     if (loading) return <Loader />;
-    else if (!reservationId) return <div>Could not hold tickets</div>;
+    else if (!reservationId)
+      return <div>Could not hold tickets</div>;
     else if (showInvoice)
       return (
         <CheckoutReceipt
@@ -101,6 +102,7 @@ class Checkout extends Component {
             onComplete={this.onFailure}
           />
         </div>
+
         <PaymentProcessor
           {...info}
           onSuccess={this.onSuccess}

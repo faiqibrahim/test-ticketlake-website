@@ -421,7 +421,6 @@ class EventListing extends Component {
     );
   };
 
-  // Getting search title => Results for (Title);
   getSearchTitle = () => {
     let categoryName = "All";
     let { location } = this.props;
@@ -433,11 +432,10 @@ class EventListing extends Component {
     let storeCategories = query.id;
 
     let { categories } = this.props;
-    let { city, title} = this.state;
+    let { city, title } = this.state;
 
     if (title && title !== "") {
       categoryName = title;
-
     } else if (city !== "" || storeCategories) {
       if (storeCategories && categories.length) {
         let selectedCategory = categories.filter(
@@ -466,6 +464,7 @@ class EventListing extends Component {
   // Rendering Method
   render() {
     let cities = filteredCities();
+    const searchTitle = this.getSearchTitle();
     const { isPromoted } = this.state;
     let dataIs =
       this.props.allEvents &&
@@ -503,14 +502,14 @@ class EventListing extends Component {
         }
 
         let link = `/event/detail/${data.eventSlotId}`;
-      
+
         if (isPromoted) {
           link = {
-            state: {isPromoted},
+            state: { isPromoted },
             pathname: link,
           };
         }
-      
+
         return (
           <Fragment key={i}>
             <DefaultCard
@@ -527,7 +526,7 @@ class EventListing extends Component {
               cardAddress={data.venue ? data.venue.address : ""}
               country={data.venue ? data.venue.country : []}
               city={data.venue ? data.venue.city : []}
-              onClick={() =>this.props.history.push(link)}
+              onClick={() => this.props.history.push(link)}
               buttonText={getMaxAndMinPrice(data)}
               buttonLink={`/buy-ticket/${data.eventSlotId}`}
               sharing={this.sharingSocial}
@@ -556,11 +555,12 @@ class EventListing extends Component {
               <div className="container custom-container">
                 {isPromoted && (
                   <Heading
-                    style={{ marginBottom: "0px", textAlign: "left" }}
+                    style={{
+                      marginBottom: "0px",
+                      textAlign: "left",
+                      display: "inline-block",
+                    }}
                     heading={"Top Events"}
-                    text={
-                      "Navigate through number of outrageous events happening around"
-                    }
                   />
                 )}
                 <div className="row">
@@ -584,13 +584,15 @@ class EventListing extends Component {
                     ) : (
                       <div className="col-list-wrap fw-col-list-wrap">
                         <div className="list-main-wrap fl-wrap card-listing">
-                          <ResultForHeading
-                            firstText={"Result for : "}
-                            secondText={this.getSearchTitle()}
-                            thirdText={`(${this.props.allEvents &&
-                              this.props.allEvents.data &&
-                              this.props.allEvents.data.totalDocs} Results)`}
-                          />
+                          {searchTitle.toLowerCase() !== "all" && (
+                            <ResultForHeading
+                              firstText={"Result for : "}
+                              secondText={this.getSearchTitle()}
+                              thirdText={`(${this.props.allEvents &&
+                                this.props.allEvents.data &&
+                                this.props.allEvents.data.totalDocs} Results)`}
+                            />
+                          )}
 
                           {!allEvents.length ? (
                             <div className={"Error-msg-wrp w100"}>

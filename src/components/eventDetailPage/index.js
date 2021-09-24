@@ -668,7 +668,7 @@ class EventDetail extends Component {
                     </BreadcrumbsItem>
                     <BreadcrumbsItem to={eventNavProps}>
                       {listingState && listingState.isPromoted
-                        ? "Promoted "
+                        ? "Top "
                         : "All "}
                       Events
                     </BreadcrumbsItem>
