@@ -14,6 +14,7 @@ import ToolTips from "../../ToolTips/ToolTips";
 import { duration } from "../../../../commonComponents//Duration/duration";
 import "./EventNominees.css";
 import "../../VotingModule.css";
+import { Helmet } from "react-helmet";
 
 class EventNominees extends Component {
   is_Mounted = false;
@@ -97,6 +98,15 @@ class EventNominees extends Component {
     });
   };
 
+  pageTitle = () => {
+    const pageTitle = sessionStorage.getItem("pageTitle");
+    return (
+      <Helmet>
+        <title>{pageTitle}</title>
+      </Helmet>
+    );
+  };
+
   toggleModal = (nominee) => {
     const { authentication } = this.state;
 
@@ -110,6 +120,8 @@ class EventNominees extends Component {
         "redirectTo",
         this.props.history.location.pathname
       );
+
+      sessionStorage.setItem("pageTitle", "Voting");
       this.props.setRedirectTo(this.props.history.location.pathname);
       this.props.history.push("/authentication");
     }
@@ -171,6 +183,7 @@ class EventNominees extends Component {
 
     return (
       <Fragment>
+        {this.pageTitle()}
         {this.renderNomineesModal()}
         <div className="container eventNomineesContainer">
           <div className="contentBox">
@@ -226,7 +239,6 @@ class EventNominees extends Component {
   }
 }
 
-// export default Authentication;
 const mapStateToProps = (state) => {
   return {
     auth: state.user.authenticated,
