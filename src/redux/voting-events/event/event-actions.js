@@ -102,17 +102,19 @@ const convertEventApiStructureToEventData = (data) => {
     ? `Organized by <a href=/organisers/details/${data.organization._id}>${data.organization.name}</a>`
     : null;
 
+  const votePriceButton = remainingTime.eventEnd
+    ? "View Results"
+    : data.votePrice
+    ? `Vote Now (${data.currency ? data.currency : "GHS"}${data.votePrice} )`
+    : "Vote Now (Freeee)";
+
   const eventData = [
     {
       id: data._id,
       votingImage: data.images[0],
       description: data.description,
       startTime: data.startTime,
-      votePrice: data.votePrice
-        ? `Vote Now (${data.votePrice} ${
-            data.currency ? data.currency : "GHS"
-          })`
-        : "Vote Now (Free)",
+      votePrice: votePriceButton,
     },
     {
       startAndEndMonth: `${startMonth} - ${endMonth}`,

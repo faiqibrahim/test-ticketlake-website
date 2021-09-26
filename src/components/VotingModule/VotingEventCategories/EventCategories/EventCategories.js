@@ -8,6 +8,8 @@ import CategoryBox from "../CategoryBox/CatergoryBox";
 import "./EventCategories.css";
 
 class VotingCategories extends Component {
+  is_Mounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -19,6 +21,14 @@ class VotingCategories extends Component {
   }
 
   componentDidMount() {
+    this.is_Mounted = true;
+
+    if (this.is_Mounted) {
+      this.fetchAllVotingCategoires();
+    }
+  }
+
+  fetchAllVotingCategoires = () => {
     const { eventID } = this.state;
 
     this.props.getAllVotingCategories(eventID, (error, data) => {
@@ -33,6 +43,10 @@ class VotingCategories extends Component {
         this.props.history.push("/voting");
       }
     });
+  };
+
+  componentWillUnmount() {
+    this.is_Mounted = false;
   }
 
   categorySelectedHandler = (categoryId, name, eventClosed) => {
