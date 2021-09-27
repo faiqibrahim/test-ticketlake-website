@@ -47,27 +47,31 @@ class EventNominees extends Component {
 
   fetchAllNominees = () => {
     const { eventID, categoryID } = this.state;
+    const { getAllVotingNominees } = this.props;
 
-    this.props.getAllVotingNominees(categoryID, (error, data) => {
-      if (!error && data.length > 0) {
-        let durationCheck = duration(this.props.nomineeListing[0]);
+    this.setState(
+      { loading: true },
+      getAllVotingNominees(categoryID, (error, data) => {
+        if (!error && data.length > 0) {
+          let durationCheck = duration(this.props.nomineeListing[0]);
 
-        if (durationCheck.eventEnd) {
-          this.props.history.push(
-            `/voting/${eventID}/event-results/${categoryID}`
-          );
+          if (durationCheck.eventEnd) {
+            this.props.history.push(
+              `/voting/${eventID}/event-results/${categoryID}`
+            );
+          } else {
+            this.getBreadCrumbs(eventID, categoryID);
+            this.setState({
+              loading: false,
+              nominees: this.props.nomineeListing,
+              remainingTime: durationCheck,
+            });
+          }
         } else {
-          this.getBreadCrumbs(eventID, categoryID);
-          this.setState({
-            loading: false,
-            nominees: this.props.nomineeListing,
-            remainingTime: durationCheck,
-          });
+          this.props.history.push("/voting");
         }
-      } else {
-        this.props.history.push("/voting");
-      }
-    });
+      })
+    );
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -88,14 +92,20 @@ class EventNominees extends Component {
   }
 
   getBreadCrumbs = (eventID, categoryID) => {
-    this.props.getEventBreadCrumbs(eventID, categoryID, (error, data) => {
-      if (!error) {
-        this.setState({
-          eventName: this.props.breadCrumbs[0].eventName + " - Nominees",
-          categoryName: this.props.breadCrumbs[1].categoryName,
-        });
-      }
-    });
+    const { getEventBreadCrumbs } = this.props;
+
+    this.setState(
+      { loading: true },
+      getEventBreadCrumbs(eventID, categoryID, (error, data) => {
+        if (!error) {
+          this.setState({
+            loading: false,
+            eventName: this.props.breadCrumbs[0].eventName + " - Nominees",
+            categoryName: this.props.breadCrumbs[1].categoryName,
+          });
+        }
+      })
+    );
   };
 
   pageTitle = () => {

@@ -103,10 +103,6 @@ class PaidModalContent extends Component {
           </div>
         </div>
 
-        <div className="paymentMethod">
-          <div className="title">Voting Payments</div>
-        </div>
-
         <PaymentProcessor
           {...info}
           onSuccess={(response) => this.voteCastOnSuccessHandler(response)}

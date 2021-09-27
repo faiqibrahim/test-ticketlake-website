@@ -105,8 +105,8 @@ button {
 }
 .nomineeModal .payment-gateway-box {
   margin-right: 0.81vw;
-  height: 21.07vh;
-  width: 10.82vw;
+  width: 100%;
+  max-width: 33%;
   border-radius: 0.86vw;
 }
 .nomineeModal .payment-gateway-box img {
@@ -120,13 +120,7 @@ button {
 .nomineeModal [class*="wallet-prompt_splitContainer"] ~ .paymentMethod {
   display: none;
 }
-.nomineeModal
-  [class*="wallet-prompt_splitContainer"]
-  [class*="wallet-prompt_header"] {
-  padding-left: 0;
-  padding-right: 0;
-  text-align: left;
-}
+
 .DetailBox {
   padding: 6.32vh 1.7vw 6.32vh;
 }
@@ -352,13 +346,66 @@ form[name="userMobileInfoForm"] button.mobile_payment span {
   .subHeading {
     font-size: 1.375rem;
   }
+  .DetailBox .title {
+    font-size: 2.5rem;
+  }
+  .subTitle .text,
+  .paymentDetail .title {
+    font-size: 1.25rem;
+  }
+  .paymentDetail .ant-input-number {
+    height: 2.5rem;
+  }
+  .nomineeModal input {
+    height: 2.5rem;
+    font-size: 1.25rem;
+    padding-left: 0.75rem;
+  }
+  .castVote button {
+    height: 3.75rem;
+    font-size: 1.25rem;
+    border-radius: 0.625rem;
+  }
+  .nomineeModal .payment-box > span:first-child,
+  .nomineeModal .payment-gateway-box .row span:first-child {
+    font-size: 1.25rem !important;
+  }
+  .nomineeModal .payment-gateway-box img {
+    width: 4.375rem !important;
+  }
+  .nomineeModal .payment-box span,
+  .nomineeModal .payment-gateway-box .row span {
+    font-size: 0.875rem !important;
+  }
+  .ant-modal-root .nomineeModal > div {
+    width: 50vw !important;
+  }
+  .nomineeModal .ant-input-number-handler-wrap {
+    width: 1.25rem;
+  }
+  .nomineeModal .ant-input-number-handler-wrap i {
+    font-size: 0.75rem !important;
+    right: 0.25rem !important;
+  }
+  .nomineeModal .ant-modal-content {
+    border-radius: 16rem;
+  }
 }
 
 @media screen and (max-width: 1400px) {
-  /* .Header {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  } */
+  .ant-modal-root .nomineeModal > div {
+    width: 60vw !important;
+  }
+}
+@media screen and (max-width: 1100px) {
+  .ant-modal-root .nomineeModal > div {
+    width: 70vw !important;
+  }
+}
+@media screen and (max-width: 900px) {
+  .ant-modal-root .nomineeModal > div {
+    width: 90vw !important;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -417,6 +464,9 @@ form[name="userMobileInfoForm"] button.mobile_payment span {
   }
   .paymentMethod .title {
     margin-bottom: 30px;
+  }
+  .nomineeModal .payment-gateway-box {
+    max-width: 100%;
   }
 }
 @media screen and (max-width: 420px) {
