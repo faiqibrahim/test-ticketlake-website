@@ -31,7 +31,9 @@ class SearchFormEvents extends React.Component {
     const end = moment()
       .add(29, "days")
       .toDate();
-    let cities = filteredCities();
+      
+    const cities = filteredCities();
+    
     const defaultCity = cities.length && cities[0].label;
     this.state = {
       location: defaultCity,
