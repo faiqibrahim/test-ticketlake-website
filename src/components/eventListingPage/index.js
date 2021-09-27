@@ -599,10 +599,12 @@ class EventListing extends Component {
                               <div className={"Error-heading"}>
                                 Sorry, No Event Found.
                               </div>
-                              <span className={"Error-sub-heading"}>
-                                We found no matches for the{" "}
-                                {` "${this.getSearchTitle()}"`}
-                              </span>
+                              {searchTitle.toLowerCase() !== "all" && (
+                                <span className={"Error-sub-heading"}>
+                                  We found no matches for the{" "}
+                                  {` "${searchTitle}"`}
+                                </span>
+                              )}
                               <span className={"Error-heading display-block"}>
                                 Search Suggestions
                               </span>
