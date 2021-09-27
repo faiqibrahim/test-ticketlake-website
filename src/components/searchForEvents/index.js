@@ -13,7 +13,11 @@ import ReactDateRangePicker from "../../commonComponents/reactDateRangePicker";
 // Icons
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import SectionHeading from "../../commonComponents/sectionHeading";
-import { dateRanges, dateSplitter, NOTIFICATION_TIME } from "../../utils/common-utils";
+import {
+  dateRanges,
+  dateSplitter,
+  NOTIFICATION_TIME,
+} from "../../utils/common-utils";
 // Redux
 import { getAllCategories } from "../../redux/category/category-actions";
 
@@ -21,17 +25,27 @@ import Scrollchor from "react-scrollchor";
 import { NotificationManager } from "react-notifications";
 
 class SearchFormEvents extends React.Component {
-  state = {
-    location: null,
-    dates: null,
-    datesInput: null,
-    categories: null,
-    keyword: null,
-    start: moment().toDate(),
-    end: moment()
+  constructor(props) {
+    super(props);
+    const start = moment().toDate();
+    const end = moment()
       .add(29, "days")
-      .toDate(),
-  };
+      .toDate();
+      
+    const cities = filteredCities();
+    
+    const defaultCity = cities.length && cities[0].label;
+    this.state = {
+      location: defaultCity,
+      dates: encodeURI(dateSplitter(start) + " " + dateSplitter(end)),
+      datesInput: null,
+      categories: null,
+      keyword: null,
+      start,
+      end,
+      defaultCity
+    };
+  }
 
   componentDidMount() {
     this.props.getAllCategories();
@@ -101,8 +115,8 @@ class SearchFormEvents extends React.Component {
   render() {
     let cities = filteredCities();
     const { categories } = this.props;
-    const defaultCity = cities.length && cities[0].label;
-    const { start, end } = this.state;
+
+    const { start, end, defaultCity } = this.state;
     return (
       <HeroBanner
         backgroundImage={window.location.origin + "/images/banner_1.png"}
@@ -205,7 +219,6 @@ class SearchFormEvents extends React.Component {
                     dateRanges={dateRanges}
                     onChange={this.handleDateChange}
                   />
-                  
                 </div>
                 <button
                   className="main-search-button color2-bg"

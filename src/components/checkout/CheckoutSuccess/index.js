@@ -24,7 +24,7 @@ const CheckoutSuccess = (props) => {
                     ]}
                 />
                 <div className={`col-md-12 ${classes.containerDiv}`}>
-                    <h4 className="title">Oh Yaah, Let's get Going!</h4>
+                    <h4 className="title">Oh Yeah, Let's get Going!</h4>
                 </div>
 
                 <div className={"col-md-12"}>
