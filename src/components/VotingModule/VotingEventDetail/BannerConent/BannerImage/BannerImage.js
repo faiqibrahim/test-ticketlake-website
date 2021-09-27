@@ -12,11 +12,13 @@ const BannerContent = (props) => {
       style={{ backgroundImage: `url(${bannerImage})` }}
     >
       <div className={classes.bannerOverLay}></div>
-      <BannerCard
-        cardContent={bannerCardContent}
-        cardImage={bannerImage}
-        cardButtons={bannerButtons}
-      />
+      <div className={`container ${classes.unsetZIndex}`}>
+        <BannerCard
+          cardContent={bannerCardContent}
+          cardImage={bannerImage}
+          cardButtons={bannerButtons}
+        />
+      </div>
     </div>
   );
 };

@@ -110,9 +110,7 @@ class UnpaidModalContent extends Component {
 
     return (
       <>
-        <div className="title" style={{ marginBottom: "20px" }}>
-          {castingMessage}
-        </div>
+        <div className="title">{castingMessage}</div>
         <div className="subTitle">{voteInfo}</div>
         <div className="detailContent">
           <div className="detailImg">

@@ -2,3 +2,6 @@
   width: 100%;
   margin: 115px auto 0;
 }
+.unsetZIndex {
+  z-index: unset;
+}

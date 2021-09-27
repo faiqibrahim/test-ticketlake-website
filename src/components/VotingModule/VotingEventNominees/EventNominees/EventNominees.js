@@ -14,6 +14,7 @@ import ToolTips from "../../ToolTips/ToolTips";
 import { duration } from "../../../../commonComponents//Duration/duration";
 import "./EventNominees.css";
 import "../../VotingModule.css";
+import { Helmet } from "react-helmet";
 
 class EventNominees extends Component {
   is_Mounted = false;
@@ -46,27 +47,31 @@ class EventNominees extends Component {
 
   fetchAllNominees = () => {
     const { eventID, categoryID } = this.state;
+    const { getAllVotingNominees } = this.props;
 
-    this.props.getAllVotingNominees(categoryID, (error, data) => {
-      if (!error && data.length > 0) {
-        let durationCheck = duration(this.props.nomineeListing[0]);
+    this.setState(
+      { loading: true },
+      getAllVotingNominees(categoryID, (error, data) => {
+        if (!error && data.length > 0) {
+          let durationCheck = duration(this.props.nomineeListing[0]);
 
-        if (durationCheck.eventEnd) {
-          this.props.history.push(
-            `/voting/${eventID}/event-results/${categoryID}`
-          );
+          if (durationCheck.eventEnd) {
+            this.props.history.push(
+              `/voting/${eventID}/event-results/${categoryID}`
+            );
+          } else {
+            this.getBreadCrumbs(eventID, categoryID);
+            this.setState({
+              loading: false,
+              nominees: this.props.nomineeListing,
+              remainingTime: durationCheck,
+            });
+          }
         } else {
-          this.getBreadCrumbs(eventID, categoryID);
-          this.setState({
-            loading: false,
-            nominees: this.props.nomineeListing,
-            remainingTime: durationCheck,
-          });
+          this.props.history.push("/voting");
         }
-      } else {
-        this.props.history.push("/voting");
-      }
-    });
+      })
+    );
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -87,14 +92,29 @@ class EventNominees extends Component {
   }
 
   getBreadCrumbs = (eventID, categoryID) => {
-    this.props.getEventBreadCrumbs(eventID, categoryID, (error, data) => {
-      if (!error) {
-        this.setState({
-          eventName: this.props.breadCrumbs[0].eventName + " - Nominees",
-          categoryName: this.props.breadCrumbs[1].categoryName,
-        });
-      }
-    });
+    const { getEventBreadCrumbs } = this.props;
+
+    this.setState(
+      { loading: true },
+      getEventBreadCrumbs(eventID, categoryID, (error, data) => {
+        if (!error) {
+          this.setState({
+            loading: false,
+            eventName: this.props.breadCrumbs[0].eventName + " - Nominees",
+            categoryName: this.props.breadCrumbs[1].categoryName,
+          });
+        }
+      })
+    );
+  };
+
+  pageTitle = () => {
+    const pageTitle = sessionStorage.getItem("pageTitle");
+    return (
+      <Helmet>
+        <title>{pageTitle}</title>
+      </Helmet>
+    );
   };
 
   toggleModal = (nominee) => {
@@ -110,6 +130,8 @@ class EventNominees extends Component {
         "redirectTo",
         this.props.history.location.pathname
       );
+
+      sessionStorage.setItem("pageTitle", "Voting");
       this.props.setRedirectTo(this.props.history.location.pathname);
       this.props.history.push("/authentication");
     }
@@ -145,8 +167,7 @@ class EventNominees extends Component {
         visible={this.state.visible}
         onOk={this.toggleModal}
         onCancel={this.toggleModal}
-        width={800}
-        wrapClassName="NomineeModal"
+        wrapClassName="nomineeModal"
         footer={null}
       >
         <NomineeModalBody
@@ -172,13 +193,14 @@ class EventNominees extends Component {
 
     return (
       <Fragment>
+        {this.pageTitle()}
         {this.renderNomineesModal()}
         <div className="container eventNomineesContainer">
           <div className="contentBox">
             <div className="Header">
               <div className="nomineeHeaderCol">
                 <div className="heading">
-                  Nominees <span>for</span>{" "}
+                  Nominees <span>for</span>
                   <div>"{this.state.categoryName}"</div>
                 </div>
                 <div className="subHeading">
@@ -227,7 +249,6 @@ class EventNominees extends Component {
   }
 }
 
-// export default Authentication;
 const mapStateToProps = (state) => {
   return {
     auth: state.user.authenticated,

@@ -35,7 +35,6 @@ body {
   align-items: flex-start;
 }
 .cardContent > div {
-  align-self: flex-start;
   width: 100%;
 }
 .cardTitle {

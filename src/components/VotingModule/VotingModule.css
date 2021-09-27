@@ -4,24 +4,6 @@ div {
 button {
   font-family: "NeuePlak" !important;
 }
-.ant-modal-mask {
-  background-color: #000 !important;
-  opacity: 0.78;
-}
-.NomineeModal .ant-modal-content {
-  box-shadow: 0px 0px 7px #00000019;
-  border-radius: 16px;
-  height: 100%;
-}
-.NomineeModal .ant-modal-close-x {
-  font-size: 20px;
-  text-align: left;
-  line-height: 75px;
-}
-.NomineeModal .ant-modal-close-x path {
-  stroke: #d2d7e6;
-  stroke-width: 10%;
-}
 
 /*
 *   Header
@@ -67,15 +49,87 @@ button {
   padding: 0 15px;
   cursor: pointer;
 }
+.ant-modal-mask {
+  background-color: #000 !important;
+  opacity: 0.78;
+}
+.ant-modal-root .nomineeModal > div {
+  width: 40vw !important;
+  top: 10.53vh;
+}
+.nomineeModal .ant-modal-content {
+  box-shadow: 0px 0px 7px #00000019;
+  border-radius: 0.86vw;
+  height: 100%;
+}
+.nomineeModal .ant-modal-close-x {
+  font-size: 1.08vw;
+  text-align: left;
+  line-height: 7.9vh;
+  height: 5.9vh;
+  width: 3.03vw;
+}
+.nomineeModal .ant-modal-close-x path {
+  stroke: #d2d7e6;
+  stroke-width: 10%;
+}
+.nomineeModal .ant-input-number-handler-wrap {
+  width: 1.19vw;
+}
+.nomineeModal .ant-input-number-handler-wrap i {
+  font-size: 0.64vw !important;
+  right: 0.21vw !important;
+}
+.nomineeModal .payment-box {
+  margin-top: 0.54vh;
+}
+.nomineeModal .payment-box > span:first-child,
+.nomineeModal .payment-gateway-box .row span:first-child {
+  font-size: 1.08vw;
+}
+.nomineeModal .payment-box span,
+.nomineeModal .payment-gateway-box .row span {
+  font-size: 0.75vw;
+}
+.nomineeModal input {
+  font-size: 1.08vw;
+  height: 4.21vh;
+  padding-left: 0.81vw;
+}
+.nomineeModal .DetailBox .payment-wrp {
+  float: unset;
+}
+.nomineeModal .DetailBox .payment-gateway-wrp {
+  justify-content: start;
+  padding: 3.16vh 0;
+}
+.nomineeModal .payment-gateway-box {
+  margin-right: 0.81vw;
+  width: 100%;
+  max-width: 33%;
+  border-radius: 0.86vw;
+}
+.nomineeModal .payment-gateway-box img {
+  width: 3.84vw !important;
+  height: 100% !important;
+}
+.nomineeModal [class*="wallet-prompt_splitContainer"],
+.nomineeModal .mtn-payment-wrp {
+  float: unset;
+}
+.nomineeModal [class*="wallet-prompt_splitContainer"] ~ .paymentMethod {
+  display: none;
+}
+
+.DetailBox {
+  padding: 6.32vh 1.7vw 6.32vh;
+}
 .DetailBox .title {
   color: #2c2c2c;
-  font-size: 40px;
-  line-height: 49px;
+  font-size: 2.16vw;
+  line-height: 5.16vh;
   font-weight: bold;
-  margin-bottom: 50px;
-}
-.DetailBox {
-  padding: 60px 50px 60px;
+  margin-bottom: 2.52vh;
 }
 .paidPadding {
   padding-top: 80px;
@@ -113,21 +167,21 @@ button {
   text-transform: capitalize;
 }
 .errorMessage {
-  font-size: 14px;
+  font-size: 0.75vw;
   color: #ff0000;
   font-weight: bold;
 }
 .castVote {
-  padding-top: 50px;
+  padding-top: 5.26vh;
 }
 .castVote button {
   background-color: #d8dae3 !important;
-  border-radius: 10px;
+  border-radius: 0.52vw;
   width: 100%;
   max-width: 100%;
   color: #fff !important;
-  font-size: 20px;
-  height: 60px;
+  font-size: 1.08vw;
+  height: 6.32vh;
 }
 .castVote button:hover,
 .castVote button:active,
@@ -149,11 +203,11 @@ button {
   vertical-align: super;
 }
 .subTitle {
-  margin-bottom: 20px;
+  margin-bottom: 2.1vh;
 }
 .subTitle .text {
   color: #ec1b23;
-  font-size: 20px;
+  font-size: 1.08vw;
   font-weight: bold;
 }
 .subTitle .timeLeft {
@@ -172,34 +226,14 @@ button {
 }
 .voteCount {
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 1.58vh;
 }
 .paymentDetail .title {
-  font-size: 20px;
+  font-size: 1.08vw;
   color: #3d4956;
   font-weight: 550;
   margin: 0;
   font-family: "Helvetica Neue LT Std";
-}
-.paymentDetail select[name="number_of_votes"] {
-  background-image: url("/images/votingimages/redDropDown.svg");
-  background-repeat: no-repeat;
-  background-position-x: 100%;
-  background-position-y: 58%;
-  font-size: 20px;
-  color: #3d4956;
-  font-weight: normal;
-  border: 0;
-  background-color: transparent;
-  width: 100%;
-  padding-bottom: 10px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  cursor: pointer;
-  font-family: "NeuePlak" !important;
-}
-select::-ms-expand {
-  display: none !important;
 }
 .paymentContent {
   border: 1px solid #d8dae3;
@@ -222,8 +256,14 @@ select::-ms-expand {
   color: #747a95;
   font-size: 14px;
 }
+.paymentMethod {
+  text-align: left;
+}
 .paymentMethod .title {
   margin-bottom: 30px;
+  font-size: 1.08vw;
+  color: #3d4956;
+  margin: 0;
 }
 .tickMark {
   position: absolute;
@@ -268,7 +308,7 @@ form[name="userMobileInfoForm"] button.mobile_payment span {
 }
 .paymentDetail .ant-input-number {
   width: 100%;
-  height: 40px;
+  height: 4.21vh;
 }
 .loadMore {
   background: #ec1b23;
@@ -306,13 +346,66 @@ form[name="userMobileInfoForm"] button.mobile_payment span {
   .subHeading {
     font-size: 1.375rem;
   }
+  .DetailBox .title {
+    font-size: 2.5rem;
+  }
+  .subTitle .text,
+  .paymentDetail .title {
+    font-size: 1.25rem;
+  }
+  .paymentDetail .ant-input-number {
+    height: 2.5rem;
+  }
+  .nomineeModal input {
+    height: 2.5rem;
+    font-size: 1.25rem;
+    padding-left: 0.75rem;
+  }
+  .castVote button {
+    height: 3.75rem;
+    font-size: 1.25rem;
+    border-radius: 0.625rem;
+  }
+  .nomineeModal .payment-box > span:first-child,
+  .nomineeModal .payment-gateway-box .row span:first-child {
+    font-size: 1.25rem !important;
+  }
+  .nomineeModal .payment-gateway-box img {
+    width: 4.375rem !important;
+  }
+  .nomineeModal .payment-box span,
+  .nomineeModal .payment-gateway-box .row span {
+    font-size: 0.875rem !important;
+  }
+  .ant-modal-root .nomineeModal > div {
+    width: 50vw !important;
+  }
+  .nomineeModal .ant-input-number-handler-wrap {
+    width: 1.25rem;
+  }
+  .nomineeModal .ant-input-number-handler-wrap i {
+    font-size: 0.75rem !important;
+    right: 0.25rem !important;
+  }
+  .nomineeModal .ant-modal-content {
+    border-radius: 16rem;
+  }
 }
 
 @media screen and (max-width: 1400px) {
-  /* .Header {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  } */
+  .ant-modal-root .nomineeModal > div {
+    width: 60vw !important;
+  }
+}
+@media screen and (max-width: 1100px) {
+  .ant-modal-root .nomineeModal > div {
+    width: 70vw !important;
+  }
+}
+@media screen and (max-width: 900px) {
+  .ant-modal-root .nomineeModal > div {
+    width: 90vw !important;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -332,12 +425,12 @@ form[name="userMobileInfoForm"] button.mobile_payment span {
     padding-top: 0;
   }
   /*
-    *   Modal Css
-    */
-  .NomineeModal .ant-modal-content {
+  *   Modal Css
+  */
+  .nomineeModal .ant-modal-content {
     height: 100%;
   }
-  .NomineeModal .ant-modal-close-x {
+  .nomineeModal .ant-modal-close-x {
     text-align: center;
     line-height: 60px;
   }
@@ -371,6 +464,9 @@ form[name="userMobileInfoForm"] button.mobile_payment span {
   }
   .paymentMethod .title {
     margin-bottom: 30px;
+  }
+  .nomineeModal .payment-gateway-box {
+    max-width: 100%;
   }
 }
 @media screen and (max-width: 420px) {

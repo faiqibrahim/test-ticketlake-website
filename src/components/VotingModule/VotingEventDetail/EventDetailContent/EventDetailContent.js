@@ -95,9 +95,11 @@ class EventDetailContent extends Component {
               },
             }}
           />
-          <DetailDescription title="Description" description={description} />
-          <div ref={this.categoryRef} className="scrollToVoteCategory">
-            <VotingCategories />
+          <div className={`container ${classes.unsetZIndex}`}>
+            <DetailDescription title="Description" description={description} />
+            <div ref={this.categoryRef} className="scrollToVoteCategory">
+              <VotingCategories />
+            </div>
           </div>
         </div>
       </Fragment>
