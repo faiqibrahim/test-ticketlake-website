@@ -76,18 +76,14 @@
 .winnerItemContainer .cardContent > div {
   width: 100%;
 }
-
+.eventResultContainer .eventWinnerCol:nth-child(2n + 0) ~ div {
+  margin-top: 3.26vh;
+}
 @media screen and (max-width: 1600px) {
   .eventWinnerCol {
     flex: 0 0 50%;
     max-width: 50%;
     padding-right: 1.5625rem;
-  }
-  .eventResultContainer .eventWinnerCol:nth-child(2n + 0) ~ div {
-    margin-top: 0;
-  }
-  .eventResultContainer .eventWinnerCol:nth-child(3n + 0) ~ div {
-    margin-top: 3.26vh;
   }
   .winnerItemContainer,
   .nomineeImg img.winner {
