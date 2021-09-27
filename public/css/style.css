@@ -1456,8 +1456,9 @@ nav li ul a:after {
 
 .copyright {
   float: left;
-  color: #fff;
-  font-size: 15px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #acaeb2;
 }
 
 .subfooter-nav {
@@ -1471,9 +1472,9 @@ nav li ul a:after {
 }
 
 .subfooter-nav li a {
-  color:#fff;
+  color:rgba(255, 255, 255, 0.61);
   font-weight: 400;
-  font-size: 15px;
+  font-size: 12px;
 }
 
 .subfooter-lang {
@@ -1577,19 +1578,19 @@ nav li ul a:after {
 }
 
 .footer-widget h3 {
-  font-size: 22px;
+  font-size: 18px;
   float: left;
   text-align: left;
   width: 100%;
   color: #fff;
   font-weight: bold;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   margin-bottom: 0px;
 }
 
 .footer-text {
   text-align: left;
-  color: #fff;
+  color: rgb(172, 174, 178);
   font-size: 15px;
 }
 
@@ -1616,9 +1617,7 @@ nav li ul a:after {
   float: left;
   margin-top: 20px;
 }
-.footer-second-widget {
-  margin-top: 50px;
-}
+
 
 .footer-social span {
   float: left;
@@ -2028,22 +2027,22 @@ p.interact,
   float: left;
   width: 100%;
   text-align: left;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   padding-bottom: 8px;
-  color:#fff;
+  color:rgb(153, 153, 153);
 }
 .footer-contacts-custom li {
   float: left;
   width: 100%;
   text-align: left;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  padding-bottom: 15px;
+  padding-bottom: 10px;
 }
 .footer-contacts-custom li a {
   margin: 0px !important;
-  color: #fff;
+  color: rgb(172, 174, 178);
 }
 
 .footer-link-style {
@@ -2051,25 +2050,27 @@ p.interact,
   width: 100%;
   float: left;
   margin: 2px 0px;
-  fontWeight: 400;
+  font-weight: 400;
 }
 
 .footer-contacts-custom {
-  margin-top: 25px;
   float: left;
 }
 
 
 .footer-contacts li a,
 .footer-contacts li span {
-  color: #fff;
+  color: rgb(153, 153, 153);
 }
 
 .footer-contacts li a {
-  color: #fff;
+  color: rgb(153, 153, 153);
   font-weight: 300;
 }
 
+.footer-contacts li a:hover, .subfooter-nav li a:hover, .footer-link-style:hover {
+  color:#fff !important
+}
 .footer-contacts li i {
   padding-right: 4px;
 }
@@ -11306,11 +11307,8 @@ article.post-article .list-single-main-item {
   display: block;
   width: 100%;
   float: left;
-  margin-top: 25px;
 }
 
-.footer-social-btns ul {
-}
 
 .footer-social-btns ul li {
   background: #494949;
@@ -11342,6 +11340,7 @@ article.post-article .list-single-main-item {
   border: 0px;
   border-radius: 4px;
   font-size: 12px;
+  max-width: 200px;
 }
 
 .subscribe-btn {
@@ -11350,6 +11349,7 @@ article.post-article .list-single-main-item {
   padding: 0 20px;
   color: #fff;
   margin-left: -6px;
+  background-color: rgb(73, 73, 73) !important;
 }
 
 .footer-social-btns ul li a {

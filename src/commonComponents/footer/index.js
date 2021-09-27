@@ -179,7 +179,7 @@ class Footer extends React.Component {
                   <div className="pull-left color-white">
                     <ul className="footer-contacts-custom">
                       <li><a
-                          title="Footer Links"
+                          title="About Us"
                           href="/about-us"
                           className={"footer-link-style"}
                         >
@@ -188,7 +188,7 @@ class Footer extends React.Component {
                       </li>
                       <li>
                         <a
-                            title="Footer Links"
+                            title="Contact Us"
                             href="/contact-us"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -199,7 +199,7 @@ class Footer extends React.Component {
                       </li>
                       <li>
                         <a
-                          title="Footer Links"
+                          title="Event Organisers"
                           href="/organisers"
                           className={"footer-link-style"}
                         >
@@ -208,7 +208,7 @@ class Footer extends React.Component {
                       </li>
                       <li>
                         <a
-                          title="Footer Links"
+                          title="Publish an Event"
                           href="https://admin.qa.ticketlake.com/event-organiser"
                           target="_blank"
                           rel="noopener noreferrer"
@@ -222,7 +222,7 @@ class Footer extends React.Component {
                 </div>
               </div>
               <div
-                className="col-md-4 col-lg-4 col-xl-2 "
+                className="col-md-4 col-lg-4 col-xl-2 offset-xl-1"
                 span={5}
                 style={{ marginBottom: "17px" }}
               >
@@ -235,7 +235,7 @@ class Footer extends React.Component {
                   </ul>
                 </div>
               </div>
-              <div className="col-md-5 col-lg-5 col-xl-4" span={6}>
+              <div className="col-md-5 col-lg-5 col-xl-3" span={6}>
                 <div className="footer-widget fl-wrap">
                   <h3>Social Media</h3>
                 </div>
