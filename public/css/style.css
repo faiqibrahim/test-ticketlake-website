@@ -12283,6 +12283,7 @@ source {
   font-size: 12px;
   display: inline-block;
   border:1px solid transparent;
+  line-height: 1.6;
 }
 .become-an-organiser:hover {
   cursor: pointer;
