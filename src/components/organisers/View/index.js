@@ -34,7 +34,6 @@ class Organisers extends Component {
 
     try {
       const response = await getOrganisationdata(countryCode, page);
-      console.log("response", response);
       getAllCategories();
       const { itemsList, paginator } = response.data.orgnizationData;
       const { pageCount } = paginator;
