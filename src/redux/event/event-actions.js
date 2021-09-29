@@ -8,7 +8,7 @@ import {
   GET_ALL_SLOTS_DATA_OF_EVENT,
 } from "../../utils/config";
 // Helpers
-import {NOTIFICATION_TIME } from "../../utils/common-utils";
+import {NOTIFICATION_TIME, getObjectValue } from "../../utils/common-utils";
 import { handleError } from "../../utils/store-utils";
 import { NotificationManager } from "react-notifications";
 
@@ -697,22 +697,6 @@ export const searchAllPublicEvents = (
         NotificationManager.error(errorMessage, "", NOTIFICATION_TIME);
       });
   };
-};
-
-const getObjectValue = (obj, path) => {
-  let val = null;
-
-  if (path.indexOf(".") > -1) {
-    let paths = path.split(".");
-    val = obj;
-    paths.forEach((_path) => {
-      val = val[_path];
-    });
-  } else {
-    val = obj[path];
-  }
-
-  return val;
 };
 
 export const getMovieSlotDetails = (id) => {

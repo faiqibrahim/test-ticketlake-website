@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import { connect } from "react-redux";
 
-import "antd/dist/antd.css";
 import Loader from "../../../../commonComponents/loader";
 import VotingCategories from "../../VotingEventCategories/EventCategories/EventCategories";
 import CategoryNominees from "../../VotingEventNominees/EventNominees/EventNominees";

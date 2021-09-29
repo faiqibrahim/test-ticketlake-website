@@ -1,6 +1,5 @@
 import React from "react";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
-import "react-phone-input-2/lib/style.css";
 import moment from "moment";
 
 class PassInfoModal extends React.Component {

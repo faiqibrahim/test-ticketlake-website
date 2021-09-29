@@ -2,10 +2,8 @@ import React, {Fragment} from 'react';
 import Heading from '../../commonComponents/heading';
 import {getCardDates, getMaxAndMinPrice} from "../../utils/common-utils";
 import DefaultCard from '../defaultCard';
-import {Row,Col} from 'antd';
 import {Modal, ModalHeader, ModalBody} from 'reactstrap';
 import {withRouter} from 'react-router-dom';
-import 'antd/dist/antd.css';
 
 import {FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon} from 'react-share';
 

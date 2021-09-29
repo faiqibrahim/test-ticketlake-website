@@ -3,7 +3,6 @@ import React from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
 import validator from "validator";
 import { isValidPhoneNumber } from "react-phone-number-input";
 

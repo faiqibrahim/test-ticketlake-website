@@ -1,7 +1,6 @@
 // Library
 import React, { Component } from "react";
 import { Container } from "reactstrap";
-import "antd/dist/antd.css";
 // Component
 import MovieCategories from "../Categories/MovieCategories";
 import {

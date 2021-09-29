@@ -6,7 +6,6 @@ import Input from 'react-validation/build/input';
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import ReactPhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
 import validator from "validator";
 import { isPossiblePhoneNumber } from "react-phone-number-input";
 
