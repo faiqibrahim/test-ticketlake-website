@@ -104,14 +104,7 @@ class SignUp extends Component {
     return validator.isEmail(email);
   };
 
-  // getPasswordValid = (password) => {
-  //     let pswRegx=  /^(?=.*[0-9])(?=.*[!_@#$%^&*])[a-zA-Z0-9!@_#$%^&*]{7,15}$/;
-  //     if(password.match(pswRegx)) {
-  //         return true;
-  //     }else{
-  //         return false;
-  //     }
-  // };
+  
 
   isAllKeyEmpty = (object) => {
     for (let key in object) {
@@ -128,7 +121,6 @@ class SignUp extends Component {
 
     let isEmailValid = this.getEmailValid(email);
     let isValidNumber = this.getPhoneNumberValid(phone);
-    //let isValidPassword = this.getPasswordValid(password);
 
     if (name === "") {
       error.name = errorMessages.name;
