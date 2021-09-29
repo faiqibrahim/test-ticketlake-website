@@ -3,6 +3,7 @@ import React, { Component, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import Loader from '../../commonComponents/loader';
 
 import {
   Collapse,
@@ -553,9 +554,7 @@ class HeaderNavMenu extends Component {
 
             <Collapse isOpen={isOpen} navbar>
               <Nav navbar className={"header-mob-nav"}>
-                {!this.state.loaded && !sessionState ? (
-                  <span style={{ lineHeight: "47px" }}>Loading menu...</span>
-                ) : (
+                {!this.state.loaded && !sessionState ? <Loader /> : (
                   <>
                     {this.renderMobileMenu()}
                     {this.renderMobileMoreCategories(
@@ -584,9 +583,7 @@ class HeaderNavMenu extends Component {
           </Navbar>
 
           <div className={"nav-holder main-menu website-menu"}>
-            {!this.state.loaded && !sessionState ? (
-              <span style={{ lineHeight: "47px" }}>Loading menu...</span>
-            ) : (
+            {!this.state.loaded && !sessionState ? <Loader /> : (
               <nav>
                 <ul className="parent-menu">
                   {this.renderWebsiteMenu()}

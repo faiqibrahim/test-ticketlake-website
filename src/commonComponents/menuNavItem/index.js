@@ -1,10 +1,9 @@
 // Library
 import React, {Component} from 'react';
-import {NavLink, Switch} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {DropdownItem, DropdownMenu, DropdownToggle, NavItem, UncontrolledDropdown} from "reactstrap";
 import { Route , withRouter} from 'react-router-dom';
 import EventListing from '../../components/eventListingPage';
-import Movies from "../../components/moviesPage/Movies";
 
 
 class menuNavItem extends Component {
