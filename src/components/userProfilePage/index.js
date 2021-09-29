@@ -88,9 +88,9 @@ class UserProfile extends Component {
         });
       });
       this.setState({
-        selectedOptionCountry: { label: country, value: country },
+        selectedOptionCountry: { label: country || 'Select Country', value: country|| null },
       });
-      this.setState({ selectedOptionCity: { label: city, value: city } });
+      this.setState({ selectedOptionCity: { label: city || 'Select City', value: city || null } });
       cities = citiesArr;
     }
 
@@ -307,6 +307,7 @@ class UserProfile extends Component {
                       className="react-select-container iconSelectDropDown"
                       classNamePrefix="react-select"
                       value={this.state.selectedOptionCountry}
+                      placeholder="Select Country"
                       onChange={this.fetchCities}
                       options={countries}
                       components={{ ValueContainer }}
@@ -323,6 +324,7 @@ class UserProfile extends Component {
                       name="city"
                       className="react-select-container iconSelectDropDown"
                       classNamePrefix="react-select"
+                      placeholder="Select City"
                       value={this.state.selectedOptionCity}
                       options={cities}
                       onChange={this.setCity}

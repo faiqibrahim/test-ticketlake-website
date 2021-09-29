@@ -227,7 +227,7 @@ class Footer extends React.Component {
                 style={{ marginBottom: "17px" }}
               >
                 <div className="footer-widget fl-wrap">
-                  <h3>Events</h3>
+                  <h3>Categories</h3>
                 </div>
                 <div className="pull-left color-white">
                   <ul className="footer-contacts-custom">
