@@ -10,7 +10,14 @@ node {
     }
     stage('Checkout Repository') {
         cleanWs()
-        checkout scm
+        checkout([
+                     $class: 'GitSCM',
+                     branches: [[name: 'refs/heads/'+env.BRANCH_NAME]],
+                     extensions: [[$class: 'CloneOption', noTags: false, shallow: false, depth: 0, reference: '']],
+                     userRemoteConfigs: scm.userRemoteConfigs,
+                   ]
+                   )
+
         sh 'git rev-parse --short HEAD > .git/commit-id'
 
         env.COMMIT_ID = readFile('.git/commit-id').trim()
